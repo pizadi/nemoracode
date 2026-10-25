@@ -37,6 +37,18 @@
       "node": "./src/database/sqlite.node.ts",
       "default": "./src/database/sqlite.node.ts"
     },
+    "#graph-sqlite": {
+      "workerd": "./src/graph/sqlite.workerd.ts",
+      "bun": "./src/graph/sqlite.bun.ts",
+      "node": "./src/graph/sqlite.node.ts",
+      "default": "./src/graph/sqlite.node.ts"
+    },
+    "#graph-parser-wasm": {
+      "workerd": "./src/graph/parser-wasm.workerd.ts",
+      "bun": "./src/graph/parser-wasm.bun.ts",
+      "node": "./src/graph/parser-wasm.node.ts",
+      "default": "./src/graph/parser-wasm.node.ts"
+    },
     "#pty": {
       "workerd": "./src/pty/pty.workerd.ts",
       "bun": "./src/pty/pty.bun.ts",
@@ -94,7 +106,12 @@
     "@types/node": "catalog:",
     "@types/which": "3.0.4",
     "drizzle-kit": "catalog:",
-    "fast-check": "catalog:"
+    "fast-check": "catalog:",
+    "tree-sitter-c": "0.24.1",
+    "tree-sitter-cpp": "0.23.4",
+    "tree-sitter-python": "0.25.0",
+    "tree-sitter-rust": "0.24.0",
+    "tree-sitter-typescript": "0.23.2"
   },
   "dependencies": {
     "@ai-sdk/cohere": "3.0.27",

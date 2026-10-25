@@ -2313,6 +2313,9 @@ export type ConfigEntry =
         websearch?: false | { provider: "random" | WebSearchID }
         plugins?: Array<string | { package: string; options?: { [x: string]: JsonValue } }>
         worktree?: ConfigWorktree
+        graph?:
+          | boolean
+          | { enabled?: boolean; languages?: Array<string>; workingSetTokens?: number; subagentNodes?: number }
         warming?: boolean | { prompt?: string; interval?: string; duration?: string }
         providers?: {
           [x: string]: {

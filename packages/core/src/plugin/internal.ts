@@ -38,6 +38,7 @@ import { Bus } from "../bus.js"
 import { Environment } from "../environment/index.js"
 import { FileAccess } from "../file-access.js"
 import { FileMutation } from "../file-mutation.js"
+import { GraphService } from "../graph/service.js"
 import { Formatter } from "../formatter.js"
 import { Form } from "../form.js"
 import { FileSystem } from "../filesystem.js"
@@ -87,6 +88,7 @@ import { WebFetchTool } from "../tool/plugin/webfetch.js"
 import { WebSearchTool } from "../tool/plugin/websearch.js"
 import { WellKnown } from "../wellknown.js"
 import { WriteTool } from "../tool/plugin/write.js"
+import { GraphTools } from "../graph/tools.js"
 import { AgentPlugin } from "./agent.js"
 import BrowserPlugin from "@opencode/plugin-browser"
 import { CommandPlugin } from "./command.js"
@@ -118,6 +120,7 @@ const services = [
   Environment.Service,
   FileAccess.Service,
   FileMutation.Service,
+  GraphService.Service,
   Formatter.Service,
   LocationWatcherPolicy.Service,
   FileSystem.Service,
@@ -172,6 +175,7 @@ export const requirements = LayerNode.group([
   Environment.node,
   FileAccess.node,
   FileMutation.node,
+  GraphService.node,
   Formatter.node,
   LocationWatcherPolicy.node,
   FileSystem.node,
@@ -248,6 +252,7 @@ const pre = [
   WebFetchTool.Plugin,
   WebSearchTool.Plugin,
   WriteTool.Plugin,
+  GraphTools.Plugin,
   WarmingPlugin.Plugin,
 ] as const satisfies readonly InternalPlugin[]
 

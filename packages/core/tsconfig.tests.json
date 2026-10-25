@@ -9,5 +9,6 @@
     "tsBuildInfoFile": "node_modules/.ts-dist/tests.tsbuildinfo"
   },
   "include": ["drizzle.config.ts", "script", "test"],
+  "exclude": ["test/graph/fixture"],
   "references": [{ "path": "./tsconfig.json" }]
 }
