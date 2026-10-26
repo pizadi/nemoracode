@@ -7,6 +7,7 @@ import SidebarLimit from "../feature-plugins/sidebar/limit"
 import SidebarMcp from "../feature-plugins/sidebar/mcp"
 import SidebarTodo from "../feature-plugins/sidebar/todo"
 import DiffViewer from "../feature-plugins/system/diff-viewer"
+import Graph from "../feature-plugins/system/graph"
 import Notifications from "../feature-plugins/system/notifications"
 import Plugins from "../feature-plugins/system/plugins"
 import Storybook from "../feature-plugins/system/storybook"
@@ -26,6 +27,7 @@ export const builtins = [
   Notifications,
   Plugins,
   Stats,
+  Graph,
   Merman,
   Latex,
   // The storybook is a development tool; keep its route and palette commands out of

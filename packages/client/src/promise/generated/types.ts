@@ -6107,19 +6107,19 @@ export type VcsDiffInput = {
 
 export type VcsDiffOutput = { location: LocationPublicRef; data: Array<FileDiffInfo> }
 
-export type ServerGraphStatusInput = {
+export type GraphStatusInput = {
   readonly location?: { readonly location?: { readonly directory?: string | undefined } | undefined }["location"]
 }
 
-export type ServerGraphStatusOutput = { location: LocationPublicRef; data: GraphInfo }
+export type GraphStatusOutput = { location: LocationPublicRef; data: GraphInfo }
 
-export type ServerGraphTreeInput = {
+export type GraphTreeInput = {
   readonly location?: { readonly location?: { readonly directory?: string | undefined } | undefined }["location"]
 }
 
-export type ServerGraphTreeOutput = { location: LocationPublicRef; data: Array<GraphNodeRow> }
+export type GraphTreeOutput = { location: LocationPublicRef; data: Array<GraphNodeRow> }
 
-export type ServerGraphWorkingSetInput = {
+export type GraphWorkingSetInput = {
   readonly location?: {
     readonly location?: { readonly directory?: string | undefined } | undefined
     readonly session?: string | undefined
@@ -6130,13 +6130,13 @@ export type ServerGraphWorkingSetInput = {
   }["session"]
 }
 
-export type ServerGraphWorkingSetOutput = { location: LocationPublicRef; data: GraphWorkingSetSnapshot | null }
+export type GraphWorkingSetOutput = { location: LocationPublicRef; data: GraphWorkingSetSnapshot | null }
 
-export type ServerGraphJournalInput = {
+export type GraphJournalInput = {
   readonly location?: { readonly location?: { readonly directory?: string | undefined } | undefined }["location"]
 }
 
-export type ServerGraphJournalOutput = { location: LocationPublicRef; data: GraphTaskLedger | null }
+export type GraphJournalOutput = { location: LocationPublicRef; data: GraphTaskLedger | null }
 
 export type DebugHeapDumpInput = { readonly directory?: { readonly directory?: string | undefined }["directory"] }
 

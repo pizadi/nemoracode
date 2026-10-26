@@ -2260,8 +2260,8 @@ export interface VcsApi<E = never> {
   readonly diff: VcsDiffOperation<E>
 }
 
-export type ServerGraphStatusInput = { readonly location?: { readonly directory?: string | undefined } | undefined }
-export type ServerGraphStatusOutput = {
+export type GraphStatusInput = { readonly location?: { readonly directory?: string | undefined } | undefined }
+export type GraphStatusOutput = {
   readonly location: Location.PublicRef
   readonly data: {
     readonly enabled: boolean
@@ -2281,12 +2281,10 @@ export type ServerGraphStatusOutput = {
       | undefined
   }
 }
-export type ServerGraphStatusOperation<E = never> = (
-  input?: ServerGraphStatusInput,
-) => Effect.Effect<ServerGraphStatusOutput, E>
+export type GraphStatusOperation<E = never> = (input?: GraphStatusInput) => Effect.Effect<GraphStatusOutput, E>
 
-export type ServerGraphTreeInput = { readonly location?: { readonly directory?: string | undefined } | undefined }
-export type ServerGraphTreeOutput = {
+export type GraphTreeInput = { readonly location?: { readonly directory?: string | undefined } | undefined }
+export type GraphTreeOutput = {
   readonly location: Location.PublicRef
   readonly data: ReadonlyArray<{
     readonly id: string
@@ -2310,15 +2308,13 @@ export type ServerGraphTreeOutput = {
     readonly endLine?: number | undefined
   }>
 }
-export type ServerGraphTreeOperation<E = never> = (
-  input?: ServerGraphTreeInput,
-) => Effect.Effect<ServerGraphTreeOutput, E>
+export type GraphTreeOperation<E = never> = (input?: GraphTreeInput) => Effect.Effect<GraphTreeOutput, E>
 
-export type ServerGraphWorkingSetInput = {
+export type GraphWorkingSetInput = {
   readonly location?: { readonly directory?: string | undefined } | undefined
   readonly session?: string | undefined
 }
-export type ServerGraphWorkingSetOutput = {
+export type GraphWorkingSetOutput = {
   readonly location: Location.PublicRef
   readonly data: {
     readonly rows: ReadonlyArray<{
@@ -2333,12 +2329,12 @@ export type ServerGraphWorkingSetOutput = {
     readonly overBudget: boolean
   } | null
 }
-export type ServerGraphWorkingSetOperation<E = never> = (
-  input?: ServerGraphWorkingSetInput,
-) => Effect.Effect<ServerGraphWorkingSetOutput, E>
+export type GraphWorkingSetOperation<E = never> = (
+  input?: GraphWorkingSetInput,
+) => Effect.Effect<GraphWorkingSetOutput, E>
 
-export type ServerGraphJournalInput = { readonly location?: { readonly directory?: string | undefined } | undefined }
-export type ServerGraphJournalOutput = {
+export type GraphJournalInput = { readonly location?: { readonly directory?: string | undefined } | undefined }
+export type GraphJournalOutput = {
   readonly location: Location.PublicRef
   readonly data: {
     readonly id: string
@@ -2364,15 +2360,13 @@ export type ServerGraphJournalOutput = {
     }>
   } | null
 }
-export type ServerGraphJournalOperation<E = never> = (
-  input?: ServerGraphJournalInput,
-) => Effect.Effect<ServerGraphJournalOutput, E>
+export type GraphJournalOperation<E = never> = (input?: GraphJournalInput) => Effect.Effect<GraphJournalOutput, E>
 
-export interface ServerGraphApi<E = never> {
-  readonly status: ServerGraphStatusOperation<E>
-  readonly tree: ServerGraphTreeOperation<E>
-  readonly workingSet: ServerGraphWorkingSetOperation<E>
-  readonly journal: ServerGraphJournalOperation<E>
+export interface GraphApi<E = never> {
+  readonly status: GraphStatusOperation<E>
+  readonly tree: GraphTreeOperation<E>
+  readonly workingSet: GraphWorkingSetOperation<E>
+  readonly journal: GraphJournalOperation<E>
 }
 
 export type DebugHeapDumpInput = { readonly directory?: string | undefined }
@@ -2499,7 +2493,7 @@ export interface AppApi<E = never> {
   readonly reference: ReferenceApi<E>
   readonly worktree: WorktreeApi<E>
   readonly vcs: VcsApi<E>
-  readonly "server.graph": ServerGraphApi<E>
+  readonly graph: GraphApi<E>
   readonly debug: DebugApi<E>
   readonly migration: MigrationApi<E>
   readonly websearch: WebsearchApi<E>

@@ -264,14 +264,14 @@ import type {
   VcsBranchListOutput,
   VcsDiffInput,
   VcsDiffOutput,
-  ServerGraphStatusInput,
-  ServerGraphStatusOutput,
-  ServerGraphTreeInput,
-  ServerGraphTreeOutput,
-  ServerGraphWorkingSetInput,
-  ServerGraphWorkingSetOutput,
-  ServerGraphJournalInput,
-  ServerGraphJournalOutput,
+  GraphStatusInput,
+  GraphStatusOutput,
+  GraphTreeInput,
+  GraphTreeOutput,
+  GraphWorkingSetInput,
+  GraphWorkingSetOutput,
+  GraphJournalInput,
+  GraphJournalOutput,
   DebugHeapDumpInput,
   DebugHeapDumpOutput,
   DebugLocationListOutput,
@@ -1625,33 +1625,33 @@ const adaptGroupVcs = (raw: RawClient["server.vcs"]) => ({
   diff: EndpointVcsDiff(raw),
 })
 
-const EndpointServerGraphStatus = (raw: RawClient["server.graph"]) => (input?: ServerGraphStatusInput) =>
-  preserveEffect<ServerGraphStatusOutput>()(
+const EndpointGraphStatus = (raw: RawClient["server.graph"]) => (input?: GraphStatusInput) =>
+  preserveEffect<GraphStatusOutput>()(
     raw["graph.status"]({ query: { location: input?.["location"] } }).pipe(Effect.mapError(mapClientError)),
   )
 
-const EndpointServerGraphTree = (raw: RawClient["server.graph"]) => (input?: ServerGraphTreeInput) =>
-  preserveEffect<ServerGraphTreeOutput>()(
+const EndpointGraphTree = (raw: RawClient["server.graph"]) => (input?: GraphTreeInput) =>
+  preserveEffect<GraphTreeOutput>()(
     raw["graph.tree"]({ query: { location: input?.["location"] } }).pipe(Effect.mapError(mapClientError)),
   )
 
-const EndpointServerGraphWorkingSet = (raw: RawClient["server.graph"]) => (input?: ServerGraphWorkingSetInput) =>
-  preserveEffect<ServerGraphWorkingSetOutput>()(
+const EndpointGraphWorkingSet = (raw: RawClient["server.graph"]) => (input?: GraphWorkingSetInput) =>
+  preserveEffect<GraphWorkingSetOutput>()(
     raw["graph.workingSet"]({ query: { location: input?.["location"], session: input?.["session"] } }).pipe(
       Effect.mapError(mapClientError),
     ),
   )
 
-const EndpointServerGraphJournal = (raw: RawClient["server.graph"]) => (input?: ServerGraphJournalInput) =>
-  preserveEffect<ServerGraphJournalOutput>()(
+const EndpointGraphJournal = (raw: RawClient["server.graph"]) => (input?: GraphJournalInput) =>
+  preserveEffect<GraphJournalOutput>()(
     raw["graph.journal"]({ query: { location: input?.["location"] } }).pipe(Effect.mapError(mapClientError)),
   )
 
-const adaptGroupServerGraph = (raw: RawClient["server.graph"]) => ({
-  status: EndpointServerGraphStatus(raw),
-  tree: EndpointServerGraphTree(raw),
-  workingSet: EndpointServerGraphWorkingSet(raw),
-  journal: EndpointServerGraphJournal(raw),
+const adaptGroupGraph = (raw: RawClient["server.graph"]) => ({
+  status: EndpointGraphStatus(raw),
+  tree: EndpointGraphTree(raw),
+  workingSet: EndpointGraphWorkingSet(raw),
+  journal: EndpointGraphJournal(raw),
 })
 
 const EndpointDebugHeapDump = (raw: RawClient["server.debug"]) => (input?: DebugHeapDumpInput) =>
@@ -1749,7 +1749,7 @@ const adaptClient = (raw: RawClient) => ({
   reference: adaptGroupReference(raw["server.reference"]),
   worktree: adaptGroupWorktree(raw["server.worktree"]),
   vcs: adaptGroupVcs(raw["server.vcs"]),
-  "server.graph": adaptGroupServerGraph(raw["server.graph"]),
+  graph: adaptGroupGraph(raw["server.graph"]),
   debug: adaptGroupDebug(raw["server.debug"]),
   migration: adaptGroupMigration(raw["server.migration"]),
   websearch: adaptGroupWebsearch(raw["server.websearch"]),

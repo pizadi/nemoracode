@@ -262,14 +262,14 @@ import type {
   VcsBranchListOutput,
   VcsDiffInput,
   VcsDiffOutput,
-  ServerGraphStatusInput,
-  ServerGraphStatusOutput,
-  ServerGraphTreeInput,
-  ServerGraphTreeOutput,
-  ServerGraphWorkingSetInput,
-  ServerGraphWorkingSetOutput,
-  ServerGraphJournalInput,
-  ServerGraphJournalOutput,
+  GraphStatusInput,
+  GraphStatusOutput,
+  GraphTreeInput,
+  GraphTreeOutput,
+  GraphWorkingSetInput,
+  GraphWorkingSetOutput,
+  GraphJournalInput,
+  GraphJournalOutput,
   DebugHeapDumpInput,
   DebugHeapDumpOutput,
   DebugLocationListOutput,
@@ -2217,9 +2217,9 @@ export function make(options: ClientOptions) {
           requestOptions,
         ),
     },
-    "server.graph": {
-      status: (input?: ServerGraphStatusInput, requestOptions?: RequestOptions) =>
-        request<ServerGraphStatusOutput>(
+    graph: {
+      status: (input?: GraphStatusInput, requestOptions?: RequestOptions) =>
+        request<GraphStatusOutput>(
           {
             method: "GET",
             path: `/api/graph`,
@@ -2230,8 +2230,8 @@ export function make(options: ClientOptions) {
           },
           requestOptions,
         ),
-      tree: (input?: ServerGraphTreeInput, requestOptions?: RequestOptions) =>
-        request<ServerGraphTreeOutput>(
+      tree: (input?: GraphTreeInput, requestOptions?: RequestOptions) =>
+        request<GraphTreeOutput>(
           {
             method: "GET",
             path: `/api/graph/tree`,
@@ -2242,8 +2242,8 @@ export function make(options: ClientOptions) {
           },
           requestOptions,
         ),
-      workingSet: (input?: ServerGraphWorkingSetInput, requestOptions?: RequestOptions) =>
-        request<ServerGraphWorkingSetOutput>(
+      workingSet: (input?: GraphWorkingSetInput, requestOptions?: RequestOptions) =>
+        request<GraphWorkingSetOutput>(
           {
             method: "GET",
             path: `/api/graph/working-set`,
@@ -2254,8 +2254,8 @@ export function make(options: ClientOptions) {
           },
           requestOptions,
         ),
-      journal: (input?: ServerGraphJournalInput, requestOptions?: RequestOptions) =>
-        request<ServerGraphJournalOutput>(
+      journal: (input?: GraphJournalInput, requestOptions?: RequestOptions) =>
+        request<GraphJournalOutput>(
           {
             method: "GET",
             path: `/api/graph/journal`,
