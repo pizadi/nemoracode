@@ -63,20 +63,37 @@ export function GraphViewer(props: { context: Plugin.Context; sessionID?: string
 
   const [status] = createResource(
     () => [location(), refresh()] as const,
-    async ([location]) => (await props.context.client.graph.status({ location })).data,
+    async ([location]) =>
+      await props.context.client.graph
+        .status({ location })
+        .then((result) => result.data)
+        .catch(() => undefined),
   )
   const [tree] = createResource(
     () => [location(), refresh()] as const,
-    async ([location]) => (await props.context.client.graph.tree({ location })).data,
+    async ([location]) =>
+      await props.context.client.graph
+        .tree({ location })
+        .then((result) => result.data)
+        .catch(() => undefined),
   )
   const [working] = createResource(
     () => [location(), props.sessionID, refresh()] as const,
     async ([location, session]) =>
-      session ? (await props.context.client.graph.workingSet({ location, session })).data : null,
+      session
+        ? await props.context.client.graph
+            .workingSet({ location, session })
+            .then((result) => result.data)
+            .catch(() => null)
+        : null,
   )
   const [journal] = createResource(
     () => [location(), refresh()] as const,
-    async ([location]) => (await props.context.client.graph.journal({ location })).data,
+    async ([location]) =>
+      await props.context.client.graph
+        .journal({ location })
+        .then((result) => result.data)
+        .catch(() => null),
   )
 
   const rows = createMemo(() => flattenTree(tree() ?? [], expanded()))
