@@ -262,6 +262,14 @@ import type {
   VcsBranchListOutput,
   VcsDiffInput,
   VcsDiffOutput,
+  ServerGraphStatusInput,
+  ServerGraphStatusOutput,
+  ServerGraphTreeInput,
+  ServerGraphTreeOutput,
+  ServerGraphWorkingSetInput,
+  ServerGraphWorkingSetOutput,
+  ServerGraphJournalInput,
+  ServerGraphJournalOutput,
   DebugHeapDumpInput,
   DebugHeapDumpOutput,
   DebugLocationListOutput,
@@ -2204,6 +2212,56 @@ export function make(options: ClientOptions) {
             query: { location: input["location"], mode: input["mode"], base: input["base"], context: input["context"] },
             successStatus: 200,
             declaredStatuses: [400, 401, 404, 503],
+            empty: false,
+          },
+          requestOptions,
+        ),
+    },
+    "server.graph": {
+      status: (input?: ServerGraphStatusInput, requestOptions?: RequestOptions) =>
+        request<ServerGraphStatusOutput>(
+          {
+            method: "GET",
+            path: `/api/graph`,
+            query: { location: input?.["location"] },
+            successStatus: 200,
+            declaredStatuses: [400, 401, 404, 503],
+            empty: false,
+          },
+          requestOptions,
+        ),
+      tree: (input?: ServerGraphTreeInput, requestOptions?: RequestOptions) =>
+        request<ServerGraphTreeOutput>(
+          {
+            method: "GET",
+            path: `/api/graph/tree`,
+            query: { location: input?.["location"] },
+            successStatus: 200,
+            declaredStatuses: [400, 401, 404, 503],
+            empty: false,
+          },
+          requestOptions,
+        ),
+      workingSet: (input?: ServerGraphWorkingSetInput, requestOptions?: RequestOptions) =>
+        request<ServerGraphWorkingSetOutput>(
+          {
+            method: "GET",
+            path: `/api/graph/working-set`,
+            query: { location: input?.["location"], session: input?.["session"] },
+            successStatus: 200,
+            declaredStatuses: [400, 401, 404],
+            empty: false,
+          },
+          requestOptions,
+        ),
+      journal: (input?: ServerGraphJournalInput, requestOptions?: RequestOptions) =>
+        request<ServerGraphJournalOutput>(
+          {
+            method: "GET",
+            path: `/api/graph/journal`,
+            query: { location: input?.["location"] },
+            successStatus: 200,
+            declaredStatuses: [400, 401, 404],
             empty: false,
           },
           requestOptions,

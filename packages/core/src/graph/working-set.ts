@@ -158,6 +158,15 @@ export class WorkingSet {
 
   /** Renders the L3 block and enforces the cap (LRU auto-demotion of unpinned opens past it). */
   render(store: GraphStore.Store, root: string): WsSnapshot {
+    return this.project(store, root, this.entries)
+  }
+
+  /** Side-effect-free snapshot: projects cloned entries, so demotions and node-gone closures show but are discarded. */
+  peek(store: GraphStore.Store, root: string): WsSnapshot {
+    return this.project(store, root, this.entries.map((entry) => ({ ...entry })))
+  }
+
+  private project(store: GraphStore.Store, root: string, entries: Array<Entry>): WsSnapshot {
     interface Resolved {
       entry: Entry
       chunk: string
@@ -166,7 +175,7 @@ export class WorkingSet {
       changed: boolean
     }
     const live: Array<Resolved> = []
-    for (const entry of this.entries) {
+    for (const entry of entries) {
       if (entry.state === "closed") continue
       let node: Node
       try {
@@ -224,7 +233,7 @@ export class WorkingSet {
     openv.sort(byLru)
 
     const stubs: Array<Resolved> = []
-    for (const entry of this.entries) {
+    for (const entry of entries) {
       if (entry.state !== "closed") continue
       let summary = ""
       try {

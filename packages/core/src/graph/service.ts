@@ -9,7 +9,7 @@ import { FileSystem } from "../filesystem.js"
 import { Location } from "../location.js"
 import { GraphIngest, type IngestStats } from "./ingest.js"
 import { GraphStore } from "./store.js"
-import { WorkingSet } from "./working-set.js"
+import { WorkingSet, type WsSnapshot } from "./working-set.js"
 
 /** Languages the ingest pass parses with tree-sitter; the rest gets fallback regions. */
 export const LANGUAGES: ReadonlyArray<string> = ["c", "cpp", "python", "typescript", "rust"]
@@ -32,13 +32,15 @@ export interface Interface {
   readonly ready: Effect.Effect<IngestStats | undefined, Error>
   /** The session's working set (created on first use). */
   readonly workingSet: (sessionID: string) => WorkingSet
+  /** Read-only working-set snapshot for the session; undefined when the session never opened a node. */
+  readonly workingSetSnapshot: (sessionID: string) => WsSnapshot | undefined
   /** Charges one created node against the session's subagent budget. */
   readonly chargeNode: (sessionID: string) => { ok: boolean; used: number }
 }
 
 export class Service extends Context.Service<Service, Interface>()("@opencode/core/graph/Service") {}
 
-const layer = Layer.effect(
+const layer: Layer.Layer<Service, FileSystem.DirectoryNotFoundError, Location.Service | Config.Service> = Layer.effect(
   Service,
   Effect.gen(function* () {
     const location = yield* Location.Service
@@ -120,6 +122,7 @@ const layer = Layer.effect(
         workSets.set(sessionID, ws)
         return ws
       },
+      workingSetSnapshot: (sessionID) => workSets.get(sessionID)?.peek(store(), projectRoot),
       chargeNode: (sessionID) => {
         const used = (nodesUsed.get(sessionID) ?? 0) + 1
         if (used > subagentNodeBudget) return { ok: false, used: used - 1 }

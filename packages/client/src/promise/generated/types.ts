@@ -304,6 +304,47 @@ export type VcsFileStatus = {
 
 export type VcsBranchList = Array<string>
 
+export type GraphIngest = {
+  files: number
+  fileNodes: number
+  defNodes: number
+  regionNodes: number
+  callEdges: number
+  importEdges: number
+  extendsEdges: number
+  implementsEdges: number
+  parseFailed: number
+}
+
+export type GraphKind =
+  | "directory"
+  | "file"
+  | "module"
+  | "class"
+  | "function"
+  | "method"
+  | "attribute"
+  | "config"
+  | "test"
+  | "region"
+  | "external"
+
+export type GraphStatus = "skeleton" | "fresh" | "stale" | "needs_review" | "auto_generated" | "conflict"
+
+export type GraphWorkingSetRow = {
+  state: "pinned" | "open" | "stub"
+  id: string
+  tokens: string
+  takeaway: string
+  changed: boolean
+}
+
+export type GraphCriterion = { id: string; text: string; coveredBy: Array<string> }
+
+export type GraphJournalEntry = { seq: number; era: number; text: string; at: number }
+
+export type GraphScratchEntry = { seq: number; era: number; node: string; takeaway: string }
+
 export type WebSearchID = string
 
 export type WebSearchResult = { url: string; title?: string; content?: string; time: { published?: number } }
@@ -860,6 +901,36 @@ export type FormMultiselectField1 = {
 export type FormAnswer1 = { [x: string]: FormValue1 }
 
 export type VcsInfo = { provider?: string; branch: VcsBranch }
+
+export type GraphInfo = { enabled: boolean; languages: Array<string>; ingest?: GraphIngest }
+
+export type GraphNodeRow = {
+  id: string
+  kind: GraphKind
+  parent?: string
+  ord: number
+  status: GraphStatus
+  file?: string
+  startLine?: number
+  endLine?: number
+}
+
+export type GraphWorkingSetSnapshot = {
+  rows: Array<GraphWorkingSetRow>
+  totalTokens: number
+  capTokens: number
+  overBudget: boolean
+}
+
+export type GraphTaskLedger = {
+  id: string
+  status: "active" | "done" | "abandoned"
+  era: number
+  definition: JsonValue
+  criteria: Array<GraphCriterion>
+  journal: Array<GraphJournalEntry>
+  scratch: Array<GraphScratchEntry>
+}
 
 export type WebSearchProvider = { id: WebSearchID; name: string }
 
@@ -6035,6 +6106,37 @@ export type VcsDiffInput = {
 }
 
 export type VcsDiffOutput = { location: LocationPublicRef; data: Array<FileDiffInfo> }
+
+export type ServerGraphStatusInput = {
+  readonly location?: { readonly location?: { readonly directory?: string | undefined } | undefined }["location"]
+}
+
+export type ServerGraphStatusOutput = { location: LocationPublicRef; data: GraphInfo }
+
+export type ServerGraphTreeInput = {
+  readonly location?: { readonly location?: { readonly directory?: string | undefined } | undefined }["location"]
+}
+
+export type ServerGraphTreeOutput = { location: LocationPublicRef; data: Array<GraphNodeRow> }
+
+export type ServerGraphWorkingSetInput = {
+  readonly location?: {
+    readonly location?: { readonly directory?: string | undefined } | undefined
+    readonly session?: string | undefined
+  }["location"]
+  readonly session?: {
+    readonly location?: { readonly directory?: string | undefined } | undefined
+    readonly session?: string | undefined
+  }["session"]
+}
+
+export type ServerGraphWorkingSetOutput = { location: LocationPublicRef; data: GraphWorkingSetSnapshot | null }
+
+export type ServerGraphJournalInput = {
+  readonly location?: { readonly location?: { readonly directory?: string | undefined } | undefined }["location"]
+}
+
+export type ServerGraphJournalOutput = { location: LocationPublicRef; data: GraphTaskLedger | null }
 
 export type DebugHeapDumpInput = { readonly directory?: { readonly directory?: string | undefined }["directory"] }
 
