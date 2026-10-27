@@ -1,10 +1,10 @@
 export * as FileMutation from "./file-mutation.js"
 
-import { makeLocationNode } from "@opencode/util/effect/app-node"
+import { makeLocationNode } from "@nemoracode/util/effect/app-node"
 import { Context, Effect, Layer } from "effect"
 import { KeyedMutex } from "./effect/keyed-mutex.js"
-import { FSUtil } from "@opencode/util/fs-util"
-import { Bom } from "@opencode/util/bom"
+import { FSUtil } from "@nemoracode/util/fs-util"
+import { Bom } from "@nemoracode/util/bom"
 import { Environment } from "./environment/index.js"
 import type { Files } from "./environment/index.js"
 import type { FileAccess } from "./file-access.js"
@@ -40,7 +40,7 @@ export interface Interface {
   ) => Effect.Effect<WriteResult, Environment.WrongKind | Environment.Failed>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/FileMutation") {}
+export class Service extends Context.Service<Service, Interface>()("@nemoracode/FileMutation") {}
 
 export const readText = Effect.fn("FileMutation.readText")(function* (files: Files, target: string) {
   return Bom.decodeBytes((yield* files.read(target)).bytes)
@@ -60,7 +60,7 @@ export const syncTextBom = Effect.fn("FileMutation.syncTextBom")(function* (
 const transactionLocks = KeyedMutex.makeUnsafe<string>()
 
 /**
- * Mutation locking is process-local and serializes cooperating OpenCode
+ * Mutation locking is process-local and serializes cooperating NemoraCode
  * changes; external writes can still race.
  */
 const layer = Layer.effect(

@@ -14,7 +14,7 @@ if (Bun.argv.includes("--help")) {
 
 const root = fileURLToPath(new URL("..", import.meta.url))
 const ref = Bun.argv[2] ?? "main"
-const directory = await mkdtemp(path.join(tmpdir(), "opencode-figma-sync-"))
+const directory = await mkdtemp(path.join(tmpdir(), "nemoracode-figma-sync-"))
 const checkout = path.join(directory, "upstream")
 
 try {

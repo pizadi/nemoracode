@@ -2,7 +2,7 @@ import { handleEnterpriseRequest } from "../src/lib/enterprise"
 import { z } from "zod"
 import { SalesforceCliError, salesforceCliResponse } from "./salesforce-cli-response"
 
-const org = process.env.SF_TARGET_ORG || "opencode"
+const org = process.env.SF_TARGET_ORG || "nemoracode"
 
 async function authenticatedRequest(path: string, payload?: Record<string, unknown>) {
   const child = Bun.spawn(

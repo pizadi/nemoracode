@@ -1,22 +1,22 @@
 import path from "path"
 import { describe, expect } from "bun:test"
 import { Effect, Exit, Fiber, Layer, Scope, Stream } from "effect"
-import { Agent } from "@opencode/core/agent"
-import { Bus } from "@opencode/core/bus"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { Location } from "@opencode/core/location"
-import { Permission } from "@opencode/core/permission"
-import { AgentPlugin } from "@opencode/core/plugin/agent"
-import { AbsolutePath } from "@opencode/core/schema"
-import { Global } from "@opencode/util/global"
+import { Agent } from "@nemoracode/core/agent"
+import { Bus } from "@nemoracode/core/bus"
+import { AppNodeBuilder } from "@nemoracode/core/effect/app-node-builder"
+import { LayerNode } from "@nemoracode/util/effect/layer-node"
+import { Location } from "@nemoracode/core/location"
+import { Permission } from "@nemoracode/core/permission"
+import { AgentPlugin } from "@nemoracode/core/plugin/agent"
+import { AbsolutePath } from "@nemoracode/core/schema"
+import { Global } from "@nemoracode/util/global"
 import { location } from "./fixture/location"
 import { testEffect } from "./lib/effect"
 import { agentHost, host } from "./plugin/host"
 
 const testLocation = location({ directory: AbsolutePath.make("/project") })
 const locationLayer = Layer.succeed(Location.Service, Location.Service.of(testLocation))
-const global = Global.make({ data: "/data", config: "/config", tmp: "/tmp/opencode" })
+const global = Global.make({ data: "/data", config: "/config", tmp: "/tmp/nemoracode" })
 const globalLayer = Layer.succeed(Global.Service, Global.Service.of(global))
 
 const it = testEffect(

@@ -3,7 +3,7 @@ import { expect, story } from "../../storybook/playwright/story"
 for (const direction of ["ltr", "rtl"]) {
   for (const alternate of ["none", "queue", "steer"]) {
     story(`scrolls overflowing controls beside fixed ${alternate} actions in ${direction}`, async ({ mount, page }) => {
-      const component = await mount("opencode-composer-flow--toolbar-overflow", {
+      const component = await mount("nemoracode-composer-flow--toolbar-overflow", {
         args: { alternate },
         globals: { direction },
       })
@@ -127,7 +127,7 @@ for (const direction of ["ltr", "rtl"]) {
 }
 
 story("does not mask or pad controls when they fit", async ({ mount }) => {
-  const component = await mount("opencode-composer-flow--model-and-variant")
+  const component = await mount("nemoracode-composer-flow--model-and-variant")
   const controls = component.locator('[data-slot="composer-controls"]')
   await expect(controls).toHaveAttribute("data-overflow-start", "false")
   await expect(controls).toHaveAttribute("data-overflow-end", "false")
@@ -137,7 +137,7 @@ story("does not mask or pad controls when they fit", async ({ mount }) => {
 })
 
 story("grows suggestions while preserving visible timeline context", async ({ mount }) => {
-  const component = await mount("opencode-composer-flow--constrained-command-suggestions")
+  const component = await mount("nemoracode-composer-flow--constrained-command-suggestions")
   const boundary = component.locator('[data-slot="composer-suggestion-boundary-story"]')
   const suggestions = component.locator('[data-component="composer-suggestions"]')
 
@@ -170,7 +170,7 @@ story("grows suggestions while preserving visible timeline context", async ({ mo
 })
 
 story("ignores a detached suggestion boundary", async ({ mount }) => {
-  const component = await mount("opencode-composer-flow--detached-command-suggestion-boundary")
+  const component = await mount("nemoracode-composer-flow--detached-command-suggestion-boundary")
   await expect(component.locator('[data-component="composer-suggestions"]')).toHaveCSS("max-height", "306px")
 })
 
@@ -181,13 +181,13 @@ for (const [theme, background] of [
   ["dark", "rgb(36, 36, 36)"],
 ] as const) {
   story(`raises the docked composer only in dark mode (${theme})`, async ({ mount }) => {
-    const component = await mount("opencode-composer-flow--empty-draft", { globals: { theme } })
+    const component = await mount("nemoracode-composer-flow--empty-draft", { globals: { theme } })
     await expect(component.locator('[data-component="composer"]')).toHaveCSS("background-color", background)
   })
 }
 
 story("centers add menu shortcuts in a consistent column", async ({ mount, page }) => {
-  const component = await mount("opencode-composer-flow--empty-draft")
+  const component = await mount("nemoracode-composer-flow--empty-draft")
   await component.locator('[data-action="composer-attach"]').click()
 
   const shortcuts = page.locator('[role="menu"] [data-slot="menu-v2-item-shortcut"]')
@@ -207,7 +207,7 @@ story("centers add menu shortcuts in a consistent column", async ({ mount, page 
 
 for (const draft of ["empty-draft", "multiline-draft", "mixed-attachments"]) {
   story(`select all stays inside the composer with ${draft}`, async ({ mount, page }) => {
-    const component = await mount(`opencode-composer-flow--${draft}`)
+    const component = await mount(`nemoracode-composer-flow--${draft}`)
     const input = component.getByRole("textbox", { name: "Prompt", exact: true })
     const text = await input.textContent()
 
@@ -240,7 +240,7 @@ story.describe("touch attachments", () => {
   story.use({ hasTouch: true, isMobile: true, viewport: { width: 390, height: 844 } })
 
   story("keeps attachment remove buttons visible without hover", async ({ mount, page }) => {
-    const component = await mount("opencode-composer-flow--mixed-attachments")
+    const component = await mount("nemoracode-composer-flow--mixed-attachments")
     expect(await page.evaluate(() => matchMedia("(hover: none)").matches)).toBe(true)
 
     const remove = component.getByRole("button", { name: "Remove attachment", exact: true })
@@ -264,7 +264,7 @@ story("renders a draft once and supports editing, caret restoration, and failure
       return replace.apply(this, nodes)
     }
   })
-  const component = await mount("opencode-composer-flow--failed-submission-restoration")
+  const component = await mount("nemoracode-composer-flow--failed-submission-restoration")
   const input = component.getByRole("textbox", { name: "Prompt", exact: true })
   await expect(input).toHaveText("Preserve this draft on failure")
   await expect(input).toHaveAttribute("data-test-replacements", "1")
@@ -287,7 +287,7 @@ story("renders a draft once and supports editing, caret restoration, and failure
 })
 
 story("shows thinking on composer hover or when a non-default variant is selected", async ({ mount, page }) => {
-  const component = await mount("opencode-composer-flow--model-and-variant")
+  const component = await mount("nemoracode-composer-flow--model-and-variant")
   const composer = component.locator('[data-component="composer"]')
   const input = composer.getByRole("textbox", { name: "Prompt", exact: true })
   const control = composer.getByRole("button", { name: "Choose model variant" })
@@ -332,7 +332,7 @@ story("shows thinking on composer hover or when a non-default variant is selecte
 })
 
 story("keeps default thinking accessible by keyboard without composer hover", async ({ mount, page }) => {
-  const component = await mount("opencode-composer-flow--model-and-variant")
+  const component = await mount("nemoracode-composer-flow--model-and-variant")
   const input = component.getByRole("textbox", { name: "Prompt", exact: true })
   const control = component.getByRole("button", { name: "Choose model variant" })
 
@@ -381,7 +381,7 @@ story.describe("mobile variant drawer", () => {
   // the page dismisses it.
   for (const moment of ["before", "as"] as const) {
     story(`closes and restores focus when dismissed ${moment} it starts opening`, async ({ mount, page }) => {
-      const component = await mount("opencode-composer-flow--model-and-variant")
+      const component = await mount("nemoracode-composer-flow--model-and-variant")
       const variant = component.getByRole("button", { name: "Choose model variant" })
       const drawer = page.getByRole("dialog", { name: "Choose model variant", exact: true })
       const high = drawer.getByRole("button", { name: "high", exact: true })

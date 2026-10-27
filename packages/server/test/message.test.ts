@@ -1,6 +1,6 @@
 import { expect } from "bun:test"
-import { OpenCode, type SessionMessageInfo } from "@opencode/client"
-import { Session } from "@opencode/schema/session"
+import { NemoraCode, type SessionMessageInfo } from "@nemoracode/client"
+import { Session } from "@nemoracode/schema/session"
 import { Effect } from "effect"
 import { it } from "../../core/test/lib/effect"
 import { ServerFetch } from "../src/fetch"
@@ -40,8 +40,8 @@ const setup = Effect.gen(function* () {
     models: { fetch: false },
     fs: { filewatcher: false },
   })
-  const api = OpenCode.make({
-    baseUrl: "http://opencode.local",
+  const api = NemoraCode.make({
+    baseUrl: "http://nemoracode.local",
     fetch: Object.assign((input: string | URL | Request, init?: RequestInit) => handler(new Request(input, init)), {
       preconnect: fetch.preconnect,
     }),
@@ -95,7 +95,7 @@ it.live("rejects unknown message type filters at the HTTP boundary", () =>
     yield* Effect.promise(async () => {
       for (const type of ["unknown", "tool", "User", ""]) {
         const response = await fixture.handler(
-          new Request(`http://opencode.local/api/session/${fixture.sessionID}/message?type=${type}`),
+          new Request(`http://nemoracode.local/api/session/${fixture.sessionID}/message?type=${type}`),
         )
         expect(response.status).toBe(400)
         expect(await response.json()).toMatchObject({ _tag: "InvalidRequestError" })

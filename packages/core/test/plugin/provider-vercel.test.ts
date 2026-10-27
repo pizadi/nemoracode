@@ -1,11 +1,11 @@
-import { AISDK } from "@opencode/core/aisdk"
+import { AISDK } from "@nemoracode/core/aisdk"
 import { describe, expect } from "bun:test"
 import { Effect } from "effect"
-import { Model } from "@opencode/core/model"
-import { Plugin } from "@opencode/core/plugin"
-import { PluginHost } from "@opencode/core/plugin/host"
-import { VercelPlugin } from "@opencode/core/plugin/provider/vercel"
-import { Provider } from "@opencode/core/provider"
+import { Model } from "@nemoracode/core/model"
+import { Plugin } from "@nemoracode/core/plugin"
+import { PluginHost } from "@nemoracode/core/plugin/host"
+import { VercelPlugin } from "@nemoracode/core/plugin/provider/vercel"
+import { Provider } from "@nemoracode/core/provider"
 import { testEffect } from "../lib/effect"
 import { PluginTestLayer } from "./fixture"
 
@@ -31,7 +31,7 @@ describe("VercelPlugin", () => {
       expect((yield* catalog.get(Provider.ID.make("vercel")))?.headers).toEqual({
         Existing: "1",
         "http-referer": "https://opencode.ai/",
-        "x-title": "opencode",
+        "x-title": "nemoracode",
       })
     }),
   )

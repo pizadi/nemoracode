@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@opencode/httpapi-codegen",
+  "name": "@nemoracode/httpapi-codegen",
   "version": "2.1.4",
   "private": true,
   "type": "module",

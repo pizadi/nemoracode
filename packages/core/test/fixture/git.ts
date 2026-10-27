@@ -4,7 +4,7 @@ import fs from "fs/promises"
 import path from "path"
 import { promisify } from "util"
 import { pathToFileURL } from "url"
-import { Repository } from "@opencode/core/repository"
+import { Repository } from "@nemoracode/core/repository"
 import { Effect } from "effect"
 import { tmpdir } from "./tmpdir"
 
@@ -17,7 +17,7 @@ const repositoryConfig = `[core]
 [commit]
 	gpgsign = false
 [user]
-	email = test@opencode.test
+	email = test@nemoracode.test
 	name = Test
 `
 

@@ -1,10 +1,10 @@
 import type { APIEvent } from "@solidjs/start/server"
-import { Resource, waitUntil } from "@opencode/console-resource"
+import { Resource, waitUntil } from "@nemoracode/console-resource"
 import { prefersMarkdown } from "~/lib/content-negotiation"
 import { LOCALE_HEADER, cookie, localeFromRequest, route, tag } from "~/lib/language"
 
 const dataPath = "/data"
-const statsCacheParam = "__opencode_stats_locale"
+const statsCacheParam = "__nemoracode_stats_locale"
 
 export async function statsProxy(evt: APIEvent) {
   const req = evt.request.clone()
@@ -114,7 +114,7 @@ function isCloudflareCacheStorage(storage: CacheStorage): storage is CacheStorag
 
 function withStatsCacheStatus(response: Response, status: "HIT" | "MISS") {
   const headers = new Headers(response.headers)
-  headers.set("x-opencode-stats-cache", status)
+  headers.set("x-nemoracode-stats-cache", status)
   return new Response(response.body, { status: response.status, statusText: response.statusText, headers })
 }
 

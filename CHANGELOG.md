@@ -1,6 +1,6 @@
 # Changelog
 
-Release notes for OpenCode V2, newest first.
+Release notes for NemoraCode V2, newest first.
 
 ## v2.1.4 — 2026-10-23
 
@@ -15,8 +15,8 @@ Release notes for OpenCode V2, newest first.
 
 - Added experimental background compaction through `experimental.background_compaction`. ([#57444](https://github.com/anomalyco/opencode/pull/57444), [#58294](https://github.com/anomalyco/opencode/pull/58294))
 - When a compaction request exceeds the provider limit, older tool output and exchanges are now shortened first, so more useful history survives. ([#58015](https://github.com/anomalyco/opencode/pull/58015))
-- ChatGPT sign-in context caps are now a documented built-in plugin. Add `"-opencode.provider.openai-context-caps"` to `plugins` to turn them off. ([#58194](https://github.com/anomalyco/opencode/pull/58194))
-- Added `opencode debug heap-dump [--server <url>]` to capture a running server's heap without restarting it. ([#58252](https://github.com/anomalyco/opencode/pull/58252))
+- ChatGPT sign-in context caps are now a documented built-in plugin. Add `"-nemoracode.provider.openai-context-caps"` to `plugins` to turn them off. ([#58194](https://github.com/anomalyco/opencode/pull/58194))
+- Added `nemoracode debug heap-dump [--server <url>]` to capture a running server's heap without restarting it. ([#58252](https://github.com/anomalyco/opencode/pull/58252))
 
 #### Bug fixes
 
@@ -31,7 +31,7 @@ Release notes for OpenCode V2, newest first.
 #### Improvements
 
 - Added an experimental **TUI tools** option in the experiments dialog, which lets agents open and type into the session terminal through `tui_open_terminal` and `tui_write_terminal` without taking keyboard focus. ([#57506](https://github.com/anomalyco/opencode/pull/57506))
-- After an update restart, the TUI now tells you to start OpenCode again. ([#58139](https://github.com/anomalyco/opencode/pull/58139))
+- After an update restart, the TUI now tells you to start NemoraCode again. ([#58139](https://github.com/anomalyco/opencode/pull/58139))
 
 #### Bug fixes
 
@@ -69,9 +69,9 @@ Release notes for OpenCode V2, newest first.
 
 ### Highlights
 
-- **Bun 1.4.4 Security Fixes**: OpenCode now runs on Bun 1.4.4, which includes security fixes for Brotli, TLS, HTTP/3, WebSocket, and more, along with updated root certificates. ([#58087](https://github.com/anomalyco/opencode/pull/58087))
+- **Bun 1.4.4 Security Fixes**: NemoraCode now runs on Bun 1.4.4, which includes security fixes for Brotli, TLS, HTTP/3, WebSocket, and more, along with updated root certificates. ([#58087](https://github.com/anomalyco/opencode/pull/58087))
 - **Faster Code Display**: Code blocks, file views, and review diffs in Desktop now use Pierre Highlights, reducing highlighting time and memory use for large files and diffs. ([#57937](https://github.com/anomalyco/opencode/pull/57937))
-- **Discover and Start Voice Models**: SDK clients can call `client.voice.models()` to find available experimental voice models and supported transports. Connected OpenCode Console workspaces can also host GPT-Live sessions through `client.voice.session()`. ([#57194](https://github.com/anomalyco/opencode/pull/57194), [#57735](https://github.com/anomalyco/opencode/pull/57735))
+- **Discover and Start Voice Models**: SDK clients can call `client.voice.models()` to find available experimental voice models and supported transports. Connected NemoraCode Console workspaces can also host GPT-Live sessions through `client.voice.session()`. ([#57194](https://github.com/anomalyco/opencode/pull/57194), [#57735](https://github.com/anomalyco/opencode/pull/57735))
 
 ### Core
 
@@ -112,7 +112,7 @@ Release notes for OpenCode V2, newest first.
 #### Improvements
 
 - Added `client.voice.models()` to list experimental voice models, availability, and supported WebRTC or WebSocket transports. ([#57194](https://github.com/anomalyco/opencode/pull/57194))
-- Voice sessions can now use GPT-Live hosted by a connected OpenCode Console workspace. Hosted sessions expose an ID and support instruction updates through `client.voice.instructions()`. ([#57735](https://github.com/anomalyco/opencode/pull/57735))
+- Voice sessions can now use GPT-Live hosted by a connected NemoraCode Console workspace. Hosted sessions expose an ID and support instruction updates through `client.voice.instructions()`. ([#57735](https://github.com/anomalyco/opencode/pull/57735))
 
 ### Extensions
 
@@ -126,20 +126,20 @@ Release notes for OpenCode V2, newest first.
 ### Highlights
 
 - **Clear Free-Limit Recovery**: When your free messages run out, Desktop and the TUI now show the reset time, restore your submitted prompt, and offer direct upgrade or model-switching actions instead of a generic error. ([#57466](https://github.com/anomalyco/opencode/pull/57466), [#57467](https://github.com/anomalyco/opencode/pull/57467), [#57471](https://github.com/anomalyco/opencode/pull/57471))
-- **Hide Free Models**: Set `OPENCODE_DISABLE_FREE_MODELS=1` or `true` to remove zero-cost models from OpenCode and OpenCode Go catalogs, defaults, and fallbacks. ([#57478](https://github.com/anomalyco/opencode/pull/57478))
+- **Hide Free Models**: Set `NEMORACODE_DISABLE_FREE_MODELS=1` or `true` to remove zero-cost models from NemoraCode and NemoraCode Go catalogs, defaults, and fallbacks. ([#57478](https://github.com/anomalyco/opencode/pull/57478))
 - **Configurable Location Unloading**: Set `experimental.location_idle_timeout` to a duration such as `"4 hours"`, or to `false`, to control when inactive location services unload. ([#57476](https://github.com/anomalyco/opencode/pull/57476))
-- **Reliable Fresh Installs**: The installer now creates `~/.zshrc` or Fish’s `config.fish` when missing, adds OpenCode to `PATH`, and tells you to run `exec $SHELL`. ([#57348](https://github.com/anomalyco/opencode/pull/57348))
+- **Reliable Fresh Installs**: The installer now creates `~/.zshrc` or Fish’s `config.fish` when missing, adds NemoraCode to `PATH`, and tells you to run `exec $SHELL`. ([#57348](https://github.com/anomalyco/opencode/pull/57348))
 
 ### Core
 
 #### Improvements
 
-- Added `OPENCODE_DISABLE_FREE_MODELS` for hiding free OpenCode and OpenCode Go models. ([#57478](https://github.com/anomalyco/opencode/pull/57478))
+- Added `NEMORACODE_DISABLE_FREE_MODELS` for hiding free NemoraCode and NemoraCode Go models. ([#57478](https://github.com/anomalyco/opencode/pull/57478))
 - Added `experimental.location_idle_timeout`, accepting a duration string or `false`. ([#57476](https://github.com/anomalyco/opencode/pull/57476))
 
 #### Bug fixes
 
-- Fixed fresh zsh and Fish installations not adding OpenCode to `PATH` when their configuration file did not exist. ([#57348](https://github.com/anomalyco/opencode/pull/57348))
+- Fixed fresh zsh and Fish installations not adding NemoraCode to `PATH` when their configuration file did not exist. ([#57348](https://github.com/anomalyco/opencode/pull/57348))
 - Kept locations loaded while sessions are waiting for input, running long tools, or owning background jobs. ([#57416](https://github.com/anomalyco/opencode/pull/57416))
 - Fixed legacy `console.opencode.ai` credentials not being forwarded to `opencode.ai/console`. ([#57588](https://github.com/anomalyco/opencode/pull/57588))
 - Reused recent Console configuration checks when inference is rejected, avoiding unnecessary repeated checks. ([#57465](https://github.com/anomalyco/opencode/pull/57465))
@@ -149,7 +149,7 @@ Release notes for OpenCode V2, newest first.
 #### Improvements
 
 - Added an inline free-limit notice with the reset time and `/connect` and `/models` actions, while restoring the submitted prompt when the composer is empty. ([#57467](https://github.com/anomalyco/opencode/pull/57467))
-- Restored the animated “Free limit reached” OpenCode Go dialog with **Subscribe**, **Dismiss**, and **Don’t show again** actions. ([#57471](https://github.com/anomalyco/opencode/pull/57471))
+- Restored the animated “Free limit reached” NemoraCode Go dialog with **Subscribe**, **Dismiss**, and **Don’t show again** actions. ([#57471](https://github.com/anomalyco/opencode/pull/57471))
 
 #### Bug fixes
 
@@ -160,7 +160,7 @@ Release notes for OpenCode V2, newest first.
 
 #### Bug fixes
 
-- Restored the free-limit dialog, reset-time timeline notice, and submitted prompt after free usage is exhausted. Subscribing to OpenCode Go now updates the current session’s model instead of opening another draft. ([#57466](https://github.com/anomalyco/opencode/pull/57466))
+- Restored the free-limit dialog, reset-time timeline notice, and submitted prompt after free usage is exhausted. Subscribing to NemoraCode Go now updates the current session’s model instead of opening another draft. ([#57466](https://github.com/anomalyco/opencode/pull/57466))
 
 ### SDK
 
@@ -232,7 +232,7 @@ Replay passes the merged blob to the protocol, which reads the fields it needs. 
  }
 ```
 
-Existing stored credentials and `opencode auth import` still accept the old shape. Legacy `configuration` is merged into `metadata`; the legacy configuration value wins when both contain the same key. This compatibility is for storage/import, not a reason to keep sending `configuration` in public writes.
+Existing stored credentials and `nemoracode auth import` still accept the old shape. Legacy `configuration` is merged into `metadata`; the legacy configuration value wins when both contain the same key. This compatibility is for storage/import, not a reason to keep sending `configuration` in public writes.
 
 #### Summary compactions reference kept messages
 
@@ -308,7 +308,7 @@ The transitional `session.compacted` event is removed from the public event surf
 
 #### Bug fixes
 
-- Show free OpenCode models alongside their paid counterparts by default instead of hiding them when they share the same model family and release date. ([#55712](https://github.com/anomalyco/opencode/pull/55712))
+- Show free NemoraCode models alongside their paid counterparts by default instead of hiding them when they share the same model family and release date. ([#55712](https://github.com/anomalyco/opencode/pull/55712))
 
 ### SDK
 
@@ -330,13 +330,13 @@ The transitional `session.compacted` event is removed from the public event surf
 ### Highlights
 
 - **Copy the Latest Reply**: Run `/copy` in the TUI to copy the latest assistant message or completed compaction summary instead of the full transcript. ([#56053](https://github.com/anomalyco/opencode/pull/56053), [#56055](https://github.com/anomalyco/opencode/pull/56055))
-- **Auth Login in Headless Environments**: `opencode auth login` no longer crashes in a container or other headless environment that cannot open a browser; use the URL already printed in the terminal to continue. ([#56082](https://github.com/anomalyco/opencode/pull/56082))
+- **Auth Login in Headless Environments**: `nemoracode auth login` no longer crashes in a container or other headless environment that cannot open a browser; use the URL already printed in the terminal to continue. ([#56082](https://github.com/anomalyco/opencode/pull/56082))
 
 ### Core
 
 #### Bug fixes
 
-- Prevented `opencode auth login` from crashing when no browser opener such as `xdg-open` is available. ([#56082](https://github.com/anomalyco/opencode/pull/56082))
+- Prevented `nemoracode auth login` from crashing when no browser opener such as `xdg-open` is available. ([#56082](https://github.com/anomalyco/opencode/pull/56082))
 - Gemini sessions now retry or continue after intermittent `MALFORMED_RESPONSE` finishes instead of immediately failing. ([#56232](https://github.com/anomalyco/opencode/pull/56232))
 - Made snapshot capture resilient to concurrent Git object writes on Windows. ([#56190](https://github.com/anomalyco/opencode/pull/56190))
 
@@ -369,13 +369,13 @@ The transitional `session.compacted` event is removed from the public event surf
 #### Improvements
 
 - Load local glob patterns and remote URLs configured through `instructions`, and refresh them when configuration changes. ([#55539](https://github.com/anomalyco/opencode/pull/55539))
-- Honor `OPENCODE_DISABLE_CLAUDE_CODE` and `OPENCODE_DISABLE_CLAUDE_CODE_SKILLS` when discovering `.claude` skills. ([#55774](https://github.com/anomalyco/opencode/pull/55774))
+- Honor `NEMORACODE_DISABLE_CLAUDE_CODE` and `NEMORACODE_DISABLE_CLAUDE_CODE_SKILLS` when discovering `.claude` skills. ([#55774](https://github.com/anomalyco/opencode/pull/55774))
 - Publish a configuration schema that accepts both V1 and V2 configuration shapes during migration. ([#55524](https://github.com/anomalyco/opencode/pull/55524))
 - Remove the retired session-sharing backend and unavailable `/share` command. ([#55716](https://github.com/anomalyco/opencode/pull/55716))
 
 #### Bug fixes
 
-- Use protocol-specific inference endpoints for OpenCode providers and accept `null` namespaces in Responses API function calls. ([#55680](https://github.com/anomalyco/opencode/pull/55680), [#55631](https://github.com/anomalyco/opencode/pull/55631))
+- Use protocol-specific inference endpoints for NemoraCode providers and accept `null` namespaces in Responses API function calls. ([#55680](https://github.com/anomalyco/opencode/pull/55680), [#55631](https://github.com/anomalyco/opencode/pull/55631))
 - Fit compaction output limits to the request actually sent. ([#55613](https://github.com/anomalyco/opencode/pull/55613))
 - Restore authenticated TinyFish web search by initializing its MCP session. Thanks [@terry-an-investor](https://github.com/terry-an-investor). ([#54730](https://github.com/anomalyco/opencode/pull/54730))
 - Improve MCP compatibility by skipping unsupported catalog and codemode calls, advertising spec-compliant elicitation capabilities, and accepting `*.localhost` OAuth token endpoints. Thanks [@tsehla42](https://github.com/tsehla42) and [@donbowman](https://github.com/donbowman). ([#55474](https://github.com/anomalyco/opencode/pull/55474), [#55618](https://github.com/anomalyco/opencode/pull/55618), [#53196](https://github.com/anomalyco/opencode/pull/53196), [#55627](https://github.com/anomalyco/opencode/pull/55627))
@@ -491,7 +491,7 @@ The transitional `session.compacted` event is removed from the public event surf
 - **Release Highlights in the TUI**: After updating, the home screen shows the release highlights once. Run `/highlights` to reopen them, or disable automatic display with `highlights: false` in `cli.json`. ([#54969](https://github.com/anomalyco/opencode/pull/54969))
 - **Native Windows ARM64 Support**: Windows ARM64 downloads, CLI installs, and desktop updates now use native ARM64 builds instead of x64 emulation. ([#54689](https://github.com/anomalyco/opencode/pull/54689), [#54971](https://github.com/anomalyco/opencode/pull/54971))
 - **Continuous Gemini Responses**: Long Gemini and Vertex Gemini responses split by the provider now continue automatically as one response, including recovery from a dropped stream after a continuation checkpoint. ([#55056](https://github.com/anomalyco/opencode/pull/55056))
-- **Official WinGet Packages**: Install V2 with `winget install --id Anomaly.OpenCode -e` or `winget install --id Anomaly.OpenCode.Desktop -e`. OpenCode upgrades WinGet installations through WinGet. ([#54808](https://github.com/anomalyco/opencode/pull/54808))
+- **Official WinGet Packages**: Install V2 with `winget install --id Anomaly.NemoraCode -e` or `winget install --id Anomaly.NemoraCode.Desktop -e`. NemoraCode upgrades WinGet installations through WinGet. ([#54808](https://github.com/anomalyco/opencode/pull/54808))
 
 ### Core
 
@@ -562,9 +562,9 @@ The transitional `session.compacted` event is removed from the public event surf
 
 ### Highlights
 
-- **Built-In Worktree Tools**: Ask OpenCode to use `worktree_create`, `worktree_list`, and `worktree_remove` in Code Mode. You can create isolated worktrees, move sessions into them, and remove them with normal edit approval. ([#53981](https://github.com/anomalyco/opencode/pull/53981))
-- **Safer Remote Pairing**: The first `opencode pair --remote` now warns that it will expose your server and asks for confirmation. For non-interactive use, pass `opencode pair --remote --yes`. ([#54561](https://github.com/anomalyco/opencode/pull/54561))
-- **Installable Web App**: Use Chrome or Edge’s **Install** button to install the OpenCode web app, including when it runs behind an authenticating proxy. ([#53905](https://github.com/anomalyco/opencode/pull/53905))
+- **Built-In Worktree Tools**: Ask NemoraCode to use `worktree_create`, `worktree_list`, and `worktree_remove` in Code Mode. You can create isolated worktrees, move sessions into them, and remove them with normal edit approval. ([#53981](https://github.com/anomalyco/opencode/pull/53981))
+- **Safer Remote Pairing**: The first `nemoracode pair --remote` now warns that it will expose your server and asks for confirmation. For non-interactive use, pass `nemoracode pair --remote --yes`. ([#54561](https://github.com/anomalyco/opencode/pull/54561))
+- **Installable Web App**: Use Chrome or Edge’s **Install** button to install the NemoraCode web app, including when it runs behind an authenticating proxy. ([#53905](https://github.com/anomalyco/opencode/pull/53905))
 - **Clear Session Failures**: Desktop and TUI timelines now show execution errors that happen before or between model steps instead of ending without an explanation. ([#53826](https://github.com/anomalyco/opencode/pull/53826))
 - **Automatic Project Cleanup**: Projects whose directories no longer exist are automatically hidden from the project list. Opening the directory again restores the project. ([#54354](https://github.com/anomalyco/opencode/pull/54354))
 
@@ -572,8 +572,8 @@ The transitional `session.compacted` event is removed from the public event surf
 
 #### Improvements
 
-- Added the built-in Code Mode tools `opencode.worktree_create`, `opencode.worktree_list`, and `opencode.worktree_remove`. Removing a worktree requires edit approval, and `force: true` can discard modified or untracked files. ([#53981](https://github.com/anomalyco/opencode/pull/53981))
-- Added confirmation before `opencode pair --remote` first enables internet access, plus `--yes`/`-y` for scripts and other non-interactive use. ([#54561](https://github.com/anomalyco/opencode/pull/54561))
+- Added the built-in Code Mode tools `nemoracode.worktree_create`, `nemoracode.worktree_list`, and `nemoracode.worktree_remove`. Removing a worktree requires edit approval, and `force: true` can discard modified or untracked files. ([#53981](https://github.com/anomalyco/opencode/pull/53981))
+- Added confirmation before `nemoracode pair --remote` first enables internet access, plus `--yes`/`-y` for scripts and other non-interactive use. ([#54561](https://github.com/anomalyco/opencode/pull/54561))
 - Automatically archived projects when all known directories disappear. Reopening a project restores it, while surviving clones and linked worktrees keep it active. ([#54354](https://github.com/anomalyco/opencode/pull/54354))
 - Raised the ChatGPT OAuth input limit for `gpt-6.1-sol` and `gpt-6.1-sol-fast` to 500,000 tokens. ([#54668](https://github.com/anomalyco/opencode/pull/54668))
 - Added Vertex AI routes for Interactions and Mistral models. ([#54175](https://github.com/anomalyco/opencode/pull/54175), [#54058](https://github.com/anomalyco/opencode/pull/54058))
@@ -618,8 +618,8 @@ The transitional `session.compacted` event is removed from the public event surf
 
 #### Improvements
 
-- Added startup plugin seeding to Effect embedded hosts and workerd through `OpenCode.create({ plugins })` and `OpenCodeWorkerd.create({ plugins })`.
-- Re-exported `WorkspaceDriver`, `EnvironmentDriver`, and `EnvironmentFiles` from `@opencode/sdk/effect`.
+- Added startup plugin seeding to Effect embedded hosts and workerd through `NemoraCode.create({ plugins })` and `NemoraCodeWorkerd.create({ plugins })`.
+- Re-exported `WorkspaceDriver`, `EnvironmentDriver`, and `EnvironmentFiles` from `@nemoracode/sdk/effect`.
 
 #### Bug fixes
 
@@ -643,7 +643,7 @@ The transitional `session.compacted` event is removed from the public event surf
 - **Google Cloud Credentials for Vertex**: Run `/connect`, choose **Vertex**, then select **Google Cloud credentials (gcloud auth or environment)** to use Application Default Credentials. You can choose or enter the Google Cloud project and location. ([#53798](https://github.com/anomalyco/opencode/pull/53798))
 - **Faster, Safer Session Snapshots**: Session snapshots now add less overhead, recover from interrupted or concurrent captures, restore large selections faster, and pack stored objects to reduce disk usage. ([#51996](https://github.com/anomalyco/opencode/pull/51996))
 - **Working Transcript Links**: You can click links anywhere in a transcript, including any row of a wrapped URL. Hyperlinks also work in more terminals, and `FORCE_HYPERLINK=1` can enable them when automatic detection does not. ([#53903](https://github.com/anomalyco/opencode/pull/53903), [#53904](https://github.com/anomalyco/opencode/pull/53904))
-- **Step 5 Preview Free**: You can now select **Step 5 Preview Free** from OpenCode’s free model lineup for a limited time.
+- **Step 5 Preview Free**: You can now select **Step 5 Preview Free** from NemoraCode’s free model lineup for a limited time.
 
 ### Core
 
@@ -651,14 +651,14 @@ The transitional `session.compacted` event is removed from the public event surf
 
 - Added **Google Cloud credentials (gcloud auth or environment)** to the Vertex connection flow, with project and location choices discovered from environment variables, gcloud configurations, and Application Default Credentials. ([#53798](https://github.com/anomalyco/opencode/pull/53798))
 - Reduced session snapshot overhead, accelerated multi-file restores, made capture resilient to crashes and concurrent processes, and added lossless background packing of snapshot objects. ([#51996](https://github.com/anomalyco/opencode/pull/51996))
-- Added **Step 5 Preview Free** to OpenCode’s free models for a limited time and removed the retired **Fledge Alpha Free** listing.
+- Added **Step 5 Preview Free** to NemoraCode’s free models for a limited time and removed the retired **Fledge Alpha Free** listing.
 
 #### Bug fixes
 
 - Prevented working-tree diffs from timing out or stalling the server in repositories with many untracked files by batching Git operations. ([#53449](https://github.com/anomalyco/opencode/pull/53449))
 - Fixed large revert selections failing when their paths exceeded the operating system’s command-line limit. ([#53956](https://github.com/anomalyco/opencode/pull/53956))
 - Fixed snapshot and undo handling for literal filenames containing Git pathspec characters, corrupted or locked snapshot indexes, concurrent captures, and project directories whose names begin with `..`. ([#51996](https://github.com/anomalyco/opencode/pull/51996))
-- Changed `opencode service` remote-access URLs to use a persistent random subdomain rather than a predictable route. Disabling and re-enabling remote access generates a new address. ([#53962](https://github.com/anomalyco/opencode/pull/53962))
+- Changed `nemoracode service` remote-access URLs to use a persistent random subdomain rather than a predictable route. Disabling and re-enabling remote access generates a new address. ([#53962](https://github.com/anomalyco/opencode/pull/53962))
 
 ### TUI
 

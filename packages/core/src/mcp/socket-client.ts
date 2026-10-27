@@ -18,7 +18,7 @@ export interface SocketTransport extends Transport {
 
 /**
  * MCP client transport over a WebSocket that a client app opened to the server. The app runs the
- * MCP server and opencode runs the MCP client, so only the connection direction is inverted: the
+ * MCP server and nemoracode runs the MCP client, so only the connection direction is inverted: the
  * transport is only ever made for an incoming socket and never dials out.
  *
  * Framing: one JSON-RPC 2.0 message per text frame, JSON-encoded, without batching. A frame that is

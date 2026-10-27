@@ -1,12 +1,12 @@
 import { describe, expect } from "bun:test"
 import { Effect } from "effect"
-import { Credential } from "@opencode/core/credential"
-import { Integration } from "@opencode/core/integration"
-import { Plugin } from "@opencode/core/plugin"
-import { PluginHost } from "@opencode/core/plugin/host"
-import { XAIPlugin } from "@opencode/core/plugin/provider/xai"
-import { Model } from "@opencode/core/model"
-import { Provider } from "@opencode/core/provider"
+import { Credential } from "@nemoracode/core/credential"
+import { Integration } from "@nemoracode/core/integration"
+import { Plugin } from "@nemoracode/core/plugin"
+import { PluginHost } from "@nemoracode/core/plugin/host"
+import { XAIPlugin } from "@nemoracode/core/plugin/provider/xai"
+import { Model } from "@nemoracode/core/model"
+import { Provider } from "@nemoracode/core/provider"
 import { testEffect } from "../lib/effect"
 import { PluginTestLayer } from "./fixture"
 
@@ -75,7 +75,7 @@ describe("XAIPlugin", () => {
       const providerID = Provider.ID.make("xai")
       yield* providers.transform((editor) => {
         editor.update(providerID, (provider) => {
-          provider.package = "@opencode/ai/providers/xai"
+          provider.package = "@nemoracode/ai/providers/xai"
           provider.activation = "enabled"
         })
         editor.models.update(providerID, Model.ID.make("grok-4.6"), () => {})

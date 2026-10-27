@@ -3,12 +3,12 @@ export * as SkillDiscovery from "./discovery.js"
 import path from "path"
 import { Context, Effect, Layer, Schedule, Schema } from "effect"
 import { HttpClient, HttpClientRequest, HttpClientResponse } from "effect/http"
-import { FSUtil } from "@opencode/util/fs-util"
-import { Global } from "@opencode/util/global"
-import { makeGlobalNode } from "@opencode/util/effect/app-node"
-import { httpClient } from "@opencode/util/effect/app-node-platform"
+import { FSUtil } from "@nemoracode/util/fs-util"
+import { Global } from "@nemoracode/util/global"
+import { makeGlobalNode } from "@nemoracode/util/effect/app-node"
+import { httpClient } from "@nemoracode/util/effect/app-node-platform"
 import { AbsolutePath } from "../schema.js"
-import { Hash } from "@opencode/util/hash"
+import { Hash } from "@nemoracode/util/hash"
 
 const skillConcurrency = 4
 const fileConcurrency = 8
@@ -59,7 +59,7 @@ export interface Interface {
   readonly pull: (url: string) => Effect.Effect<AbsolutePath[]>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/SkillDiscovery") {}
+export class Service extends Context.Service<Service, Interface>()("@nemoracode/SkillDiscovery") {}
 
 const layer = Layer.effect(
   Service,
@@ -119,7 +119,7 @@ const layer = Layer.effect(
             }
 
             const skillUrl = new URL(`${encodeURIComponent(skill.name)}/`, source)
-            const versionFile = path.join(root, ".opencode-version")
+            const versionFile = path.join(root, ".nemoracode-version")
             const files = skill.files.map((file) => {
               if (!isSafeRelativePath(file)) return undefined
               let resource: URL
@@ -169,7 +169,7 @@ const layer = Layer.effect(
                     (yield* fs.exists(path.join(staging, "SKILL.md")).pipe(Effect.orDie)) ||
                     (yield* fs.exists(path.join(staging, `${skill.name}.md`)).pipe(Effect.orDie))
                   if (!exists) return
-                  yield* fs.writeFileString(path.join(staging, ".opencode-version"), version)
+                  yield* fs.writeFileString(path.join(staging, ".nemoracode-version"), version)
                   yield* Effect.uninterruptible(
                     Effect.gen(function* () {
                       const cached = yield* fs.exists(root).pipe(Effect.orDie)

@@ -1,8 +1,8 @@
 import { cancel, confirm, isCancel, log } from "@clack/prompts"
 import { EOL } from "os"
 import { Effect, Option, Schedule } from "effect"
-import { Service } from "@opencode/client/effect/service"
-import { OpenCode } from "@opencode/client/promise"
+import { Service } from "@nemoracode/client/effect/service"
+import { NemoraCode } from "@nemoracode/client/promise"
 import { renderUnicodeCompact } from "uqr"
 import { Commands } from "../commands"
 import { Runtime } from "../../framework/runtime"
@@ -15,7 +15,7 @@ export default Runtime.handler(
     const config = yield* ServiceConfig.read()
     if (config.disabled === true)
       return yield* Effect.fail(
-        new Error("Pairing requires the background service; run `opencode service unset disabled` first"),
+        new Error("Pairing requires the background service; run `nemoracode service unset disabled` first"),
       )
     if (input.remote && Option.isSome(input.url))
       return yield* Effect.fail(new Error("--remote cannot be combined with --url"))
@@ -25,7 +25,7 @@ export default Runtime.handler(
       yield* ServiceConfig.set("remote", "true")
     }
     const endpoint = yield* Service.ensure(yield* ServiceConfig.options())
-    const client = OpenCode.make({ baseUrl: endpoint.url, headers: Service.headers(endpoint) })
+    const client = NemoraCode.make({ baseUrl: endpoint.url, headers: Service.headers(endpoint) })
     const urls = yield* pairingURLs(client, input)
     const pairing = yield* Effect.tryPromise(() => client.server.pair())
     const links = urls.map((url) => new URL(`/auth/connect/${pairing.code}`, url).href)
@@ -62,7 +62,7 @@ export default Runtime.handler(
         `  ssh -L ${url.port}:${url.hostname}:${url.port} <host>`,
         `  If port ${url.port} is busy locally, forward another port and use it in the link.`,
         "",
-        "  To connect from other devices, run `opencode service set hostname 0.0.0.0`.",
+        "  To connect from other devices, run `nemoracode service set hostname 0.0.0.0`.",
         "",
       ].join(EOL) + EOL,
     )
@@ -70,9 +70,9 @@ export default Runtime.handler(
 )
 
 export const remoteWarning = [
-  "This will expose your OpenCode server to the internet.",
+  "This will expose your NemoraCode server to the internet.",
   "Traffic is end-to-end encrypted, and access requires your server password.",
-  "To pair locally instead, run `opencode pair` without the --remote flag.",
+  "To pair locally instead, run `nemoracode pair` without the --remote flag.",
 ].join(EOL)
 
 export interface RemoteConsentPrompt {
@@ -102,12 +102,12 @@ export const remoteConsent = Effect.fn("cli.pair.remote-consent")(function* (
   if (!input.yes) {
     const accepted = yield* Effect.promise(terminal.confirm)
     if (isCancel(accepted)) {
-      cancel("Remote access was not enabled. To pair locally, run `opencode pair`.")
+      cancel("Remote access was not enabled. To pair locally, run `nemoracode pair`.")
       process.exitCode = 130
       return false
     }
     if (accepted !== true) {
-      log.info("Remote access was not enabled. To pair locally, run `opencode pair`.")
+      log.info("Remote access was not enabled. To pair locally, run `nemoracode pair`.")
       return false
     }
   }
@@ -116,7 +116,7 @@ export const remoteConsent = Effect.fn("cli.pair.remote-consent")(function* (
 })
 
 const pairingURLs = Effect.fnUntraced(function* (
-  client: ReturnType<typeof OpenCode.make>,
+  client: ReturnType<typeof NemoraCode.make>,
   input: Runtime.Input<typeof Commands.commands.pair>,
 ) {
   if (input.remote) return [yield* remoteURL(client)]
@@ -125,7 +125,7 @@ const pairingURLs = Effect.fnUntraced(function* (
 })
 
 // The service attaches the tunnel in the background, so wait for its URL to appear in server info.
-const remoteURL = Effect.fnUntraced(function* (client: ReturnType<typeof OpenCode.make>) {
+const remoteURL = Effect.fnUntraced(function* (client: ReturnType<typeof NemoraCode.make>) {
   const tunnelURL = Effect.gen(function* () {
     const route = (yield* ServiceConfig.read()).remote?.route
     const hostname = route === undefined ? undefined : yield* RemoteTunnel.hostname(route)
@@ -142,9 +142,9 @@ const remoteURL = Effect.fnUntraced(function* (client: ReturnType<typeof OpenCod
         Effect.fail(
           new Error(
             [
-              "Timed out waiting for the remote tunnel; run `opencode pair --remote` again to retry.",
+              "Timed out waiting for the remote tunnel; run `nemoracode pair --remote` again to retry.",
               // The service may not inherit the shell's environment, and Bun ignores the Windows system (WinINET) proxy.
-              "Behind an HTTP proxy, give the background service its address with `opencode service set env HTTPS_PROXY <url>` (and `NO_PROXY` for hosts to reach directly).",
+              "Behind an HTTP proxy, give the background service its address with `nemoracode service set env HTTPS_PROXY <url>` (and `NO_PROXY` for hosts to reach directly).",
             ].join(EOL),
           ),
         ),

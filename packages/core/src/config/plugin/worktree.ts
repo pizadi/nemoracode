@@ -1,17 +1,17 @@
 export * as ConfigWorktreePlugin from "./worktree.js"
 
-import { define } from "@opencode/plugin/effect/plugin"
+import { define } from "@nemoracode/plugin/effect/plugin"
 import { Effect } from "effect"
 import path from "path"
 import { Config } from "../../config.js"
-import { Global } from "@opencode/util/global"
+import { Global } from "@nemoracode/util/global"
 import { Location } from "../../location.js"
 import { AbsolutePath } from "../../schema.js"
 import { WorktreeStrategies } from "../../worktree/strategies.js"
 import { ConfigEntryObserver } from "./entry-observer.js"
 
 export const Plugin = define({
-  id: "opencode.config.worktree",
+  id: "nemoracode.config.worktree",
   effect: Effect.fn(function* (ctx) {
     const config = yield* Config.Service
     const location = yield* Location.Service

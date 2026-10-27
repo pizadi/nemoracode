@@ -1,5 +1,5 @@
 import { Effect } from "effect"
-import { define } from "@opencode/plugin/effect/plugin"
+import { define } from "@nemoracode/plugin/effect/plugin"
 
 // Chat-completions `prompt_cache_key` body support for catalog providers
 // without a dedicated AI package. Audited per provider (docs + OpenAPI +
@@ -22,7 +22,7 @@ const providerIDs = [
 ] as const
 
 export const PromptCacheKeyPlugin = define({
-  id: "opencode.provider.prompt-cache-key",
+  id: "nemoracode.provider.prompt-cache-key",
   effect: Effect.fn(function* (ctx) {
     // Set on the provider so configured provider and model compatibility can override it.
     yield* ctx.provider.transform((providers) => {

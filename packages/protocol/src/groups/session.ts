@@ -1,13 +1,13 @@
-import { SessionMessage } from "@opencode/schema/session-message"
-import { SessionInbox } from "@opencode/schema/session-inbox"
-import { PromptInput } from "@opencode/schema/prompt-input"
-import { Session } from "@opencode/schema/session"
-import { SessionStats } from "@opencode/schema/session-stats"
-import { InstructionEntry } from "@opencode/schema/instruction-entry"
-import { Project } from "@opencode/schema/project"
-import { DateTimeUtcFromMillis, NonNegativeInt, PositiveInt } from "@opencode/schema/schema"
-import { Event } from "@opencode/schema/event"
-import { SessionLegacy } from "@opencode/schema/session-legacy"
+import { SessionMessage } from "@nemoracode/schema/session-message"
+import { SessionInbox } from "@nemoracode/schema/session-inbox"
+import { PromptInput } from "@nemoracode/schema/prompt-input"
+import { Session } from "@nemoracode/schema/session"
+import { SessionStats } from "@nemoracode/schema/session-stats"
+import { InstructionEntry } from "@nemoracode/schema/instruction-entry"
+import { Project } from "@nemoracode/schema/project"
+import { DateTimeUtcFromMillis, NonNegativeInt, PositiveInt } from "@nemoracode/schema/schema"
+import { Event } from "@nemoracode/schema/event"
+import { SessionLegacy } from "@nemoracode/schema/session-legacy"
 import { Context, Schema, SchemaGetter, Struct } from "effect"
 import { HttpApiEndpoint, HttpApiGroup, HttpApiMiddleware, HttpApiSchema, OpenApi } from "effect/http-api"
 import {
@@ -27,15 +27,15 @@ import {
   SkillNotFoundError,
   UnknownError,
 } from "../errors.js"
-import { Agent } from "@opencode/schema/agent"
-import { Skill } from "@opencode/schema/skill"
-import { Model } from "@opencode/schema/model"
-import { Permission } from "@opencode/schema/permission"
-import { Location } from "@opencode/schema/location"
-import { SessionEvent } from "@opencode/schema/session-event"
-import { EventLog } from "@opencode/schema/event-log"
-import { FileDiff } from "@opencode/schema/file-diff"
-import { Form } from "@opencode/schema/form"
+import { Agent } from "@nemoracode/schema/agent"
+import { Skill } from "@nemoracode/schema/skill"
+import { Model } from "@nemoracode/schema/model"
+import { Permission } from "@nemoracode/schema/permission"
+import { Location } from "@nemoracode/schema/location"
+import { SessionEvent } from "@nemoracode/schema/session-event"
+import { EventLog } from "@nemoracode/schema/event-log"
+import { FileDiff } from "@nemoracode/schema/file-diff"
+import { Form } from "@nemoracode/schema/form"
 import { PublicSessionMessage } from "./message.js"
 
 const SessionActive = Schema.Struct({
@@ -215,7 +215,7 @@ export const makeSessionGroup = <I extends HttpApiMiddleware.AnyId, S, FormI ext
           identifier: "session.active",
           summary: "List active sessions",
           description:
-            "Retrieve foreground Session drains currently owned by this OpenCode process. Sessions absent from the result are inactive.",
+            "Retrieve foreground Session drains currently owned by this NemoraCode process. Sessions absent from the result are inactive.",
         }),
       ),
     )
@@ -687,7 +687,7 @@ export const makeSessionGroup = <I extends HttpApiMiddleware.AnyId, S, FormI ext
         query: { resume: BooleanFromString.pipe(Schema.optional) },
         success: Schema.Struct({
           interrupted: Schema.Boolean.annotate({
-            description: "Whether an active execution owned by this OpenCode process was interrupted.",
+            description: "Whether an active execution owned by this NemoraCode process was interrupted.",
           }),
         }).annotate({ identifier: "SessionInterruptResponse" }),
         error: SessionNotFoundError,
@@ -698,7 +698,7 @@ export const makeSessionGroup = <I extends HttpApiMiddleware.AnyId, S, FormI ext
             identifier: "session.interrupt",
             summary: "Interrupt session execution",
             description:
-              "Interrupt active execution owned by this OpenCode process. Returns interrupted=true when an active execution was interrupted and false for the idle no-op. When resume=true, execution resumes pending steering input and next-in-line control items (manual compaction, moves) while queued prompts remain parked.",
+              "Interrupt active execution owned by this NemoraCode process. Returns interrupted=true when an active execution was interrupted and false for the idle no-op. When resume=true, execution resumes pending steering input and next-in-line control items (manual compaction, moves) while queued prompts remain parked.",
           }),
         ),
     )

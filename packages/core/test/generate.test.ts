@@ -10,17 +10,17 @@ import {
   QuotaExceededError,
   RateLimitError,
   TransportError,
-} from "@opencode/ai/effect"
-import { RequestExecutor } from "@opencode/ai/route"
-import { OpenAIChat } from "@opencode/ai/protocols"
-import { TestLLM } from "@opencode/ai/testing"
-import { AISDK } from "@opencode/core/aisdk"
-import { Generate } from "@opencode/core/generate"
-import { Integration } from "@opencode/core/integration"
-import { ModelResolver } from "@opencode/core/model-resolver"
-import { ID, Info, Model, Ref } from "@opencode/core/model"
-import { Provider } from "@opencode/core/provider"
-import { Npm } from "@opencode/util/npm"
+} from "@nemoracode/ai/effect"
+import { RequestExecutor } from "@nemoracode/ai/route"
+import { OpenAIChat } from "@nemoracode/ai/protocols"
+import { TestLLM } from "@nemoracode/ai/testing"
+import { AISDK } from "@nemoracode/core/aisdk"
+import { Generate } from "@nemoracode/core/generate"
+import { Integration } from "@nemoracode/core/integration"
+import { ModelResolver } from "@nemoracode/core/model-resolver"
+import { ID, Info, Model, Ref } from "@nemoracode/core/model"
+import { Provider } from "@nemoracode/core/provider"
+import { Npm } from "@nemoracode/util/npm"
 import { Effect, Exit, Fiber, Layer } from "effect"
 import { TestClock } from "effect/testing"
 import { HttpClient, HttpClientResponse } from "effect/http"
@@ -200,7 +200,7 @@ testEffect(Layer.empty).effect("attributes each stateless completion without cre
       HttpClient.HttpClient,
       HttpClient.make((request) =>
         Effect.sync(() => {
-          const session = request.headers["x-opencode-session"]
+          const session = request.headers["x-nemoracode-session"]
           if (!session)
             return HttpClientResponse.fromWeb(
               request,

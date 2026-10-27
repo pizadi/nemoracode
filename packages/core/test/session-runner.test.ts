@@ -15,77 +15,77 @@ import {
   InvalidRequestError,
   RateLimitError,
   UnknownProviderError,
-} from "@opencode/ai/effect"
-import { OpenAIChat } from "@opencode/ai/protocols/openai-chat"
-import { AnthropicMessages, OpenAIResponses } from "@opencode/ai/protocols"
-import { compileRequest } from "@opencode/ai/route/client"
-import { TestLLM } from "@opencode/ai/testing"
-import type { SessionHooks } from "@opencode/plugin/effect/session"
-import { Database } from "@opencode/core/database/database"
-import { makeLocationNode } from "@opencode/util/effect/app-node"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { LayerNodePlatform } from "@opencode/core/effect/app-node-platform"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { Bus } from "@opencode/core/bus"
-import { Event } from "@opencode/schema/event"
-import { App } from "@opencode/core/app"
-import { Permission } from "@opencode/core/permission"
-import { EventTable } from "@opencode/core/event/sql"
-import { Project } from "@opencode/core/project"
-import { ProjectTable } from "@opencode/core/project/sql"
-import { Form } from "@opencode/core/form"
-import { AbsolutePath } from "@opencode/core/schema"
-import { Session } from "@opencode/core/session"
-import { Snapshot } from "@opencode/core/snapshot"
-import { SessionEvent } from "@opencode/core/session/event"
-import { SessionCompaction } from "@opencode/core/session/compaction"
-import { SessionInbox } from "@opencode/core/session/inbox"
-import { SessionMessage } from "@opencode/core/session/message"
-import { SessionModelTransport } from "@opencode/core/session/model-transport"
-import { Money } from "@opencode/schema/money"
-import { SessionProjector } from "@opencode/core/session/projector"
-import { SessionExecution } from "@opencode/core/session/execution"
-import { SessionRunCoordinator } from "@opencode/core/session/run-coordinator"
-import { SessionRunner } from "@opencode/core/session/runner/index"
-import { SessionRunnerLLM } from "@opencode/core/session/runner/llm"
-import { SessionRunnerModel } from "@opencode/core/session/runner/model"
-import { SessionUsage } from "@opencode/core/session/usage"
-import { PluginSupervisor } from "@opencode/core/plugin/supervisor"
-import { Plugin } from "@opencode/core/plugin"
-import { PluginHooks } from "@opencode/core/plugin/hooks"
-import { PluginPromise } from "@opencode/core/plugin/promise"
-import { OptimizePlugin } from "@opencode/core/plugin/optimize"
-import { IdentityPlugin } from "@opencode/core/plugin/identity"
-import { QuestionTool } from "@opencode/core/tool/plugin/question"
-import { Agent } from "@opencode/core/agent"
-import { Config } from "@opencode/core/config"
-import { Document, Info } from "@opencode/schema/config"
-import { ConfigCompaction } from "@opencode/schema/config/compaction"
-import { Tool } from "@opencode/core/tool"
-import type { Info as ToolInfo } from "@opencode/schema/tool"
-import { InstructionStateTable, SessionInboxTable, SessionMessageTable, SessionTable } from "@opencode/core/session/sql"
-import { InstructionEntry } from "@opencode/core/session/instruction-entry"
-import { SessionStore } from "@opencode/core/session/store"
-import { Instructions } from "@opencode/core/instructions/index"
-import { InstructionBuiltIns } from "@opencode/core/instructions/builtins"
-import { InstructionDiscovery } from "@opencode/core/instruction-discovery"
-import { SkillInstructions } from "@opencode/core/skill/instructions"
-import { ReferenceInstructions } from "@opencode/core/reference/instructions"
-import { McpInstructions } from "@opencode/core/mcp/instructions"
-import { SessionSystemPrompt } from "@opencode/core/session/system-prompt"
-import { ID, Model } from "@opencode/core/model"
-import { Location } from "@opencode/core/location"
-import { Provider } from "@opencode/core/provider"
+} from "@nemoracode/ai/effect"
+import { OpenAIChat } from "@nemoracode/ai/protocols/openai-chat"
+import { AnthropicMessages, OpenAIResponses } from "@nemoracode/ai/protocols"
+import { compileRequest } from "@nemoracode/ai/route/client"
+import { TestLLM } from "@nemoracode/ai/testing"
+import type { SessionHooks } from "@nemoracode/plugin/effect/session"
+import { Database } from "@nemoracode/core/database/database"
+import { makeLocationNode } from "@nemoracode/util/effect/app-node"
+import { AppNodeBuilder } from "@nemoracode/core/effect/app-node-builder"
+import { LayerNodePlatform } from "@nemoracode/core/effect/app-node-platform"
+import { LayerNode } from "@nemoracode/util/effect/layer-node"
+import { Bus } from "@nemoracode/core/bus"
+import { Event } from "@nemoracode/schema/event"
+import { App } from "@nemoracode/core/app"
+import { Permission } from "@nemoracode/core/permission"
+import { EventTable } from "@nemoracode/core/event/sql"
+import { Project } from "@nemoracode/core/project"
+import { ProjectTable } from "@nemoracode/core/project/sql"
+import { Form } from "@nemoracode/core/form"
+import { AbsolutePath } from "@nemoracode/core/schema"
+import { Session } from "@nemoracode/core/session"
+import { Snapshot } from "@nemoracode/core/snapshot"
+import { SessionEvent } from "@nemoracode/core/session/event"
+import { SessionCompaction } from "@nemoracode/core/session/compaction"
+import { SessionInbox } from "@nemoracode/core/session/inbox"
+import { SessionMessage } from "@nemoracode/core/session/message"
+import { SessionModelTransport } from "@nemoracode/core/session/model-transport"
+import { Money } from "@nemoracode/schema/money"
+import { SessionProjector } from "@nemoracode/core/session/projector"
+import { SessionExecution } from "@nemoracode/core/session/execution"
+import { SessionRunCoordinator } from "@nemoracode/core/session/run-coordinator"
+import { SessionRunner } from "@nemoracode/core/session/runner/index"
+import { SessionRunnerLLM } from "@nemoracode/core/session/runner/llm"
+import { SessionRunnerModel } from "@nemoracode/core/session/runner/model"
+import { SessionUsage } from "@nemoracode/core/session/usage"
+import { PluginSupervisor } from "@nemoracode/core/plugin/supervisor"
+import { Plugin } from "@nemoracode/core/plugin"
+import { PluginHooks } from "@nemoracode/core/plugin/hooks"
+import { PluginPromise } from "@nemoracode/core/plugin/promise"
+import { OptimizePlugin } from "@nemoracode/core/plugin/optimize"
+import { IdentityPlugin } from "@nemoracode/core/plugin/identity"
+import { QuestionTool } from "@nemoracode/core/tool/plugin/question"
+import { Agent } from "@nemoracode/core/agent"
+import { Config } from "@nemoracode/core/config"
+import { Document, Info } from "@nemoracode/schema/config"
+import { ConfigCompaction } from "@nemoracode/schema/config/compaction"
+import { Tool } from "@nemoracode/core/tool"
+import type { Info as ToolInfo } from "@nemoracode/schema/tool"
+import { InstructionStateTable, SessionInboxTable, SessionMessageTable, SessionTable } from "@nemoracode/core/session/sql"
+import { InstructionEntry } from "@nemoracode/core/session/instruction-entry"
+import { SessionStore } from "@nemoracode/core/session/store"
+import { Instructions } from "@nemoracode/core/instructions/index"
+import { InstructionBuiltIns } from "@nemoracode/core/instructions/builtins"
+import { InstructionDiscovery } from "@nemoracode/core/instruction-discovery"
+import { SkillInstructions } from "@nemoracode/core/skill/instructions"
+import { ReferenceInstructions } from "@nemoracode/core/reference/instructions"
+import { McpInstructions } from "@nemoracode/core/mcp/instructions"
+import { SessionSystemPrompt } from "@nemoracode/core/session/system-prompt"
+import { ID, Model } from "@nemoracode/core/model"
+import { Location } from "@nemoracode/core/location"
+import { Provider } from "@nemoracode/core/provider"
 import { Cause, Context, DateTime, Deferred, Effect, Exit, Fiber, Layer, Queue, Schema, Scope, Stream } from "effect"
 import { TestClock } from "effect/testing"
 import { asc, desc, eq, sql } from "drizzle-orm"
 import { testEffect } from "./lib/effect"
 import { promptLocationNode } from "./fixture/prompt-location"
-import { LocationServiceMap } from "@opencode/core/location-service-map"
+import { LocationServiceMap } from "@nemoracode/core/location-service-map"
 import { Expected } from "./lib/session-message"
 import { permissionLayer } from "./lib/permission"
 import { agentHost, modelHost, host, noProviders } from "./plugin/host"
-import { CodeModeInstructions } from "@opencode/core/codemode/instructions"
+import { CodeModeInstructions } from "@nemoracode/core/codemode/instructions"
 
 const emptyCodeMode = `${CodeModeInstructions.render({ total: 0, shown: 0, namespaces: [] })}\n\n`
 type ToolBarrier = {
@@ -4805,13 +4805,13 @@ describe("SessionRunnerLLM", () => {
     yield* s.runPrompt("Run correlated request")
 
     expect(s.requests[0]?.http?.headers).toEqual({
-      "x-opencode-session-id": sessionID,
+      "x-nemoracode-session-id": sessionID,
       "x-session-affinity": sessionID,
       "X-Session-Id": sessionID,
       "User-Agent": App.useragent(App.make()),
-      "x-opencode-project": Project.ID.global,
-      "x-opencode-session": sessionID,
-      "x-opencode-client": "opencode",
+      "x-nemoracode-project": Project.ID.global,
+      "x-nemoracode-session": sessionID,
+      "x-nemoracode-client": "nemoracode",
     })
   })
 
@@ -4827,12 +4827,12 @@ describe("SessionRunnerLLM", () => {
     yield* s.runPrompt("Run child request")
 
     expect(s.requests[0]?.http?.headers).toMatchObject({
-      "x-opencode-session-id": sessionID,
-      "x-opencode-parent-session-id": parentID,
+      "x-nemoracode-session-id": sessionID,
+      "x-nemoracode-parent-session-id": parentID,
       "x-session-affinity": parentID,
       "X-Session-Id": parentID,
       "x-parent-session-id": parentID,
-      "x-opencode-session": parentID,
+      "x-nemoracode-session": parentID,
     })
     expect(s.requests[0]?.promptCacheKey).toBe(parentID)
   })

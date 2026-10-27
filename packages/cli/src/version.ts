@@ -1,28 +1,28 @@
 import { Option, Schema } from "effect"
 
-declare const OPENCODE_VERSION: string
-declare const OPENCODE_CHANNEL: string
-declare const OPENCODE_ARTIFACT: string
-declare const OPENCODE_RELEASE_HIGHLIGHTS: string
+declare const NEMORACODE_VERSION: string
+declare const NEMORACODE_CHANNEL: string
+declare const NEMORACODE_ARTIFACT: string
+declare const NEMORACODE_RELEASE_HIGHLIGHTS: string
 
-const version = typeof OPENCODE_VERSION === "string" ? OPENCODE_VERSION : "local"
-const channel = typeof OPENCODE_CHANNEL === "string" ? OPENCODE_CHANNEL : "local"
-const artifact = typeof OPENCODE_ARTIFACT === "string" ? OPENCODE_ARTIFACT : "cli"
+const version = typeof NEMORACODE_VERSION === "string" ? NEMORACODE_VERSION : "local"
+const channel = typeof NEMORACODE_CHANNEL === "string" ? NEMORACODE_CHANNEL : "local"
+const artifact = typeof NEMORACODE_ARTIFACT === "string" ? NEMORACODE_ARTIFACT : "cli"
 // Stable release builds embed the release notes' Highlights; every other build has none.
 const highlights =
-  typeof OPENCODE_RELEASE_HIGHLIGHTS === "string"
+  typeof NEMORACODE_RELEASE_HIGHLIGHTS === "string"
     ? Option.getOrElse(
         Schema.decodeUnknownOption(
           Schema.fromJsonString(Schema.Array(Schema.Struct({ title: Schema.String, body: Schema.String }))),
-        )(OPENCODE_RELEASE_HIGHLIGHTS),
+        )(NEMORACODE_RELEASE_HIGHLIGHTS),
         () => [],
       )
     : []
 
 export {
-  version as OPENCODE_VERSION,
-  channel as OPENCODE_CHANNEL,
-  artifact as OPENCODE_ARTIFACT,
-  highlights as OPENCODE_HIGHLIGHTS,
+  version as NEMORACODE_VERSION,
+  channel as NEMORACODE_CHANNEL,
+  artifact as NEMORACODE_ARTIFACT,
+  highlights as NEMORACODE_HIGHLIGHTS,
 }
-export const OPENCODE_LOCAL = channel === "local"
+export const NEMORACODE_LOCAL = channel === "local"

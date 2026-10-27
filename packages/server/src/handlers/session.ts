@@ -1,9 +1,9 @@
-import { Session } from "@opencode/core/session"
-import { SessionStats } from "@opencode/core/session/stats"
-import { SessionTitle } from "@opencode/core/session/title"
-import { SessionTransfer } from "@opencode/core/session/transfer"
-import { InstructionEntry } from "@opencode/core/session/instruction-entry"
-import { Form } from "@opencode/core/form"
+import { Session } from "@nemoracode/core/session"
+import { SessionStats } from "@nemoracode/core/session/stats"
+import { SessionTitle } from "@nemoracode/core/session/title"
+import { SessionTransfer } from "@nemoracode/core/session/transfer"
+import { InstructionEntry } from "@nemoracode/core/session/instruction-entry"
+import { Form } from "@nemoracode/core/form"
 import { DateTime, Effect, Stream } from "effect"
 import { HttpApiBuilder, HttpApiSchema } from "effect/http-api"
 import { Api } from "../api"
@@ -20,8 +20,8 @@ import {
   ServiceUnavailableError,
   SessionBusyError,
   SkillNotFoundError,
-} from "@opencode/protocol/errors"
-import { AbsolutePath } from "@opencode/core/schema"
+} from "@nemoracode/protocol/errors"
+import { AbsolutePath } from "@nemoracode/core/schema"
 import { locationErrors } from "../location"
 import { failedMessageDecode, failedSnapshot, missingMessage, missingSession } from "./session-error"
 

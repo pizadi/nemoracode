@@ -1,5 +1,5 @@
-import { Plugin } from "@opencode/plugin/tui"
-import type { AttentionSoundName } from "@opencode/plugin/tui/context"
+import { Plugin } from "@nemoracode/plugin/tui"
+import type { AttentionSoundName } from "@nemoracode/plugin/tui/context"
 
 function notify(
   context: Plugin.Context,
@@ -19,7 +19,7 @@ function notify(
 }
 
 export default Plugin.define({
-  id: "opencode.notifications",
+  id: "nemoracode.notifications",
   setup(context) {
     const errored = new Set<string>()
     const terminal = new Set<string>()

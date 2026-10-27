@@ -1,5 +1,5 @@
 {
-  "name": "@opencode/console-app",
+  "name": "@nemoracode/console-app",
   "version": "2.1.4",
   "type": "module",
   "license": "MIT",
@@ -17,8 +17,8 @@
     "@cloudflare/vite-plugin": "1.15.2",
     "@ibm/plex": "6.4.1",
     "@kobalte/core": "catalog:",
-    "@opencode/console-resource": "workspace:*",
-    "@opencode/ui": "workspace:*",
+    "@nemoracode/console-resource": "workspace:*",
+    "@nemoracode/ui": "workspace:*",
     "@solidjs/meta": "catalog:",
     "@solidjs/router": "catalog:",
     "@solidjs/start": "catalog:",

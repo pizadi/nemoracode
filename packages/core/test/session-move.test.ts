@@ -1,30 +1,30 @@
-import type { FileSystem } from "@opencode/core/filesystem"
+import type { FileSystem } from "@nemoracode/core/filesystem"
 import { describe, expect } from "bun:test"
 import path from "path"
 import { chmod, mkdir, readdir, rm } from "fs/promises"
 import { Cause, Context, Deferred, Duration, Effect, Exit, Fiber, Layer, LayerMap, Queue } from "effect"
-import { Worktree } from "@opencode/schema/worktree"
-import { Workspace } from "@opencode/schema/workspace"
-import { Bus } from "@opencode/core/bus"
-import { Config } from "@opencode/core/config"
-import { Database } from "@opencode/core/database/database"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { Instance } from "@opencode/core/instance"
-import { Location } from "@opencode/core/location"
-import { LocationServiceMap } from "@opencode/core/location-service-map"
-import type { LocationServices } from "@opencode/core/location-services"
-import { Project } from "@opencode/core/project"
-import { AbsolutePath } from "@opencode/core/schema"
-import { Session } from "@opencode/core/session"
-import { SessionEvent } from "@opencode/core/session/event"
-import { SessionExecution } from "@opencode/core/session/execution"
-import { SessionMove } from "@opencode/core/session/move"
-import { SessionProjector } from "@opencode/core/session/projector"
-import { SessionRunner } from "@opencode/core/session/runner/index"
-import { SessionStore } from "@opencode/core/session/store"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { makeGlobalNode } from "@opencode/util/effect/app-node"
-import { Global } from "@opencode/util/global"
+import { Worktree } from "@nemoracode/schema/worktree"
+import { Workspace } from "@nemoracode/schema/workspace"
+import { Bus } from "@nemoracode/core/bus"
+import { Config } from "@nemoracode/core/config"
+import { Database } from "@nemoracode/core/database/database"
+import { AppNodeBuilder } from "@nemoracode/core/effect/app-node-builder"
+import { Instance } from "@nemoracode/core/instance"
+import { Location } from "@nemoracode/core/location"
+import { LocationServiceMap } from "@nemoracode/core/location-service-map"
+import type { LocationServices } from "@nemoracode/core/location-services"
+import { Project } from "@nemoracode/core/project"
+import { AbsolutePath } from "@nemoracode/core/schema"
+import { Session } from "@nemoracode/core/session"
+import { SessionEvent } from "@nemoracode/core/session/event"
+import { SessionExecution } from "@nemoracode/core/session/execution"
+import { SessionMove } from "@nemoracode/core/session/move"
+import { SessionProjector } from "@nemoracode/core/session/projector"
+import { SessionRunner } from "@nemoracode/core/session/runner/index"
+import { SessionStore } from "@nemoracode/core/session/store"
+import { LayerNode } from "@nemoracode/util/effect/layer-node"
+import { makeGlobalNode } from "@nemoracode/util/effect/app-node"
+import { Global } from "@nemoracode/util/global"
 import { tempGlobalLayer } from "./fixture/global"
 import { offlineModels } from "./fixture/models"
 import { tmpdirScoped } from "./fixture/tmpdir"
@@ -215,7 +215,7 @@ describe("Session.move", () => {
           yield* Effect.promise(() => Promise.all([mkdir(source), mkdir(destination)]))
           if (broken)
             yield* Effect.promise(() =>
-              Bun.write(path.join(source, "opencode.json"), JSON.stringify({ instructions: ["{file:.}"] })),
+              Bun.write(path.join(source, "nemoracode.json"), JSON.stringify({ instructions: ["{file:.}"] })),
             )
           const session = yield* Session.Service
           const execution = yield* SessionExecution.Service
@@ -272,7 +272,7 @@ describe("Session.move", () => {
           const destination = AbsolutePath.make(path.join(tmp.path, "destination"))
           yield* Effect.promise(() => Promise.all([mkdir(source.directory), mkdir(destination)]))
           const config = JSON.stringify({ instructions: ["{file:.}"] })
-          if (!broken) yield* Effect.promise(() => Bun.write(path.join(source.directory, "opencode.json"), config))
+          if (!broken) yield* Effect.promise(() => Bun.write(path.join(source.directory, "nemoracode.json"), config))
           const selectedID = Session.ID.create()
           const replacements: LayerNode.Replacements = [
             Global.node.replace(tempGlobalLayer),

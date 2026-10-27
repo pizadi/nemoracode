@@ -1,6 +1,6 @@
-import type { IntegrationOAuthMethodRegistration } from "@opencode/plugin/effect/integration"
-import type { SessionRequestKind, SessionTitle } from "@opencode/plugin/effect/session"
-import { isRecord } from "@opencode/ai/utils/record"
+import type { IntegrationOAuthMethodRegistration } from "@nemoracode/plugin/effect/integration"
+import type { SessionRequestKind, SessionTitle } from "@nemoracode/plugin/effect/session"
+import { isRecord } from "@nemoracode/ai/utils/record"
 import { Effect, Option, Schema, Semaphore, Stream } from "effect"
 import { IntegrationConnection } from "../../integration/connection.js"
 import { Credential } from "../../credential.js"
@@ -10,7 +10,7 @@ import { App } from "../../app.js"
 import { Integration } from "../../integration.js"
 import { Model } from "../../model.js"
 import { Agent } from "../../agent.js"
-import { define } from "@opencode/plugin/effect/plugin"
+import { define } from "@nemoracode/plugin/effect/plugin"
 import { Provider } from "../../provider.js"
 import { SessionAffinity } from "../../session/affinity.js"
 import type { PluginInternal } from "../internal.js"
@@ -158,7 +158,7 @@ const oauth = (app: App.Info) =>
   }) satisfies IntegrationOAuthMethodRegistration
 
 export const GithubCopilotPlugin = define({
-  id: "opencode.provider.github.copilot",
+  id: "nemoracode.provider.github.copilot",
   effect: Effect.fn(function* (ctx) {
     const providers = yield* Provider.Service
     const bus = yield* Bus.Service
@@ -232,12 +232,12 @@ export const GithubCopilotPlugin = define({
       // else goes through the bundled Copilot SDK's model ID fallback.
       for (const id of item.models.keys()) {
         evt.models.update(item.provider.id, id, (model) => {
-          if (model.package === "@opencode/ai/providers/anthropic") {
+          if (model.package === "@nemoracode/ai/providers/anthropic") {
             if (loaded.baseURL)
               model.settings = Provider.mergeOverlay(model.settings, { baseURL: `${loaded.baseURL}/v1` })
             return
           }
-          const responses = model.package === "@opencode/ai/providers/openai"
+          const responses = model.package === "@nemoracode/ai/providers/openai"
           model.package = Provider.aisdk("@ai-sdk/github-copilot")
           model.settings = Provider.mergeOverlay(model.settings, {
             ...(loaded.baseURL ? { baseURL: loaded.baseURL } : {}),

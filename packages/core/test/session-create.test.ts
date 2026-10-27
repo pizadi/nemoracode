@@ -4,38 +4,38 @@ import fs from "fs/promises"
 import path from "path"
 import { DateTime, Effect, Layer, Stream } from "effect"
 import { TestClock } from "effect/testing"
-import { Money } from "@opencode/schema/money"
-import { Shell } from "@opencode/schema/shell"
-import { Skill } from "@opencode/schema/skill"
-import { Agent } from "@opencode/core/agent"
+import { Money } from "@nemoracode/schema/money"
+import { Shell } from "@nemoracode/schema/shell"
+import { Skill } from "@nemoracode/schema/skill"
+import { Agent } from "@nemoracode/core/agent"
 import { and, asc, eq } from "drizzle-orm"
-import { Database } from "@opencode/core/database/database"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { Hash } from "@opencode/util/hash"
-import { Bus } from "@opencode/core/bus"
-import { EventTable } from "@opencode/core/event/sql"
-import { Instructions } from "@opencode/core/instructions/index"
-import { Location } from "@opencode/core/location"
-import { Model } from "@opencode/core/model"
-import { Project } from "@opencode/core/project"
-import { ProjectTable } from "@opencode/core/project/sql"
-import { Provider } from "@opencode/core/provider"
-import { AbsolutePath, RelativePath } from "@opencode/core/schema"
-import { Session } from "@opencode/core/session"
-import { SessionMessage } from "@opencode/core/session/message"
-import { SessionProjector } from "@opencode/core/session/projector"
-import { SessionExecution } from "@opencode/core/session/execution"
-import { SessionInbox } from "@opencode/core/session/inbox"
-import { InstructionEntry } from "@opencode/core/session/instruction-entry"
-import { SessionEvent } from "@opencode/core/session/event"
-import { SessionTable } from "@opencode/core/session/sql"
-import { SessionStore } from "@opencode/core/session/store"
-import { SessionTransfer } from "@opencode/core/session/transfer"
-import { Workspace } from "@opencode/core/workspace"
+import { Database } from "@nemoracode/core/database/database"
+import { AppNodeBuilder } from "@nemoracode/core/effect/app-node-builder"
+import { LayerNode } from "@nemoracode/util/effect/layer-node"
+import { Hash } from "@nemoracode/util/hash"
+import { Bus } from "@nemoracode/core/bus"
+import { EventTable } from "@nemoracode/core/event/sql"
+import { Instructions } from "@nemoracode/core/instructions/index"
+import { Location } from "@nemoracode/core/location"
+import { Model } from "@nemoracode/core/model"
+import { Project } from "@nemoracode/core/project"
+import { ProjectTable } from "@nemoracode/core/project/sql"
+import { Provider } from "@nemoracode/core/provider"
+import { AbsolutePath, RelativePath } from "@nemoracode/core/schema"
+import { Session } from "@nemoracode/core/session"
+import { SessionMessage } from "@nemoracode/core/session/message"
+import { SessionProjector } from "@nemoracode/core/session/projector"
+import { SessionExecution } from "@nemoracode/core/session/execution"
+import { SessionInbox } from "@nemoracode/core/session/inbox"
+import { InstructionEntry } from "@nemoracode/core/session/instruction-entry"
+import { SessionEvent } from "@nemoracode/core/session/event"
+import { SessionTable } from "@nemoracode/core/session/sql"
+import { SessionStore } from "@nemoracode/core/session/store"
+import { SessionTransfer } from "@nemoracode/core/session/transfer"
+import { Workspace } from "@nemoracode/core/workspace"
 import { Expected } from "./lib/session-message"
 import { testEffect } from "./lib/effect"
-import { LocationServiceMap } from "@opencode/core/location-service-map"
+import { LocationServiceMap } from "@nemoracode/core/location-service-map"
 import { initGit } from "./fixture/git"
 import { countingSpawner } from "./fixture/spawn"
 import { offlineModels } from "./fixture/models"
@@ -112,7 +112,7 @@ describe("Session.create", () => {
         const clone = AbsolutePath.make(path.join(directory, "other-clone"))
         yield* Effect.promise(async () => {
           await $`git init -q ${main}`.cwd(directory)
-          await $`git -c user.name=Test -c user.email=test@opencode.test -c commit.gpgsign=false commit --allow-empty -qm root`
+          await $`git -c user.name=Test -c user.email=test@nemoracode.test -c commit.gpgsign=false commit --allow-empty -qm root`
             .cwd(main)
             .quiet()
           await $`git remote add origin git@github.com:owner/repo.git`.cwd(main)
@@ -1115,12 +1115,12 @@ describe("Session.create", () => {
         const created = yield* session.create({
           location: Location.Ref.make({ directory: AbsolutePath.make(directory) }),
         })
-        yield* session.environment({ sessionID: created.id, variables: { OPENCODE_SESSION_ENV_TEST: "attached" } })
+        yield* session.environment({ sessionID: created.id, variables: { NEMORACODE_SESSION_ENV_TEST: "attached" } })
 
         const command =
           process.platform === "win32"
-            ? "[Console]::Out.Write($env:OPENCODE_SESSION_ENV_TEST)"
-            : 'printf %s "$OPENCODE_SESSION_ENV_TEST"'
+            ? "[Console]::Out.Write($env:NEMORACODE_SESSION_ENV_TEST)"
+            : 'printf %s "$NEMORACODE_SESSION_ENV_TEST"'
         yield* session.shell({ sessionID: created.id, command })
 
         const messages = yield* session.messages({ sessionID: created.id, order: "asc" })

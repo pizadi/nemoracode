@@ -1,9 +1,9 @@
 import { describe, expect } from "bun:test"
 import { Effect } from "effect"
-import { Plugin } from "@opencode/core/plugin"
-import { PluginHost } from "@opencode/core/plugin/host"
-import { CerebrasPlugin } from "@opencode/core/plugin/provider/cerebras"
-import { Provider } from "@opencode/core/provider"
+import { Plugin } from "@nemoracode/core/plugin"
+import { PluginHost } from "@nemoracode/core/plugin/host"
+import { CerebrasPlugin } from "@nemoracode/core/plugin/provider/cerebras"
+import { Provider } from "@nemoracode/core/provider"
 import { testEffect } from "../lib/effect"
 import { PluginTestLayer } from "./fixture"
 
@@ -21,14 +21,14 @@ describe("CerebrasPlugin", () => {
       const catalog = yield* Provider.Service
       yield* catalog.transform((catalog) => {
         catalog.update(Provider.ID.make("cerebras"), (item) => {
-          item.package = "@opencode/ai/providers/cerebras"
+          item.package = "@nemoracode/ai/providers/cerebras"
           item.headers = { ...item.headers, Existing: "1" }
         })
       })
       yield* addPlugin()
       expect((yield* catalog.get(Provider.ID.make("cerebras")))?.headers).toEqual({
         Existing: "1",
-        "X-Cerebras-3rd-Party-Integration": "opencode",
+        "X-Cerebras-3rd-Party-Integration": "nemoracode",
       })
     }),
   )
@@ -48,14 +48,14 @@ describe("CerebrasPlugin", () => {
       const providerID = Provider.ID.make("custom-cerebras")
       yield* catalog.transform((catalog) => {
         catalog.update(providerID, (item) => {
-          item.package = "@opencode/ai/providers/cerebras"
+          item.package = "@nemoracode/ai/providers/cerebras"
           item.headers = { Existing: "1" }
         })
       })
       yield* addPlugin()
       expect((yield* catalog.get(providerID))?.headers).toEqual({
         Existing: "1",
-        "X-Cerebras-3rd-Party-Integration": "opencode",
+        "X-Cerebras-3rd-Party-Integration": "nemoracode",
       })
     }),
   )

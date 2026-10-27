@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@opencode/plugin",
+  "name": "@nemoracode/plugin",
   "version": "2.1.4",
   "type": "module",
   "license": "MIT",
@@ -30,21 +30,21 @@
   ],
   "dependencies": {
     "@ai-sdk/provider": "3.0.8",
-    "@opencode/ai": "workspace:*",
-    "@opencode/client": "workspace:*",
-    "@opencode/protocol": "workspace:*",
-    "@opencode/schema": "workspace:*",
-    "@opencode/util": "workspace:*",
+    "@nemoracode/ai": "workspace:*",
+    "@nemoracode/client": "workspace:*",
+    "@nemoracode/protocol": "workspace:*",
+    "@nemoracode/schema": "workspace:*",
+    "@nemoracode/util": "workspace:*",
     "effect": "catalog:"
   },
   "peerDependencies": {
-    "@opencode/theme": "workspace:*",
+    "@nemoracode/theme": "workspace:*",
     "@opentui/core": ">=0.6.8",
     "@opentui/solid": ">=0.6.8",
     "solid-js": ">=1.9.0"
   },
   "peerDependenciesMeta": {
-    "@opencode/theme": {
+    "@nemoracode/theme": {
       "optional": true
     },
     "@opentui/core": {
@@ -58,7 +58,7 @@
     }
   },
   "devDependencies": {
-    "@opencode/theme": "workspace:*",
+    "@nemoracode/theme": "workspace:*",
     "@opentui/core": "catalog:",
     "@opentui/solid": "catalog:",
     "@tsconfig/bun": "catalog:",

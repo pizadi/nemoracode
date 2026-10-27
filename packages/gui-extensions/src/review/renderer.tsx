@@ -11,7 +11,7 @@ import {
   untrack,
 } from "solid-js"
 import { createStore } from "solid-js/store"
-import type { FileDiffInfo } from "@opencode/client/promise"
+import type { FileDiffInfo } from "@nemoracode/client/promise"
 import {
   createKeyed,
   LinkHandler,

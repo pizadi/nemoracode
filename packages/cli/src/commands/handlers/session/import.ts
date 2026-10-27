@@ -1,6 +1,6 @@
-import { OpenCode } from "@opencode/client"
-import { Service } from "@opencode/client/effect/service"
-import { Session } from "@opencode/schema/session"
+import { NemoraCode } from "@nemoracode/client"
+import { Service } from "@nemoracode/client/effect/service"
+import { Session } from "@nemoracode/schema/session"
 import { Effect, Option, Schema } from "effect"
 import { EOL } from "node:os"
 import path from "node:path"
@@ -27,7 +27,7 @@ export default Runtime.handler(
       text,
     )
     const server = yield* ServerConnection.resolve()
-    const client = OpenCode.make({
+    const client = NemoraCode.make({
       baseUrl: server.endpoint.url,
       headers: Service.headers(server.endpoint),
     })

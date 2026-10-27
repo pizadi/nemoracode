@@ -3,7 +3,7 @@ title: Troubleshooting
 description: Common issues and how to resolve them.
 ---
 
-To debug issues with OpenCode, start by checking the logs and local data it stores on disk.
+To debug issues with NemoraCode, start by checking the logs and local data it stores on disk.
 
 ---
 
@@ -11,50 +11,50 @@ To debug issues with OpenCode, start by checking the logs and local data it stor
 
 CLI and server logs are written to:
 
-- **macOS/Linux**: `~/.local/share/opencode/log/opencode.log`
-- **Windows**: Press `WIN+R` and paste `%USERPROFILE%\.local\share\opencode\log`
+- **macOS/Linux**: `~/.local/share/nemoracode/log/nemoracode.log`
+- **Windows**: Press `WIN+R` and paste `%USERPROFILE%\.local\share\nemoracode\log`
 
-Logs are appended to `opencode.log`. Run `opencode debug paths` to find the log directory if you use custom XDG paths.
+Logs are appended to `nemoracode.log`. Run `nemoracode debug paths` to find the log directory if you use custom XDG paths.
 
-You can set the log level with the `--log-level` command-line option to get more detailed debug information. For example, `opencode --log-level DEBUG`.
+You can set the log level with the `--log-level` command-line option to get more detailed debug information. For example, `nemoracode --log-level DEBUG`.
 
 ---
 
 ## Storage
 
-opencode stores session data and other application data on disk at:
+nemoracode stores session data and other application data on disk at:
 
-- **macOS/Linux**: `~/.local/share/opencode/`
-- **Windows**: Press `WIN+R` and paste `%USERPROFILE%\.local\share\opencode`
+- **macOS/Linux**: `~/.local/share/nemoracode/`
+- **Windows**: Press `WIN+R` and paste `%USERPROFILE%\.local\share\nemoracode`
 
 This directory contains:
 
 - `auth.json` - Authentication data like API keys, OAuth tokens
 - `log/` - Application logs
-- `opencode.db` - SQLite database containing projects, sessions, and messages
+- `nemoracode.db` - SQLite database containing projects, sessions, and messages
 - `snapshot/` - Project snapshots used for undo
 
-Run `opencode db path` to find the active database. Custom `OPENCODE_DB` settings and development channels can use a different filename.
+Run `nemoracode db path` to find the active database. Custom `NEMORACODE_DB` settings and development channels can use a different filename.
 
 ---
 
 ## Uninstall
 
-To uninstall the OpenCode CLI and remove its related files, run:
+To uninstall the NemoraCode CLI and remove its related files, run:
 
 ```bash
-opencode uninstall
+nemoracode uninstall
 ```
 
 The command shows what will be removed and asks for confirmation. See the [CLI reference](/docs/cli#uninstall) for options to keep your configuration or application data.
 
-To remove OpenCode Desktop, uninstall the application through your operating system's app management tools.
+To remove NemoraCode Desktop, uninstall the application through your operating system's app management tools.
 
 ---
 
 ## Desktop app
 
-OpenCode Desktop uses Electron and runs a local OpenCode server in the background. Most issues are caused by a misbehaving plugin, a corrupted cache, or a bad server setting.
+NemoraCode Desktop uses Electron and runs a local NemoraCode server in the background. Most issues are caused by a misbehaving plugin, a corrupted cache, or a bad server setting.
 
 Desktop logs are stored in timestamped directories under `logs/` in the [desktop app data directory](#reset-desktop-app-storage-last-resort).
 
@@ -62,7 +62,7 @@ Desktop logs are stored in timestamped directories under `logs/` in the [desktop
 
 - Fully quit and relaunch the app.
 - If the app shows an error screen, click **Restart** and copy the error details.
-- macOS only: `OpenCode` menu -> **Reload Webview** (helps if the UI is blank/frozen).
+- macOS only: `NemoraCode` menu -> **Reload Webview** (helps if the UI is blank/frozen).
 
 ---
 
@@ -74,9 +74,9 @@ If the desktop app is crashing on launch, hanging, or behaving strangely, start 
 
 Open your global config file and look for a `plugin` key.
 
-- **macOS/Linux**: `~/.config/opencode/opencode.jsonc` (or `~/.config/opencode/opencode.json`)
-- **macOS/Linux** (older installs): `~/.local/share/opencode/opencode.jsonc`
-- **Windows**: Press `WIN+R` and paste `%USERPROFILE%\.config\opencode\opencode.jsonc`
+- **macOS/Linux**: `~/.config/nemoracode/nemoracode.jsonc` (or `~/.config/nemoracode/nemoracode.json`)
+- **macOS/Linux** (older installs): `~/.local/share/nemoracode/nemoracode.jsonc`
+- **Windows**: Press `WIN+R` and paste `%USERPROFILE%\.config\nemoracode\nemoracode.jsonc`
 
 If you have plugins configured, temporarily disable them by removing the key or setting it to an empty array:
 
@@ -89,13 +89,13 @@ If you have plugins configured, temporarily disable them by removing the key or 
 
 #### Check plugin directories
 
-OpenCode can also load local plugins from disk. Temporarily move these out of the way (or rename the folder) and restart the desktop app:
+NemoraCode can also load local plugins from disk. Temporarily move these out of the way (or rename the folder) and restart the desktop app:
 
 - **Global plugins**
-  - **macOS/Linux**: `~/.config/opencode/plugins/`
-  - **Windows**: Press `WIN+R` and paste `%USERPROFILE%\.config\opencode\plugins`
+  - **macOS/Linux**: `~/.config/nemoracode/plugins/`
+  - **Windows**: Press `WIN+R` and paste `%USERPROFILE%\.config\nemoracode\plugins`
 - **Project plugins** (only if you use per-project config)
-  - `<your-project>/.opencode/plugins/`
+  - `<your-project>/.nemoracode/plugins/`
 
 If the app starts working again, re-enable plugins one at a time to find which one is causing the issue.
 
@@ -103,22 +103,22 @@ If the app starts working again, re-enable plugins one at a time to find which o
 
 ### Clear the cache
 
-If disabling plugins doesn't help (or a plugin install is stuck), clear the cache so OpenCode can rebuild it.
+If disabling plugins doesn't help (or a plugin install is stuck), clear the cache so NemoraCode can rebuild it.
 
-1. Quit OpenCode Desktop completely.
+1. Quit NemoraCode Desktop completely.
 2. Delete the cache directory:
 
-- **macOS**: Finder -> `Cmd+Shift+G` -> paste `~/.cache/opencode`
-- **Linux**: delete `~/.cache/opencode` (or run `rm -rf ~/.cache/opencode`)
-- **Windows**: Press `WIN+R` and paste `%USERPROFILE%\.cache\opencode`
+- **macOS**: Finder -> `Cmd+Shift+G` -> paste `~/.cache/nemoracode`
+- **Linux**: delete `~/.cache/nemoracode` (or run `rm -rf ~/.cache/nemoracode`)
+- **Windows**: Press `WIN+R` and paste `%USERPROFILE%\.cache\nemoracode`
 
-3. Restart OpenCode Desktop.
+3. Restart NemoraCode Desktop.
 
 ---
 
 ### Fix server connection issues
 
-OpenCode Desktop can either start its own local server (default) or connect to a server URL you configured.
+NemoraCode Desktop can either start its own local server (default) or connect to a server URL you configured.
 
 If you see a **"Connection Failed"** dialog (or the app never gets past the splash screen), check for a custom server URL.
 
@@ -128,13 +128,13 @@ From the Home screen, click the server name (with the status dot) to open the Se
 
 #### Remove `server.port` / `server.hostname` from your config
 
-If your `opencode.json(c)` contains a `server` section, temporarily remove it and restart the desktop app.
+If your `nemoracode.json(c)` contains a `server` section, temporarily remove it and restart the desktop app.
 
 #### Check environment variables
 
-If you have `OPENCODE_PORT` set in your environment, the desktop app will try to use that port for the local server.
+If you have `NEMORACODE_PORT` set in your environment, the desktop app will try to use that port for the local server.
 
-- Unset `OPENCODE_PORT` (or pick a free port) and restart.
+- Unset `NEMORACODE_PORT` (or pick a free port) and restart.
 
 ---
 
@@ -148,15 +148,15 @@ On Linux, some Wayland setups can cause blank windows or compositor errors.
 
 ### Windows: General performance issues
 
-If you're experiencing slow performance, file access issues, or terminal problems on Windows, try using [WSL (Windows Subsystem for Linux)](/docs/windows-wsl). WSL provides a Linux environment that works more seamlessly with OpenCode's features.
+If you're experiencing slow performance, file access issues, or terminal problems on Windows, try using [WSL (Windows Subsystem for Linux)](/docs/windows-wsl). WSL provides a Linux environment that works more seamlessly with NemoraCode's features.
 
 ---
 
 ### Notifications not showing
 
-OpenCode Desktop only shows system notifications when:
+NemoraCode Desktop only shows system notifications when:
 
-- notifications are enabled for OpenCode in your OS settings, and
+- notifications are enabled for NemoraCode in your OS settings, and
 - the app window is not focused.
 
 ---
@@ -165,25 +165,25 @@ OpenCode Desktop only shows system notifications when:
 
 If the app won't start and you can't clear settings from inside the UI, reset the desktop app's saved state.
 
-1. Quit OpenCode Desktop.
-2. Find and delete these files (they live in the OpenCode Desktop app data directory):
+1. Quit NemoraCode Desktop.
+2. Find and delete these files (they live in the NemoraCode Desktop app data directory):
 
-- `opencode.settings` (desktop settings, including the default server URL)
-- `opencode.global.dat` and `opencode.workspace.*.dat` (UI state like recent servers/projects)
+- `nemoracode.settings` (desktop settings, including the default server URL)
+- `nemoracode.global.dat` and `nemoracode.workspace.*.dat` (UI state like recent servers/projects)
 
 For the stable release, the desktop app data directory is:
 
-- **macOS**: `~/Library/Application Support/ai.opencode.desktop/`
-- **Linux**: `~/.config/ai.opencode.desktop/` (or `$XDG_CONFIG_HOME/ai.opencode.desktop/`)
-- **Windows**: `%APPDATA%\ai.opencode.desktop\`
+- **macOS**: `~/Library/Application Support/ai.nemoracode.desktop/`
+- **Linux**: `~/.config/ai.nemoracode.desktop/` (or `$XDG_CONFIG_HOME/ai.nemoracode.desktop/`)
+- **Windows**: `%APPDATA%\ai.nemoracode.desktop\`
 
-Beta and development builds use the `ai.opencode.desktop.beta` and `ai.opencode.desktop.dev` directories instead.
+Beta and development builds use the `ai.nemoracode.desktop.beta` and `ai.nemoracode.desktop.dev` directories instead.
 
 ---
 
 ## Getting help
 
-If you're experiencing issues with OpenCode:
+If you're experiencing issues with NemoraCode:
 
 1. **Report issues on GitHub**
 
@@ -207,11 +207,11 @@ Here are some common issues and how to resolve them.
 
 ---
 
-### OpenCode won't start
+### NemoraCode won't start
 
 1. Check the logs for error messages
 2. Try running with `--print-logs` to see output in the terminal
-3. Ensure you have the latest version with `opencode upgrade`
+3. Ensure you have the latest version with `nemoracode upgrade`
 
 ---
 
@@ -237,9 +237,9 @@ Examples:
 
 - `openai/gpt-6.1-sol`
 - `openrouter/google/gemini-3.8-flash`
-- `opencode/kimi-k2`
+- `nemoracode/kimi-k2`
 
-To figure out what models you have access to, run `opencode models`
+To figure out what models you have access to, run `nemoracode models`
 
 ---
 
@@ -253,10 +253,10 @@ To resolve this:
 2. If the issue persists, try clearing your stored configuration:
 
    ```bash
-   rm -rf ~/.local/share/opencode
+   rm -rf ~/.local/share/nemoracode
    ```
 
-   On Windows, press `WIN+R` and delete: `%USERPROFILE%\.local\share\opencode`
+   On Windows, press `WIN+R` and delete: `%USERPROFILE%\.local\share\nemoracode`
 
 3. Re-authenticate with your provider using the `/connect` command in the TUI.
 
@@ -264,21 +264,21 @@ To resolve this:
 
 ### AI_APICallError and provider package issues
 
-If you encounter API call errors, this may be due to outdated provider packages. opencode dynamically installs provider packages (OpenAI, Anthropic, Google, etc.) as needed and caches them locally.
+If you encounter API call errors, this may be due to outdated provider packages. nemoracode dynamically installs provider packages (OpenAI, Anthropic, Google, etc.) as needed and caches them locally.
 
 To resolve provider package issues:
 
 1. Clear the provider package cache:
 
    ```bash
-   rm -rf ~/.cache/opencode
+   rm -rf ~/.cache/nemoracode
    ```
 
-   On Windows, press `WIN+R` and delete: `%USERPROFILE%\.cache\opencode`
+   On Windows, press `WIN+R` and delete: `%USERPROFILE%\.cache\nemoracode`
 
-2. Restart opencode to reinstall the latest provider packages
+2. Restart nemoracode to reinstall the latest provider packages
 
-This will force opencode to download the most recent versions of provider packages, which often resolves compatibility issues with model parameters and API changes.
+This will force nemoracode to download the most recent versions of provider packages, which often resolves compatibility issues with model parameters and API changes.
 
 ---
 
@@ -309,4 +309,4 @@ Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
 export DISPLAY=:99.0
 ```
 
-opencode will detect if you're using Wayland and prefer `wl-clipboard`, otherwise it will try to find clipboard tools in order of: `xclip` and `xsel`.
+nemoracode will detect if you're using Wayland and prefer `wl-clipboard`, otherwise it will try to find clipboard tools in order of: `xclip` and `xsel`.

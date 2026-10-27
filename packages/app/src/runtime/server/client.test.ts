@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test"
-import type { OpenCodeEvent } from "@opencode/client/promise"
+import type { NemoraCodeEvent } from "@nemoracode/client/promise"
 import { createRoot } from "solid-js"
-import { createOpenCodeEventSource, createServerTransport } from "./client"
+import { createNemoraCodeEventSource, createServerTransport } from "./client"
 
 const permission = {
   id: "evt_permission",
@@ -15,16 +15,16 @@ const permission = {
     resources: ["src/**"],
     source: { type: "tool", messageID: "msg_1", id: "call_1" },
   },
-} satisfies Extract<OpenCodeEvent, { type: "permission.asked" }>
+} satisfies Extract<NemoraCodeEvent, { type: "permission.asked" }>
 
 function setup() {
-  return createRoot((dispose) => ({ ...createOpenCodeEventSource(), dispose }))
+  return createRoot((dispose) => ({ ...createNemoraCodeEventSource(), dispose }))
 }
 
 describe("server event stream", () => {
   test("publishes the original current event with exact data", () => {
     const server = setup()
-    const received: OpenCodeEvent[] = []
+    const received: NemoraCodeEvent[] = []
     let requestID: string | undefined
 
     server.event.on("permission.asked", (event) => {
@@ -41,16 +41,16 @@ describe("server event stream", () => {
 
   test("filters locations without changing workspace identity", () => {
     const server = setup()
-    const repo: OpenCodeEvent[] = []
-    const other: OpenCodeEvent[] = []
-    const all: OpenCodeEvent[] = []
+    const repo: NemoraCodeEvent[] = []
+    const other: NemoraCodeEvent[] = []
+    const all: NemoraCodeEvent[] = []
     let workspaceID: string | undefined
 
     const global = {
       id: "evt_connected",
       type: "server.connected",
       data: {},
-    } satisfies Extract<OpenCodeEvent, { type: "server.connected" }>
+    } satisfies Extract<NemoraCodeEvent, { type: "server.connected" }>
 
     const repoEvents = server.event.location("/repo")
     repoEvents.on("permission.asked", (event) => {
@@ -97,7 +97,7 @@ test("rotates HTTP and PTY clients together", async () => {
       version: "2.0.0-test",
       pid: 1,
       urls: [request.url],
-      paths: { tmp: "/tmp/opencode" },
+      paths: { tmp: "/tmp/nemoracode" },
     })
   }) as typeof globalThis.fetch
 
@@ -123,11 +123,11 @@ test("rotates HTTP and PTY clients together", async () => {
   expect(requests).toEqual([
     {
       url: "http://127.0.0.1:4100/api/info",
-      authorization: `Basic ${btoa("opencode:first")}`,
+      authorization: `Basic ${btoa("nemoracode:first")}`,
     },
     {
       url: "http://127.0.0.1:4200/api/info",
-      authorization: `Basic ${btoa("opencode:second")}`,
+      authorization: `Basic ${btoa("nemoracode:second")}`,
     },
   ])
 })

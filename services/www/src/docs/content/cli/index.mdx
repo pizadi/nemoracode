@@ -5,13 +5,13 @@ title: "Intro"
 Run the CLI in a project to open the full-screen terminal interface:
 
 ```bash
-opencode
+nemoracode
 ```
 
 Pass a directory to work in a different project:
 
 ```bash
-opencode ~/code/my-project
+nemoracode ~/code/my-project
 ```
 
 Suggested terminals:
@@ -26,44 +26,44 @@ palette.
 
 ## Automation
 
-Use `opencode run` to submit a prompt without opening the interactive interface. It is designed for scripts, CI jobs, and
+Use `nemoracode run` to submit a prompt without opening the interactive interface. It is designed for scripts, CI jobs, and
 other workflows that need model output directly in the terminal.
 
 ```bash
-opencode run "Explain this repository"
+nemoracode run "Explain this repository"
 ```
 
 ## Mini
 
-Use `opencode mini` to start OpenCode's minimal interactive interface instead of the full-screen TUI.
+Use `nemoracode mini` to start NemoraCode's minimal interactive interface instead of the full-screen TUI.
 
 ```bash
-opencode mini
+nemoracode mini
 ```
 
-Run `opencode mini --help` to see its session, model, agent, prompt, and replay options.
+Run `nemoracode mini --help` to see its session, model, agent, prompt, and replay options.
 
 ## Background service
 
-By default, OpenCode discovers or starts one shared background server for your user account. Every local OpenCode client
+By default, NemoraCode discovers or starts one shared background server for your user account. Every local NemoraCode client
 connects to that server, which owns sessions, configuration, integrations, permissions, and tool execution.
 
 Use `--standalone` to run with a private server, or `--server` to connect to a specific server URL:
 
 ```bash
-opencode --standalone
-opencode --server http://localhost:4096
+nemoracode --standalone
+nemoracode --server http://localhost:4096
 ```
 
 To make private servers the default for CLI commands instead of starting the shared service, disable it:
 
 ```bash
-opencode service set disabled true
-opencode
+nemoracode service set disabled true
+nemoracode
 ```
 
-This stops the running background service. `--server` still connects to an explicitly selected server; `opencode service start`
-can still start the shared service explicitly. To return to automatic service use, run `opencode service unset disabled`.
+This stops the running background service. `--server` still connects to an explicitly selected server; `nemoracode service start`
+can still start the shared service explicitly. To return to automatic service use, run `nemoracode service unset disabled`.
 Pairing requires the shared service and is unavailable while it is disabled.
 
 See [Troubleshooting](/troubleshooting) for shared service diagnostics and the [API reference](/api) for server endpoints.
@@ -73,18 +73,18 @@ See [Troubleshooting](/troubleshooting) for shared service diagnostics and the [
 Print a specific local path for use with other tools:
 
 ```bash
-opencode debug paths db
-sqlite3 "$(opencode debug paths db)"
+nemoracode debug paths db
+sqlite3 "$(nemoracode debug paths db)"
 ```
 
 The optional selector accepts `db`, `home`, `data`, `config`, `cache`, `state`, `tmp`, `bin`, `log`, or `repos` and prints
-only the path and a newline. The database path respects the release channel and `OPENCODE_DB`; relative database overrides
+only the path and a newline. The database path respects the release channel and `NEMORACODE_DB`; relative database overrides
 resolve under the data directory, and `:memory:` is printed as-is. This command does not start a server or open the database.
 
 Omit the selector to show all paths with labels:
 
 ```bash
-opencode debug paths
+nemoracode debug paths
 ```
 
 ## Uninstall
@@ -92,11 +92,11 @@ opencode debug paths
 Preview the files and installation that will be removed:
 
 ```bash
-opencode uninstall --dry-run
+nemoracode uninstall --dry-run
 ```
 
-Run `opencode uninstall` to confirm removal. OpenCode stops registered background services and persistent terminals before
-removing the global cache directory, which is shared by OpenCode versions and channels. Session data, configuration, and
+Run `nemoracode uninstall` to confirm removal. NemoraCode stops registered background services and persistent terminals before
+removing the global cache directory, which is shared by NemoraCode versions and channels. Session data, configuration, and
 state are never removed.
 
 - `--force` (`-f`) skips confirmation; use it for noninteractive removal.

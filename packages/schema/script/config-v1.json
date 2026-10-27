@@ -31,7 +31,7 @@
         },
         "mdnsDomain": {
           "type": "string",
-          "description": "Custom domain name for mDNS service (default: opencode.local)"
+          "description": "Custom domain name for mDNS service (default: nemoracode.local)"
         },
         "cors": {
           "type": "array",
@@ -801,7 +801,7 @@
         },
         "server": {
           "$ref": "#/$defs/ServerConfig",
-          "description": "Server configuration for opencode serve and web commands"
+          "description": "Server configuration for nemoracode serve and web commands"
         },
         "command": {
           "type": "object",
@@ -954,7 +954,7 @@
               ]
             }
           ],
-          "description": "Check for new versions and show an update notice. Updates are never installed automatically; run /update or `opencode upgrade`. Set to false to disable update checks. true and 'notify' behave the same"
+          "description": "Check for new versions and show an update notice. Updates are never installed automatically; run /update or `nemoracode upgrade`. Set to false to disable update checks. true and 'notify' behave the same"
         },
         "disabled_providers": {
           "type": "array",

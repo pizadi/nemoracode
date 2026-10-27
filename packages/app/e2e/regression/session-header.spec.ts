@@ -1,4 +1,4 @@
-import type { SessionMessageInfo } from "@opencode/client/promise"
+import type { SessionMessageInfo } from "@nemoracode/client/promise"
 import { expect, test, type Page } from "@playwright/test"
 import { seed, sessionHref } from "../utils/app"
 import { fixture, mockStressTimeline } from "../utils/session-fixture"
@@ -262,7 +262,7 @@ test.describe("revert", () => {
       id: "msg_first_reply",
       type: "assistant",
       agent: "build",
-      model: { id: "test", providerID: "opencode" },
+      model: { id: "test", providerID: "nemoracode" },
       content: [{ type: "text", text: "First reply" }],
       time: { created: 2, completed: 3 },
     },

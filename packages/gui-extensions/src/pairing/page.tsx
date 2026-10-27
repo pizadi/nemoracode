@@ -1,7 +1,7 @@
-import { Button } from "@opencode/ui/button"
-import { Dialog, DialogBody, DialogHeader, DialogTitleGroup } from "@opencode/ui/dialog"
-import { Spinner } from "@opencode/ui/spinner"
-import { Switch } from "@opencode/ui/switch"
+import { Button } from "@nemoracode/ui/button"
+import { Dialog, DialogBody, DialogHeader, DialogTitleGroup } from "@nemoracode/ui/dialog"
+import { Spinner } from "@nemoracode/ui/spinner"
+import { Switch } from "@nemoracode/ui/switch"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/solid-query"
 import { createMemo, createSignal, onCleanup, Show, type Accessor, type JSX } from "solid-js"
 import { renderSVG } from "uqr"
@@ -225,7 +225,7 @@ function DialogPairing(props: {
   const system = ctx.system
 
   // The service attaches the tunnel in the background after it starts, so ask until the server advertises it, for
-  // about three minutes, as `opencode pair --remote` waits.
+  // about three minutes, as `nemoracode pair --remote` waits.
   const tunnel = useQuery(() => ({
     queryKey: [ctx.id, "tunnel"],
     queryFn: (input) => props.tunnel(input.signal),
@@ -300,7 +300,7 @@ function DialogPairing(props: {
     </button>
   )
 
-  // The QR code carries the remote address as `opencode pair --remote` prints it, {"code","urls"} JSON, which the
+  // The QR code carries the remote address as `nemoracode pair --remote` prints it, {"code","urls"} JSON, which the
   // app's scanner reads.
   const qr = createMemo(() => {
     if (!code.isSuccess || !tunnel.isSuccess) return

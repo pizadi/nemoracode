@@ -1,5 +1,5 @@
-import { define } from "@opencode/plugin/effect/plugin"
-import { Form } from "@opencode/schema/form"
+import { define } from "@nemoracode/plugin/effect/plugin"
+import { Form } from "@nemoracode/schema/form"
 import { Clock, Deferred, Effect, Option, Schema, Stream } from "effect"
 import { HttpClient, HttpClientRequest, HttpClientResponse } from "effect/http"
 import { App } from "../../app.js"
@@ -35,7 +35,7 @@ const decodeError = Schema.decodeUnknownOption(
 )
 
 export const SnowflakeCortexPlugin = define({
-  id: "opencode.provider.snowflake.cortex",
+  id: "nemoracode.provider.snowflake.cortex",
   effect: Effect.fn(function* (ctx) {
     const http = yield* HttpClient.HttpClient
     const credentials = yield* Credential.Service

@@ -1,14 +1,14 @@
-import { LLM } from "@opencode/ai/effect"
-import { LLMClient, RequestExecutor } from "@opencode/ai/route"
-import { Credential } from "@opencode/core/credential"
-import { Integration } from "@opencode/core/integration"
-import { Model } from "@opencode/core/model"
-import { ModelResolver } from "@opencode/core/model-resolver"
-import { Plugin } from "@opencode/core/plugin"
-import { PluginHost } from "@opencode/core/plugin/host"
-import { ProviderPlugins } from "@opencode/core/plugin/provider"
-import { PoePlugin } from "@opencode/core/plugin/provider/poe"
-import { Provider } from "@opencode/core/provider"
+import { LLM } from "@nemoracode/ai/effect"
+import { LLMClient, RequestExecutor } from "@nemoracode/ai/route"
+import { Credential } from "@nemoracode/core/credential"
+import { Integration } from "@nemoracode/core/integration"
+import { Model } from "@nemoracode/core/model"
+import { ModelResolver } from "@nemoracode/core/model-resolver"
+import { Plugin } from "@nemoracode/core/plugin"
+import { PluginHost } from "@nemoracode/core/plugin/host"
+import { ProviderPlugins } from "@nemoracode/core/plugin/provider"
+import { PoePlugin } from "@nemoracode/core/plugin/provider/poe"
+import { Provider } from "@nemoracode/core/provider"
 import { expect } from "bun:test"
 import { Clock, Deferred, Effect, Fiber, Layer, Schedule, Stream } from "effect"
 import { TestClock } from "effect/testing"
@@ -42,7 +42,7 @@ const fixture = Effect.gen(function* () {
   })
   yield* providers.transform((editor) => {
     editor.update(providerID, (provider) => {
-      provider.package = "@opencode/ai/providers/openai-compatible"
+      provider.package = "@nemoracode/ai/providers/openai-compatible"
       provider.settings = { baseURL: "https://api.poe.com/v1" }
     })
     editor.models.update(providerID, modelID, () => {})

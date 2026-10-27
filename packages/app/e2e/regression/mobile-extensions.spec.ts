@@ -200,7 +200,7 @@ test("mobile changes summarize expanded diffs, stage comments, wrap by setting, 
 
   const storedWrap = () =>
     page.evaluate(
-      () => JSON.parse(localStorage.getItem("opencode.global.dat:extension.review.mobileDiff") ?? "{}").wrap,
+      () => JSON.parse(localStorage.getItem("nemoracode.global.dat:extension.review.mobileDiff") ?? "{}").wrap,
     )
 
   await expect(wrap).toBeChecked()

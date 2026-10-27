@@ -15,10 +15,10 @@ const listing = (overrides: Record<string, unknown> = {}) => ({
 })
 
 describe("stealth model specs", () => {
-  test("reads public specs for stealth models from OpenCode provider listings", () => {
+  test("reads public specs for stealth models from NemoraCode provider listings", () => {
     const catalog = buildModelCatalog([], {
-      opencode: {
-        id: "opencode",
+      nemoracode: {
+        id: "nemoracode",
         models: { "exo-free": listing(), "gpt-5-nano": listing({ id: "gpt-5-nano" }) },
       },
       "nano-gpt": { id: "nano-gpt", models: { "stealth/exo-alpha": listing({ limit: { context: 1 } }) } },
@@ -34,17 +34,17 @@ describe("stealth model specs", () => {
     })
   })
 
-  test("prefers the opencode listing over opencode-go", () => {
+  test("prefers the nemoracode listing over nemoracode-go", () => {
     const catalog = buildModelCatalog([], {
-      opencode: { models: { "exo-free": listing() } },
-      "opencode-go": { models: { "exo-free": listing({ release_date: "2026-01-01" }) } },
+      nemoracode: { models: { "exo-free": listing() } },
+      "nemoracode-go": { models: { "exo-free": listing({ release_date: "2026-01-01" }) } },
     })
 
     expect(catalog.stealthSpecs["exo"]?.releaseDate).toBe("2026-09-23")
   })
 
   test("leaves stealth models out of the lab catalog", () => {
-    const catalog = buildModelCatalog([], { opencode: { models: { "exo-free": listing() } } })
+    const catalog = buildModelCatalog([], { nemoracode: { models: { "exo-free": listing() } } })
 
     expect(catalog.models).toEqual([])
     expect(catalog.labs).toEqual([])

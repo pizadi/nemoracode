@@ -933,7 +933,7 @@ describe("Gemini route", () => {
           promptTokenCount: 5,
           candidatesTokenCount: 2,
           cost: 0,
-          opencode: { allowance: 0.0042 },
+          nemoracode: { allowance: 0.0042 },
         },
       })
       const response = yield* LLMClient.generate(request).pipe(Effect.provide(fixedResponse(body)))

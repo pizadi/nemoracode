@@ -1,12 +1,12 @@
 export * as ConfigFormatterPlugin from "./formatter.js"
 
-import { define } from "@opencode/plugin/effect/plugin"
-import type { Entry } from "@opencode/schema/config"
-import type { ConfigFormatter } from "@opencode/schema/config/formatter"
-import { FSUtil } from "@opencode/util/fs-util"
-import { Global } from "@opencode/util/global"
-import { Npm } from "@opencode/util/npm"
-import { AppProcess } from "@opencode/util/process"
+import { define } from "@nemoracode/plugin/effect/plugin"
+import type { Entry } from "@nemoracode/schema/config"
+import type { ConfigFormatter } from "@nemoracode/schema/config/formatter"
+import { FSUtil } from "@nemoracode/util/fs-util"
+import { Global } from "@nemoracode/util/global"
+import { Npm } from "@nemoracode/util/npm"
+import { AppProcess } from "@nemoracode/util/process"
 import { Effect } from "effect"
 import { Config } from "../../config.js"
 import { Formatter } from "../../formatter.js"
@@ -15,7 +15,7 @@ import { Location } from "../../location.js"
 import { ConfigEntryObserver } from "./entry-observer.js"
 
 export const Plugin = define({
-  id: "opencode.config.formatter",
+  id: "nemoracode.config.formatter",
   effect: Effect.fn(function* (ctx) {
     const config = yield* Config.Service
     const formatter = yield* Formatter.Service

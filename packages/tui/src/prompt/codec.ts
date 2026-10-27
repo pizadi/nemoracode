@@ -1,5 +1,5 @@
-import type { Prompt, PromptInput } from "@opencode/schema"
-import { Skill } from "@opencode/schema/skill"
+import type { Prompt, PromptInput } from "@nemoracode/schema"
+import { Skill } from "@nemoracode/schema/skill"
 import type { Types } from "effect"
 
 export type EditablePromptInput = Types.DeepMutable<PromptInput.Prompt>

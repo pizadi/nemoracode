@@ -1,12 +1,12 @@
 {
-  "name": "@opencode/desktop",
+  "name": "@nemoracode/desktop",
   "private": true,
   "version": "2.1.4",
   "type": "module",
   "license": "MIT",
   "homepage": "https://opencode.ai",
   "author": {
-    "name": "OpenCode",
+    "name": "NemoraCode",
     "email": "hello@opencode.ai"
   },
   "scripts": {
@@ -36,11 +36,11 @@
     "@brendonovich/vite-plugin-opencode": "0.1.3",
     "@effect/platform-node": "catalog:",
     "@lydell/node-pty": "catalog:",
-    "@opencode/app": "workspace:*",
-    "@opencode/gui-extensions": "workspace:*",
-    "@opencode/client": "workspace:*",
-    "@opencode/schema": "workspace:*",
-    "@opencode/ui": "workspace:*",
+    "@nemoracode/app": "workspace:*",
+    "@nemoracode/gui-extensions": "workspace:*",
+    "@nemoracode/client": "workspace:*",
+    "@nemoracode/schema": "workspace:*",
+    "@nemoracode/ui": "workspace:*",
     "@sentry/solid": "catalog:",
     "@sentry/vite-plugin": "catalog:",
     "@solidjs/router": "catalog:",

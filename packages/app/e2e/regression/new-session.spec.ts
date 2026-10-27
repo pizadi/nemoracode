@@ -1,12 +1,12 @@
 import { expect, test, type Locator, type Page } from "@playwright/test"
-import type { OpenCodeEvent, WorktreeDirectory } from "@opencode/client/promise"
+import type { NemoraCodeEvent, WorktreeDirectory } from "@nemoracode/client/promise"
 import { draftHref, expectPath, provider, sessionHref } from "../utils/app"
 import type { MockAnswer } from "../utils/mock-server"
 import { openDraft, openSession, openWorktreeDraft, type WorkspaceInput } from "../utils/workspace"
 
-const directory = "C:/OpenCode/WorkspacePending"
+const directory = "C:/NemoraCode/WorkspacePending"
 
-const workspace = "C:/OpenCode/pending-workspace"
+const workspace = "C:/NemoraCode/pending-workspace"
 
 const projectID = "proj_workspace_pending"
 
@@ -27,7 +27,7 @@ const submit = (page: Page) => page.locator('[data-action="composer-submit"]')
 const tabLink = (page: Page, sessionID: string) =>
   page.locator(`[data-titlebar-tab-link][href="${sessionHref(sessionID)}"]`)
 
-// A draft on the local project (C:/OpenCode/WorkspacePending) beside one other session tab.
+// A draft on the local project (C:/NemoraCode/WorkspacePending) beside one other session tab.
 const pendingDraft = {
   name: "WorkspacePending",
   draftID,
@@ -396,7 +396,7 @@ test("executes a selected slash command after creating its worktree", async ({ p
         inboxID: "msg_workspace_review",
         item: { type: "user", payload: { text: expanded }, delivery: "steer" },
       },
-    } as OpenCodeEvent,
+    } as NemoraCodeEvent,
   ])
   await expect(pending.shimmer).toHaveCount(0)
   await expect(page.locator('[data-slot="user-message-text"]')).toHaveText(expanded)
@@ -406,7 +406,7 @@ test("executes a selected slash command after creating its worktree", async ({ p
   expect(mock.prompts).toEqual([])
 })
 
-const accentRoot = "C:/OpenCode/WorkspaceAccent"
+const accentRoot = "C:/NemoraCode/WorkspaceAccent"
 
 const accentWorkspace = `${accentRoot}/.worktrees/feature`
 
@@ -414,7 +414,7 @@ for (const row of [
   { name: "a managed worktree", directory: accentWorkspace, accent: true },
   {
     name: "the main root written with Windows case and separators",
-    directory: "c:\\OPENCODE\\workspaceaccent\\",
+    directory: "c:\\NEMORACODE\\workspaceaccent\\",
     accent: false,
   },
 ]) {
@@ -438,7 +438,7 @@ for (const row of [
         {
           id: "ses_workspace_accent",
           title: "Workspace accent",
-          model: { id: "accent-model", providerID: "opencode" },
+          model: { id: "accent-model", providerID: "nemoracode" },
         },
       ],
       pageMessages: () => ({
@@ -482,7 +482,7 @@ for (const row of [
         type: "worktree.updated",
         data: { projectID: "proj_workspaceaccent" },
       },
-    ] as OpenCodeEvent[])
+    ] as NemoraCodeEvent[])
     expect((await refreshed).ok()).toBe(true)
     await expect(page).toHaveURL(url)
     await expect(view.editor).toHaveText("Inspect this fixture workspace.")
@@ -495,7 +495,7 @@ for (const row of [
         durable: { aggregateID: "ses_workspace_accent", seq: 1, version: 1 },
         data: { sessionID: "ses_workspace_accent" },
       },
-    ] as OpenCodeEvent[])
+    ] as NemoraCodeEvent[])
     await view.editor.fill("")
     const stop = composer.getByRole("button", { name: "Stop", exact: true })
     await expect(stop).toBeEnabled()
@@ -511,7 +511,7 @@ function renamed(sessionID: string) {
     location: { directory: workspace },
     durable: { aggregateID: sessionID, seq: 1, version: 1 },
     data: { sessionID, title: "Generated session title" },
-  } as OpenCodeEvent
+  } as NemoraCodeEvent
 }
 
 async function draftFollowUp(page: Page) {

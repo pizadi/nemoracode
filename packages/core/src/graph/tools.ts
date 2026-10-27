@@ -1,7 +1,7 @@
 export * as GraphTools from "./tools.js"
 
-import type { Context } from "@opencode/plugin/effect/plugin"
-import { Message, ToolFailure } from "@opencode/ai/effect"
+import type { Context } from "@nemoracode/plugin/effect/plugin"
+import { Message, ToolFailure } from "@nemoracode/ai/effect"
 import { Effect, Result, Schema } from "effect"
 import { mkdirSync, readFileSync, existsSync } from "node:fs"
 import { join } from "node:path"
@@ -285,7 +285,7 @@ const InputSpawnSubtree = Schema.Struct({
 // --- the plugin ----------------------------------------------------------------------
 
 export const Plugin = {
-  id: "opencode.graph",
+  id: "nemoracode.graph",
   effect: Effect.fn("GraphPlugin.Plugin")(function* (ctx: Context) {
     const graph = yield* GraphService.Service
     if (!graph.enabled) return

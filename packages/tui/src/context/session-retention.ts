@@ -1,1 +1,1 @@
-export { createSessionRetention } from "@opencode/client/solid"
+export { createSessionRetention } from "@nemoracode/client/solid"

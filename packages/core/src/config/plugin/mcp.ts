@@ -1,14 +1,14 @@
 export * as ConfigMcpPlugin from "./mcp.js"
 
-import { define } from "@opencode/plugin/effect/plugin"
-import { Document, type Entry } from "@opencode/schema/config"
-import type { ServerConfig } from "@opencode/schema/mcp"
+import { define } from "@nemoracode/plugin/effect/plugin"
+import { Document, type Entry } from "@nemoracode/schema/config"
+import type { ServerConfig } from "@nemoracode/schema/mcp"
 import { Effect, Stream } from "effect"
 import { Config } from "../../config.js"
 import { Mcp } from "../../mcp/index.js"
 
 export const Plugin = define({
-  id: "opencode.config.mcp",
+  id: "nemoracode.config.mcp",
   effect: Effect.fn(function* (ctx) {
     yield* register(ctx.event.subscribe())
   }),

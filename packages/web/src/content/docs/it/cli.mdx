@@ -1,30 +1,30 @@
 ---
 title: CLI
-description: Opzioni e comandi della CLI di OpenCode.
+description: Opzioni e comandi della CLI di NemoraCode.
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components"
 
-La CLI di OpenCode, per impostazione predefinita, avvia la [TUI](/docs/tui) quando viene eseguita senza argomenti.
+La CLI di NemoraCode, per impostazione predefinita, avvia la [TUI](/docs/tui) quando viene eseguita senza argomenti.
 
 ```bash
-opencode
+nemoracode
 ```
 
-Ma accetta anche i comandi documentati in questa pagina. Questo ti permette di interagire con OpenCode in modo programmatico.
+Ma accetta anche i comandi documentati in questa pagina. Questo ti permette di interagire con NemoraCode in modo programmatico.
 
 ```bash
-opencode run "Explain how closures work in JavaScript"
+nemoracode run "Explain how closures work in JavaScript"
 ```
 
 ---
 
 ### tui
 
-Avvia l'interfaccia testuale di OpenCode (interfaccia utente da terminale).
+Avvia l'interfaccia testuale di NemoraCode (interfaccia utente da terminale).
 
 ```bash
-opencode [project]
+nemoracode [project]
 ```
 
 #### Flag
@@ -44,26 +44,26 @@ opencode [project]
 
 ## Comandi
 
-La CLI di OpenCode include anche i seguenti comandi.
+La CLI di NemoraCode include anche i seguenti comandi.
 
 ---
 
 ### attach
 
-Collega un terminale a un backend server di OpenCode già in esecuzione avviato tramite i comandi `serve` o `web`.
+Collega un terminale a un backend server di NemoraCode già in esecuzione avviato tramite i comandi `serve` o `web`.
 
 ```bash
-opencode attach [url]
+nemoracode attach [url]
 ```
 
-Questo consente di usare la TUI con un backend OpenCode remoto. Per esempio:
+Questo consente di usare la TUI con un backend NemoraCode remoto. Per esempio:
 
 ```bash
 # Start the backend server for web/mobile access
-opencode web --port 4096 --hostname 0.0.0.0
+nemoracode web --port 4096 --hostname 0.0.0.0
 
 # In un altro terminale, collega la TUI al backend in esecuzione
-opencode attach http://10.20.30.40:4096
+nemoracode attach http://10.20.30.40:4096
 ```
 
 #### Flag
@@ -74,8 +74,8 @@ opencode attach http://10.20.30.40:4096
 | <nobr><code>{"--continue"}</code></nobr> | `-c`  | Continua l'ultima sessione                                                                      |
 | <nobr><code>{"--session"}</code></nobr>  | `-s`  | ID sessione da continuare                                                                       |
 | <nobr><code>{"--fork"}</code></nobr>     |       | Crea un fork della sessione durante la continuazione (usa con `--continue` o `--session`)       |
-| <nobr><code>{"--password"}</code></nobr> | `-p`  | Password per l'autenticazione di base (predefinita: `OPENCODE_SERVER_PASSWORD`)                 |
-| <nobr><code>{"--username"}</code></nobr> | `-u`  | Nome utente per l'autenticazione di base (predefinito: `OPENCODE_SERVER_USERNAME` o `opencode`) |
+| <nobr><code>{"--password"}</code></nobr> | `-p`  | Password per l'autenticazione di base (predefinita: `NEMORACODE_SERVER_PASSWORD`)                 |
+| <nobr><code>{"--username"}</code></nobr> | `-u`  | Nome utente per l'autenticazione di base (predefinito: `NEMORACODE_SERVER_USERNAME` o `nemoracode`) |
 
 ---
 
@@ -84,20 +84,20 @@ opencode attach http://10.20.30.40:4096
 Comando per gestire le credenziali e il login dei provider.
 
 ```bash
-opencode auth [command]
+nemoracode auth [command]
 ```
 
 ---
 
 #### login
 
-OpenCode si basa sull'elenco provider di [Models.dev](https://models.dev), quindi puoi usare `opencode auth login` per configurare le API key per qualunque provider tu voglia usare. Le credenziali vengono salvate in `~/.local/share/opencode/auth.json`.
+NemoraCode si basa sull'elenco provider di [Models.dev](https://models.dev), quindi puoi usare `nemoracode auth login` per configurare le API key per qualunque provider tu voglia usare. Le credenziali vengono salvate in `~/.local/share/nemoracode/auth.json`.
 
 ```bash
-opencode auth login
+nemoracode auth login
 ```
 
-Quando OpenCode si avvia, carica i provider dal file delle credenziali e, se presenti, anche eventuali key definite nell'ambiente o in un file `.env` nel progetto.
+Quando NemoraCode si avvia, carica i provider dal file delle credenziali e, se presenti, anche eventuali key definite nell'ambiente o in un file `.env` nel progetto.
 
 ---
 
@@ -106,13 +106,13 @@ Quando OpenCode si avvia, carica i provider dal file delle credenziali e, se pre
 Elenca tutti i provider autenticati come salvati nel file delle credenziali.
 
 ```bash
-opencode auth list
+nemoracode auth list
 ```
 
 Oppure la versione corta.
 
 ```bash
-opencode auth ls
+nemoracode auth ls
 ```
 
 ---
@@ -122,7 +122,7 @@ opencode auth ls
 Esegue il logout da un provider rimuovendolo dal file delle credenziali.
 
 ```bash
-opencode auth logout
+nemoracode auth logout
 ```
 
 ---
@@ -132,7 +132,7 @@ opencode auth logout
 Gestisci l'agente GitHub per l'automazione dei repository.
 
 ```bash
-opencode github [command]
+nemoracode github [command]
 ```
 
 ---
@@ -142,7 +142,7 @@ opencode github [command]
 Installa l'agente GitHub nel tuo repository.
 
 ```bash
-opencode github install
+nemoracode github install
 ```
 
 Questo configura il workflow GitHub Actions necessario e ti guida nel processo di configurazione. [Scopri di più](/docs/github).
@@ -154,7 +154,7 @@ Questo configura il workflow GitHub Actions necessario e ti guida nel processo d
 Esegui l'agente GitHub. Tipicamente usato in GitHub Actions.
 
 ```bash
-opencode github run
+nemoracode github run
 ```
 
 ##### Flag
@@ -171,7 +171,7 @@ opencode github run
 Gestisci i server Model Context Protocol.
 
 ```bash
-opencode mcp [command]
+nemoracode mcp [command]
 ```
 
 ---
@@ -181,7 +181,7 @@ opencode mcp [command]
 Aggiungi un server MCP alla tua configurazione.
 
 ```bash
-opencode mcp add
+nemoracode mcp add
 ```
 
 Questo comando ti guida nell'aggiunta di un server MCP locale o remoto.
@@ -193,13 +193,13 @@ Questo comando ti guida nell'aggiunta di un server MCP locale o remoto.
 Elenca tutti i server MCP configurati e il loro stato di connessione.
 
 ```bash
-opencode mcp list
+nemoracode mcp list
 ```
 
 Oppure la versione corta.
 
 ```bash
-opencode mcp ls
+nemoracode mcp ls
 ```
 
 ---
@@ -209,7 +209,7 @@ opencode mcp ls
 Autentica con un server MCP con OAuth abilitato.
 
 ```bash
-opencode mcp auth [name]
+nemoracode mcp auth [name]
 ```
 
 Se non fornisci un nome server, ti verrà chiesto di selezionare tra i server OAuth-capable disponibili.
@@ -217,13 +217,13 @@ Se non fornisci un nome server, ti verrà chiesto di selezionare tra i server OA
 Puoi anche elencare i server OAuth-capable e il loro stato di autenticazione.
 
 ```bash
-opencode mcp auth list
+nemoracode mcp auth list
 ```
 
 Oppure la versione corta.
 
 ```bash
-opencode mcp auth ls
+nemoracode mcp auth ls
 ```
 
 ---
@@ -233,7 +233,7 @@ opencode mcp auth ls
 Rimuovi le credenziali OAuth per un server MCP.
 
 ```bash
-opencode mcp logout [name]
+nemoracode mcp logout [name]
 ```
 
 ---
@@ -243,7 +243,7 @@ opencode mcp logout [name]
 Esegui debug di problemi di connessione OAuth per un server MCP.
 
 ```bash
-opencode mcp debug <name>
+nemoracode mcp debug <name>
 ```
 
 ---
@@ -253,7 +253,7 @@ opencode mcp debug <name>
 Elenca tutti i modelli disponibili dai provider configurati.
 
 ```bash
-opencode models [provider]
+nemoracode models [provider]
 ```
 
 Questo comando mostra tutti i modelli disponibili tra i provider configurati nel formato `provider/model`.
@@ -263,7 +263,7 @@ Questo comando mostra tutti i modelli disponibili tra i provider configurati nel
 Puoi anche passare opzionalmente un ID provider per filtrare i modelli a quel provider.
 
 ```bash
-opencode models anthropic
+nemoracode models anthropic
 ```
 
 #### Flag
@@ -273,36 +273,36 @@ opencode models anthropic
 | <nobr><code>{"--refresh"}</code></nobr> | Aggiorna la cache modelli da models.dev            |
 | <nobr><code>{"--verbose"}</code></nobr> | Output più verboso (include metadati come i costi) |
 
-Usa `--refresh` per aggiornare l'elenco modelli in cache. È utile quando nuovi modelli vengono aggiunti a un provider e vuoi vederli in OpenCode.
+Usa `--refresh` per aggiornare l'elenco modelli in cache. È utile quando nuovi modelli vengono aggiunti a un provider e vuoi vederli in NemoraCode.
 
 ```bash
-opencode models --refresh
+nemoracode models --refresh
 ```
 
 ---
 
 ### run
 
-Esegui opencode in modalità non interattiva passando un prompt direttamente.
+Esegui nemoracode in modalità non interattiva passando un prompt direttamente.
 
 ```bash
-opencode run [message..]
+nemoracode run [message..]
 ```
 
 È utile per scripting, automazione o quando vuoi una risposta rapida senza avviare la TUI completa. Per esempio:
 
-```bash "opencode run"
-opencode run Explain the use of context in Go
+```bash "nemoracode run"
+nemoracode run Explain the use of context in Go
 ```
 
-Puoi anche collegarti a una istanza `opencode serve` già in esecuzione per evitare i cold boot dei server MCP ad ogni esecuzione:
+Puoi anche collegarti a una istanza `nemoracode serve` già in esecuzione per evitare i cold boot dei server MCP ad ogni esecuzione:
 
 ```bash
 # Avvia un server headless in un terminale
-opencode serve
+nemoracode serve
 
 # In un altro terminale, esegui comandi che si collegano ad esso
-opencode run --attach http://localhost:4096 "Explain async/await in JavaScript"
+nemoracode run --attach http://localhost:4096 "Explain async/await in JavaScript"
 ```
 
 #### Flag
@@ -318,9 +318,9 @@ opencode run --attach http://localhost:4096 "Explain async/await in JavaScript"
 | <nobr><code>{"--file"}</code></nobr>     | `-f`  | File da allegare al messaggio                                                                   |
 | <nobr><code>{"--format"}</code></nobr>   |       | Formato: default (formattato) o json (eventi JSON grezzi)                                       |
 | <nobr><code>{"--title"}</code></nobr>    |       | Titolo sessione (usa prompt troncato se non viene fornito un valore)                            |
-| <nobr><code>{"--attach"}</code></nobr>   |       | Attach a un server opencode in esecuzione (es. http://localhost:4096)                           |
-| <nobr><code>{"--password"}</code></nobr> | `-p`  | Password per l'autenticazione di base (predefinita: `OPENCODE_SERVER_PASSWORD`)                 |
-| <nobr><code>{"--username"}</code></nobr> | `-u`  | Nome utente per l'autenticazione di base (predefinito: `OPENCODE_SERVER_USERNAME` o `opencode`) |
+| <nobr><code>{"--attach"}</code></nobr>   |       | Attach a un server nemoracode in esecuzione (es. http://localhost:4096)                           |
+| <nobr><code>{"--password"}</code></nobr> | `-p`  | Password per l'autenticazione di base (predefinita: `NEMORACODE_SERVER_PASSWORD`)                 |
+| <nobr><code>{"--username"}</code></nobr> | `-u`  | Nome utente per l'autenticazione di base (predefinito: `NEMORACODE_SERVER_USERNAME` o `nemoracode`) |
 | <nobr><code>{"--dir"}</code></nobr>      |       | Directory di esecuzione, o percorso sul server remoto durante il collegamento                   |
 | <nobr><code>{"--variant"}</code></nobr>  |       | Variante del modello (sforzo di ragionamento specifico del provider)                            |
 | <nobr><code>{"--thinking"}</code></nobr> |       | Mostra blocchi di pensiero                                                                      |
@@ -330,13 +330,13 @@ opencode run --attach http://localhost:4096 "Explain async/await in JavaScript"
 
 ### serve
 
-Avvia un server OpenCode headless per accesso via API. Vedi le [server docs](/docs/server) per l'interfaccia HTTP completa.
+Avvia un server NemoraCode headless per accesso via API. Vedi le [server docs](/docs/server) per l'interfaccia HTTP completa.
 
 ```bash
-opencode serve
+nemoracode serve
 ```
 
-Avvia un server HTTP che espone accesso API alle funzionalità di opencode senza la TUI. Imposta `OPENCODE_SERVER_PASSWORD` per abilitare HTTP basic auth (username di default `opencode`).
+Avvia un server HTTP che espone accesso API alle funzionalità di nemoracode senza la TUI. Imposta `NEMORACODE_SERVER_PASSWORD` per abilitare HTTP basic auth (username di default `nemoracode`).
 
 #### Flag
 
@@ -351,20 +351,20 @@ Avvia un server HTTP che espone accesso API alle funzionalità di opencode senza
 
 ### session
 
-Gestisci le sessioni OpenCode.
+Gestisci le sessioni NemoraCode.
 
 ```bash
-opencode session [command]
+nemoracode session [command]
 ```
 
 ---
 
 #### list
 
-Elenca tutte le sessioni OpenCode.
+Elenca tutte le sessioni NemoraCode.
 
 ```bash
-opencode session list
+nemoracode session list
 ```
 
 ##### Flag
@@ -378,10 +378,10 @@ opencode session list
 
 ### stats
 
-Mostra statistiche di utilizzo token e costo per le sessioni OpenCode.
+Mostra statistiche di utilizzo token e costo per le sessioni NemoraCode.
 
 ```bash
-opencode stats
+nemoracode stats
 ```
 
 #### Flag
@@ -400,7 +400,7 @@ opencode stats
 Esporta i dati di sessione come JSON.
 
 ```bash
-opencode export [sessionID]
+nemoracode export [sessionID]
 ```
 
 Se non fornisci un ID sessione, ti verrà chiesto di selezionare tra le sessioni disponibili.
@@ -412,24 +412,24 @@ Se non fornisci un ID sessione, ti verrà chiesto di selezionare tra le sessioni
 Importa i dati di sessione da un file JSON.
 
 ```bash
-opencode import <file>
+nemoracode import <file>
 ```
 
 ```bash
-opencode import session.json
+nemoracode import session.json
 ```
 
 ---
 
 ### web
 
-Avvia un server OpenCode headless con interfaccia web.
+Avvia un server NemoraCode headless con interfaccia web.
 
 ```bash
-opencode web
+nemoracode web
 ```
 
-Avvia un server HTTP e apre un browser per accedere a OpenCode tramite interfaccia web. Imposta `OPENCODE_SERVER_PASSWORD` per abilitare HTTP basic auth (username di default `opencode`).
+Avvia un server HTTP e apre un browser per accedere a NemoraCode tramite interfaccia web. Imposta `NEMORACODE_SERVER_PASSWORD` per abilitare HTTP basic auth (username di default `nemoracode`).
 
 #### Flag
 
@@ -447,7 +447,7 @@ Avvia un server HTTP e apre un browser per accedere a OpenCode tramite interfacc
 Avvia un server ACP (Agent Client Protocol).
 
 ```bash
-opencode acp
+nemoracode acp
 ```
 
 Questo comando avvia un server ACP che comunica via stdin/stdout usando nd-JSON.
@@ -464,10 +464,10 @@ Questo comando avvia un server ACP che comunica via stdin/stdout usando nd-JSON.
 
 ### uninstall
 
-Disinstalla OpenCode e rimuove tutti i file correlati.
+Disinstalla NemoraCode e rimuove tutti i file correlati.
 
 ```bash
-opencode uninstall
+nemoracode uninstall
 ```
 
 #### Flag
@@ -483,22 +483,22 @@ opencode uninstall
 
 ### upgrade
 
-Aggiorna opencode all'ultima versione o a una versione specifica.
+Aggiorna nemoracode all'ultima versione o a una versione specifica.
 
 ```bash
-opencode upgrade [target]
+nemoracode upgrade [target]
 ```
 
 Per aggiornare all'ultima versione:
 
 ```bash
-opencode upgrade
+nemoracode upgrade
 ```
 
 Per aggiornare a una versione specifica:
 
 ```bash
-opencode upgrade v0.1.48
+nemoracode upgrade v0.1.48
 ```
 
 #### Flag
@@ -511,7 +511,7 @@ opencode upgrade v0.1.48
 
 ## Flag globali
 
-La CLI di opencode accetta i seguenti flag globali.
+La CLI di nemoracode accetta i seguenti flag globali.
 
 | Flag                                       | Breve | Descrizione                            |
 | ------------------------------------------ | ----- | -------------------------------------- |
@@ -524,33 +524,33 @@ La CLI di opencode accetta i seguenti flag globali.
 
 ## Variabili d'ambiente
 
-OpenCode può essere configurato tramite variabili d'ambiente.
+NemoraCode può essere configurato tramite variabili d'ambiente.
 
 | Variabile                             | Tipo    | Descrizione                                                 |
 | ------------------------------------- | ------- | ----------------------------------------------------------- |
-| `OPENCODE_GIT_BASH_PATH`              | string  | Percorso all'eseguibile Git Bash su Windows                 |
-| `OPENCODE_CONFIG`                     | string  | Percorso al file di configurazione                          |
-| `OPENCODE_TUI_CONFIG`                 | string  | Percorso al file di configurazione TUI                      |
-| `OPENCODE_CONFIG_DIR`                 | string  | Percorso alla directory di configurazione                   |
-| `OPENCODE_CONFIG_CONTENT`             | string  | Contenuto JSON di config inline                             |
-| `OPENCODE_DISABLE_AUTOUPDATE`         | boolean | Disabilita i controlli automatici di aggiornamento          |
-| `OPENCODE_DISABLE_PRUNE`              | boolean | Disabilita la potatura dei dati vecchi                      |
-| `OPENCODE_DISABLE_TERMINAL_TITLE`     | boolean | Disabilita aggiornamenti automatici del titolo terminale    |
-| `OPENCODE_PERMISSION`                 | string  | Config permessi JSON inline                                 |
-| `OPENCODE_DISABLE_DEFAULT_PLUGINS`    | boolean | Disabilita i plugin di default                              |
-| `OPENCODE_DISABLE_LSP_DOWNLOAD`       | boolean | Disabilita download automatico dei server LSP               |
-| `OPENCODE_ENABLE_EXPERIMENTAL_MODELS` | boolean | Abilita modelli sperimentali                                |
-| `OPENCODE_DISABLE_AUTOCOMPACT`        | boolean | Disabilita compaction automatica del contesto               |
-| `OPENCODE_DISABLE_CLAUDE_CODE`        | boolean | Disabilita lettura da `.claude` (prompt + skill)            |
-| `OPENCODE_DISABLE_CLAUDE_CODE_PROMPT` | boolean | Disabilita lettura di `~/.claude/CLAUDE.md`                 |
-| `OPENCODE_DISABLE_CLAUDE_CODE_SKILLS` | boolean | Disabilita caricamento di `.claude/skills`                  |
-| `OPENCODE_DISABLE_MODELS_FETCH`       | boolean | Disabilita fetch dei modelli da fonti remote                |
-| `OPENCODE_FAKE_VCS`                   | string  | Provider VCS finto per scopi di test                        |
-| `OPENCODE_CLIENT`                     | string  | Identificatore client (default `cli`)                       |
-| `OPENCODE_ENABLE_EXA`                 | boolean | Abilita gli strumenti di web search Exa                     |
-| `OPENCODE_SERVER_PASSWORD`            | string  | Abilita basic auth per `serve`/`web`                        |
-| `OPENCODE_SERVER_USERNAME`            | string  | Sovrascrive lo username basic auth (default `opencode`)     |
-| `OPENCODE_MODELS_URL`                 | string  | URL personalizzato per recuperare la configurazione modelli |
+| `NEMORACODE_GIT_BASH_PATH`              | string  | Percorso all'eseguibile Git Bash su Windows                 |
+| `NEMORACODE_CONFIG`                     | string  | Percorso al file di configurazione                          |
+| `NEMORACODE_TUI_CONFIG`                 | string  | Percorso al file di configurazione TUI                      |
+| `NEMORACODE_CONFIG_DIR`                 | string  | Percorso alla directory di configurazione                   |
+| `NEMORACODE_CONFIG_CONTENT`             | string  | Contenuto JSON di config inline                             |
+| `NEMORACODE_DISABLE_AUTOUPDATE`         | boolean | Disabilita i controlli automatici di aggiornamento          |
+| `NEMORACODE_DISABLE_PRUNE`              | boolean | Disabilita la potatura dei dati vecchi                      |
+| `NEMORACODE_DISABLE_TERMINAL_TITLE`     | boolean | Disabilita aggiornamenti automatici del titolo terminale    |
+| `NEMORACODE_PERMISSION`                 | string  | Config permessi JSON inline                                 |
+| `NEMORACODE_DISABLE_DEFAULT_PLUGINS`    | boolean | Disabilita i plugin di default                              |
+| `NEMORACODE_DISABLE_LSP_DOWNLOAD`       | boolean | Disabilita download automatico dei server LSP               |
+| `NEMORACODE_ENABLE_EXPERIMENTAL_MODELS` | boolean | Abilita modelli sperimentali                                |
+| `NEMORACODE_DISABLE_AUTOCOMPACT`        | boolean | Disabilita compaction automatica del contesto               |
+| `NEMORACODE_DISABLE_CLAUDE_CODE`        | boolean | Disabilita lettura da `.claude` (prompt + skill)            |
+| `NEMORACODE_DISABLE_CLAUDE_CODE_PROMPT` | boolean | Disabilita lettura di `~/.claude/CLAUDE.md`                 |
+| `NEMORACODE_DISABLE_CLAUDE_CODE_SKILLS` | boolean | Disabilita caricamento di `.claude/skills`                  |
+| `NEMORACODE_DISABLE_MODELS_FETCH`       | boolean | Disabilita fetch dei modelli da fonti remote                |
+| `NEMORACODE_FAKE_VCS`                   | string  | Provider VCS finto per scopi di test                        |
+| `NEMORACODE_CLIENT`                     | string  | Identificatore client (default `cli`)                       |
+| `NEMORACODE_ENABLE_EXA`                 | boolean | Abilita gli strumenti di web search Exa                     |
+| `NEMORACODE_SERVER_PASSWORD`            | string  | Abilita basic auth per `serve`/`web`                        |
+| `NEMORACODE_SERVER_USERNAME`            | string  | Sovrascrive lo username basic auth (default `nemoracode`)     |
+| `NEMORACODE_MODELS_URL`                 | string  | URL personalizzato per recuperare la configurazione modelli |
 
 ---
 
@@ -560,20 +560,20 @@ Queste variabili d'ambiente abilitano funzionalità sperimentali che potrebbero 
 
 | Variabile                                       | Tipo    | Descrizione                                             |
 | ----------------------------------------------- | ------- | ------------------------------------------------------- |
-| `OPENCODE_EXPERIMENTAL`                         | boolean | Abilita funzionalità sperimentali sotto il flag globale |
-| `OPENCODE_EXPERIMENTAL_ICON_DISCOVERY`          | boolean | Abilita icon discovery                                  |
-| `OPENCODE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolean | Disabilita copy on select nella TUI                     |
-| `OPENCODE_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | number  | Timeout di default per comandi bash in ms               |
-| `OPENCODE_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | number  | Massimo token di output per risposte LLM                |
-| `OPENCODE_EXPERIMENTAL_FILEWATCHER`             | boolean | Abilita file watcher per l'intera dir                   |
-| `OPENCODE_EXPERIMENTAL_OXFMT`                   | boolean | Abilita formatter oxfmt                                 |
-| `OPENCODE_EXPERIMENTAL_LSP_TOOL`                | boolean | Abilita strumento LSP sperimentale                      |
-| `OPENCODE_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolean | Disabilita file watcher                                 |
-| `OPENCODE_EXPERIMENTAL_EXA`                     | boolean | Abilita funzionalità Exa sperimentali                   |
-| `OPENCODE_EXPERIMENTAL_LSP_TY`                  | boolean | Abilita TY LSP per i file python                        |
-| `OPENCODE_EXPERIMENTAL_PLAN_MODE`               | boolean | Abilita plan mode                                       |
-| `OPENCODE_EXPERIMENTAL_EVENT_SYSTEM`            | boolean | Abilita sistema eventi sperimentale                     |
-| `OPENCODE_EXPERIMENTAL_NATIVE_LLM`              | boolean | Abilita percorso nativo di richiesta LLM                |
-| `OPENCODE_EXPERIMENTAL_PARALLEL`                | boolean | Abilita esecuzione parallela della ricerca web          |
-| `OPENCODE_EXPERIMENTAL_SCOUT`                   | boolean | Abilita subagent Scout                                  |
-| `OPENCODE_EXPERIMENTAL_WORKSPACES`              | boolean | Abilita supporto workspace                              |
+| `NEMORACODE_EXPERIMENTAL`                         | boolean | Abilita funzionalità sperimentali sotto il flag globale |
+| `NEMORACODE_EXPERIMENTAL_ICON_DISCOVERY`          | boolean | Abilita icon discovery                                  |
+| `NEMORACODE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolean | Disabilita copy on select nella TUI                     |
+| `NEMORACODE_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | number  | Timeout di default per comandi bash in ms               |
+| `NEMORACODE_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | number  | Massimo token di output per risposte LLM                |
+| `NEMORACODE_EXPERIMENTAL_FILEWATCHER`             | boolean | Abilita file watcher per l'intera dir                   |
+| `NEMORACODE_EXPERIMENTAL_OXFMT`                   | boolean | Abilita formatter oxfmt                                 |
+| `NEMORACODE_EXPERIMENTAL_LSP_TOOL`                | boolean | Abilita strumento LSP sperimentale                      |
+| `NEMORACODE_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolean | Disabilita file watcher                                 |
+| `NEMORACODE_EXPERIMENTAL_EXA`                     | boolean | Abilita funzionalità Exa sperimentali                   |
+| `NEMORACODE_EXPERIMENTAL_LSP_TY`                  | boolean | Abilita TY LSP per i file python                        |
+| `NEMORACODE_EXPERIMENTAL_PLAN_MODE`               | boolean | Abilita plan mode                                       |
+| `NEMORACODE_EXPERIMENTAL_EVENT_SYSTEM`            | boolean | Abilita sistema eventi sperimentale                     |
+| `NEMORACODE_EXPERIMENTAL_NATIVE_LLM`              | boolean | Abilita percorso nativo di richiesta LLM                |
+| `NEMORACODE_EXPERIMENTAL_PARALLEL`                | boolean | Abilita esecuzione parallela della ricerca web          |
+| `NEMORACODE_EXPERIMENTAL_SCOUT`                   | boolean | Abilita subagent Scout                                  |
+| `NEMORACODE_EXPERIMENTAL_WORKSPACES`              | boolean | Abilita supporto workspace                              |

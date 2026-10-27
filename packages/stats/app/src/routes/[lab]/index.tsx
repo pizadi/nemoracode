@@ -1,11 +1,11 @@
 import { Meta, Title } from "@solidjs/meta"
-import { ProviderIcon } from "@opencode/ui/provider-icon"
+import { ProviderIcon } from "@nemoracode/ui/provider-icon"
 import {
   type LabUsageModelEntry,
   type MarketDay,
   type ModelUsagePoint,
   type StatsLabData,
-} from "@opencode/stats-core/domain/home"
+} from "@nemoracode/stats-core/domain/home"
 import { createAsync, query, useParams } from "@solidjs/router"
 import { createMemo, createSignal, createUniqueId, For, onMount, Show, type JSX } from "solid-js"
 import { getRequestEvent } from "solid-js/web"
@@ -122,7 +122,7 @@ export default function StatsLab() {
               <FormatLinks path={labPath()} />
               <LastModified value={stats()?.updatedAt} />
               <Meta property="og:type" content="website" />
-              <Meta property="og:site_name" content="OpenCode" />
+              <Meta property="og:site_name" content="NemoraCode" />
               <Meta property="og:title" content={labTitle()} />
               <Meta property="og:description" content={labDescription()} />
               <Meta property="og:url" content={labUrl()} />
@@ -705,7 +705,7 @@ function LabModelTooltip(props: { state: LabModelTooltipState }) {
           </span>
           <strong>{props.state.model.name}</strong>
         </div>
-        <p>{props.state.model.description ?? "Recent OpenCode usage, share, context, and output limits."}</p>
+        <p>{props.state.model.description ?? "Recent NemoraCode usage, share, context, and output limits."}</p>
       </div>
       <div data-slot="tooltip-divider" />
       <div data-slot="lab-model-tooltip-metrics">

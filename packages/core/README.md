@@ -1,3 +1,3 @@
-# @opencode/core
+# @nemoracode/core
 
-Core runtime services for OpenCode.
+Core runtime services for NemoraCode.

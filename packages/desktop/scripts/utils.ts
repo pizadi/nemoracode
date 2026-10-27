@@ -10,7 +10,7 @@ const Manifest = Schema.fromJsonString(Schema.Struct({ version: Schema.NonEmptyS
 export type Channel = "dev" | "beta" | "prod"
 
 export function resolveChannel(): Channel {
-  const raw = process.env.OPENCODE_CHANNEL
+  const raw = process.env.NEMORACODE_CHANNEL
 
   if (raw === "dev" || raw === "beta" || raw === "prod") return raw
 
@@ -22,43 +22,43 @@ export function resolveChannel(): Channel {
 export const CLI_BINARIES: Array<{ target: string; package: string; os: string; cpu: string }> = [
   {
     target: "aarch64-apple-darwin",
-    package: "@opencode/cli-darwin-arm64",
+    package: "@nemoracode/cli-darwin-arm64",
     os: "darwin",
     cpu: "arm64",
   },
   {
     target: "x86_64-apple-darwin",
-    package: "@opencode/cli-darwin-x64-baseline",
+    package: "@nemoracode/cli-darwin-x64-baseline",
     os: "darwin",
     cpu: "x64",
   },
   {
     target: "aarch64-pc-windows-msvc",
-    package: "@opencode/cli-windows-arm64",
+    package: "@nemoracode/cli-windows-arm64",
     os: "win32",
     cpu: "arm64",
   },
   {
     target: "x86_64-pc-windows-msvc",
-    package: "@opencode/cli-windows-x64-baseline",
+    package: "@nemoracode/cli-windows-x64-baseline",
     os: "win32",
     cpu: "x64",
   },
   {
     target: "x86_64-unknown-linux-gnu",
-    package: "@opencode/cli-linux-x64-baseline",
+    package: "@nemoracode/cli-linux-x64-baseline",
     os: "linux",
     cpu: "x64",
   },
   {
     target: "aarch64-unknown-linux-gnu",
-    package: "@opencode/cli-linux-arm64",
+    package: "@nemoracode/cli-linux-arm64",
     os: "linux",
     cpu: "arm64",
   },
 ]
 
-export const CLI_TARGET = process.env.OPENCODE_CLI_TARGET
+export const CLI_TARGET = process.env.NEMORACODE_CLI_TARGET
 
 function nativeTarget() {
   const { platform, arch } = process
@@ -71,7 +71,7 @@ function nativeTarget() {
   throw new Error(`Unsupported platform: ${platform}/${arch}`)
 }
 
-export function getCurrentCli(target = process.env.OPENCODE_CLI_TARGET ?? nativeTarget()) {
+export function getCurrentCli(target = process.env.NEMORACODE_CLI_TARGET ?? nativeTarget()) {
   const binaryConfig = CLI_BINARIES.find((item) => item.target === target)
 
   if (!binaryConfig) throw new Error(`CLI configuration not available for target '${target}'`)
@@ -85,10 +85,10 @@ export function nodePtyPackage(target?: string) {
   return `@lydell/node-pty-${cli.os}-${cli.cpu}`
 }
 
-export async function downloadCliToResources(version = CLI_VERSION, dest = windowsify("resources/opencode-cli")) {
+export async function downloadCliToResources(version = CLI_VERSION, dest = windowsify("resources/nemoracode-cli")) {
   const { $ } = await import("bun")
   const cli = getCurrentCli()
-  const directory = await mkdtemp(join(tmpdir(), "opencode-cli-"))
+  const directory = await mkdtemp(join(tmpdir(), "nemoracode-cli-"))
 
   try {
     await $`bun install --no-save --cwd ${directory} ${`${cli.package}@${version}`} ${`--os=${cli.os}`} ${`--cpu=${cli.cpu}`}`
@@ -100,9 +100,9 @@ export async function downloadCliToResources(version = CLI_VERSION, dest = windo
   console.log(`Copied ${cli.package}@${version} to ${dest}`)
 }
 
-export async function copyBuiltCliToResources(root: string, dest = windowsify("resources/opencode-cli")) {
+export async function copyBuiltCliToResources(root: string, dest = windowsify("resources/nemoracode-cli")) {
   const cli = getCurrentCli()
-  const directory = cli.package.replace("@opencode/", "")
+  const directory = cli.package.replace("@nemoracode/", "")
   await copyCliToResources(join(root, directory), dest)
 }
 
@@ -111,7 +111,7 @@ export async function copyBuiltCliToResources(root: string, dest = windowsify("r
 // 200 MB binary on first launch.
 async function copyCliToResources(pkg: string, dest: string) {
   const cli = getCurrentCli()
-  await copyFile(join(pkg, "bin", cli.os === "win32" ? "opencode.exe" : "opencode"), dest)
+  await copyFile(join(pkg, "bin", cli.os === "win32" ? "nemoracode.exe" : "nemoracode"), dest)
   await prepareCli(dest)
 
   const manifest = Option.getOrUndefined(
@@ -123,7 +123,7 @@ async function copyCliToResources(pkg: string, dest: string) {
 }
 
 export function versionFile(cli: string) {
-  return join(dirname(cli), "opencode-cli.version")
+  return join(dirname(cli), "nemoracode-cli.version")
 }
 
 async function prepareCli(dest: string) {

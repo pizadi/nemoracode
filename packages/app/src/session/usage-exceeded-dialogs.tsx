@@ -1,11 +1,11 @@
 import { useWorkspaceLocation } from "@/workspaces/location"
 import { Persist, persisted } from "@/runtime/persistence/storage"
-import type { SessionStatus, SessionStepFailed } from "@opencode/client/promise"
+import type { SessionStatus, SessionStepFailed } from "@nemoracode/client/promise"
 import { onCleanup } from "solid-js"
 import { Schema } from "effect"
 import { Persistence } from "@/runtime/persistence/schema"
 import { useSessionLayout } from "./session-layout"
-import { useDialog, useI18n } from "@opencode/ui/context"
+import { useDialog, useI18n } from "@nemoracode/ui/context"
 import { DialogUsageExceeded } from "@/providers/connect/usage-exceeded"
 import { GoUpsellHero } from "@/providers/connect/go-upsell-hero"
 import { useLocal, type ModelSelection } from "@/providers/models/selection"
@@ -20,7 +20,7 @@ const GO_UPSELL_ACCOUNT_RATE_LIMIT_DONT_SHOW = "go_upsell_account_rate_limit_don
 
 const GO_UPSELL_WINDOW = 86_400_000 // 24 hrs
 
-const GO_UPSELL_PROVIDERS = new Set(["opencode", "opencode-go"])
+const GO_UPSELL_PROVIDERS = new Set(["nemoracode", "nemoracode-go"])
 
 const GO_URL = "https://opencode.ai/go"
 
@@ -135,7 +135,7 @@ export function useUsageExceededDialogs(input?: {
           else {
             void import("@/providers/connect/dialog").then((x) => {
               const controller = x.useProviderConnectController()
-              controller.select("opencode-go")
+              controller.select("nemoracode-go")
               void dialog.show(() => (
                 <x.DialogConnectProvider
                   directory={sdk().directory}

@@ -2,7 +2,7 @@ import { expect } from "bun:test"
 import { Effect, Stream } from "effect"
 import { SpeechEvent } from "../../src/effect.js"
 
-export const TEXT = "Hello from OpenCode."
+export const TEXT = "Hello from NemoraCode."
 
 export const collectSpeech = <E, R>(stream: Stream.Stream<SpeechEvent, E, R>) =>
   Effect.gen(function* () {

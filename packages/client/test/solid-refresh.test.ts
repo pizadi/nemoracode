@@ -1,15 +1,15 @@
 import { expect, test } from "bun:test"
 import { createRoot } from "solid-js"
 import { createData, settleMs, type CreateDataInput } from "../src/solid"
-import { OpenCode, type OpenCodeEvent, type SessionInfo } from "../src/promise"
+import { NemoraCode, type NemoraCodeEvent, type SessionInfo } from "../src/promise"
 
 test("config reads and update refreshes are opt-in", async () => {
   const listeners = new Set<Parameters<CreateDataInput["event"]["listen"]>[0]>()
   const requests: string[] = []
   const location = { directory: "/project" }
   let model = "provider/first"
-  const api = OpenCode.make({
-    baseUrl: "http://opencode.local",
+  const api = NemoraCode.make({
+    baseUrl: "http://nemoracode.local",
     fetch: async (input, init) => {
       const request = input instanceof Request ? input : new Request(input, init)
       const url = new URL(request.url)
@@ -35,7 +35,7 @@ test("config reads and update refreshes are opt-in", async () => {
     }),
     dispose,
   }))
-  const event: OpenCodeEvent = { id: "evt_config", created: 1, type: "config.updated", location, data: {} }
+  const event: NemoraCodeEvent = { id: "evt_config", created: 1, type: "config.updated", location, data: {} }
   try {
     await setup.data.location.sync()
     listeners.forEach((listener) => listener({ name: event.type, details: event }))
@@ -66,8 +66,8 @@ test("event refreshes report failures, remain retryable, and preserve explicit r
     time: { created: 0, updated: 0, idle: 2 },
     location: { directory: "/project" },
   }
-  const api = OpenCode.make({
-    baseUrl: "http://opencode.local",
+  const api = NemoraCode.make({
+    baseUrl: "http://nemoracode.local",
     fetch: async () => {
       state.requests++
       if (state.offline) throw new TypeError("Failed to fetch")
@@ -92,7 +92,7 @@ test("event refreshes report failures, remain retryable, and preserve explicit r
     }),
     dispose,
   }))
-  const event: OpenCodeEvent = {
+  const event: NemoraCodeEvent = {
     id: "evt_refresh_failure",
     created: 2,
     type: "session.viewed",
@@ -123,8 +123,8 @@ test.each(["reconnecting", "disposed"] as const)("background reads respect %s ow
   const pending = Promise.withResolvers<Response>()
   const errors: unknown[] = []
   const state = { requests: 0 }
-  const api = OpenCode.make({
-    baseUrl: "http://opencode.local",
+  const api = NemoraCode.make({
+    baseUrl: "http://nemoracode.local",
     fetch: () => {
       state.requests++
       return pending.promise
@@ -146,7 +146,7 @@ test.each(["reconnecting", "disposed"] as const)("background reads respect %s ow
     }),
     dispose,
   }))
-  const event: OpenCodeEvent = {
+  const event: NemoraCodeEvent = {
     id: "evt_refresh_owner",
     type: "command.updated",
     location: { directory: "/project" },
@@ -170,8 +170,8 @@ test("a burst of mcp.status.changed events refetches the server list once it set
   const listeners = new Set<Parameters<CreateDataInput["event"]["listen"]>[0]>()
   const requests: string[] = []
   const location = { directory: "/project" }
-  const api = OpenCode.make({
-    baseUrl: "http://opencode.local",
+  const api = NemoraCode.make({
+    baseUrl: "http://nemoracode.local",
     fetch: async (input, init) => {
       const request = input instanceof Request ? input : new Request(input, init)
       requests.push(new URL(request.url).pathname)
@@ -196,7 +196,7 @@ test("a burst of mcp.status.changed events refetches the server list once it set
     await setup.data.location.mcp.server.sync()
     expect(requests.filter((path) => path === "/api/mcp")).toHaveLength(1)
     for (const server of ["a", "b", "c", "d", "e"]) {
-      const event: OpenCodeEvent = { id: `evt_${server}`, created: 1, type: "mcp.status.changed", location, data: { server } }
+      const event: NemoraCodeEvent = { id: `evt_${server}`, created: 1, type: "mcp.status.changed", location, data: { server } }
       listeners.forEach((listener) => listener({ name: event.type, details: event }))
     }
     expect(requests.filter((path) => path === "/api/mcp")).toHaveLength(1)
@@ -210,8 +210,8 @@ test("a burst of mcp.status.changed events refetches the server list once it set
 test("invalidations that land before a queued reload starts are absorbed by it", async () => {
   const pending: Array<PromiseWithResolvers<Response>> = []
   const location = { directory: "/project" }
-  const api = OpenCode.make({
-    baseUrl: "http://opencode.local",
+  const api = NemoraCode.make({
+    baseUrl: "http://nemoracode.local",
     fetch: () => {
       const deferred = Promise.withResolvers<Response>()
       pending.push(deferred)

@@ -25,7 +25,7 @@ function renderer(events: string[] = []) {
 
 test("rejects when the external editor cannot start", async () => {
   delete process.env.VISUAL
-  process.env.EDITOR = "opencode-editor-that-does-not-exist"
+  process.env.EDITOR = "nemoracode-editor-that-does-not-exist"
 
   await expect(openEditor({ value: "original", renderer: renderer() as never })).rejects.toThrow()
 })

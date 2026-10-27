@@ -1,5 +1,5 @@
-import type { WebSearch } from "@opencode/schema/websearch"
-import type { WebSearchApi } from "@opencode/client/promise/api"
+import type { WebSearch } from "@nemoracode/schema/websearch"
+import type { WebSearchApi } from "@nemoracode/client/promise/api"
 import type { Transform } from "./registration.js"
 
 export interface WebSearchDefinition {

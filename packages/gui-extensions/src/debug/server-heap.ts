@@ -1,4 +1,4 @@
-import { ClientError, OpenCode } from "@opencode/client/promise"
+import { ClientError, NemoraCode } from "@nemoracode/client/promise"
 import { Predicate } from "effect"
 import path from "node:path"
 import type { ServerEndpoint } from "../sdk/main"
@@ -35,7 +35,7 @@ export async function captureServer(
 ): Promise<ServerSnapshot> {
   if (!endpoint) return { process: "server", error: "The server is not running." }
 
-  return OpenCode.make({ baseUrl: endpoint.url, headers: endpoint.headers })
+  return NemoraCode.make({ baseUrl: endpoint.url, headers: endpoint.headers })
     .debug.heapDump({ directory }, { signal })
     .then(
       (snapshot): ServerSnapshot =>

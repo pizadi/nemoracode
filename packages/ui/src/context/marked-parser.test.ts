@@ -5,7 +5,7 @@ import { parseSmallMarkdown } from "./marked-base"
 const parser = createMarkdownParser()
 
 test.each([
-  ["OpenCode", "OpenCode"],
+  ["NemoraCode", "NemoraCode"],
   ["**`#123`**", "<strong><code>#123</code></strong>"],
   ["*Review* ~~draft~~", "<em>Review</em> <del>draft</del>"],
   ["`<example>`", "<code>&lt;example&gt;</code>"],

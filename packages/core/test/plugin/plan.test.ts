@@ -1,21 +1,21 @@
 import { describe, expect } from "bun:test"
-import { Message, ToolFailure } from "@opencode/ai/effect"
+import { Message, ToolFailure } from "@nemoracode/ai/effect"
 import { DateTime, Effect, Option, Stream, Types } from "effect"
-import type { SessionContext } from "@opencode/plugin/effect/session"
-import type { ToolHooks } from "@opencode/plugin/effect/tool"
-import { Agent } from "@opencode/core/agent"
-import { Environment } from "@opencode/core/environment/index"
-import { Event } from "@opencode/schema/event"
-import { Model } from "@opencode/core/model"
-import { PlanPlugin } from "@opencode/core/plugin/plan"
-import { Permission } from "@opencode/core/permission"
-import { Provider } from "@opencode/core/provider"
-import { Session } from "@opencode/core/session"
-import { SessionEvent } from "@opencode/core/session/event"
-import { SessionInbox } from "@opencode/core/session/inbox"
-import { SessionMessage } from "@opencode/core/session/message"
-import { Tool } from "@opencode/schema/tool"
-import { Global } from "@opencode/util/global"
+import type { SessionContext } from "@nemoracode/plugin/effect/session"
+import type { ToolHooks } from "@nemoracode/plugin/effect/tool"
+import { Agent } from "@nemoracode/core/agent"
+import { Environment } from "@nemoracode/core/environment/index"
+import { Event } from "@nemoracode/schema/event"
+import { Model } from "@nemoracode/core/model"
+import { PlanPlugin } from "@nemoracode/core/plugin/plan"
+import { Permission } from "@nemoracode/core/permission"
+import { Provider } from "@nemoracode/core/provider"
+import { Session } from "@nemoracode/core/session"
+import { SessionEvent } from "@nemoracode/core/session/event"
+import { SessionInbox } from "@nemoracode/core/session/inbox"
+import { SessionMessage } from "@nemoracode/core/session/message"
+import { Tool } from "@nemoracode/schema/tool"
+import { Global } from "@nemoracode/util/global"
 import path from "path"
 import { it } from "../lib/effect"
 import { host } from "./host"
@@ -24,7 +24,7 @@ const sessionID = Session.ID.make("ses_plan_test")
 const plan = Agent.ID.make("plan")
 const build = Agent.ID.make("build")
 const home = "/home/plan-test"
-const planDirectory = path.join(home, ".opencode", "plan")
+const planDirectory = path.join(home, ".nemoracode", "plan")
 
 const agentSelected = (agent: Agent.ID, previous: Agent.ID): SessionEvent.AgentSelected => ({
   id: Event.ID.create(),

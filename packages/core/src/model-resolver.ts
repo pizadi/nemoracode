@@ -1,15 +1,15 @@
 export * as ModelResolver from "./model-resolver.js"
 
-import { makeLocationNode } from "@opencode/util/effect/app-node"
-import { HttpOptions, LanguageModel, mergeHttpOptions, ProviderConfigurationError } from "@opencode/ai/effect"
-import { Auth } from "@opencode/ai/route"
+import { makeLocationNode } from "@nemoracode/util/effect/app-node"
+import { HttpOptions, LanguageModel, mergeHttpOptions, ProviderConfigurationError } from "@nemoracode/ai/effect"
+import { Auth } from "@nemoracode/ai/route"
 import { Context, Effect, Layer, Schema, Struct } from "effect"
 import { AISDK } from "./aisdk.js"
 import { Credential } from "./credential.js"
 import { Integration } from "./integration.js"
 import { Capabilities, ID, Info, Model, Ref, VariantID } from "./model.js"
 import type { RuntimeInfo } from "./model.js"
-import { Npm } from "@opencode/util/npm"
+import { Npm } from "@nemoracode/util/npm"
 import { Provider } from "./provider.js"
 
 export class VariantUnavailableError extends Schema.TaggedError<VariantUnavailableError>()(
@@ -131,7 +131,7 @@ export interface Interface {
   readonly resolveModel: (model: Info, variant?: VariantID) => Effect.Effect<Resolved, Error>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/ModelResolver") {}
+export class Service extends Context.Service<Service, Interface>()("@nemoracode/ModelResolver") {}
 
 // Variant resolution adds request-local overlays without changing the committed model snapshot.
 export const withVariant = (
@@ -314,7 +314,7 @@ const nativeCredentialSettings = (model: RuntimeInfo, specifier: string, credent
   if (credential.type === "key") return { apiKey: credential.key }
   if (credential.type === "oauth") return tokenSettings(specifier, credential.access)
   // The saved profile reaches the package through metadata; SigV4 keeps an ambient bearer token from taking over.
-  if (specifier.startsWith("@opencode/ai/providers/amazon-bedrock")) return { auth: "sigv4" }
+  if (specifier.startsWith("@nemoracode/ai/providers/amazon-bedrock")) return { auth: "sigv4" }
   // The Azure plugin's request hooks replace this with an Entra ID token from the Azure CLI; it only gets the
   // request past the package's own credential check.
   if (model.providerID === Provider.ID.azure) return tokenSettings(specifier, "azure-cli")
@@ -322,11 +322,11 @@ const nativeCredentialSettings = (model: RuntimeInfo, specifier: string, credent
 }
 
 const tokenSettings = (specifier: string, token: string) => {
-  if (specifier === "@opencode/ai/providers/anthropic" || specifier === "@opencode/ai/providers/anthropic-compatible")
+  if (specifier === "@nemoracode/ai/providers/anthropic" || specifier === "@nemoracode/ai/providers/anthropic-compatible")
     return { authToken: token }
   if (
-    specifier === "@opencode/ai/providers/google-vertex" ||
-    specifier.startsWith("@opencode/ai/providers/google-vertex/")
+    specifier === "@nemoracode/ai/providers/google-vertex" ||
+    specifier.startsWith("@nemoracode/ai/providers/google-vertex/")
   )
     return { accessToken: token }
   return { apiKey: token }
@@ -456,28 +456,28 @@ function usesAPIKeyAuth(packageName: string | undefined) {
     name === "@ai-sdk/xai" ||
     name === "@openrouter/ai-sdk-provider" ||
     name === "@ai-sdk/azure" ||
-    name === "@opencode/ai/providers/openai" ||
-    name?.startsWith("@opencode/ai/providers/openai/") === true ||
-    name === "@opencode/ai/providers/anthropic" ||
-    name === "@opencode/ai/providers/anthropic-compatible" ||
-    name === "@opencode/ai/providers/baseten" ||
-    name === "@opencode/ai/providers/cerebras" ||
-    name === "@opencode/ai/providers/cloudflare-ai-gateway" ||
-    name === "@opencode/ai/providers/cloudflare-workers-ai" ||
-    name === "@opencode/ai/providers/deepinfra" ||
-    name === "@opencode/ai/providers/deepseek" ||
-    name === "@opencode/ai/providers/fireworks" ||
-    name === "@opencode/ai/providers/openai-compatible" ||
-    name === "@opencode/ai/providers/google" ||
-    name === "@opencode/ai/providers/google/interactions" ||
-    name === "@opencode/ai/providers/groq" ||
-    name === "@opencode/ai/providers/mistral" ||
-    name === "@opencode/ai/providers/togetherai" ||
-    name === "@opencode/ai/providers/vercel-ai-gateway" ||
-    name === "@opencode/ai/providers/xai" ||
-    name === "@opencode/ai/providers/openrouter" ||
-    name === "@opencode/ai/providers/azure" ||
-    name?.startsWith("@opencode/ai/providers/azure/") === true
+    name === "@nemoracode/ai/providers/openai" ||
+    name?.startsWith("@nemoracode/ai/providers/openai/") === true ||
+    name === "@nemoracode/ai/providers/anthropic" ||
+    name === "@nemoracode/ai/providers/anthropic-compatible" ||
+    name === "@nemoracode/ai/providers/baseten" ||
+    name === "@nemoracode/ai/providers/cerebras" ||
+    name === "@nemoracode/ai/providers/cloudflare-ai-gateway" ||
+    name === "@nemoracode/ai/providers/cloudflare-workers-ai" ||
+    name === "@nemoracode/ai/providers/deepinfra" ||
+    name === "@nemoracode/ai/providers/deepseek" ||
+    name === "@nemoracode/ai/providers/fireworks" ||
+    name === "@nemoracode/ai/providers/openai-compatible" ||
+    name === "@nemoracode/ai/providers/google" ||
+    name === "@nemoracode/ai/providers/google/interactions" ||
+    name === "@nemoracode/ai/providers/groq" ||
+    name === "@nemoracode/ai/providers/mistral" ||
+    name === "@nemoracode/ai/providers/togetherai" ||
+    name === "@nemoracode/ai/providers/vercel-ai-gateway" ||
+    name === "@nemoracode/ai/providers/xai" ||
+    name === "@nemoracode/ai/providers/openrouter" ||
+    name === "@nemoracode/ai/providers/azure" ||
+    name?.startsWith("@nemoracode/ai/providers/azure/") === true
   )
 }
 

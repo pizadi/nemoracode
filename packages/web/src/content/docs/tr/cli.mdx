@@ -1,30 +1,30 @@
 ---
 title: CLI
-description: opencode CLI seçenekleri ve komutları.
+description: nemoracode CLI seçenekleri ve komutları.
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components"
 
-opencode CLI herhangi bir argüman olmadan çalıştırıldığında varsayılan olarak [TUI](/docs/tui)'yi başlatır.
+nemoracode CLI herhangi bir argüman olmadan çalıştırıldığında varsayılan olarak [TUI](/docs/tui)'yi başlatır.
 
 ```bash
-opencode
+nemoracode
 ```
 
-Ancak bu sayfada belgelendiği gibi komutları da kabul eder. Bu, opencode ile programlı olarak etkileşim kurmanıza olanak tanır.
+Ancak bu sayfada belgelendiği gibi komutları da kabul eder. Bu, nemoracode ile programlı olarak etkileşim kurmanıza olanak tanır.
 
 ```bash
-opencode run "Explain how closures work in JavaScript"
+nemoracode run "Explain how closures work in JavaScript"
 ```
 
 ---
 
 ### tui
 
-opencode terminal kullanıcı arayüzünü başlatır.
+nemoracode terminal kullanıcı arayüzünü başlatır.
 
 ```bash
-opencode [project]
+nemoracode [project]
 ```
 
 #### Bayraklar
@@ -44,26 +44,26 @@ opencode [project]
 
 ## Komutlar
 
-opencode CLI ayrıca aşağıdaki komutlara da sahiptir.
+nemoracode CLI ayrıca aşağıdaki komutlara da sahiptir.
 
 ---
 
 ### attach
 
-`serve` veya `web` komutlarıyla başlatılan, halihazırda çalışan bir opencode arka uç sunucusuna bir terminal ekleyin.
+`serve` veya `web` komutlarıyla başlatılan, halihazırda çalışan bir nemoracode arka uç sunucusuna bir terminal ekleyin.
 
 ```bash
-opencode attach [url]
+nemoracode attach [url]
 ```
 
-Bu, TUI öğesinin uzak bir opencode arka ucuyla kullanılmasına olanak tanır. Örneğin:
+Bu, TUI öğesinin uzak bir nemoracode arka ucuyla kullanılmasına olanak tanır. Örneğin:
 
 ```bash
 # Start the backend server for web/mobile access
-opencode web --port 4096 --hostname 0.0.0.0
+nemoracode web --port 4096 --hostname 0.0.0.0
 
 # In another terminal, attach the TUI to the running backend
-opencode attach http://10.20.30.40:4096
+nemoracode attach http://10.20.30.40:4096
 ```
 
 #### Bayraklar
@@ -74,8 +74,8 @@ opencode attach http://10.20.30.40:4096
 | <nobr><code>{"--continue"}</code></nobr> | `-c` | Son oturuma devam et                                                                          |
 | <nobr><code>{"--session"}</code></nobr>  | `-s` | Devam edecek oturum açma bilgileri                                                            |
 | <nobr><code>{"--fork"}</code></nobr>     |      | Devam ederken oturumu çatalla (`--continue` veya `--session` ile kullanın)                    |
-| <nobr><code>{"--password"}</code></nobr> | `-p` | Temel kimlik doğrulama parolası (varsayılan: `OPENCODE_SERVER_PASSWORD`)                      |
-| <nobr><code>{"--username"}</code></nobr> | `-u` | Temel kimlik doğrulama kullanıcı adı (varsayılan: `OPENCODE_SERVER_USERNAME` veya `opencode`) |
+| <nobr><code>{"--password"}</code></nobr> | `-p` | Temel kimlik doğrulama parolası (varsayılan: `NEMORACODE_SERVER_PASSWORD`)                      |
+| <nobr><code>{"--username"}</code></nobr> | `-u` | Temel kimlik doğrulama kullanıcı adı (varsayılan: `NEMORACODE_SERVER_USERNAME` veya `nemoracode`) |
 
 ---
 
@@ -84,20 +84,20 @@ opencode attach http://10.20.30.40:4096
 Sağlayıcılar için kimlik bilgilerini ve oturum açmayı yönetme komutu.
 
 ```bash
-opencode auth [command]
+nemoracode auth [command]
 ```
 
 ---
 
 #### login
 
-opencode, [Models.dev](https://models.dev) adresindeki sağlayıcı listesi tarafından desteklenmektedir, dolayısıyla kullanmak istediğiniz herhangi bir sağlayıcı için API anahtarlarını ayarlamak üzere `opencode auth login` kullanabilirsiniz. Bu `~/.local/share/opencode/auth.json`'de saklanıyor.
+nemoracode, [Models.dev](https://models.dev) adresindeki sağlayıcı listesi tarafından desteklenmektedir, dolayısıyla kullanmak istediğiniz herhangi bir sağlayıcı için API anahtarlarını ayarlamak üzere `nemoracode auth login` kullanabilirsiniz. Bu `~/.local/share/nemoracode/auth.json`'de saklanıyor.
 
 ```bash
-opencode auth login
+nemoracode auth login
 ```
 
-opencode başlatıldığında sağlayıcıları kimlik bilgileri dosyasından yükler. Ayrıca ortam değişkenlerindeki veya projenizdeki `.env` dosyasındaki anahtarları da kullanır.
+nemoracode başlatıldığında sağlayıcıları kimlik bilgileri dosyasından yükler. Ayrıca ortam değişkenlerindeki veya projenizdeki `.env` dosyasındaki anahtarları da kullanır.
 
 ---
 
@@ -106,13 +106,13 @@ opencode başlatıldığında sağlayıcıları kimlik bilgileri dosyasından y�
 Kimlik bilgileri dosyasında depolanan tüm kimliği doğrulanmış sağlayıcıları listeler.
 
 ```bash
-opencode auth list
+nemoracode auth list
 ```
 
 Veya kısa versiyonu.
 
 ```bash
-opencode auth ls
+nemoracode auth ls
 ```
 
 ---
@@ -122,7 +122,7 @@ opencode auth ls
 Bir sağlayıcıyı kimlik bilgileri dosyasından temizleyerek oturumunuzu kapatır.
 
 ```bash
-opencode auth logout
+nemoracode auth logout
 ```
 
 ---
@@ -132,7 +132,7 @@ opencode auth logout
 Depo otomasyonu için GitHub aracısını yönetin.
 
 ```bash
-opencode github [command]
+nemoracode github [command]
 ```
 
 ---
@@ -142,7 +142,7 @@ opencode github [command]
 GitHub aracısını deponuza yükleyin.
 
 ```bash
-opencode github install
+nemoracode github install
 ```
 
 Bu komut gerekli GitHub Actions workflow'unu kurar ve yapılandırma adımlarında size rehberlik eder. [Daha fazla bilgi](/docs/github).
@@ -154,7 +154,7 @@ Bu komut gerekli GitHub Actions workflow'unu kurar ve yapılandırma adımların
 GitHub aracısını çalıştırın. Bu genellikle GitHub Eylemlerinde kullanılır.
 
 ```bash
-opencode github run
+nemoracode github run
 ```
 
 ##### Bayraklar
@@ -171,7 +171,7 @@ opencode github run
 Model Bağlam Protokolü sunucularını yönetin.
 
 ```bash
-opencode mcp [command]
+nemoracode mcp [command]
 ```
 
 ---
@@ -181,7 +181,7 @@ opencode mcp [command]
 Yapılandırmanıza bir MCP sunucusu ekleyin.
 
 ```bash
-opencode mcp add
+nemoracode mcp add
 ```
 
 Bu komut, yerel veya uzak bir MCP sunucusu ekleme konusunda size yol gösterecektir.
@@ -193,13 +193,13 @@ Bu komut, yerel veya uzak bir MCP sunucusu ekleme konusunda size yol gösterecek
 Yapılandırılmış tüm MCP sunucularını ve bağlantı durumlarını listeleyin.
 
 ```bash
-opencode mcp list
+nemoracode mcp list
 ```
 
 Veya kısa versiyonunu kullanın.
 
 ```bash
-opencode mcp ls
+nemoracode mcp ls
 ```
 
 ---
@@ -209,7 +209,7 @@ opencode mcp ls
 OAuth'un etkin olduğu bir MCP sunucusuyla kimlik doğrulaması yapın.
 
 ```bash
-opencode mcp auth [name]
+nemoracode mcp auth [name]
 ```
 
 Sunucu adı belirtmezseniz mevcut OAuth özellikli sunucular arasından seçim yapmanız istenir.
@@ -217,13 +217,13 @@ Sunucu adı belirtmezseniz mevcut OAuth özellikli sunucular arasından seçim y
 Ayrıca OAuth özellikli sunucuları ve bunların kimlik doğrulama durumlarını da listeleyebilirsiniz.
 
 ```bash
-opencode mcp auth list
+nemoracode mcp auth list
 ```
 
 Veya kısa versiyonunu kullanın.
 
 ```bash
-opencode mcp auth ls
+nemoracode mcp auth ls
 ```
 
 ---
@@ -233,7 +233,7 @@ opencode mcp auth ls
 MCP sunucusu için OAuth kimlik bilgilerini kaldırın.
 
 ```bash
-opencode mcp logout [name]
+nemoracode mcp logout [name]
 ```
 
 ---
@@ -243,7 +243,7 @@ opencode mcp logout [name]
 MCP sunucusu için OAuth bağlantı sorunlarının hatalarını ayıklayın.
 
 ```bash
-opencode mcp debug <name>
+nemoracode mcp debug <name>
 ```
 
 ---
@@ -253,7 +253,7 @@ opencode mcp debug <name>
 Yapılandırılmış sağlayıcıların tüm mevcut modellerini listeleyin.
 
 ```bash
-opencode models [provider]
+nemoracode models [provider]
 ```
 
 Bu komut, yapılandırdığınız sağlayıcılardaki modelleri `provider/model` formatında listeler.
@@ -263,7 +263,7 @@ Bu, [config dosyanızda](/docs/config/) kullanmanız gereken tam model adını b
 Modelleri bu sağlayıcıya göre filtrelemek için isteğe bağlı olarak bir sağlayıcı kimliğini iletebilirsiniz.
 
 ```bash
-opencode models anthropic
+nemoracode models anthropic
 ```
 
 #### Bayraklar
@@ -273,36 +273,36 @@ opencode models anthropic
 | <nobr><code>{"--refresh"}</code></nobr> | Modeller.dev'den model önbelleğini yenileyin                                |
 | <nobr><code>{"--verbose"}</code></nobr> | Daha ayrıntılı model çıktısı kullanın (maliyetler gibi meta veriler içerir) |
 
-Önbelleğe alınan model listesini güncellemek için `--refresh` bayrağını kullanın. Bu, bir sağlayıcıya yeni modeller eklendiğinde ve bunları opencode'da görmek istediğinizde kullanışlıdır.
+Önbelleğe alınan model listesini güncellemek için `--refresh` bayrağını kullanın. Bu, bir sağlayıcıya yeni modeller eklendiğinde ve bunları nemoracode'da görmek istediğinizde kullanışlıdır.
 
 ```bash
-opencode models --refresh
+nemoracode models --refresh
 ```
 
 ---
 
 ### run
 
-Doğrudan bir istem ileterek opencode'u etkileşimli olmayan modda çalıştırın.
+Doğrudan bir istem ileterek nemoracode'u etkileşimli olmayan modda çalıştırın.
 
 ```bash
-opencode run [message..]
+nemoracode run [message..]
 ```
 
 Bu, komut dosyası oluşturma, otomasyon veya TUI'un tamamını başlatmadan hızlı bir yanıt istediğinizde kullanışlıdır. Örneğin.
 
-```bash "opencode run"
-opencode run Explain the use of context in Go
+```bash "nemoracode run"
+nemoracode run Explain the use of context in Go
 ```
 
-Ayrıca, her çalıştırmada MCP sunucusunun soğuk önyükleme sürelerini önlemek için çalışan bir `opencode serve` örneğine de ekleyebilirsiniz:
+Ayrıca, her çalıştırmada MCP sunucusunun soğuk önyükleme sürelerini önlemek için çalışan bir `nemoracode serve` örneğine de ekleyebilirsiniz:
 
 ```bash
 # Start a headless server in one terminal
-opencode serve
+nemoracode serve
 
 # In another terminal, run commands that attach to it
-opencode run --attach http://localhost:4096 "Explain async/await in JavaScript"
+nemoracode run --attach http://localhost:4096 "Explain async/await in JavaScript"
 ```
 
 #### Bayraklar
@@ -318,9 +318,9 @@ opencode run --attach http://localhost:4096 "Explain async/await in JavaScript"
 | <nobr><code>{"--file"}</code></nobr>     | `-f` | Mesaja eklenecek dosya(lar)                                                                   |
 | <nobr><code>{"--format"}</code></nobr>   |      | Biçim: varsayılan (biçimlendirilmiş) veya json (ham JSON olayları)                            |
 | <nobr><code>{"--title"}</code></nobr>    |      | Oturumun başlığı (değer sağlanmazsa kısaltılmış bilgi istemi kullanılır)                      |
-| <nobr><code>{"--attach"}</code></nobr>   |      | Çalışan bir opencode sunucusuna ekleyin (ör. http://localhost:4096)                           |
-| <nobr><code>{"--password"}</code></nobr> | `-p` | Temel kimlik doğrulama parolası (varsayılan: `OPENCODE_SERVER_PASSWORD`)                      |
-| <nobr><code>{"--username"}</code></nobr> | `-u` | Temel kimlik doğrulama kullanıcı adı (varsayılan: `OPENCODE_SERVER_USERNAME` veya `opencode`) |
+| <nobr><code>{"--attach"}</code></nobr>   |      | Çalışan bir nemoracode sunucusuna ekleyin (ör. http://localhost:4096)                           |
+| <nobr><code>{"--password"}</code></nobr> | `-p` | Temel kimlik doğrulama parolası (varsayılan: `NEMORACODE_SERVER_PASSWORD`)                      |
+| <nobr><code>{"--username"}</code></nobr> | `-u` | Temel kimlik doğrulama kullanıcı adı (varsayılan: `NEMORACODE_SERVER_USERNAME` veya `nemoracode`) |
 | <nobr><code>{"--dir"}</code></nobr>      |      | Çalıştırılacak dizin veya bağlanırken uzak sunucudaki yol                                     |
 | <nobr><code>{"--variant"}</code></nobr>  |      | Model varyantı (sağlayıcıya özgü muhakeme düzeyi)                                             |
 | <nobr><code>{"--thinking"}</code></nobr> |      | Düşünme bloklarını göster                                                                     |
@@ -330,13 +330,13 @@ opencode run --attach http://localhost:4096 "Explain async/await in JavaScript"
 
 ### serve
 
-API erişimi için headless bir opencode sunucusu başlatır. Tam HTTP arayüzü için [server docs](/docs/server) sayfasına bakın.
+API erişimi için headless bir nemoracode sunucusu başlatır. Tam HTTP arayüzü için [server docs](/docs/server) sayfasına bakın.
 
 ```bash
-opencode serve
+nemoracode serve
 ```
 
-Bu, TUI arayüzü olmadan opencode işlevselliğine API erişimi sağlayan bir HTTP sunucusunu başlatır. HTTP temel kimlik doğrulamasını etkinleştirmek için `OPENCODE_SERVER_PASSWORD` öğesini ayarlayın (kullanıcı adı varsayılan olarak `opencode` şeklindedir).
+Bu, TUI arayüzü olmadan nemoracode işlevselliğine API erişimi sağlayan bir HTTP sunucusunu başlatır. HTTP temel kimlik doğrulamasını etkinleştirmek için `NEMORACODE_SERVER_PASSWORD` öğesini ayarlayın (kullanıcı adı varsayılan olarak `nemoracode` şeklindedir).
 
 #### Bayraklar
 
@@ -351,20 +351,20 @@ Bu, TUI arayüzü olmadan opencode işlevselliğine API erişimi sağlayan bir H
 
 ### session
 
-opencode oturumlarını yönetin.
+nemoracode oturumlarını yönetin.
 
 ```bash
-opencode session [command]
+nemoracode session [command]
 ```
 
 ---
 
 #### list
 
-Tüm opencode oturumlarını listeleyin.
+Tüm nemoracode oturumlarını listeleyin.
 
 ```bash
-opencode session list
+nemoracode session list
 ```
 
 ##### Bayraklar
@@ -378,10 +378,10 @@ opencode session list
 
 ### stats
 
-opencode oturumlarınız için belirteç kullanımı ve maliyet istatistiklerini gösterin.
+nemoracode oturumlarınız için belirteç kullanımı ve maliyet istatistiklerini gösterin.
 
 ```bash
-opencode stats
+nemoracode stats
 ```
 
 #### Bayraklar
@@ -400,7 +400,7 @@ opencode stats
 Oturum verilerini JSON olarak dışa aktarın.
 
 ```bash
-opencode export [sessionID]
+nemoracode export [sessionID]
 ```
 
 Bir oturum kimliği sağlamazsanız mevcut oturumlar arasından seçim yapmanız istenir.
@@ -412,24 +412,24 @@ Bir oturum kimliği sağlamazsanız mevcut oturumlar arasından seçim yapmanız
 Bir JSON dosyasından oturum verilerini içe aktarın.
 
 ```bash
-opencode import <file>
+nemoracode import <file>
 ```
 
 ```bash
-opencode import session.json
+nemoracode import session.json
 ```
 
 ---
 
 ### web
 
-Web arayüzüyle başsız bir opencode sunucusu başlatın.
+Web arayüzüyle başsız bir nemoracode sunucusu başlatın.
 
 ```bash
-opencode web
+nemoracode web
 ```
 
-Bu, bir HTTP sunucusunu başlatır ve bir web arayüzü aracılığıyla opencode'a erişmek için bir web tarayıcısı açar. HTTP temel kimlik doğrulamasını etkinleştirmek için `OPENCODE_SERVER_PASSWORD` öğesini ayarlayın (kullanıcı adı varsayılan olarak `opencode` şeklindedir).
+Bu, bir HTTP sunucusunu başlatır ve bir web arayüzü aracılığıyla nemoracode'a erişmek için bir web tarayıcısı açar. HTTP temel kimlik doğrulamasını etkinleştirmek için `NEMORACODE_SERVER_PASSWORD` öğesini ayarlayın (kullanıcı adı varsayılan olarak `nemoracode` şeklindedir).
 
 #### Bayraklar
 
@@ -447,7 +447,7 @@ Bu, bir HTTP sunucusunu başlatır ve bir web arayüzü aracılığıyla opencod
 Bir ACP (Ajan İstemci Protokolü) sunucusu başlatın.
 
 ```bash
-opencode acp
+nemoracode acp
 ```
 
 Bu komut, nd-JSON kullanarak stdin/stdout aracılığıyla iletişim kuran bir ACP sunucusunu başlatır.
@@ -464,10 +464,10 @@ Bu komut, nd-JSON kullanarak stdin/stdout aracılığıyla iletişim kuran bir A
 
 ### uninstall
 
-opencode'u kaldırın ve ilgili tüm dosyaları kaldırın.
+nemoracode'u kaldırın ve ilgili tüm dosyaları kaldırın.
 
 ```bash
-opencode uninstall
+nemoracode uninstall
 ```
 
 #### Bayraklar
@@ -483,22 +483,22 @@ opencode uninstall
 
 ### upgrade
 
-opencode'u en son sürüme veya belirli bir sürüme günceller.
+nemoracode'u en son sürüme veya belirli bir sürüme günceller.
 
 ```bash
-opencode upgrade [target]
+nemoracode upgrade [target]
 ```
 
 En son sürüme yükseltmek için.
 
 ```bash
-opencode upgrade
+nemoracode upgrade
 ```
 
 Belirli bir sürüme yükseltmek için:
 
 ```bash
-opencode upgrade v0.1.48
+nemoracode upgrade v0.1.48
 ```
 
 #### Bayraklar
@@ -511,7 +511,7 @@ opencode upgrade v0.1.48
 
 ## Global bayraklar
 
-opencode CLI aşağıdaki global bayrakları destekler.
+nemoracode CLI aşağıdaki global bayrakları destekler.
 
 | Bayrak                                     | Kısa | Tanım                                    |
 | ------------------------------------------ | ---- | ---------------------------------------- |
@@ -524,33 +524,33 @@ opencode CLI aşağıdaki global bayrakları destekler.
 
 ## Ortam değişkenleri
 
-opencode ortam değişkenleri kullanılarak yapılandırılabilir.
+nemoracode ortam değişkenleri kullanılarak yapılandırılabilir.
 
 | Değişken                              | Tip     | Açıklama                                                                    |
 | ------------------------------------- | ------- | --------------------------------------------------------------------------- |
-| `OPENCODE_GIT_BASH_PATH`              | string  | Windows'ta yürütülebilir Git Bash'in Yolu                                   |
-| `OPENCODE_CONFIG`                     | string  | Yapılandırma dosyasının yolu                                                |
-| `OPENCODE_TUI_CONFIG`                 | string  | TUI yapılandırma dosyasının yolu                                            |
-| `OPENCODE_CONFIG_DIR`                 | string  | Yapılandırma dizinine giden yol                                             |
-| `OPENCODE_CONFIG_CONTENT`             | string  | Satır içi JSON config içeriği                                               |
-| `OPENCODE_DISABLE_AUTOUPDATE`         | boolean | Otomatik güncelleme kontrollerini devre dışı bırak                          |
-| `OPENCODE_DISABLE_PRUNE`              | boolean | Eski verilerin temizlenmesini devre dışı bırak                              |
-| `OPENCODE_DISABLE_TERMINAL_TITLE`     | boolean | Otomatik terminal başlığı güncellemelerini devre dışı bırakın               |
-| `OPENCODE_PERMISSION`                 | string  | Satır içi JSON izin config'i                                                |
-| `OPENCODE_DISABLE_DEFAULT_PLUGINS`    | boolean | Varsayılan eklentileri devre dışı bırakın                                   |
-| `OPENCODE_DISABLE_LSP_DOWNLOAD`       | boolean | Otomatik LSP sunucu indirmelerini devre dışı bırakın                        |
-| `OPENCODE_ENABLE_EXPERIMENTAL_MODELS` | boolean | Deneysel modelleri etkinleştir                                              |
-| `OPENCODE_DISABLE_AUTOCOMPACT`        | boolean | Otomatik context sıkıştırmayı devre dışı bırak                              |
-| `OPENCODE_DISABLE_CLAUDE_CODE`        | boolean | `.claude`'den okumayı devre dışı bırak (istem + beceriler)                  |
-| `OPENCODE_DISABLE_CLAUDE_CODE_PROMPT` | boolean | `~/.claude/CLAUDE.md` dosyasını okumayı devre dışı bırak                    |
-| `OPENCODE_DISABLE_CLAUDE_CODE_SKILLS` | boolean | `.claude/skills` yüklemesini devre dışı bırak                               |
-| `OPENCODE_DISABLE_MODELS_FETCH`       | boolean | Uzak kaynaklardan model getirmeyi devre dışı bırakın                        |
-| `OPENCODE_FAKE_VCS`                   | string  | Test amaçlı sahte VCS sağlayıcısı                                           |
-| `OPENCODE_CLIENT`                     | string  | Client kimliği (varsayılan: `cli`)                                          |
-| `OPENCODE_ENABLE_EXA`                 | boolean | Exa web arama araçlarını etkinleştir                                        |
-| `OPENCODE_SERVER_PASSWORD`            | string  | `serve`/`web` için temel kimlik doğrulamayı etkinleştirin                   |
-| `OPENCODE_SERVER_USERNAME`            | string  | Temel kimlik doğrulama kullanıcı adını geçersiz kıl (varsayılan `opencode`) |
-| `OPENCODE_MODELS_URL`                 | string  | Model yapılandırmasını almak için özel URL                                  |
+| `NEMORACODE_GIT_BASH_PATH`              | string  | Windows'ta yürütülebilir Git Bash'in Yolu                                   |
+| `NEMORACODE_CONFIG`                     | string  | Yapılandırma dosyasının yolu                                                |
+| `NEMORACODE_TUI_CONFIG`                 | string  | TUI yapılandırma dosyasının yolu                                            |
+| `NEMORACODE_CONFIG_DIR`                 | string  | Yapılandırma dizinine giden yol                                             |
+| `NEMORACODE_CONFIG_CONTENT`             | string  | Satır içi JSON config içeriği                                               |
+| `NEMORACODE_DISABLE_AUTOUPDATE`         | boolean | Otomatik güncelleme kontrollerini devre dışı bırak                          |
+| `NEMORACODE_DISABLE_PRUNE`              | boolean | Eski verilerin temizlenmesini devre dışı bırak                              |
+| `NEMORACODE_DISABLE_TERMINAL_TITLE`     | boolean | Otomatik terminal başlığı güncellemelerini devre dışı bırakın               |
+| `NEMORACODE_PERMISSION`                 | string  | Satır içi JSON izin config'i                                                |
+| `NEMORACODE_DISABLE_DEFAULT_PLUGINS`    | boolean | Varsayılan eklentileri devre dışı bırakın                                   |
+| `NEMORACODE_DISABLE_LSP_DOWNLOAD`       | boolean | Otomatik LSP sunucu indirmelerini devre dışı bırakın                        |
+| `NEMORACODE_ENABLE_EXPERIMENTAL_MODELS` | boolean | Deneysel modelleri etkinleştir                                              |
+| `NEMORACODE_DISABLE_AUTOCOMPACT`        | boolean | Otomatik context sıkıştırmayı devre dışı bırak                              |
+| `NEMORACODE_DISABLE_CLAUDE_CODE`        | boolean | `.claude`'den okumayı devre dışı bırak (istem + beceriler)                  |
+| `NEMORACODE_DISABLE_CLAUDE_CODE_PROMPT` | boolean | `~/.claude/CLAUDE.md` dosyasını okumayı devre dışı bırak                    |
+| `NEMORACODE_DISABLE_CLAUDE_CODE_SKILLS` | boolean | `.claude/skills` yüklemesini devre dışı bırak                               |
+| `NEMORACODE_DISABLE_MODELS_FETCH`       | boolean | Uzak kaynaklardan model getirmeyi devre dışı bırakın                        |
+| `NEMORACODE_FAKE_VCS`                   | string  | Test amaçlı sahte VCS sağlayıcısı                                           |
+| `NEMORACODE_CLIENT`                     | string  | Client kimliği (varsayılan: `cli`)                                          |
+| `NEMORACODE_ENABLE_EXA`                 | boolean | Exa web arama araçlarını etkinleştir                                        |
+| `NEMORACODE_SERVER_PASSWORD`            | string  | `serve`/`web` için temel kimlik doğrulamayı etkinleştirin                   |
+| `NEMORACODE_SERVER_USERNAME`            | string  | Temel kimlik doğrulama kullanıcı adını geçersiz kıl (varsayılan `nemoracode`) |
+| `NEMORACODE_MODELS_URL`                 | string  | Model yapılandırmasını almak için özel URL                                  |
 
 ---
 
@@ -560,20 +560,20 @@ Bu ortam değişkenleri değişebilecek veya kaldırılabilecek deneysel özelli
 
 | Değişken                                        | Tip     | Tanım                                                   |
 | ----------------------------------------------- | ------- | ------------------------------------------------------- |
-| `OPENCODE_EXPERIMENTAL`                         | boolean | Şemsiye bayrağa bağlı deneysel özellikleri etkinleştir  |
-| `OPENCODE_EXPERIMENTAL_ICON_DISCOVERY`          | boolean | Simge bulmayı etkinleştir                               |
-| `OPENCODE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolean | TUI'da seçim yapıldığında kopyalamayı devre dışı bırak  |
-| `OPENCODE_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | number  | MS cinsinden bash komutları için varsayılan zaman aşımı |
-| `OPENCODE_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | number  | LLM yanıtları için maksimum çıktı belirteçleri          |
-| `OPENCODE_EXPERIMENTAL_FILEWATCHER`             | boolean | Tüm dizin için dosya izleyiciyi etkinleştir             |
-| `OPENCODE_EXPERIMENTAL_OXFMT`                   | boolean | Oxfmt biçimlendiriciyi etkinleştir                      |
-| `OPENCODE_EXPERIMENTAL_LSP_TOOL`                | boolean | Deneysel LSP aracını etkinleştir                        |
-| `OPENCODE_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolean | Dosya izleyiciyi devre dışı bırak                       |
-| `OPENCODE_EXPERIMENTAL_EXA`                     | boolean | Deneysel Exa özelliklerini etkinleştirin                |
-| `OPENCODE_EXPERIMENTAL_LSP_TY`                  | boolean | python dosyaları için TY LSP'yi etkinleştir             |
-| `OPENCODE_EXPERIMENTAL_PLAN_MODE`               | boolean | Plan modunu etkinleştir                                 |
-| `OPENCODE_EXPERIMENTAL_EVENT_SYSTEM`            | boolean | Deneysel olay sistemini etkinleştir                     |
-| `OPENCODE_EXPERIMENTAL_NATIVE_LLM`              | boolean | Yerel LLM istek yolunu etkinleştir                      |
-| `OPENCODE_EXPERIMENTAL_PARALLEL`                | boolean | Paralel web araması yürütmesini etkinleştir             |
-| `OPENCODE_EXPERIMENTAL_SCOUT`                   | boolean | Scout alt ajanını etkinleştir                           |
-| `OPENCODE_EXPERIMENTAL_WORKSPACES`              | boolean | Çalışma alanı desteğini etkinleştir                     |
+| `NEMORACODE_EXPERIMENTAL`                         | boolean | Şemsiye bayrağa bağlı deneysel özellikleri etkinleştir  |
+| `NEMORACODE_EXPERIMENTAL_ICON_DISCOVERY`          | boolean | Simge bulmayı etkinleştir                               |
+| `NEMORACODE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolean | TUI'da seçim yapıldığında kopyalamayı devre dışı bırak  |
+| `NEMORACODE_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | number  | MS cinsinden bash komutları için varsayılan zaman aşımı |
+| `NEMORACODE_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | number  | LLM yanıtları için maksimum çıktı belirteçleri          |
+| `NEMORACODE_EXPERIMENTAL_FILEWATCHER`             | boolean | Tüm dizin için dosya izleyiciyi etkinleştir             |
+| `NEMORACODE_EXPERIMENTAL_OXFMT`                   | boolean | Oxfmt biçimlendiriciyi etkinleştir                      |
+| `NEMORACODE_EXPERIMENTAL_LSP_TOOL`                | boolean | Deneysel LSP aracını etkinleştir                        |
+| `NEMORACODE_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolean | Dosya izleyiciyi devre dışı bırak                       |
+| `NEMORACODE_EXPERIMENTAL_EXA`                     | boolean | Deneysel Exa özelliklerini etkinleştirin                |
+| `NEMORACODE_EXPERIMENTAL_LSP_TY`                  | boolean | python dosyaları için TY LSP'yi etkinleştir             |
+| `NEMORACODE_EXPERIMENTAL_PLAN_MODE`               | boolean | Plan modunu etkinleştir                                 |
+| `NEMORACODE_EXPERIMENTAL_EVENT_SYSTEM`            | boolean | Deneysel olay sistemini etkinleştir                     |
+| `NEMORACODE_EXPERIMENTAL_NATIVE_LLM`              | boolean | Yerel LLM istek yolunu etkinleştir                      |
+| `NEMORACODE_EXPERIMENTAL_PARALLEL`                | boolean | Paralel web araması yürütmesini etkinleştir             |
+| `NEMORACODE_EXPERIMENTAL_SCOUT`                   | boolean | Scout alt ajanını etkinleştir                           |
+| `NEMORACODE_EXPERIMENTAL_WORKSPACES`              | boolean | Çalışma alanı desteğini etkinleştir                     |

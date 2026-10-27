@@ -3,35 +3,35 @@ title: "Pi"
 description: "Use Console and Go models from the Pi coding agent."
 ---
 
-[Pi](https://pi.dev) includes OpenCode providers for pay-as-you-go and Go. It picks the right API for each paid or Go
-model. Free-tier chat models require OpenCode and return HTTP `403` from Pi.
+[Pi](https://pi.dev) includes NemoraCode providers for pay-as-you-go and Go. It picks the right API for each paid or Go
+model. Free-tier chat models require NemoraCode and return HTTP `403` from Pi.
 
 | Provider      | Plan          |
 | ------------- | ------------- |
-| `opencode`    | Pay-as-you-go |
-| `opencode-go` | Go            |
+| `nemoracode`    | Pay-as-you-go |
+| `nemoracode-go` | Go            |
 
 ## Configure
 
-Both providers read the key from `OPENCODE_API_KEY`. Create a [personal API key](/console/harnesses#get-an-api-key).
+Both providers read the key from `NEMORACODE_API_KEY`. Create a [personal API key](/console/harnesses#get-an-api-key).
 
 ```bash
-export OPENCODE_API_KEY="oc_sk_..."
-pi --model opencode/claude-sonnet-5-5
+export NEMORACODE_API_KEY="oc_sk_..."
+pi --model nemoracode/claude-sonnet-5-5
 ```
 
 You can also run `/login` in Pi and select the provider. Pi stores the key in `~/.pi/agent/auth.json`.
 
 ```text
-/login opencode
+/login nemoracode
 ```
 
 ## Go
 
-Use the `opencode-go` provider with a key from a workspace with a [Go](/console/go) subscription.
+Use the `nemoracode-go` provider with a key from a workspace with a [Go](/console/go) subscription.
 
 ```bash
-pi --model opencode-go/kimi-k3
+pi --model nemoracode-go/kimi-k3
 ```
 
 ## Models
@@ -40,14 +40,14 @@ Select a model as `<provider>/<model-id>`, using IDs from the [Console](/console
 [Go](/console/go#endpoints) table. List the models Pi knows about with `--list-models`.
 
 ```bash
-pi --list-models opencode-go
+pi --list-models nemoracode-go
 ```
 
 Set a default in `~/.pi/agent/settings.json`, or press `Ctrl+S` in the `/model` picker.
 
 ```json title="~/.pi/agent/settings.json"
 {
-  "defaultProvider": "opencode-go",
+  "defaultProvider": "nemoracode-go",
   "defaultModel": "kimi-k3"
 }
 ```
@@ -60,6 +60,6 @@ Pi v0.99.0 and later support MCP. Add the [Console MCP](/console/harnesses#conso
 browser.
 
 ```bash
-pi mcp add opencode-console --url https://opencode.ai/console/mcp
-pi mcp login opencode-console
+pi mcp add nemoracode-console --url https://opencode.ai/console/mcp
+pi mcp login nemoracode-console
 ```

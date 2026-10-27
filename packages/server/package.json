@@ -1,12 +1,13 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@opencode/server",
+  "name": "@nemoracode/server",
+  "description": "NemoraCode HTTP server, including the code-graph read endpoints",
   "version": "2.1.4",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anomalyco/opencode.git",
+    "url": "git+https://github.com/pizadi/nemoracode.git",
     "directory": "packages/server"
   },
   "publishConfig": {
@@ -28,17 +29,17 @@
   "dependencies": {
     "@effect/platform-node": "catalog:",
     "@effect/platform-node-shared": "catalog:",
-    "@opencode/core": "workspace:*",
-    "@opencode/protocol": "workspace:*",
-    "@opencode/schema": "workspace:*",
-    "@opencode/simulation": "workspace:*",
-    "@opencode/util": "workspace:*",
+    "@nemoracode/core": "workspace:*",
+    "@nemoracode/protocol": "workspace:*",
+    "@nemoracode/schema": "workspace:*",
+    "@nemoracode/simulation": "workspace:*",
+    "@nemoracode/util": "workspace:*",
     "effect": "catalog:"
   },
   "devDependencies": {
     "@opencode-ai/pty": "0.3.1",
-    "@opencode/client": "workspace:*",
-    "@opencode/plugin": "workspace:*",
+    "@nemoracode/client": "workspace:*",
+    "@nemoracode/plugin": "workspace:*",
     "@tsconfig/bun": "catalog:",
     "@types/bun": "catalog:",
     "@typescript/native": "catalog:",

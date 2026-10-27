@@ -1,5 +1,5 @@
-import type { Plugin } from "@opencode/plugin/tui"
-import type { SessionMessageAssistant, SessionMessageAssistantText } from "@opencode/client"
+import type { Plugin } from "@nemoracode/plugin/tui"
+import type { SessionMessageAssistant, SessionMessageAssistantText } from "@nemoracode/client"
 import { useTerminalDimensions } from "@opentui/solid"
 import { createSignal } from "solid-js"
 import { useConfig } from "../../../config"

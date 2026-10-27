@@ -12,8 +12,8 @@ import {
 } from "solid-js"
 import { createStore, produce, type Store } from "solid-js/store"
 import type { Schema } from "effect"
-import { useDialog } from "@opencode/ui/context/dialog"
-import { base64Encode } from "@opencode/util/encode"
+import { useDialog } from "@nemoracode/ui/context/dialog"
+import { base64Encode } from "@nemoracode/util/encode"
 import {
   Panel,
   type Build,
@@ -29,7 +29,7 @@ import {
   type StorageScope,
   type StoreFrom,
   type StoreOptions,
-} from "@opencode/gui-extensions/sdk"
+} from "@nemoracode/gui-extensions/sdk"
 import { usePlatform } from "@/runtime/platform/platform"
 import { same } from "@/runtime/persistence/equality"
 import { Persist, persisted, removePersisted } from "@/runtime/persistence/storage"
@@ -249,8 +249,8 @@ export function createHostApis() {
         : undefined,
     build: () => ({
       version: platform.version ?? "",
-      // SAFETY: the build sets VITE_OPENCODE_CHANNEL to one of the release channels, or leaves it unset locally.
-      channel: (import.meta.env.VITE_OPENCODE_CHANNEL ?? "local") as Build["channel"],
+      // SAFETY: the build sets VITE_NEMORACODE_CHANNEL to one of the release channels, or leaves it unset locally.
+      channel: (import.meta.env.VITE_NEMORACODE_CHANNEL ?? "local") as Build["channel"],
       platform: platform.platform,
       packaged: platform.extensions?.packaged ?? false,
     }),

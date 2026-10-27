@@ -1,12 +1,12 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@opencode/theme",
+  "name": "@nemoracode/theme",
   "version": "2.1.4",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anomalyco/opencode.git",
+    "url": "git+https://github.com/pizadi/nemoracode.git",
     "directory": "packages/theme"
   },
   "publishConfig": {

@@ -116,7 +116,7 @@ describe("Google Vertex providers", () => {
             accessToken: "vertex-token",
             project: "vertex-project",
             providerOptions: {
-              labels: { component: "opencode", environment: "test" },
+              labels: { component: "nemoracode", environment: "test" },
             },
           }).model("gemini-3.5-flash"),
           prompt: "Say hello.",
@@ -124,7 +124,7 @@ describe("Google Vertex providers", () => {
       )
 
       expect(prepared.body).toMatchObject({
-        labels: { component: "opencode", environment: "test" },
+        labels: { component: "nemoracode", environment: "test" },
       })
     }),
   )
@@ -559,7 +559,7 @@ describe("Google Vertex providers", () => {
           model: GoogleVertex.configure({
             accessToken: "vertex-token",
             project: "vertex-project",
-            providerOptions: { labels: { component: "opencode" }, serviceTier: "flex" },
+            providerOptions: { labels: { component: "nemoracode" }, serviceTier: "flex" },
           }).model("gemini-test"),
           prompt: "Say hello.",
         }),
@@ -577,7 +577,7 @@ describe("Google Vertex providers", () => {
       expect(response.text).toBe("Hello.")
       expect(response.events.filter((event) => event.type === "text-start")).toHaveLength(1)
       expect(sent.map((request) => request.authorization)).toEqual(["Bearer vertex-token", "Bearer vertex-token"])
-      expect(sent[0].body).toMatchObject({ labels: { component: "opencode" } })
+      expect(sent[0].body).toMatchObject({ labels: { component: "nemoracode" } })
       expect(sent[0].body).not.toHaveProperty("serviceTier")
       expect(sent[1].body).toEqual({ ...sent[0].body, continuationToken: "token-1" })
     }),

@@ -1,9 +1,9 @@
 export * as ConfigInstructionPlugin from "./instruction.js"
 
-import { define } from "@opencode/plugin/effect/plugin"
-import { FSUtil } from "@opencode/util/fs-util"
-import { Global } from "@opencode/util/global"
-import { sameDirectory } from "@opencode/util/path"
+import { define } from "@nemoracode/plugin/effect/plugin"
+import { FSUtil } from "@nemoracode/util/fs-util"
+import { Global } from "@nemoracode/util/global"
+import { sameDirectory } from "@nemoracode/util/path"
 import path, { dirname, join } from "path"
 import { Effect, FiberMap, PubSub, Semaphore, Stream } from "effect"
 import { HttpClient, HttpClientRequest } from "effect/http"
@@ -18,7 +18,7 @@ type Loaded =
   | { readonly type: "unavailable" }
 
 export const Plugin = define({
-  id: "opencode.config.instruction",
+  id: "nemoracode.config.instruction",
   effect: Effect.fn(function* (ctx) {
     const discovery = yield* InstructionDiscovery.Service
     // Activate even when both discovery scopes are disabled: configured `instructions`

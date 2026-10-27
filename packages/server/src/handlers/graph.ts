@@ -1,11 +1,11 @@
-import { GraphService } from "@opencode/core/graph/service"
-import type { IngestStats } from "@opencode/core/graph/ingest"
-import { Graph } from "@opencode/schema/graph"
+import { GraphService } from "@nemoracode/core/graph/service"
+import type { IngestStats } from "@nemoracode/core/graph/ingest"
+import { Graph } from "@nemoracode/schema/graph"
 import { Effect, Schema } from "effect"
 import { HttpApiBuilder } from "effect/http-api"
 import { Api } from "../api"
 import { response } from "../location"
-import { ServiceUnavailableError } from "@opencode/protocol/errors"
+import { ServiceUnavailableError } from "@nemoracode/protocol/errors"
 
 const toIngest = (stats: IngestStats) => ({
   files: stats.files,

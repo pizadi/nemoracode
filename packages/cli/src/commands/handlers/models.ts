@@ -1,5 +1,5 @@
-import { OpenCode } from "@opencode/client"
-import { Service } from "@opencode/client/effect/service"
+import { NemoraCode } from "@nemoracode/client"
+import { Service } from "@nemoracode/client/effect/service"
 import { Effect } from "effect"
 import { EOL } from "node:os"
 import { Commands } from "../commands"
@@ -10,7 +10,7 @@ export default Runtime.handler(
   Commands.commands.models,
   Effect.fn("cli.models")(function* () {
     const server = yield* ServerConnection.resolve()
-    const client = OpenCode.make({
+    const client = NemoraCode.make({
       baseUrl: server.endpoint.url,
       headers: Service.headers(server.endpoint),
     })

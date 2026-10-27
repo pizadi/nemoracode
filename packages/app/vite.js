@@ -74,11 +74,11 @@ const bundleNestedWorkerDeps = {
 }
 
 export const channel = (() => {
-  const raw = process.env.OPENCODE_CHANNEL
+  const raw = process.env.NEMORACODE_CHANNEL
 
   if (raw === "local" || raw === "dev" || raw === "beta" || raw === "prod") return raw
 
-  if (process.env.OPENCODE_CHANNEL === "latest") return "prod"
+  if (process.env.NEMORACODE_CHANNEL === "latest") return "prod"
 
   return "dev"
 })()
@@ -101,14 +101,14 @@ export default [
           },
         },
         define: {
-          "import.meta.env.VITE_OPENCODE_CHANNEL": JSON.stringify(channel),
+          "import.meta.env.VITE_NEMORACODE_CHANNEL": JSON.stringify(channel),
         },
         worker: {
           format: "es",
         },
         optimizeDeps: {
           exclude: [...workerDeps, ...officeDeps],
-          include: ["@opencode/session-ui > mermaid", "@opencode/session-ui > mermaid > katex"],
+          include: ["@nemoracode/session-ui > mermaid", "@nemoracode/session-ui > mermaid > katex"],
           rolldownOptions: { plugins: [bundleNestedWorkerDeps] },
         },
       }

@@ -1,5 +1,5 @@
-import { Tabs } from "@opencode/ui/tabs"
-import { useDialog } from "@opencode/ui/context/dialog"
+import { Tabs } from "@nemoracode/ui/tabs"
+import { useDialog } from "@nemoracode/ui/context/dialog"
 import {
   createEffect,
   createMemo,

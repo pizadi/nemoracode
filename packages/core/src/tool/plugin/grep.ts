@@ -1,7 +1,7 @@
 export * as GrepTool from "./grep.js"
 
-import type { Context } from "@opencode/plugin/effect/plugin"
-import { ToolFailure } from "@opencode/ai/effect"
+import type { Context } from "@nemoracode/plugin/effect/plugin"
+import { ToolFailure } from "@nemoracode/ai/effect"
 import { Effect, Schema } from "effect"
 import path from "path"
 import { Environment } from "../../environment/index.js"
@@ -62,7 +62,7 @@ export const toModelContent = (matches: EncodedOutput, truncated = false) => {
 
 /** Grep leaf that defaults its filesystem root to the active Location. */
 export const Plugin = {
-  id: "opencode.tool.grep",
+  id: "nemoracode.tool.grep",
   effect: Effect.fn("GrepTool.Plugin")(function* (ctx: Context) {
     const environment = yield* Environment.Service
     const ripgrep = yield* Ripgrep.Service

@@ -1,8 +1,8 @@
 import { isDeepStrictEqual } from "node:util"
 import type { McpServer, SessionConfigOption } from "@agentclientprotocol/sdk"
-import type { OpenCodeClient, OpenCodeEvent } from "@opencode/client/effect"
-import { Mcp } from "@opencode/schema/mcp"
-import type { Session } from "@opencode/schema/session"
+import type { NemoraCodeClient, NemoraCodeEvent } from "@nemoracode/client/effect"
+import { Mcp } from "@nemoracode/schema/mcp"
+import type { Session } from "@nemoracode/schema/session"
 import { Cause, Deferred, Effect, Exit, Queue, Ref, Scope, Stream } from "effect"
 import type { ACPCatalog, Catalog } from "./catalog"
 import { ACPClient } from "./client"
@@ -37,10 +37,10 @@ type Entry = {
   readonly selected: Queue.Queue<Change>
 }
 
-type SelectedEvent = Extract<OpenCodeEvent, { type: "session.model.selected" | "session.agent.selected" }>
+type SelectedEvent = Extract<NemoraCodeEvent, { type: "session.model.selected" | "session.agent.selected" }>
 
 export const make = Effect.fnUntraced(function* (input: {
-  readonly client: OpenCodeClient
+  readonly client: NemoraCodeClient
   readonly connection: ACPConnection.Interface
   readonly catalog: ACPCatalog.Interface
 }) {

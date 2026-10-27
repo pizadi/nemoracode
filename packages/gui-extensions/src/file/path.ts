@@ -1,4 +1,4 @@
-import { encodeFilePath } from "@opencode/util/path"
+import { encodeFilePath } from "@nemoracode/util/path"
 import type { Files } from "../sdk"
 
 export function pathToFileUrl(filepath: string): string {

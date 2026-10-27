@@ -1,8 +1,8 @@
-import type { ConnectionInfo } from "@opencode/client"
-import type { IntegrationApi } from "@opencode/client/promise/api"
-import { Connection } from "@opencode/schema/connection"
-import { Credential } from "@opencode/schema/credential"
-import { Form } from "@opencode/schema/form"
+import type { ConnectionInfo } from "@nemoracode/client"
+import type { IntegrationApi } from "@nemoracode/client/promise/api"
+import { Connection } from "@nemoracode/schema/connection"
+import { Credential } from "@nemoracode/schema/credential"
+import { Form } from "@nemoracode/schema/form"
 import type { Transform } from "./registration.js"
 
 type IntegrationRef = { id: string; name: string }

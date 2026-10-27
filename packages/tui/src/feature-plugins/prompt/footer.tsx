@@ -1,4 +1,4 @@
-import { Plugin } from "@opencode/plugin/tui"
+import { Plugin } from "@nemoracode/plugin/tui"
 import { createMemo, createSignal, Match, Show, Switch } from "solid-js"
 import { contextUsage, formatContextUsage } from "../../util/session"
 import { useTerminalDimensions } from "@opentui/solid"
@@ -132,7 +132,7 @@ export function PromptFooter(props: {
 }
 
 export default Plugin.define({
-  id: "opencode.prompt.footer",
+  id: "nemoracode.prompt.footer",
   setup(context) {
     context.ui.slot({
       append: "prompt.footer",

@@ -14,7 +14,7 @@ export function ErrorComponent(props: { error: Error; reset: () => void; mode?: 
   const app = useTuiApp()
   const [copyState, setCopyState] = createSignal<"idle" | "copied" | "failed">("idle")
 
-  // Safe fallback palette per mode (mirrors theme/assets/opencode.json) since the
+  // Safe fallback palette per mode (mirrors theme/assets/nemoracode.json) since the
   // theme context may be the thing that crashed.
   const isLight = props.mode === "light"
   const colors = isLight
@@ -117,7 +117,7 @@ export function ErrorComponent(props: { error: Error; reset: () => void; mode?: 
         {/* Headline */}
         <box flexDirection="column" alignItems="center" flexShrink={0}>
           <text attributes={TextAttributes.BOLD} fg={colors.text}>
-            OpenCode crashed
+            NemoraCode crashed
           </text>
           <Show when={showSubtext()}>
             <text fg={colors.muted}>An unexpected error stopped the session.</text>
@@ -210,7 +210,7 @@ export function ErrorComponent(props: { error: Error; reset: () => void; mode?: 
                   ? "Clipboard write failed. Try again or report the crash manually."
                   : "Copy the report and open a GitHub issue to help us fix this."}
             </text>
-            <text fg={colors.muted}>OpenCode {app.version}</text>
+            <text fg={colors.muted}>NemoraCode {app.version}</text>
           </box>
         </Show>
       </box>
@@ -224,12 +224,12 @@ function buildIssueURL(message: string, stack: string, version: string) {
   // the contributing-guidelines compliance check, which pushes for system info.
   const url = new URL("https://github.com/anomalyco/opencode/issues/new?template=bug-report.yml")
   url.searchParams.set("title", `TUI crash: ${message}`)
-  url.searchParams.set("opencode-version", version)
+  url.searchParams.set("nemoracode-version", version)
   url.searchParams.set("os", describeOS())
   url.searchParams.set("terminal", describeTerminal())
   url.searchParams.set(
     "reproduce",
-    "Reported automatically from the OpenCode crash screen. If you can, describe what you were doing when it crashed.",
+    "Reported automatically from the NemoraCode crash screen. If you can, describe what you were doing when it crashed.",
   )
 
   // Budget the stack against the fully URL-encoded length (not the raw length) so
@@ -238,7 +238,7 @@ function buildIssueURL(message: string, stack: string, version: string) {
   // so measuring url.toString() is both correct and safe on any input.
   const MAX_URL_LENGTH = 6000
   const marker = "\n… (truncated)"
-  const head = `The OpenCode TUI crashed with an unexpected error.\n\n**Error:** ${message}\n\n**Stack trace:**\n`
+  const head = `The NemoraCode TUI crashed with an unexpected error.\n\n**Error:** ${message}\n\n**Stack trace:**\n`
   const setBody = (body: string) => url.searchParams.set("description", head + "```\n" + body + "\n```")
 
   setBody(stack)

@@ -1,8 +1,8 @@
 export * as OptimizePlugin from "./optimize.js"
 
-import { define, type Context } from "@opencode/plugin/effect/plugin"
-import type { SessionHooks } from "@opencode/plugin/effect/session"
-import { Model } from "@opencode/schema/model"
+import { define, type Context } from "@nemoracode/plugin/effect/plugin"
+import type { SessionHooks } from "@nemoracode/plugin/effect/session"
+import { Model } from "@nemoracode/schema/model"
 import { Effect } from "effect"
 import { SessionSystemPrompt } from "../session/system-prompt.js"
 
@@ -13,14 +13,14 @@ import PROMPT_META from "./system-prompt/meta.txt"
 import PROMPT_TRINITY from "./system-prompt/trinity.txt"
 import PROMPT_ANTHROPIC from "./system-prompt/anthropic.txt"
 
-export const OpenAIPlugin = make("opencode.prompt.openai", (model) => {
+export const OpenAIPlugin = make("nemoracode.prompt.openai", (model) => {
   const id = model.id.toLowerCase()
   if (!id.includes("gpt")) return undefined
   return id.includes("astra") ? PROMPT_ASTRA : PROMPT_GPT
 })
 
 export const AnthropicPlugin = make(
-  "opencode.prompt.anthropic",
+  "nemoracode.prompt.anthropic",
   (model) => {
     const id = model.id.toLowerCase()
     if (!id.includes("claude")) return undefined
@@ -32,7 +32,7 @@ export const AnthropicPlugin = make(
 // Both OpenAIToolsPlugin and AnthropicToolsPlugin are disabled intentionally until we can figure out a good ux for displaying
 // heavy grep/glob usage done via shell or other mechanisms
 
-export const OpenAIToolsPlugin = make("opencode.optimize.openai.tools", (model, tools) => {
+export const OpenAIToolsPlugin = make("nemoracode.optimize.openai.tools", (model, tools) => {
   const ids = [model.id, model.modelID, model.family].join(" ").toLowerCase()
   if (!ids.includes("gpt")) return undefined
   delete tools.grep
@@ -40,7 +40,7 @@ export const OpenAIToolsPlugin = make("opencode.optimize.openai.tools", (model, 
   return undefined
 })
 
-export const AnthropicToolsPlugin = make("opencode.optimize.anthropic.tools", (model, tools) => {
+export const AnthropicToolsPlugin = make("nemoracode.optimize.anthropic.tools", (model, tools) => {
   const ids = [model.id, model.modelID, model.family].join(" ").toLowerCase()
   if (!ids.includes("claude")) return undefined
   delete tools.grep
@@ -48,13 +48,13 @@ export const AnthropicToolsPlugin = make("opencode.optimize.anthropic.tools", (m
   return undefined
 })
 
-export const KimiPlugin = make("opencode.prompt.kimi", (model) =>
+export const KimiPlugin = make("nemoracode.prompt.kimi", (model) =>
   model.id.toLowerCase().includes("kimi") ? PROMPT_KIMI : undefined,
 )
-export const ArceePlugin = make("opencode.prompt.arcee", (model) =>
+export const ArceePlugin = make("nemoracode.prompt.arcee", (model) =>
   model.id.toLowerCase().includes("trinity") ? PROMPT_TRINITY : undefined,
 )
-export const MetaPlugin = make("opencode.prompt.meta", (model) => {
+export const MetaPlugin = make("nemoracode.prompt.meta", (model) => {
   if (!model.id.toLowerCase().includes("muse")) return undefined
   return PROMPT_META.replaceAll("{{MODEL_NAME}}", model.name)
 })

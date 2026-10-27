@@ -1,14 +1,14 @@
-import type { SessionInfo } from "@opencode/client/promise"
-import { Icon } from "@opencode/ui/icon"
-import { IconButton } from "@opencode/ui/icon-button"
-import { Menu } from "@opencode/ui/menu"
+import type { SessionInfo } from "@nemoracode/client/promise"
+import { Icon } from "@nemoracode/ui/icon"
+import { IconButton } from "@nemoracode/ui/icon-button"
+import { Menu } from "@nemoracode/ui/menu"
 import {
   displayName,
   getProjectAvatarSource,
   getProjectAvatarVariant,
   ProjectAvatar,
-} from "@opencode/ui/project-avatar"
-import { Tooltip } from "@opencode/ui/tooltip"
+} from "@nemoracode/ui/project-avatar"
+import { Tooltip } from "@nemoracode/ui/tooltip"
 import { createResizeObserver } from "@solid-primitives/resize-observer"
 import { useNavigate } from "@solidjs/router"
 import { createMemo, For, Show, type ParentProps } from "solid-js"

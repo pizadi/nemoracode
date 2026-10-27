@@ -8,7 +8,7 @@ const SOURCE_URL = "https://raw.githubusercontent.com/anomalyco/opencode/dev/CHA
 const CACHE_KEY = "https://opencode.ai/changelog/source.md"
 const FRESH_SECONDS = 300
 const STALE_SECONDS = 86400
-const FETCHED_AT = "x-opencode-changelog-fetched-at"
+const FETCHED_AT = "x-nemoracode-changelog-fetched-at"
 
 const PAGE_CACHE = `public, max-age=60, s-maxage=${FRESH_SECONDS}, stale-while-revalidate=${STALE_SECONDS}`
 const SECURITY = {
@@ -22,7 +22,7 @@ type Context = Pick<ExecutionContext, "waitUntil">
 
 async function refresh(cache: Cache | undefined) {
   const response = await fetch(SOURCE_URL, {
-    headers: { "User-Agent": "opencode-changelog" },
+    headers: { "User-Agent": "nemoracode-changelog" },
     signal: AbortSignal.timeout(5000),
   }).catch(() => undefined)
   if (!response?.ok) return

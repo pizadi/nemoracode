@@ -1,5 +1,5 @@
-import { Global } from "@opencode/util/global"
-import { HeapSnapshot } from "@opencode/util/heap-snapshot"
+import { Global } from "@nemoracode/util/global"
+import { HeapSnapshot } from "@nemoracode/util/heap-snapshot"
 import { Effect, Queue } from "effect"
 
 export const listen = Effect.gen(function* () {

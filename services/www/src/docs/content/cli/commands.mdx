@@ -1,16 +1,16 @@
 ---
 title: "Commands"
-description: "Reference for the opencode command line."
+description: "Reference for the nemoracode command line."
 ---
 
-Every command accepts `--help` for its full flag list, for example `opencode run --help`. Some server-backed commands accept `--standalone` to run a private server or `--server <url>` to target a specific one; check the command's help for its supported flags.
+Every command accepts `--help` for its full flag list, for example `nemoracode run --help`. Some server-backed commands accept `--standalone` to run a private server or `--server <url>` to target a specific one; check the command's help for its supported flags.
 
 ## run
 
 Sends a message and prints the reply without opening the interactive interface.
 
 ```bash
-$ opencode run "Explain this repository"
+$ nemoracode run "Explain this repository"
 ```
 
 ### CI
@@ -18,7 +18,7 @@ $ opencode run "Explain this repository"
 In CI, pass a provider API key as a secret and use standalone mode so the private server receives it. For example, this GitHub Actions job reviews the checked-out repository:
 
 ```yaml
-name: OpenCode review
+name: NemoraCode review
 on: [pull_request]
 
 jobs:
@@ -26,8 +26,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm install --global @opencode/cli
-      - run: opencode run --standalone --model anthropic/claude-sonnet-5-5 "Review this repository for correctness and summarize any issues."
+      - run: npm install --global @nemoracode/cli
+      - run: nemoracode run --standalone --model anthropic/claude-sonnet-5-5 "Review this repository for correctness and summarize any issues."
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 ```
@@ -35,49 +35,49 @@ jobs:
 Choose a model.
 
 ```bash
-$ opencode run --model anthropic/claude-sonnet-5-5 "Refactor parseToken"
+$ nemoracode run --model anthropic/claude-sonnet-5-5 "Refactor parseToken"
 ```
 
 Continue the last session.
 
 ```bash
-$ opencode run --continue "Now handle the expired case"
+$ nemoracode run --continue "Now handle the expired case"
 ```
 
 Emit newline-delimited JSON for scripts.
 
 ```bash
-$ opencode run --format json "List the TODO comments"
+$ nemoracode run --format json "List the TODO comments"
 ```
 
 Attach files to the message.
 
 ```bash
-$ opencode run --file src/server.ts --file src/client.ts "Review these for bugs"
+$ nemoracode run --file src/server.ts --file src/client.ts "Review these for bugs"
 ```
 
 Run with a specific agent.
 
 ```bash
-$ opencode run --agent build "Fix the failing test"
+$ nemoracode run --agent build "Fix the failing test"
 ```
 
 Continue a specific session.
 
 ```bash
-$ opencode run --session ses_4f2a1c "Check edge cases"
+$ nemoracode run --session ses_4f2a1c "Check edge cases"
 ```
 
 Auto-approve permissions that are not explicitly denied.
 
 ```bash
-$ opencode run --auto "Fix the failing test"
+$ nemoracode run --auto "Fix the failing test"
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode run --help
+$ nemoracode run --help
 ```
 
 ## mini
@@ -85,31 +85,31 @@ $ opencode run --help
 Starts the minimal interactive interface instead of the full-screen TUI.
 
 ```bash
-$ opencode mini
+$ nemoracode mini
 ```
 
 Continue the last session.
 
 ```bash
-$ opencode mini --continue
+$ nemoracode mini --continue
 ```
 
 Start with a model and an initial prompt.
 
 ```bash
-$ opencode mini --model anthropic/claude-sonnet-5-5 --prompt "Summarize this repository"
+$ nemoracode mini --model anthropic/claude-sonnet-5-5 --prompt "Summarize this repository"
 ```
 
 Continue a specific session.
 
 ```bash
-$ opencode mini --session ses_4f2a1c
+$ nemoracode mini --session ses_4f2a1c
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode mini --help
+$ nemoracode mini --help
 ```
 
 ## session
@@ -117,49 +117,49 @@ $ opencode mini --help
 Manages sessions.
 
 ```bash
-$ opencode session list
+$ nemoracode session list
 ```
 
 Limit the list and print JSON.
 
 ```bash
-$ opencode session list --max-count 20 --format json
+$ nemoracode session list --max-count 20 --format json
 ```
 
 Delete a session and its child sessions.
 
 ```bash
-$ opencode session delete ses_9c1b08
+$ nemoracode session delete ses_9c1b08
 ```
 
 Export session data as JSON.
 
 ```bash
-$ opencode session export ses_4f2a1c
+$ nemoracode session export ses_4f2a1c
 ```
 
 Redact sensitive transcript and file data when exporting.
 
 ```bash
-$ opencode session export ses_4f2a1c --sanitize
+$ nemoracode session export ses_4f2a1c --sanitize
 ```
 
 Import session data from a JSON file or URL.
 
 ```bash
-$ opencode session import session.json
+$ nemoracode session import session.json
 ```
 
 Import into a specific directory.
 
 ```bash
-$ opencode session import session.json --directory ~/code/project
+$ nemoracode session import session.json --directory ~/code/project
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode session --help
+$ nemoracode session --help
 ```
 
 ## auth
@@ -167,50 +167,50 @@ $ opencode session --help
 Manages AI providers and credentials.
 
 ```bash
-$ opencode auth list
+$ nemoracode auth list
 ```
 
 List them as JSON.
 
 ```bash
-$ opencode auth list --format json
+$ nemoracode auth list --format json
 ```
 
 Log in to a provider.
 
 ```bash
-$ opencode auth login anthropic
+$ nemoracode auth login anthropic
 ```
 
 Log in with a specific authentication method.
 
 ```bash
-$ opencode auth login anthropic --method key
+$ nemoracode auth login anthropic --method key
 ```
 
 Log out of a saved account.
 
 ```bash
-$ opencode auth logout anthropic work
+$ nemoracode auth logout anthropic work
 ```
 
 Switch the active account for an integration.
 
 ```bash
-$ opencode auth switch anthropic work
+$ nemoracode auth switch anthropic work
 ```
 
 Export saved credentials and import them on another machine. The file contains secrets.
 
 ```bash
-$ opencode auth export anthropic > credentials.json
-$ opencode auth import credentials.json
+$ nemoracode auth export anthropic > credentials.json
+$ nemoracode auth import credentials.json
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode auth --help
+$ nemoracode auth --help
 ```
 
 ## models
@@ -218,13 +218,13 @@ $ opencode auth --help
 Lists every available model.
 
 ```bash
-$ opencode models
+$ nemoracode models
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode models --help
+$ nemoracode models --help
 ```
 
 ## mcp
@@ -232,49 +232,49 @@ $ opencode models --help
 Manages MCP (Model Context Protocol) servers.
 
 ```bash
-$ opencode mcp list
+$ nemoracode mcp list
 ```
 
 Add a remote server.
 
 ```bash
-$ opencode mcp add context7 --url https://mcp.context7.com/mcp
+$ nemoracode mcp add context7 --url https://mcp.context7.com/mcp
 ```
 
 Add a local server to the global config.
 
 ```bash
-$ opencode mcp add everything --global -- npx -y @modelcontextprotocol/server-everything
+$ nemoracode mcp add everything --global -- npx -y @modelcontextprotocol/server-everything
 ```
 
 Add a local server with an environment variable.
 
 ```bash
-$ opencode mcp add everything --env LOG_LEVEL=debug -- npx -y @modelcontextprotocol/server-everything
+$ nemoracode mcp add everything --env LOG_LEVEL=debug -- npx -y @modelcontextprotocol/server-everything
 ```
 
 Add a remote server with a header.
 
 ```bash
-$ opencode mcp add context7 --url https://mcp.context7.com/mcp --header CONTEXT7_API_KEY=secret
+$ nemoracode mcp add context7 --url https://mcp.context7.com/mcp --header CONTEXT7_API_KEY=secret
 ```
 
 Authenticate with an OAuth-capable remote server.
 
 ```bash
-$ opencode mcp auth sentry
+$ nemoracode mcp auth sentry
 ```
 
 Remove stored OAuth credentials for a server.
 
 ```bash
-$ opencode mcp logout sentry
+$ nemoracode mcp logout sentry
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode mcp --help
+$ nemoracode mcp --help
 ```
 
 ## plugin
@@ -282,43 +282,43 @@ $ opencode mcp --help
 Manages plugins.
 
 ```bash
-$ opencode plugin list
+$ nemoracode plugin list
 ```
 
 Include built-in server plugins.
 
 ```bash
-$ opencode plugin list --builtin
+$ nemoracode plugin list --builtin
 ```
 
 Install a plugin and add it to the global configuration.
 
 ```bash
-$ opencode plugin add @example/opencode-tui
+$ nemoracode plugin add @example/nemoracode-tui
 ```
 
 Check package plugins for updates.
 
 ```bash
-$ opencode plugin check
+$ nemoracode plugin check
 ```
 
 Update package plugins.
 
 ```bash
-$ opencode plugin update
+$ nemoracode plugin update
 ```
 
 Remove a plugin from global configuration.
 
 ```bash
-$ opencode plugin remove @example/opencode-tui
+$ nemoracode plugin remove @example/nemoracode-tui
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode plugin --help
+$ nemoracode plugin --help
 ```
 
 ## stats
@@ -326,43 +326,43 @@ $ opencode plugin --help
 Shows shareable usage statistics.
 
 ```bash
-$ opencode stats
+$ nemoracode stats
 ```
 
 Show the last 7 days.
 
 ```bash
-$ opencode stats --days 7
+$ nemoracode stats --days 7
 ```
 
 Show model usage.
 
 ```bash
-$ opencode stats --models
+$ nemoracode stats --models
 ```
 
 Show cost and token details.
 
 ```bash
-$ opencode stats --cost
+$ nemoracode stats --cost
 ```
 
 Print JSON instead of a report.
 
 ```bash
-$ opencode stats --json
+$ nemoracode stats --json
 ```
 
 Show only the current project.
 
 ```bash
-$ opencode stats --project .
+$ nemoracode stats --project .
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode stats --help
+$ nemoracode stats --help
 ```
 
 ## serve
@@ -370,25 +370,25 @@ $ opencode stats --help
 Starts the API and web server. See [Web](/cli/web).
 
 ```bash
-$ opencode serve
+$ nemoracode serve
 ```
 
 Bind to all interfaces on a fixed port.
 
 ```bash
-$ opencode serve --hostname 0.0.0.0 --port 4096
+$ nemoracode serve --hostname 0.0.0.0 --port 4096
 ```
 
 Allow a browser client from another origin.
 
 ```bash
-$ opencode serve --cors https://app.example.com
+$ nemoracode serve --cors https://app.example.com
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode serve --help
+$ nemoracode serve --help
 ```
 
 ## pair
@@ -397,13 +397,13 @@ Prints one-time links, plus a QR code of the first one, that sign a browser or
 app in to the server. Links expire after 5 minutes and work once.
 
 ```bash
-$ opencode pair
+$ nemoracode pair
 ```
 
 Use an external URL in the links.
 
 ```bash
-$ opencode pair --url https://dev.example.com
+$ nemoracode pair --url https://dev.example.com
 ```
 
 Pair from anywhere through an OpenTunnel remote address. This exposes the
@@ -411,19 +411,19 @@ server to the internet, so the first time it enables remote access it explains
 this and asks you to accept. See [Remote access](/cli/web#remote-access).
 
 ```bash
-$ opencode pair --remote
+$ nemoracode pair --remote
 ```
 
 Accept without a prompt, for example in a script without a terminal.
 
 ```bash
-$ opencode pair --remote --yes
+$ nemoracode pair --remote --yes
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode pair --help
+$ nemoracode pair --help
 ```
 
 ## service
@@ -431,61 +431,61 @@ $ opencode pair --help
 Manages the background server. See [Web](/cli/web).
 
 ```bash
-$ opencode service start
+$ nemoracode service start
 ```
 
 Restart it.
 
 ```bash
-$ opencode service restart
+$ nemoracode service restart
 ```
 
 Show its status.
 
 ```bash
-$ opencode service status
+$ nemoracode service status
 ```
 
 Stop it.
 
 ```bash
-$ opencode service stop
+$ nemoracode service stop
 ```
 
 Read a setting.
 
 ```bash
-$ opencode service get hostname
+$ nemoracode service get hostname
 ```
 
 Set a setting.
 
 ```bash
-$ opencode service set hostname 0.0.0.0
+$ nemoracode service set hostname 0.0.0.0
 ```
 
 Allow an extra CORS origin.
 
 ```bash
-$ opencode service set cors https://app.example.com
+$ nemoracode service set cors https://app.example.com
 ```
 
 Pass an environment variable to the server process.
 
 ```bash
-$ opencode service set env OPENCODE_LOG_LEVEL DEBUG
+$ nemoracode service set env NEMORACODE_LOG_LEVEL DEBUG
 ```
 
 Reset a setting to its default.
 
 ```bash
-$ opencode service unset hostname
+$ nemoracode service unset hostname
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode service --help
+$ nemoracode service --help
 ```
 
 ## reload
@@ -493,7 +493,7 @@ $ opencode service --help
 Reloads configuration without restarting the server. Running sessions continue with fresh services at the next step boundary.
 
 ```bash
-$ opencode reload
+$ nemoracode reload
 ```
 
 ## api
@@ -501,31 +501,31 @@ $ opencode reload
 Makes a request to the running server.
 
 ```bash
-$ opencode api GET /api/session
+$ nemoracode api GET /api/session
 ```
 
 Call an operation ID with a query parameter.
 
 ```bash
-$ opencode api session.list --param limit=10
+$ nemoracode api session.list --param limit=10
 ```
 
 Send a JSON body.
 
 ```bash
-$ opencode api session.create --data '{"title": "New session"}'
+$ nemoracode api session.create --data '{"title": "New session"}'
 ```
 
 Add a request header.
 
 ```bash
-$ opencode api GET /api/session -H "accept: application/json"
+$ nemoracode api GET /api/session -H "accept: application/json"
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode api --help
+$ nemoracode api --help
 ```
 
 ## acp
@@ -533,13 +533,13 @@ $ opencode api --help
 Starts an Agent Client Protocol server over stdin and stdout for editor integrations. It runs until the client closes the connection.
 
 ```bash
-$ opencode acp
+$ nemoracode acp
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode acp --help
+$ nemoracode acp --help
 ```
 
 ## debug
@@ -547,82 +547,82 @@ $ opencode acp --help
 Provides debugging and troubleshooting tools.
 
 ```bash
-$ opencode debug agents
+$ nemoracode debug agents
 ```
 
 List configuration sources.
 
 ```bash
-$ opencode debug config
+$ nemoracode debug config
 ```
 
 Write a heap snapshot of the running background server and print its path.
 
 ```bash
-$ opencode debug heap-dump
+$ nemoracode debug heap-dump
 ```
 
 Write the snapshot into a directory of your choice.
 
 ```bash
-$ opencode debug heap-dump --directory ./snapshots
+$ nemoracode debug heap-dump --directory ./snapshots
 ```
 
 Show global paths.
 
 ```bash
-$ opencode debug paths
+$ nemoracode debug paths
 ```
 
 Print a single path.
 
 ```bash
-$ opencode debug paths db
+$ nemoracode debug paths db
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode debug --help
+$ nemoracode debug --help
 ```
 
 ## upgrade
 
-Upgrades OpenCode to the latest or a specific version. Alias: `update`.
+Upgrades NemoraCode to the latest or a specific version. Alias: `update`.
 
 ```bash
-$ opencode upgrade
+$ nemoracode upgrade
 ```
 
 Upgrade to a specific version with a specific package manager.
 
 ```bash
-$ opencode upgrade 2.0.21 --method bun
+$ nemoracode upgrade 2.0.21 --method bun
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode upgrade --help
+$ nemoracode upgrade --help
 ```
 
 ## uninstall
 
-Stops background services, removes the global cache, and uninstalls OpenCode. Session data, configuration, and
+Stops background services, removes the global cache, and uninstalls NemoraCode. Session data, configuration, and
 state are not removed.
 
 ```bash
-$ opencode uninstall
+$ nemoracode uninstall
 ```
 
 Preview what would be removed.
 
 ```bash
-$ opencode uninstall --dry-run
+$ nemoracode uninstall --dry-run
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode uninstall --help
+$ nemoracode uninstall --help
 ```

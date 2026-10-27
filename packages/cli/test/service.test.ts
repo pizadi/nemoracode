@@ -1,8 +1,8 @@
 import { NodeFileSystem } from "@effect/platform-node"
 import { validateRoutes } from "@opentunnel/client/effect"
-import { Service, type Info } from "@opencode/client/effect/service"
-import { Global } from "@opencode/util/global"
-import { OPENCODE_VERSION } from "../src/version"
+import { Service, type Info } from "@nemoracode/client/effect/service"
+import { Global } from "@nemoracode/util/global"
+import { NEMORACODE_VERSION } from "../src/version"
 import { expect, test } from "bun:test"
 import { Deferred, Effect, FileSystem, Schedule, Schema } from "effect"
 import { NetAddress } from "effect/net"
@@ -42,7 +42,7 @@ test("managed service ports on Windows stay below the ranges Windows and WSL res
 })
 
 test("service disabled accepts only booleans without changing configuration on invalid input", async () => {
-  const root = await fs.mkdtemp(path.join(os.tmpdir(), "opencode-service-disabled-config-"))
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), "nemoracode-service-disabled-config-"))
   const layer = Global.layerWith({ config: path.join(root, "config"), state: path.join(root, "state") })
   const run = <A, E>(effect: Effect.Effect<A, E, Global.Service | FileSystem.FileSystem>) =>
     Effect.runPromise(effect.pipe(Effect.provide(layer), Effect.provide(NodeFileSystem.layer)))
@@ -61,7 +61,7 @@ test("service disabled accepts only booleans without changing configuration on i
 
 // Enabling remote creates a real tunnel, so only the paths that stay local are covered here.
 test("service remote accepts only booleans and persists across set and unset", async () => {
-  const root = await fs.mkdtemp(path.join(os.tmpdir(), "opencode-service-remote-config-"))
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), "nemoracode-service-remote-config-"))
   const layer = Global.layerWith({ config: path.join(root, "config"), state: path.join(root, "state") })
   const run = <A, E>(effect: Effect.Effect<A, E, Global.Service | FileSystem.FileSystem>) =>
     Effect.runPromise(effect.pipe(Effect.provide(layer), Effect.provide(NodeFileSystem.layer)))
@@ -80,7 +80,7 @@ test("service remote accepts only booleans and persists across set and unset", a
 })
 
 test("remote access route is random, stable once created, hidden, and forgotten when remote is turned off", async () => {
-  const root = await fs.mkdtemp(path.join(os.tmpdir(), "opencode-service-remote-route-"))
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), "nemoracode-service-remote-route-"))
   const layer = Global.layerWith({ config: path.join(root, "config"), state: path.join(root, "state") })
   const run = <A, E>(effect: Effect.Effect<A, E, Global.Service | FileSystem.FileSystem>) =>
     Effect.runPromise(effect.pipe(Effect.provide(layer), Effect.provide(NodeFileSystem.layer)))
@@ -107,7 +107,7 @@ test("remote access route is random, stable once created, hidden, and forgotten 
 })
 
 test("reading a config with remote access stored as a boolean repairs it in place and keeps other settings", async () => {
-  const root = await fs.mkdtemp(path.join(os.tmpdir(), "opencode-service-remote-legacy-"))
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), "nemoracode-service-remote-legacy-"))
   const layer = Global.layerWith({ config: path.join(root, "config"), state: path.join(root, "state") })
   const run = <A, E>(effect: Effect.Effect<A, E, Global.Service | FileSystem.FileSystem>) =>
     Effect.runPromise(effect.pipe(Effect.provide(layer), Effect.provide(NodeFileSystem.layer)))
@@ -137,7 +137,7 @@ test("reading a config with remote access stored as a boolean repairs it in plac
 })
 
 test("local channel stores service config with the local service filename", async () => {
-  const root = await fs.mkdtemp(path.join(os.tmpdir(), "opencode-service-"))
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), "nemoracode-service-"))
   try {
     await Effect.runPromise(
       ServiceConfig.set("hostname", "127.0.0.2").pipe(
@@ -155,18 +155,18 @@ test("local channel stores service config with the local service filename", asyn
 })
 
 test("service config manages environment variables", async () => {
-  const root = await fs.mkdtemp(path.join(os.tmpdir(), "opencode-service-env-"))
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), "nemoracode-service-env-"))
   const layer = Global.layerWith({ config: path.join(root, "config"), state: path.join(root, "state") })
   try {
     await Effect.runPromise(
-      ServiceConfig.set("env", "OPENCODE_SERVICE_ENV_TEST", "configured").pipe(
+      ServiceConfig.set("env", "NEMORACODE_SERVICE_ENV_TEST", "configured").pipe(
         Effect.provide(layer),
         Effect.provide(NodeFileSystem.layer),
       ),
     )
     expect(
       await Effect.runPromise(
-        ServiceConfig.get("env", "OPENCODE_SERVICE_ENV_TEST").pipe(
+        ServiceConfig.get("env", "NEMORACODE_SERVICE_ENV_TEST").pipe(
           Effect.provide(layer),
           Effect.provide(NodeFileSystem.layer),
         ),
@@ -178,10 +178,10 @@ test("service config manages environment variables", async () => {
           ServiceConfig.options().pipe(Effect.provide(layer), Effect.provide(NodeFileSystem.layer)),
         )
       ).env,
-    ).toEqual({ OPENCODE_SERVICE_ENV_TEST: "configured" })
+    ).toEqual({ NEMORACODE_SERVICE_ENV_TEST: "configured" })
 
     await Effect.runPromise(
-      ServiceConfig.unset("env", "OPENCODE_SERVICE_ENV_TEST").pipe(
+      ServiceConfig.unset("env", "NEMORACODE_SERVICE_ENV_TEST").pipe(
         Effect.provide(layer),
         Effect.provide(NodeFileSystem.layer),
       ),
@@ -207,7 +207,7 @@ test("service filenames share release channels and identify preview channels", (
 })
 
 test("service config migrates from the hashed channel filename", async () => {
-  const root = await fs.mkdtemp(path.join(os.tmpdir(), "opencode-service-config-migration-"))
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), "nemoracode-service-config-migration-"))
   const legacy = path.join(root, ServiceConfig.legacyFilename("preview-a")!)
   const target = path.join(root, ServiceConfig.filename("preview-a"))
   try {
@@ -224,7 +224,7 @@ test("service config migrates from the hashed channel filename", async () => {
 })
 
 test("preview registration migration never moves stable discovery", async () => {
-  const root = await fs.mkdtemp(path.join(os.tmpdir(), "opencode-service-migration-"))
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), "nemoracode-service-migration-"))
   const legacy = path.join(root, "service.json")
   const target = path.join(root, ServiceConfig.filename("preview-a"))
   try {
@@ -300,7 +300,7 @@ it.effect("replacing a managed service registration stops its owner and preserve
 
 // Real process: a server whose boot failed must still be watching its registration.
 test("deleting a failed service registration stops its owner", async () => {
-  const service = await startManagedService("opencode-service-failed-delete-", true)
+  const service = await startManagedService("nemoracode-service-failed-delete-", true)
   try {
     await waitForFailed(service.info)
     await fs.rm(service.registration)
@@ -312,7 +312,7 @@ test("deleting a failed service registration stops its owner", async () => {
 }, 30_000)
 
 test("clean managed service shutdown removes its registration", async () => {
-  const service = await startManagedService("opencode-service-clean-")
+  const service = await startManagedService("nemoracode-service-clean-")
   try {
     await Effect.runPromise(Service.stop({ file: service.registration }).pipe(Effect.provide(NodeFileSystem.layer)))
     expect(await waitForExit(service.owner)).toBe(true)
@@ -323,13 +323,13 @@ test("clean managed service shutdown removes its registration", async () => {
 }, 30_000)
 
 test("concurrent service processes elect one server", async () => {
-  const root = await fs.mkdtemp(path.join(os.tmpdir(), "opencode-service-election-"))
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), "nemoracode-service-election-"))
   const env = serviceEnv(root)
   const command = [process.execPath, path.join(import.meta.dir, "../src/index.ts"), "serve", "--service"]
-  const registration = path.join(root, "state", "opencode", "service-local.json")
+  const registration = path.join(root, "state", "nemoracode", "service-local.json")
   const port = await availablePort()
-  const config = path.join(root, "config", "opencode", "service-local.json")
-  await fs.mkdir(path.join(root, "config", "opencode"), { recursive: true })
+  const config = path.join(root, "config", "nemoracode", "service-local.json")
+  await fs.mkdir(path.join(root, "config", "nemoracode"), { recursive: true })
   await fs.writeFile(config, JSON.stringify({ port }))
   const processes = Array.from({ length: 10 }, () => Bun.spawn(command, { env, stderr: "pipe", stdout: "pipe" }))
 
@@ -357,14 +357,14 @@ test("concurrent service processes elect one server", async () => {
     expect(await Bun.file(registration + ".lock").exists()).toBe(false)
     expect(
       await fetch(new URL("/api/info", info.url), {
-        headers: { authorization: "Basic " + btoa(`opencode:${info.password}`) },
+        headers: { authorization: "Basic " + btoa(`nemoracode:${info.password}`) },
       }).then((response) => response.json()),
     ).toEqual({
       version: info.version,
       pid: info.pid,
       urls: [info.url],
       // The server reports the canonical tmp directory; Windows os.tmpdir() can be an 8.3 short name.
-      paths: { tmp: await fs.realpath(path.join(os.tmpdir(), "opencode")) },
+      paths: { tmp: await fs.realpath(path.join(os.tmpdir(), "nemoracode")) },
       capabilities: { persistentPty: true },
     })
     const contender = Bun.spawn(command, { env, stderr: "pipe", stdout: "ignore" })
@@ -391,12 +391,12 @@ test("concurrent service processes elect one server", async () => {
 }, 120_000)
 
 test("configured managed service port overrides the channel default", async () => {
-  const root = await fs.mkdtemp(path.join(os.tmpdir(), "opencode-service-port-"))
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), "nemoracode-service-port-"))
   const port = await availablePort()
   const env = serviceEnv(root)
-  const registration = path.join(root, "state", "opencode", "service-local.json")
-  const config = path.join(root, "config", "opencode", "service-local.json")
-  await fs.mkdir(path.join(root, "config", "opencode"), { recursive: true })
+  const registration = path.join(root, "state", "nemoracode", "service-local.json")
+  const config = path.join(root, "config", "nemoracode", "service-local.json")
+  await fs.mkdir(path.join(root, "config", "nemoracode"), { recursive: true })
   await fs.writeFile(config, JSON.stringify({ port, password: "" }))
   const owner = Bun.spawn([process.execPath, path.join(import.meta.dir, "../src/index.ts"), "serve", "--service"], {
     env,
@@ -426,9 +426,9 @@ test.each([
 ])(
   "managed service applies CORS configuration with flag overrides: $args",
   async ({ args, origins }) => {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), "opencode-service-cors-"))
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "nemoracode-service-cors-"))
     const config = path.join(root, "config", ServiceConfig.filename())
-    const registration = path.join(root, "state", "opencode", ServiceConfig.filename())
+    const registration = path.join(root, "state", "nemoracode", ServiceConfig.filename())
     const cors = ["http://192.0.2.10:3001", "https://configured.example.com"]
     await fs.mkdir(path.dirname(config), { recursive: true })
     await fs.writeFile(config, JSON.stringify({ cors }))
@@ -460,7 +460,7 @@ test.each([
 )
 
 test("the original managed service contender binds when the occupied port is released", async () => {
-  const root = await fs.mkdtemp(path.join(os.tmpdir(), "opencode-service-bind-retry-"))
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), "nemoracode-service-bind-retry-"))
   const recognizing = Promise.withResolvers<void>()
   const requests: string[] = []
   using listener = Bun.serve({
@@ -474,7 +474,7 @@ test("the original managed service contender binds when the occupied port is rel
   })
   const port = listener.port
   if (port === undefined) throw new Error("Server did not bind a port")
-  const registration = path.join(root, "state", "opencode", "service-local.json")
+  const registration = path.join(root, "state", "nemoracode", "service-local.json")
   await fs.mkdir(path.join(root, "config"), { recursive: true })
   await fs.mkdir(path.dirname(registration), { recursive: true })
   await fs.writeFile(path.join(root, "config", "service-local.json"), JSON.stringify({ port }))
@@ -482,7 +482,7 @@ test("the original managed service contender binds when the occupied port is rel
     registration,
     JSON.stringify({
       id: "stale",
-      version: OPENCODE_VERSION,
+      version: NEMORACODE_VERSION,
       url: "http://127.0.0.1:1",
       pid: 2_147_483_647,
       password: "stale",
@@ -517,7 +517,7 @@ test("the original managed service contender binds when the occupied port is rel
       await fetch(new URL("/api/info", endpoint.url), { headers: Service.headers(endpoint) }).then((response) =>
         response.json(),
       ),
-    ).toMatchObject({ pid: contender.pid, version: OPENCODE_VERSION, urls: [endpoint.url] })
+    ).toMatchObject({ pid: contender.pid, version: NEMORACODE_VERSION, urls: [endpoint.url] })
     expect(contender.exitCode).toBe(null)
     await Effect.runPromise(Service.stop({ file: registration }).pipe(Effect.provide(NodeFileSystem.layer)))
     expect(await waitForExit(contender)).toBe(true)
@@ -531,7 +531,7 @@ test("the original managed service contender binds when the occupied port is rel
 }, 45_000)
 
 test("unresponsive managed port occupancy reports a bounded conflict", async () => {
-  const root = await fs.mkdtemp(path.join(os.tmpdir(), "opencode-service-unresponsive-conflict-"))
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), "nemoracode-service-unresponsive-conflict-"))
   const recognizing = Promise.withResolvers<void>()
   const requests = { count: 0 }
   using listener = Bun.serve({
@@ -543,16 +543,16 @@ test("unresponsive managed port occupancy reports a bounded conflict", async () 
       return new Promise<Response>(() => {})
     },
   })
-  const registration = path.join(root, "state", "opencode", "service-local.json")
-  await fs.mkdir(path.join(root, "config", "opencode"), { recursive: true })
+  const registration = path.join(root, "state", "nemoracode", "service-local.json")
+  await fs.mkdir(path.join(root, "config", "nemoracode"), { recursive: true })
   await fs.mkdir(path.dirname(registration), { recursive: true })
   await fs.writeFile(
-    path.join(root, "config", "opencode", "service-local.json"),
+    path.join(root, "config", "nemoracode", "service-local.json"),
     JSON.stringify({ port: listener.port }),
   )
   const stale = {
     id: "stale",
-    version: OPENCODE_VERSION,
+    version: NEMORACODE_VERSION,
     url: "http://127.0.0.1:1",
     pid: process.pid,
     password: "stale",
@@ -579,7 +579,7 @@ test("unresponsive managed port occupancy reports a bounded conflict", async () 
 }, 45_000)
 
 test("port contender recognizes an incumbent registered during the bind race", async () => {
-  const root = await fs.mkdtemp(path.join(os.tmpdir(), "opencode-service-bind-race-"))
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), "nemoracode-service-bind-race-"))
   const recognizing = Promise.withResolvers<void>()
   const requests = { count: 0 }
   using listener = Bun.serve({
@@ -589,13 +589,13 @@ test("port contender recognizes an incumbent registered during the bind race", a
       requests.count += 1
       if (requests.count === 2) recognizing.resolve()
       return Response.json(
-        { version: OPENCODE_VERSION, pid: process.pid, urls: [], paths: { tmp: "/tmp/opencode" } },
+        { version: NEMORACODE_VERSION, pid: process.pid, urls: [], paths: { tmp: "/tmp/nemoracode" } },
         { status: 503 },
       )
     },
   })
-  const registration = path.join(root, "state", "opencode", "service-local.json")
-  const config = path.join(root, "config", "opencode", "service-local.json")
+  const registration = path.join(root, "state", "nemoracode", "service-local.json")
+  const config = path.join(root, "config", "nemoracode", "service-local.json")
   await fs.mkdir(path.dirname(config), { recursive: true })
   await fs.writeFile(config, JSON.stringify({ port: listener.port }))
   await fs.mkdir(path.dirname(registration), { recursive: true })
@@ -603,7 +603,7 @@ test("port contender recognizes an incumbent registered during the bind race", a
     registration,
     JSON.stringify({
       id: "stale",
-      version: OPENCODE_VERSION,
+      version: NEMORACODE_VERSION,
       url: "http://127.0.0.1:1",
       pid: 2_147_483_647,
       password: "stale",
@@ -620,7 +620,7 @@ test("port contender recognizes an incumbent registered during the bind race", a
     await Bun.sleep(8_000)
     const info = {
       id: "incumbent",
-      version: OPENCODE_VERSION,
+      version: NEMORACODE_VERSION,
       url: `http://127.0.0.1:${listener.port}`,
       pid: process.pid,
       password: "incumbent",
@@ -637,8 +637,8 @@ test("port contender recognizes an incumbent registered during the bind race", a
 }, 45_000)
 
 test("service registration replaces a stale owner with the bound address", async () => {
-  const root = await fs.mkdtemp(path.join(os.tmpdir(), "opencode-service-stale-"))
-  const registration = path.join(root, "state", "opencode", "service-local.json")
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), "nemoracode-service-stale-"))
+  const registration = path.join(root, "state", "nemoracode", "service-local.json")
   await fs.mkdir(path.dirname(registration), { recursive: true })
   await fs.writeFile(
     registration,
@@ -656,7 +656,7 @@ test("service registration replaces a stale owner with the bound address", async
     )
     expect(await Bun.file(registration).json()).toEqual({
       id: "owner",
-      version: OPENCODE_VERSION,
+      version: NEMORACODE_VERSION,
       url: "http://127.0.0.1:4321",
       pid: process.pid,
       password: "secret",
@@ -669,15 +669,15 @@ test("service registration replaces a stale owner with the bound address", async
 })
 
 test("a failed service stays registered and owns the selected port until stopped", async () => {
-  const root = await fs.mkdtemp(path.join(os.tmpdir(), "opencode-service-failed-"))
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), "nemoracode-service-failed-"))
   const port = await availablePort()
   const database = path.join(root, "database")
   await fs.mkdir(database)
-  await fs.mkdir(path.join(root, "config", "opencode"), { recursive: true })
-  await fs.writeFile(path.join(root, "config", "opencode", "service-local.json"), JSON.stringify({ port }))
-  const env = { ...serviceEnv(root), OPENCODE_DB: database }
+  await fs.mkdir(path.join(root, "config", "nemoracode"), { recursive: true })
+  await fs.writeFile(path.join(root, "config", "nemoracode", "service-local.json"), JSON.stringify({ port }))
+  const env = { ...serviceEnv(root), NEMORACODE_DB: database }
   const command = [process.execPath, path.join(import.meta.dir, "../src/index.ts"), "serve", "--service"]
-  const registration = path.join(root, "state", "opencode", "service-local.json")
+  const registration = path.join(root, "state", "nemoracode", "service-local.json")
   const owner = Bun.spawn(command, { env, stderr: "pipe", stdout: "ignore" })
 
   try {
@@ -718,7 +718,7 @@ async function waitForInfo(file: string, accept: (info: Info) => boolean = () =>
 async function waitForFailed(info: Info) {
   for (let attempt = 0; attempt < 400; attempt++) {
     const status = await fetch(new URL("/api/info", info.url), {
-      headers: { authorization: "Basic " + btoa(`opencode:${info.password}`) },
+      headers: { authorization: "Basic " + btoa(`nemoracode:${info.password}`) },
     })
       .then((response) => response.status)
       .catch(() => undefined)
@@ -767,8 +767,8 @@ function serviceEnv(root: string) {
     ...process.env,
     BUN_RUNTIME_TRANSPILER_CACHE_PATH: transpilerCache,
     HOME: root,
-    OPENCODE_DB: path.join(root, "opencode.db"),
-    OPENCODE_TEST_HOME: root,
+    NEMORACODE_DB: path.join(root, "nemoracode.db"),
+    NEMORACODE_TEST_HOME: root,
     XDG_CACHE_HOME: path.join(root, "cache"),
     XDG_CONFIG_HOME: path.join(root, "config"),
     XDG_DATA_HOME: path.join(root, "data"),
@@ -779,12 +779,12 @@ function serviceEnv(root: string) {
 async function startManagedService(prefix: string, failBoot = false) {
   const root = await fs.mkdtemp(path.join(os.tmpdir(), prefix))
   const port = await availablePort()
-  const registration = path.join(root, "state", "opencode", "service-local.json")
-  await fs.mkdir(path.join(root, "config", "opencode"), { recursive: true })
+  const registration = path.join(root, "state", "nemoracode", "service-local.json")
+  await fs.mkdir(path.join(root, "config", "nemoracode"), { recursive: true })
   if (failBoot) await fs.mkdir(path.join(root, "database"))
-  await fs.writeFile(path.join(root, "config", "opencode", "service-local.json"), JSON.stringify({ port }))
+  await fs.writeFile(path.join(root, "config", "nemoracode", "service-local.json"), JSON.stringify({ port }))
   const owner = Bun.spawn([process.execPath, path.join(import.meta.dir, "../src/index.ts"), "serve", "--service"], {
-    env: failBoot ? { ...serviceEnv(root), OPENCODE_DB: path.join(root, "database") } : serviceEnv(root),
+    env: failBoot ? { ...serviceEnv(root), NEMORACODE_DB: path.join(root, "database") } : serviceEnv(root),
     stderr: "pipe",
     stdout: "ignore",
   })

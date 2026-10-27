@@ -3,11 +3,22 @@
 - This repository does not use Changesets. Do not add `.changeset` files; follow the existing release workflow instead.
 - The default branch is `dev`. Base branches and worktrees on `origin/dev`, target PRs at `dev`, and diff against `origin/dev` unless told otherwise.
 
+## Repo Basics
+
+- NemoraCode is a fork of [OpenCode](https://github.com/anomalyco/opencode) (an AI coding agent) that integrates the graph-addressed coding agent from `.plan/nemora` (standalone C++ TUI, kept untracked) as the `tree` agent. Graph code lives in `packages/core/src/graph`; TUI panes in `packages/tui/src/feature-plugins/system/graph.tsx`; read endpoints in `packages/protocol/src/groups/graph.ts`.
+- Bun monorepo (`packageManager` pins the Bun version; `.husky/pre-push` fails on a mismatched Bun and runs `bun run check`). Turbo drives per-package tasks. Package names are `@nemoracode/*`.
+- Run the CLI/TUI from source with `bun run dev` (root script, runs `packages/cli/src/index.ts`). Other dev entries: `dev:web` (app), `dev:desktop`, `dev:storybook`, `dev:www`.
+- Many packages and directories have their own `AGENTS.md` (e.g. `packages/{ai,app,cli,core/src/tool,desktop,plugin,schema,tui,ui}`, `services/www`). Read the nearest one before editing there.
+- Skills in `.nemoracode/skills` (`nemoracode-dev`, `effect`, `unit-tests`, `tui-tests`, ...) hold deeper workflows; `nemoracode-dev` covers running/debugging the CLI/TUI/server.
+- `bun run lint` also runs ast-grep rules and `script/sdk-docs.ts`; `bun run lint:changed HEAD^1` mirrors CI's stricter oxlint gate on GUI packages (app, desktop, gui-extensions, ui, session-ui).
+- Root `bun run test` always fails by design. Run tests per package, e.g. `cd packages/core && bun run test <file>` (core's `script/test.ts` sandboxes HOME/XDG and strips credential env vars; use it instead of bare `bun test`).
+- After changing the client generator inputs, `bun run check:generated` in `packages/client` verifies generated output is committed.
+
 ## Live TUI Testing
 
-- Run `bun run dev:live` from a development worktree to test its TUI against the currently elected `opencode` background server and live sessions.
+- Run `bun run dev:live` from a development worktree to test its TUI against the currently elected `nemoracode` background server and live sessions.
 - Pass a directory after the script when needed, for example `bun run dev:live /path/to/project`.
-- The script discovers the server with `opencode service status`, injects its private local credential from `opencode service get password`, and uses the `dev` TUI storage channel so tabs and other client-local state match the installed client.
+- The script discovers the server with `nemoracode service status`, injects its private local credential from `nemoracode service get password`, and uses the `dev` TUI storage channel so tabs and other client-local state match the installed client.
 - Prefer `dev:live` over plain `bun run dev` for this workflow. An implicit managed-service connection may replace the live server when the worktree client version differs; explicit `--server` warns and continues without replacing it.
 
 ## TUI Stories
@@ -15,7 +26,7 @@
 - When a user asks for a TUI story, add a fixture-driven story under `packages/tui/src/feature-plugins/system/storybook` and register it in `index.tsx`.
 - Render the real production component rather than a visual copy. Keep submissions and other side effects local to the story so it is safe to explore repeatedly.
 - Expose the meaningful state dimensions through story keybindings and list them in `StoryFooter`; include a reset command when combinations can leave the fixture in a confusing state.
-- Run a specific story with `OPENCODE_STORY=<story-id> bun run dev:live` from the development worktree, and exercise narrow and wide terminal sizes when layout is relevant.
+- Run a specific story with `NEMORACODE_STORY=<story-id> bun run dev:live` from the development worktree, and exercise narrow and wide terminal sizes when layout is relevant.
 
 ## TUI Theme Tokens
 
@@ -34,7 +45,7 @@ Examples: `session-recovery`, `fix-scroll-state`, `regenerate-sdk`.
 
 Use conventional commit-style messages and PR titles: `type(scope): summary`.
 
-Valid types are `feat`, `fix`, `docs`, `chore`, `refactor`, and `test`. Scopes are optional; use the affected package or area when helpful, e.g. `core`, `opencode`, `tui`, `app`, `desktop`, `sdk`, or `plugin`.
+Valid types are `feat`, `fix`, `docs`, `chore`, `refactor`, and `test`. Scopes are optional; use the affected package or area when helpful, e.g. `core`, `nemoracode`, `tui`, `app`, `desktop`, `sdk`, or `plugin`.
 
 Examples: `fix(tui): simplify thinking toggle styling`, `docs: update contributing guide`, `chore(sdk): regenerate types`.
 
@@ -81,9 +92,9 @@ const { a, b } = obj
 ### Imports
 
 - Never alias imports. Do not use `import { foo as bar } from "..."` or renamed imports like `resolve as pathResolve`.
-- Never use type-position `import("...")` references such as `Schema.declare<import("@opencode/plugin/effect/plugin").Plugin["effect"]>`. Only when two imports genuinely collide on a name and no other option exists, an aliased type import (`import type { Plugin as PluginDefinition } from "..."`) is permitted as a last resort — still strongly preferred not to.
+- Never use type-position `import("...")` references such as `Schema.declare<import("@nemoracode/plugin/effect/plugin").Plugin["effect"]>`. Only when two imports genuinely collide on a name and no other option exists, an aliased type import (`import type { Plugin as PluginDefinition } from "..."`) is permitted as a last resort — still strongly preferred not to.
 - Never use star imports. Do not use `import * as Foo from "..."` or `import type * as Foo from "..."`.
-- If a namespace-style value is needed, import the module's own exported namespace by name, for example `import { Project } from "@opencode/core/project"`, then reference `Project.ID`.
+- If a namespace-style value is needed, import the module's own exported namespace by name, for example `import { Project } from "@nemoracode/core/project"`, then reference `Project.ID`.
 - Prefer dynamic imports for heavy modules that are only needed in selected code paths, especially in startup-sensitive entrypoints. Destructure dynamic import bindings near the top of the narrowest scope that needs them so they read like normal imports. Avoid inline chains such as `await import("./module").then((mod) => mod.value())` or `(await import("./module")).value()`. Keep branch-specific imports inside the branch that needs them to preserve lazy loading.
 
 ### Variables
@@ -166,7 +177,7 @@ const table = sqliteTable("session", {
 - Avoid mocks as much as possible, you shouldn't be using globalThis.\* at all unless it's the only option.
 - Test actual implementation, do not duplicate logic into tests
 - Tests cannot run from repo root (guard: `do-not-run-tests-from-root`); run from package directories such as `packages/core`.
-- Before writing or changing tests, read the matching skill in `.opencode/skills`: `unit-tests` (bun test), `tui-tests` (OpenTUI renderer tests), `app-e2e-tests` (Playwright in `packages/app/e2e`) or `component-tests` (Storybook Playwright). They cover what has made tests slow or flaky in CI.
+- Before writing or changing tests, read the matching skill in `.nemoracode/skills`: `unit-tests` (bun test), `tui-tests` (OpenTUI renderer tests), `app-e2e-tests` (Playwright in `packages/app/e2e`) or `component-tests` (Storybook Playwright). They cover what has made tests slow or flaky in CI.
 
 ## Checks
 

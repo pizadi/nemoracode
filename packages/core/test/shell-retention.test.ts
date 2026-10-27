@@ -2,14 +2,14 @@ import { expect } from "bun:test"
 import { Deferred, Effect, Fiber, Layer, Queue, Scope, Sink, Stream } from "effect"
 import { ChildProcessSpawner } from "effect/process"
 import { ExitCode, makeHandle, ProcessId } from "effect/process/ChildProcessSpawner"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { Config } from "@opencode/core/config"
-import { Environment } from "@opencode/core/environment/index"
-import { Location } from "@opencode/core/location"
-import { AbsolutePath } from "@opencode/core/schema"
-import { Shell } from "@opencode/core/shell"
-import { Workspace } from "@opencode/core/workspace"
-import { Global } from "@opencode/util/global"
+import { AppNodeBuilder } from "@nemoracode/core/effect/app-node-builder"
+import { Config } from "@nemoracode/core/config"
+import { Environment } from "@nemoracode/core/environment/index"
+import { Location } from "@nemoracode/core/location"
+import { AbsolutePath } from "@nemoracode/core/schema"
+import { Shell } from "@nemoracode/core/shell"
+import { Workspace } from "@nemoracode/core/workspace"
+import { Global } from "@nemoracode/util/global"
 import { hostEnvironmentLayer } from "./fixture/environment"
 import { tempGlobalLayer } from "./fixture/global"
 import { location, tempLocationLayer } from "./fixture/location"
@@ -141,7 +141,7 @@ it.live("does not inherit host process.env when creating a shell in a workspace-
     expect(process.env.PATH).toBeDefined()
     expect(capturedEnv).toEqual({
       TERM: "xterm-256color",
-      OPENCODE_TERMINAL: "1",
+      NEMORACODE_TERMINAL: "1",
     })
   }),
 )

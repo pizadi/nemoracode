@@ -21,7 +21,7 @@ const names = [
   "server",
   "sdk",
 ]
-const temporary = await mkdtemp(join(tmpdir(), "opencode-sdk-package-"))
+const temporary = await mkdtemp(join(tmpdir(), "nemoracode-sdk-package-"))
 const archives = new Map<string, string>()
 
 try {
@@ -85,29 +85,29 @@ try {
   const consumer = join(temporary, "consumer")
   await Bun.write(
     join(consumer, "package.json"),
-    JSON.stringify({ name: "opencode-sdk-consumer", private: true, type: "module" }),
+    JSON.stringify({ name: "nemoracode-sdk-consumer", private: true, type: "module" }),
   )
   await Promise.all([
     Bun.write(
       join(consumer, "wrangler.jsonc"),
       JSON.stringify({
-        name: "opencode-sdk-packed-consumer",
+        name: "nemoracode-sdk-packed-consumer",
         main: "worker.js",
         compatibility_date: "2026-07-15",
         compatibility_flags: ["nodejs_compat"],
-        durable_objects: { bindings: [{ name: "OPENCODE", class_name: "OpenCodeDO" }] },
-        migrations: [{ tag: "v1", new_sqlite_classes: ["OpenCodeDO"] }],
+        durable_objects: { bindings: [{ name: "NEMORACODE", class_name: "NemoraCodeDO" }] },
+        migrations: [{ tag: "v1", new_sqlite_classes: ["NemoraCodeDO"] }],
       }),
     ),
     Bun.write(
       join(consumer, "worker.js"),
-      `import { bodyDigest } from "@opencode/core/models-dev"
-import { OpenCodeWorkerd } from "@opencode/sdk/workerd"
+      `import { bodyDigest } from "@nemoracode/core/models-dev"
+import { NemoraCodeWorkerd } from "@nemoracode/sdk/workerd"
 
-export class OpenCodeDO {
+export class NemoraCodeDO {
   constructor(state) {
     this.configurations = 0
-    this.opencode = state.blockConcurrencyWhile(() => OpenCodeWorkerd.create({
+    this.nemoracode = state.blockConcurrencyWhile(() => NemoraCodeWorkerd.create({
       storage: state.storage,
       app: { version: "packed-workerd" },
       models: { fetch: false },
@@ -137,12 +137,12 @@ export class OpenCodeDO {
     if (bodyDigest("packed-workerd") !== "5fc174bf63e8dd108ebb6c53d85e7bbc4525b2f4c1c43280364cdbfd9b37aaf5") {
       throw new Error("Packed workerd SHA-256 mismatch")
     }
-    const opencode = await this.opencode
-    const sessions = await Promise.all([1, 2].map(() => opencode.sessions.create({
+    const nemoracode = await this.nemoracode
+    const sessions = await Promise.all([1, 2].map(() => nemoracode.sessions.create({
       location: { directory: "/workspace" },
       metadata: { thread: "packed-thread" },
     })))
-    const admitted = await Promise.all(sessions.map(session => opencode.sessions.prompt({
+    const admitted = await Promise.all(sessions.map(session => nemoracode.sessions.prompt({
       sessionID: session.id,
       text: "Packed prompt",
       resume: false,
@@ -150,13 +150,13 @@ export class OpenCodeDO {
     if (this.configurations !== 1 || admitted.some(item => item.payload.text !== "Packed prompt:packed-thread")) {
       throw new Error("Packed instance configuration did not share or prepare prompts correctly")
     }
-    return Response.json(await opencode.server.info())
+    return Response.json(await nemoracode.server.info())
   }
 }
 
 export default {
   fetch(request, env) {
-    return env.OPENCODE.get(env.OPENCODE.idFromName("packed-consumer")).fetch(request)
+    return env.NEMORACODE.get(env.NEMORACODE.idFromName("packed-consumer")).fetch(request)
   },
 }
 `,
@@ -171,11 +171,11 @@ const miniflare = new Miniflare({
   compatibilityFlags: ["nodejs_compat"],
   modules: true,
   scriptPath: fileURLToPath(new URL("./dist/worker.js", import.meta.url)),
-  durableObjects: { OPENCODE: { className: "OpenCodeDO", useSQLite: true } },
+  durableObjects: { NEMORACODE: { className: "NemoraCodeDO", useSQLite: true } },
 })
 
 try {
-  const response = await miniflare.dispatchFetch("http://opencode.local/health")
+  const response = await miniflare.dispatchFetch("http://nemoracode.local/health")
   if (response.status !== 200) throw new Error(
     "Packed workerd health returned " + response.status + ": " + await response.text(),
   )
@@ -191,21 +191,21 @@ try {
     Bun.write(
       join(consumer, "imports.mjs"),
       `const modules = await Promise.all([
-  import("@opencode/sdk"),
-  import("@opencode/sdk/effect"),
-  import("@opencode/sdk/workerd"),
-  import("@opencode/sdk/workerd/effect"),
+  import("@nemoracode/sdk"),
+  import("@nemoracode/sdk/effect"),
+  import("@nemoracode/sdk/workerd"),
+  import("@nemoracode/sdk/workerd/effect"),
 ])
 
 for (const module of modules) {
-  const api = module.OpenCode ?? module.OpenCodeWorkerd
+  const api = module.NemoraCode ?? module.NemoraCodeWorkerd
   if (typeof api?.create !== "function") throw new Error("Packed SDK entrypoint is missing create()")
 }
 `,
     ),
   ])
 
-  const sdk = archives.get("@opencode/sdk")
+  const sdk = archives.get("@nemoracode/sdk")
   if (!sdk) throw new Error("Packed SDK archive was not created")
   await $`npm install --ignore-scripts --no-audit --no-fund --package-lock=false ${sdk} wrangler@4.110.0`.cwd(consumer)
   const runtimes = (await $`npm ls effect --all --parseable`.cwd(consumer).text()).trim().split("\n")

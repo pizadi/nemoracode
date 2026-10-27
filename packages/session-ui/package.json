@@ -1,5 +1,5 @@
 {
-  "name": "@opencode/session-ui",
+  "name": "@nemoracode/session-ui",
   "version": "2.1.4",
   "private": true,
   "type": "module",
@@ -64,9 +64,9 @@
   },
   "dependencies": {
     "@kobalte/core": "catalog:",
-    "@opencode/client": "workspace:*",
-    "@opencode/ui": "workspace:*",
-    "@opencode/util": "workspace:*",
+    "@nemoracode/client": "workspace:*",
+    "@nemoracode/ui": "workspace:*",
+    "@nemoracode/util": "workspace:*",
     "@pierre/diffs": "catalog:",
     "@pierre/highlights": "catalog:",
     "@solid-primitives/event-listener": "catalog:",

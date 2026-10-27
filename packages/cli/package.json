@@ -1,12 +1,13 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@opencode/cli",
+  "name": "@nemoracode/cli",
+  "description": "NemoraCode CLI and TUI entrypoint",
   "version": "2.1.4",
   "type": "module",
   "license": "MIT",
   "bin": {
-    "opencode": "./bin/opencode.cjs",
-    "opencode2": "./bin/opencode2.cjs"
+    "nemoracode": "./bin/nemoracode.cjs",
+    "nemoracode2": "./bin/nemoracode2.cjs"
   },
   "files": [
     "bin"
@@ -29,13 +30,13 @@
     "@clack/core": "1.0.0-alpha.1",
     "@clack/prompts": "1.0.0-alpha.1",
     "@effect/platform-node": "catalog:",
-    "@opencode/client": "workspace:*",
-    "@opencode/plugin": "workspace:*",
+    "@nemoracode/client": "workspace:*",
+    "@nemoracode/plugin": "workspace:*",
     "@opencode-ai/pty": "0.3.1",
-    "@opencode/schema": "workspace:*",
-    "@opencode/server": "workspace:*",
-    "@opencode/tui": "workspace:*",
-    "@opencode/util": "workspace:*",
+    "@nemoracode/schema": "workspace:*",
+    "@nemoracode/server": "workspace:*",
+    "@nemoracode/tui": "workspace:*",
+    "@nemoracode/util": "workspace:*",
     "@opentui/core": "catalog:",
     "@opentui/solid": "catalog:",
     "@opentunnel/client": "0.6.1",
@@ -54,8 +55,8 @@
     "ws": "8.21.0"
   },
   "devDependencies": {
-    "@opencode/script": "workspace:*",
-    "@opencode/protocol": "workspace:*",
+    "@nemoracode/script": "workspace:*",
+    "@nemoracode/protocol": "workspace:*",
     "@tsconfig/bun": "catalog:",
     "@types/bun": "catalog:",
     "@typescript/native": "catalog:",

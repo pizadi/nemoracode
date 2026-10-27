@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "opencode-update",
+  "name": "nemoracode-update",
   "main": "src/index.ts",
   "compatibility_date": "2026-07-21",
   "workers_dev": false,
@@ -29,7 +29,7 @@
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "opencode-update",
+      "database_name": "nemoracode-update",
       "database_id": "2c010a96-811f-43d5-804d-7188534e5858",
       "migrations_dir": "migrations",
     },

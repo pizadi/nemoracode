@@ -13,7 +13,7 @@ function requireVersion(version: string) {
 
 export function discoverScript() {
   return `cli=""
-if [ -z "$cli" ] && [ -x "$HOME/.opencode/bin/opencode" ]; then cli="$HOME/.opencode/bin/opencode"; fi
+if [ -z "$cli" ] && [ -x "$HOME/.nemoracode/bin/nemoracode" ]; then cli="$HOME/.nemoracode/bin/nemoracode"; fi
 if [ -n "$cli" ]; then printf '%s\\n' "$cli"; fi
 `
 }
@@ -44,6 +44,6 @@ export function installScript(input: { version: string; binary?: string }) {
 
   return `set -eu
 curl -fsSL https://raw.githubusercontent.com/anomalyco/opencode/v2/install | bash -s -- ${input.binary ? `--binary ${input.binary}` : `--version ${quote(version)}`}
-test "$("$HOME/.opencode/bin/opencode" --version | awk '{print $NF}' | sed 's/^v//')" = ${quote(version)}
+test "$("$HOME/.nemoracode/bin/nemoracode" --version | awk '{print $NF}' | sed 's/^v//')" = ${quote(version)}
 `
 }

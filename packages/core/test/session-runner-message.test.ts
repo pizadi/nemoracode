@@ -1,15 +1,15 @@
 import { describe, expect, test } from "bun:test"
-import { Message, Media } from "@opencode/ai/effect"
-import { Model } from "@opencode/core/model"
-import { Provider } from "@opencode/core/provider"
-import { SessionMessage } from "@opencode/core/session/message"
-import { AgentAttachment, Base64, FileAttachment, SkillAttachment } from "@opencode/schema/prompt"
-import { Skill } from "@opencode/schema/skill"
-import { toLLMMessages } from "@opencode/core/session/runner/to-llm-message"
-import { Agent } from "@opencode/core/agent"
-import { Shell } from "@opencode/schema/shell"
-import { Location } from "@opencode/schema/location"
-import { AbsolutePath } from "@opencode/schema/schema"
+import { Message, Media } from "@nemoracode/ai/effect"
+import { Model } from "@nemoracode/core/model"
+import { Provider } from "@nemoracode/core/provider"
+import { SessionMessage } from "@nemoracode/core/session/message"
+import { AgentAttachment, Base64, FileAttachment, SkillAttachment } from "@nemoracode/schema/prompt"
+import { Skill } from "@nemoracode/schema/skill"
+import { toLLMMessages } from "@nemoracode/core/session/runner/to-llm-message"
+import { Agent } from "@nemoracode/core/agent"
+import { Shell } from "@nemoracode/schema/shell"
+import { Location } from "@nemoracode/schema/location"
+import { AbsolutePath } from "@nemoracode/schema/schema"
 import { DateTime } from "effect"
 import path from "path"
 import { pathToFileURL } from "url"
@@ -905,15 +905,15 @@ Earlier work
     ])
   })
 
-  test("replays flat state under an OpenCode hosted model's route key", () => {
-    const opencode = Model.Ref.make({ id: Model.ID.make("claude-fable-5"), providerID: Provider.ID.opencode })
+  test("replays flat state under an NemoraCode hosted model's route key", () => {
+    const nemoracode = Model.Ref.make({ id: Model.ID.make("claude-fable-5"), providerID: Provider.ID.nemoracode })
     const messages = toLLMMessages(
       [
         SessionMessage.Assistant.make({
-          id: id("assistant-opencode-reasoning"),
+          id: id("assistant-nemoracode-reasoning"),
           type: "assistant",
           agent: build,
-          model: opencode,
+          model: nemoracode,
           content: [
             SessionMessage.AssistantReasoning.make({
               type: "reasoning",
@@ -924,7 +924,7 @@ Earlier work
           time: { created, completed: created },
         }),
       ],
-      opencode,
+      nemoracode,
       "anthropic",
     )
 

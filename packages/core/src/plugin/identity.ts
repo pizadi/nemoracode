@@ -1,9 +1,9 @@
 export * as IdentityPlugin from "./identity.js"
 
-import { SystemPart } from "@opencode/ai/effect"
-import { define } from "@opencode/plugin/effect/plugin"
-import type { SessionHooks } from "@opencode/plugin/effect/session"
-import { Model } from "@opencode/schema/model"
+import { SystemPart } from "@nemoracode/ai/effect"
+import { define } from "@nemoracode/plugin/effect/plugin"
+import type { SessionHooks } from "@nemoracode/plugin/effect/session"
+import { Model } from "@nemoracode/schema/model"
 import { Effect } from "effect"
 import { OptimizePlugin } from "./optimize.js"
 
@@ -17,7 +17,7 @@ export function identity(model: { readonly name: string; readonly ref: Model.Ref
 }
 
 export const Plugin = define({
-  id: "opencode.prompt.identity",
+  id: "nemoracode.prompt.identity",
   effect: Effect.fn("IdentityPlugin")(function* (ctx) {
     const hook = (event: SessionHooks["context"]) =>
       Effect.gen(function* () {

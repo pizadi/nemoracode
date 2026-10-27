@@ -22,7 +22,7 @@ import type {
   Page,
   SlotClaim,
   Route,
-} from "@opencode/plugin/tui/context"
+} from "@nemoracode/plugin/tui/context"
 import { ThemeProvider, useThemes } from "../../../src/context/theme"
 import { emptyThemeSource, tmpdir } from "../../fixture/fixture"
 import { StorageProvider, useStorage } from "../../../src/context/storage"
@@ -48,7 +48,7 @@ test("closing the diff viewer returns to the route it opened from", async () => 
   try {
     expect(viewer.current()).toEqual({
       type: "plugin",
-      id: "opencode.diffs",
+      id: "nemoracode.diffs",
       name: "diff",
       data: { sessionID: "session-1", returnRoute: startRoute },
     })
@@ -74,7 +74,7 @@ test.each([80, 160])("standalone full-screen diff does not expose panel-only tog
     width,
     initialRoute: {
       type: "plugin",
-      id: "opencode.diffs",
+      id: "nemoracode.diffs",
       name: "diff",
       data: { sessionID: "session-1", returnRoute: startRoute, split: true },
     },
@@ -221,7 +221,7 @@ test.each(["branch", "committed", "working"] as const)(
 test("explicit route source overrides the configured default", async () => {
   const viewer = await renderDiffViewer(hunkDiff, {
     source: "working",
-    initialRoute: { type: "plugin", id: "opencode.diffs", name: "diff", data: { mode: "committed" } },
+    initialRoute: { type: "plugin", id: "nemoracode.diffs", name: "diff", data: { mode: "committed" } },
   })
   try {
     expect(viewer.vcsDiffInput()).toMatchObject({ mode: "committed", base: "refs/heads/v2" })
@@ -2095,7 +2095,7 @@ async function renderDiffViewer(
             navigate(destination: Destination) {
               setCurrent(
                 destination.type === "plugin" && !("id" in destination)
-                  ? { ...destination, id: "opencode.diffs" }
+                  ? { ...destination, id: "nemoracode.diffs" }
                   : destination,
               )
             },
@@ -2448,7 +2448,7 @@ test.each([100, 160])("the sidebar source picker switches VCS sources at %i colu
     kittyKeyboard: true,
     initialRoute: {
       type: "plugin",
-      id: "opencode.diffs",
+      id: "nemoracode.diffs",
       name: "diff",
       data: { mode: "branch", sessionID: "session-1", returnRoute: startRoute },
     },
@@ -2456,7 +2456,7 @@ test.each([100, 160])("the sidebar source picker switches VCS sources at %i colu
   try {
     expect(viewer.current()).toEqual({
       type: "plugin",
-      id: "opencode.diffs",
+      id: "nemoracode.diffs",
       name: "diff",
       data: { mode: "branch", sessionID: "session-1", returnRoute: startRoute },
     })

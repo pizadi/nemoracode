@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=NemoraCode
+Exec=/opt/NemoraCode/ai.nemoracode %U
+Terminal=false
+Type=Application
+Icon=ai.nemoracode
+StartupWMClass=ai.nemoracode.desktop
+NoDisplay=true
+Comment=Open source AI coding agent
+Categories=Development;

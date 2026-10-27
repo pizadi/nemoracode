@@ -1,14 +1,14 @@
 import { describe, expect, test } from "bun:test"
 import Notifications from "../../../../src/feature-plugins/system/notifications"
-import type { OpenCodeEvent, PermissionAsked } from "@opencode/client"
-import type { AttentionNotifyOptions, Context, Route, ToastOptions } from "@opencode/plugin/tui/context"
+import type { NemoraCodeEvent, PermissionAsked } from "@nemoracode/client"
+import type { AttentionNotifyOptions, Context, Route, ToastOptions } from "@nemoracode/plugin/tui/context"
 
 type Session = { id: string; title: string; parentID?: string }
 
 async function setup(route: Route = { type: "session", sessionID: "session" }) {
   const notifications: AttentionNotifyOptions[] = []
   const toasts: ToastOptions[] = []
-  const handlers = new Map<OpenCodeEvent["type"], ((event: OpenCodeEvent) => void)[]>()
+  const handlers = new Map<NemoraCodeEvent["type"], ((event: NemoraCodeEvent) => void)[]>()
   const session = (id: string, title: string, parentID?: string): Session => ({
     id,
     title,
@@ -33,12 +33,12 @@ async function setup(route: Route = { type: "session", sessionID: "session" }) {
       },
     },
     data: {
-      on: <Type extends OpenCodeEvent["type"]>(
+      on: <Type extends NemoraCodeEvent["type"]>(
         type: Type,
-        handler: (event: Extract<OpenCodeEvent, { type: Type }>) => void,
+        handler: (event: Extract<NemoraCodeEvent, { type: Type }>) => void,
       ) => {
         const list = handlers.get(type) ?? []
-        const wrapped = handler as (event: OpenCodeEvent) => void
+        const wrapped = handler as (event: NemoraCodeEvent) => void
         list.push(wrapped)
         handlers.set(type, list)
         return () => {
@@ -58,13 +58,13 @@ async function setup(route: Route = { type: "session", sessionID: "session" }) {
   return {
     notifications,
     toasts,
-    emit(event: OpenCodeEvent) {
+    emit(event: NemoraCodeEvent) {
       for (const handler of handlers.get(event.type) ?? []) handler(event)
     },
   }
 }
 
-function form(id: string, sessionID = "session"): Extract<OpenCodeEvent, { type: "form.created" }>["data"]["form"] {
+function form(id: string, sessionID = "session"): Extract<NemoraCodeEvent, { type: "form.created" }>["data"]["form"] {
   return {
     id,
     sessionID,
@@ -88,7 +88,7 @@ function durable(sessionID: string): { aggregateID: string; seq: number; version
   return { aggregateID: sessionID, seq: 0, version: 1 }
 }
 
-function executionStarted(id: string, sessionID = "session"): OpenCodeEvent {
+function executionStarted(id: string, sessionID = "session"): NemoraCodeEvent {
   return {
     id,
     created: 0,
@@ -98,7 +98,7 @@ function executionStarted(id: string, sessionID = "session"): OpenCodeEvent {
   }
 }
 
-function executionSucceeded(id: string, sessionID = "session"): OpenCodeEvent {
+function executionSucceeded(id: string, sessionID = "session"): NemoraCodeEvent {
   return {
     id,
     created: 0,
@@ -108,7 +108,7 @@ function executionSucceeded(id: string, sessionID = "session"): OpenCodeEvent {
   }
 }
 
-function executionFailed(id: string, sessionID = "session"): OpenCodeEvent {
+function executionFailed(id: string, sessionID = "session"): NemoraCodeEvent {
   return {
     id,
     created: 0,
@@ -167,7 +167,7 @@ describe("internal notifications TUI plugin", () => {
         sessionID: "session",
         error: { type: "provider.free-limit", message: "Free usage limit reached." },
       },
-    } as OpenCodeEvent)
+    } as NemoraCodeEvent)
     expect(harness.toasts).toHaveLength(2)
     expect(harness.notifications).toHaveLength(2)
   })

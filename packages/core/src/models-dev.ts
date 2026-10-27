@@ -1,13 +1,13 @@
 import { Cause, Context, Duration, Effect, Layer, Option, Schedule, Schema, Semaphore } from "effect"
 import { HttpClient, HttpClientError, HttpClientRequest } from "effect/http"
-import { ModelsDev } from "@opencode/schema/models-dev"
-import { Money } from "@opencode/schema/money"
+import { ModelsDev } from "@nemoracode/schema/models-dev"
+import { Money } from "@nemoracode/schema/money"
 import { App } from "./app.js"
-import { Hash } from "@opencode/util/hash"
-import { FSUtil } from "@opencode/util/fs-util"
+import { Hash } from "@nemoracode/util/hash"
+import { FSUtil } from "@nemoracode/util/fs-util"
 import { Bus } from "./bus.js"
-import { makeGlobalNode } from "@opencode/util/effect/app-node"
-import { httpClient } from "@opencode/util/effect/app-node-platform"
+import { makeGlobalNode } from "@nemoracode/util/effect/app-node"
+import { httpClient } from "@nemoracode/util/effect/app-node-platform"
 import { Model } from "./model.js"
 import { AISDKNative } from "./aisdk-native.js"
 import { Provider } from "./provider.js"
@@ -120,7 +120,7 @@ function normalize(input: Record<string, SourceProvider>): readonly Snapshot[] {
       name: item.name,
       activation: "auto",
       package: packageName,
-      ...(item.api && packageName !== "@opencode/ai/providers/cloudflare-workers-ai"
+      ...(item.api && packageName !== "@nemoracode/ai/providers/cloudflare-workers-ai"
         ? { settings: { baseURL: item.api } }
         : {}),
     } satisfies Provider.Info
@@ -238,7 +238,7 @@ function modelInfo(
   // Per model, so it never merges into a model that overrides to a different package.
   const settings = {
     ...(model.provider?.api ? { baseURL: model.provider.api } : {}),
-    ...(resolved === "@opencode/ai/providers/openai-compatible" ? { provider: providerID } : {}),
+    ...(resolved === "@nemoracode/ai/providers/openai-compatible" ? { provider: providerID } : {}),
   }
   return {
     id,
@@ -270,7 +270,7 @@ function modelInfo(
   }
 }
 
-export { Event } from "@opencode/schema/models-dev"
+export { Event } from "@nemoracode/schema/models-dev"
 
 export interface Interface {
   readonly get: () => Effect.Effect<readonly Snapshot[]>
@@ -285,7 +285,7 @@ export const Options = Schema.Struct({
 })
 export type Options = typeof Options.Type
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/ModelsDev") {}
+export class Service extends Context.Service<Service, Interface>()("@nemoracode/ModelsDev") {}
 
 const CatalogJson = Schema.fromJsonString(Schema.Record(Schema.String, Schema.Unknown))
 const decodeCatalog = (text: string) =>

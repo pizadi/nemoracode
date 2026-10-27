@@ -19,7 +19,7 @@ curl -X POST "https://opencode.ai/inference/openai/v1/chat/completions" \
 ## Authentication
 
 Replace `<token>` with a [personal API key](/console/api#personal-api-keys) or a [service account key](/console/api#service-accounts) created in the [Console](https://opencode.ai/console). Paid models
-require the header. Free-tier chat models are only available from within OpenCode; other clients receive HTTP `403`,
+require the header. Free-tier chat models are only available from within NemoraCode; other clients receive HTTP `403`,
 even with an API key. Use paid models or a [Go](/console/go) subscription from other clients.
 
 ```text
@@ -111,7 +111,7 @@ usage chunk for Chat Completions with `stream_options.include_usage`, `response.
   "prompt_tokens": 1200,
   "completion_tokens": 300,
   "cost": 0.00412,
-  "opencode": {
+  "nemoracode": {
     "billing_source": "balance",
     "list_cost": 0.00412,
     "tokens": { "input": 1200, "output": 300, "reasoning": 120, "cache_read": 8000, "cache_write_5m": 0, "cache_write_1h": 0 }
@@ -122,11 +122,11 @@ usage chunk for Chat Completions with `stream_options.include_usage`, `response.
 | Field                     | Meaning                                                                                                                      |
 | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | `cost`                    | US dollars charged to your balance. `0` for free models and for [Go](/console/go) usage within its limits. With your own provider key, an estimate of what your provider charges, unless it reports its own; absent when the model has no price. |
-| `opencode.billing_source` | `free`, `balance`, `go`, `go-plus`, or `byok` (your own provider key).                                                       |
-| `opencode.list_cost`      | US dollars at the model's price, including peak hours and long-context pricing.                                              |
-| `opencode.estimated`      | `true` when `cost` is an estimate at the model's price rather than an amount OpenCode charged. Only set with your own provider key. |
-| `opencode.allowance`      | Go only: how much the request counted toward your [usage limits](/console/go#usage-limits), in dollars of the plan's monthly limit. |
-| `opencode.tokens`         | The tokens you were billed for. `input` excludes cache reads and writes; `output` includes `reasoning`.                      |
+| `nemoracode.billing_source` | `free`, `balance`, `go`, `go-plus`, or `byok` (your own provider key).                                                       |
+| `nemoracode.list_cost`      | US dollars at the model's price, including peak hours and long-context pricing.                                              |
+| `nemoracode.estimated`      | `true` when `cost` is an estimate at the model's price rather than an amount NemoraCode charged. Only set with your own provider key. |
+| `nemoracode.allowance`      | Go only: how much the request counted toward your [usage limits](/console/go#usage-limits), in dollars of the plan's monthly limit. |
+| `nemoracode.tokens`         | The tokens you were billed for. `input` excludes cache reads and writes; `output` includes `reasoning`.                      |
 
 Image generation reports the same fields on the response, and on each completed image of a stream with the cost so far.
 The cost is known when the response ends, before your balance or Go usage is updated. If your balance or Go limits run

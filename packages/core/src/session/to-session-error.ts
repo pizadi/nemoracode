@@ -1,6 +1,6 @@
-import { AIError, ToolFailure, type FinishReasonDetails } from "@opencode/ai/effect"
-import { Tool } from "@opencode/schema/tool"
-import { SessionError } from "@opencode/schema/session-error"
+import { AIError, ToolFailure, type FinishReasonDetails } from "@nemoracode/ai/effect"
+import { Tool } from "@nemoracode/schema/tool"
+import { SessionError } from "@nemoracode/schema/session-error"
 import { Permission } from "../permission.js"
 import { Integration } from "../integration.js"
 import { AgentNotFoundError, StepFailedError } from "./error.js"
@@ -26,7 +26,7 @@ const tokenSharingMessages = {
 }
 
 const FREE_USAGE_LIMIT_MESSAGE =
-  "Free usage limit reached. Connect a provider or subscribe to OpenCode Go to keep going, or switch models."
+  "Free usage limit reached. Connect a provider or subscribe to NemoraCode Go to keep going, or switch models."
 const BUDGET_LIMIT_MESSAGE = "Workspace usage limit reached. Model use is paused until the limit resets."
 const MODEL_BUDGET_LIMIT_MESSAGE = "You've reached the spend limit for this model. Switch models to keep going."
 
@@ -102,7 +102,7 @@ export function contentFilterError(summary: string, reason: FinishReasonDetails)
   }
 }
 
-// OpenCode Console names what a refusing budget covers, in its envelope's metadata or, for Google clients, ErrorInfo.
+// NemoraCode Console names what a refusing budget covers, in its envelope's metadata or, for Google clients, ErrorInfo.
 function budgetLimit(reason: AIError["reason"]): SessionError.Error {
   if (/"coverage"\s*:\s*"models"/.test(reason.body ?? ""))
     return { ...providerError("provider.model-budget-limit", reason), message: MODEL_BUDGET_LIMIT_MESSAGE }

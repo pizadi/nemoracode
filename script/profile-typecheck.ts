@@ -115,7 +115,7 @@ function systemSnapshot() {
     pageouts: fields.Pageouts ?? 0,
     relevantProcesses: processList()
       .filter((process) =>
-        /opencode|\btsc\b|tsserver|vtsls|eslintServer|tailwindcss-language-server/.test(process.command),
+        /nemoracode|\btsc\b|tsserver|vtsls|eslintServer|tailwindcss-language-server/.test(process.command),
       )
       .sort((a, b) => b.rssKB - a.rssKB)
       .map(processSummary),

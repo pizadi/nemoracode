@@ -1,11 +1,11 @@
 export * as UsageLimits from "./usage-limits.js"
 
-import { Model } from "@opencode/schema/model"
-import { Money } from "@opencode/schema/money"
-import { Provider } from "@opencode/schema/provider"
-import { UsageLimits } from "@opencode/schema/usage-limits"
-import { makeLocationNode } from "@opencode/util/effect/app-node"
-import { httpClient } from "@opencode/util/effect/app-node-platform"
+import { Model } from "@nemoracode/schema/model"
+import { Money } from "@nemoracode/schema/money"
+import { Provider } from "@nemoracode/schema/provider"
+import { UsageLimits } from "@nemoracode/schema/usage-limits"
+import { makeLocationNode } from "@nemoracode/util/effect/app-node"
+import { httpClient } from "@nemoracode/util/effect/app-node-platform"
 import { Context, Duration, Effect, Layer, Schema } from "effect"
 import { HttpClient, HttpClientRequest, HttpClientResponse } from "effect/http"
 import { ConsoleAccess } from "./console-access.js"
@@ -20,11 +20,11 @@ export class UnavailableError extends Schema.TaggedError<UnavailableError>()("Us
 }) {}
 
 export interface Interface {
-  /** The usage limits of the OpenCode Console workspace this location is signed in to, if it is. */
+  /** The usage limits of the NemoraCode Console workspace this location is signed in to, if it is. */
   readonly get: () => Effect.Effect<Info | undefined, UnavailableError>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/UsageLimits") {}
+export class Service extends Context.Service<Service, Interface>()("@nemoracode/UsageLimits") {}
 
 export const layer = Layer.effect(
   Service,
@@ -33,7 +33,7 @@ export const layer = Layer.effect(
     const http = yield* HttpClient.HttpClient
 
     const get = Effect.fn("UsageLimits.get")(function* () {
-      const connection = yield* integrations.connection.active(Integration.ID.make("opencode"))
+      const connection = yield* integrations.connection.active(Integration.ID.make("nemoracode"))
       if (!connection) return undefined
       const credential = yield* integrations.connection
         .resolve(connection)
@@ -48,7 +48,7 @@ export const layer = Layer.effect(
       ).pipe(
         Effect.timeoutOrElse({
           duration: Duration.seconds(15),
-          orElse: () => Effect.fail(new UnavailableError({ message: "OpenCode Console usage limits timed out" })),
+          orElse: () => Effect.fail(new UnavailableError({ message: "NemoraCode Console usage limits timed out" })),
         }),
       )
       return {
@@ -144,7 +144,7 @@ function readBudgets(http: HttpClient.HttpClient, server: string, credential: Cr
       ),
       Effect.scoped,
       Effect.mapError(
-        (error) => new UnavailableError({ message: `OpenCode Console budgets are unavailable: ${error.message}` }),
+        (error) => new UnavailableError({ message: `NemoraCode Console budgets are unavailable: ${error.message}` }),
       ),
     )
 }
@@ -164,7 +164,7 @@ function readGo(
       HttpClientRequest.get(`${new URL(server).origin}/zen/go/v1/usage`).pipe(
         HttpClientRequest.acceptJson,
         HttpClientRequest.bearerToken(credential.type === "oauth" ? credential.access : credential.key),
-        HttpClientRequest.setHeader("x-opencode-org-id", workspaceID),
+        HttpClientRequest.setHeader("x-nemoracode-org-id", workspaceID),
       ),
     )
     .pipe(
@@ -182,7 +182,7 @@ function readGo(
       ),
       Effect.scoped,
       Effect.mapError(
-        (error) => new UnavailableError({ message: `OpenCode Go usage is unavailable: ${error.message}` }),
+        (error) => new UnavailableError({ message: `NemoraCode Go usage is unavailable: ${error.message}` }),
       ),
     )
 }

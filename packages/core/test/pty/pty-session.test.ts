@@ -1,12 +1,12 @@
 import { describe, expect } from "bun:test"
 import { Cause, Deferred, Effect, Exit, Layer, Queue } from "effect"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { Bus } from "@opencode/core/bus"
-import { Location } from "@opencode/core/location"
-import { Pty } from "@opencode/core/pty"
-import { AbsolutePath } from "@opencode/core/schema"
-import { ShellSelect } from "@opencode/core/shell/select"
+import { AppNodeBuilder } from "@nemoracode/core/effect/app-node-builder"
+import { LayerNode } from "@nemoracode/util/effect/layer-node"
+import { Bus } from "@nemoracode/core/bus"
+import { Location } from "@nemoracode/core/location"
+import { Pty } from "@nemoracode/core/pty"
+import { AbsolutePath } from "@nemoracode/core/schema"
+import { ShellSelect } from "@nemoracode/core/shell/select"
 import { location } from "../fixture/location"
 import { testEffect } from "../lib/effect"
 
@@ -40,7 +40,7 @@ const subscribePtyEvents = Effect.fn("PtySessionTest.subscribePtyEvents")(functi
 const createPty = Effect.fn("PtySessionTest.createPty")(function* (command: string, args: string[] = []) {
   const pty = yield* Pty.Service
   return yield* Effect.acquireRelease(
-    pty.create({ command, args, cwd: "/tmp", env: { TERM: "xterm-256color", OPENCODE_TERMINAL: "1" } }),
+    pty.create({ command, args, cwd: "/tmp", env: { TERM: "xterm-256color", NEMORACODE_TERMINAL: "1" } }),
     (info) => pty.remove(info.id).pipe(Effect.ignore),
   )
 })

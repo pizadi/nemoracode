@@ -1,6 +1,6 @@
-# OpenCode website
+# NemoraCode website
 
-The standard Astro website for OpenCode. The only deployment-specific path is the `base` setting in `astro.config.ts`; application code uses `import.meta.env.BASE_URL`.
+The standard Astro website for NemoraCode. The only deployment-specific path is the `base` setting in `astro.config.ts`; application code uses `import.meta.env.BASE_URL`.
 
 - `src/pages/` owns website routes.
 - `src/docs/` is the self-contained documentation feature rendered under `/docs`.

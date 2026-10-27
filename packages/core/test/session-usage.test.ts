@@ -1,7 +1,7 @@
 import { expect, test } from "bun:test"
-import { Usage } from "@opencode/ai/effect"
-import { Money } from "@opencode/schema/money"
-import { SessionUsage } from "@opencode/core/session/usage"
+import { Usage } from "@nemoracode/ai/effect"
+import { Money } from "@nemoracode/schema/money"
+import { SessionUsage } from "@nemoracode/core/session/usage"
 
 // $1 per million fresh input tokens, so a million of them price at $1 from the catalog.
 const costs = [

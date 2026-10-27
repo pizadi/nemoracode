@@ -1,5 +1,5 @@
 import assert from "node:assert/strict"
-import { ClientError, OpenCode } from "@opencode/client/promise"
+import { ClientError, NemoraCode } from "@nemoracode/client/promise"
 import { createMiniConnection } from "../../src/mini"
 
 const endpoint = { url: process.argv[2]! }
@@ -16,7 +16,7 @@ const timeout = (error: unknown) =>
 await Promise.all([
   connection.sdk.session.wait({ sessionID: "ses_initial" }),
   replacement.session.wait({ sessionID: "ses_reconnected" }),
-  assert.rejects(OpenCode.make({ baseUrl: endpoint.url }).session.wait({ sessionID: "ses_control" }), timeout),
+  assert.rejects(NemoraCode.make({ baseUrl: endpoint.url }).session.wait({ sessionID: "ses_control" }), timeout),
   assert.rejects(
     connection.sdk.session.wait({ sessionID: "ses_cancelled" }, { signal: AbortSignal.timeout(100) }),
     timeout,

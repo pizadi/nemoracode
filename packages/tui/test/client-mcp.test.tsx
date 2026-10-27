@@ -3,7 +3,7 @@ import { EmbeddedTerminalRenderable } from "@opentui/core"
 import { createTestRenderer } from "@opentui/core/testing"
 import type { ServerWebSocket } from "bun"
 import { Effect, FileSystem } from "effect"
-import { Global } from "@opencode/util/global"
+import { Global } from "@nemoracode/util/global"
 import { createEventStream, createFetch, directory, json } from "./fixture/tui-client"
 import { tmpdir } from "./fixture/fixture"
 
@@ -119,7 +119,7 @@ async function initialize(tui: Awaited<ReturnType<typeof start>>) {
     request("tools/call", {
       name,
       arguments: args,
-      ...(sessionID ? { _meta: { "ai.opencode/sessionID": sessionID } } : {}),
+      ...(sessionID ? { _meta: { "ai.nemoracode/sessionID": sessionID } } : {}),
     })
 }
 

@@ -2,8 +2,8 @@ import { MetaProvider, Title } from "@solidjs/meta"
 import { Router } from "@solidjs/router"
 import { FileRoutes } from "@solidjs/start/router"
 import { Suspense } from "solid-js"
-import { Favicon } from "@opencode/ui/favicon"
-import { Font } from "@opencode/ui/font"
+import { Favicon } from "@nemoracode/ui/favicon"
+import { Font } from "@nemoracode/ui/font"
 // Only IBM Plex Mono is used. The full ibm-plex.css declares 424 faces across every Plex family.
 import "@ibm/plex/IBM-Plex-Mono/fonts/split/woff2/IBMPlexMono-Regular.css"
 import "@ibm/plex/IBM-Plex-Mono/fonts/split/woff2/IBMPlexMono-Text.css"
@@ -19,7 +19,7 @@ import { strip } from "~/lib/language"
 function AppMeta() {
   return (
     <>
-      <Title>opencode</Title>
+      <Title>nemoracode</Title>
       <Favicon />
       <Font />
     </>

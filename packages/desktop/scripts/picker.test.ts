@@ -63,13 +63,13 @@ test.each([true, false])(
 
         expect(scripts.length).toBeGreaterThan(0)
 
-        if (bundledDev) expect(scripts.join("\n")).toContain("opencodePickerUi")
+        if (bundledDev) expect(scripts.join("\n")).toContain("nemoracodePickerUi")
         expect([html, ...scripts].join("\n")).not.toMatch(/\bimport(?:\s*\(\s*|\s*)["']virtual:/)
       }
 
-      const direct = await fetch(new URL("/__vite_opencode_picker_client.js", url))
+      const direct = await fetch(new URL("/__vite_nemoracode_picker_client.js", url))
       expect(direct.ok).toBe(true)
-      expect(await direct.text()).toContain("opencodePickerUi")
+      expect(await direct.text()).toContain("nemoracodePickerUi")
     } finally {
       socket?.close()
       await server.close()

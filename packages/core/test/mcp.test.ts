@@ -10,34 +10,34 @@ import {
   Server,
   WebStandardStreamableHTTPServerTransport,
 } from "@modelcontextprotocol/server"
-import { Document, Event, Info } from "@opencode/schema/config"
-import { ConfigMCP } from "@opencode/schema/config/mcp"
-import { McpEvent } from "@opencode/schema/mcp-event"
-import { ConfigPolicy } from "@opencode/schema/config/policy"
-import { ManagedPolicy } from "@opencode/core/managed-policy"
-import { Config } from "@opencode/core/config"
-import { ConfigMcpPlugin } from "@opencode/core/config/plugin/mcp"
-import { Credential } from "@opencode/core/credential"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { Bus } from "@opencode/core/bus"
-import { ID, type Payload } from "@opencode/schema/event"
-import { Form } from "@opencode/core/form"
-import { Integration } from "@opencode/core/integration"
-import { Environment } from "@opencode/core/environment/index"
-import { EnvironmentUnavailable } from "@opencode/core/environment/unavailable"
-import { Location } from "@opencode/core/location"
-import { Mcp } from "@opencode/core/mcp/index"
-import { McpClient } from "@opencode/core/mcp/client"
-import { McpStdio } from "@opencode/core/mcp/stdio"
-import { Permission } from "@opencode/core/permission"
-import { AbsolutePath } from "@opencode/core/schema"
-import { Session } from "@opencode/core/session"
-import { State } from "@opencode/core/state"
-import { McpTool } from "@opencode/core/tool/mcp"
-import { McpResourceTools } from "@opencode/core/tool/plugin/mcp-resource"
-import { Tool } from "@opencode/core/tool"
-import { ToolOutput } from "@opencode/core/tool-output"
+import { Document, Event, Info } from "@nemoracode/schema/config"
+import { ConfigMCP } from "@nemoracode/schema/config/mcp"
+import { McpEvent } from "@nemoracode/schema/mcp-event"
+import { ConfigPolicy } from "@nemoracode/schema/config/policy"
+import { ManagedPolicy } from "@nemoracode/core/managed-policy"
+import { Config } from "@nemoracode/core/config"
+import { ConfigMcpPlugin } from "@nemoracode/core/config/plugin/mcp"
+import { Credential } from "@nemoracode/core/credential"
+import { AppNodeBuilder } from "@nemoracode/core/effect/app-node-builder"
+import { LayerNode } from "@nemoracode/util/effect/layer-node"
+import { Bus } from "@nemoracode/core/bus"
+import { ID, type Payload } from "@nemoracode/schema/event"
+import { Form } from "@nemoracode/core/form"
+import { Integration } from "@nemoracode/core/integration"
+import { Environment } from "@nemoracode/core/environment/index"
+import { EnvironmentUnavailable } from "@nemoracode/core/environment/unavailable"
+import { Location } from "@nemoracode/core/location"
+import { Mcp } from "@nemoracode/core/mcp/index"
+import { McpClient } from "@nemoracode/core/mcp/client"
+import { McpStdio } from "@nemoracode/core/mcp/stdio"
+import { Permission } from "@nemoracode/core/permission"
+import { AbsolutePath } from "@nemoracode/core/schema"
+import { Session } from "@nemoracode/core/session"
+import { State } from "@nemoracode/core/state"
+import { McpTool } from "@nemoracode/core/tool/mcp"
+import { McpResourceTools } from "@nemoracode/core/tool/plugin/mcp-resource"
+import { Tool } from "@nemoracode/core/tool"
+import { ToolOutput } from "@nemoracode/core/tool-output"
 import {
   Context,
   Deferred,
@@ -57,8 +57,8 @@ import {
 import { TestClock } from "effect/testing"
 import { ChildProcess, ChildProcessSpawner } from "effect/process"
 import { ExitCode, makeHandle, ProcessId } from "effect/process/ChildProcessSpawner"
-import { Image } from "@opencode/core/image"
-import { Global } from "@opencode/util/global"
+import { Image } from "@nemoracode/core/image"
+import { Global } from "@nemoracode/util/global"
 import { advance, drain } from "./lib/clock"
 import { testEffect } from "./lib/effect"
 import { registerIntegrationPolicy } from "./fixture/policy"
@@ -214,7 +214,7 @@ function resourceServer(
             state.toolCalls.push({
               name: request.params.name,
               arguments: request.params.arguments,
-              sessionID: request.params._meta?.["ai.opencode/sessionID"],
+              sessionID: request.params._meta?.["ai.nemoracode/sessionID"],
               progressToken: request.params._meta?.progressToken,
             })
             return Promise.resolve({ content: [] })
@@ -559,7 +559,7 @@ const permissions = Layer.mock(Permission.Service, {
     }),
 })
 const events = Layer.mock(Bus.Service, { subscribe: () => Stream.never })
-const outputData = await fs.mkdtemp(path.join(os.tmpdir(), "opencode-mcp-output-"))
+const outputData = await fs.mkdtemp(path.join(os.tmpdir(), "nemoracode-mcp-output-"))
 const it = testEffect(
   AppNodeBuilder.build(LayerNode.group([Tool.node, McpTool.node]), [
     Mcp.node.replace(mcp),
@@ -1526,7 +1526,7 @@ it.live("discovers and reads MCP resources through Code Mode", () =>
         })
 
       // The SDK walks every page, so one call returns the full catalog.
-      const listed = yield* run('return await tools.opencode.list_mcp_resources({ server: "resources" })')
+      const listed = yield* run('return await tools.nemoracode.list_mcp_resources({ server: "resources" })')
       expect(JSON.parse(listed.output.output)).toEqual({
         resources: [
           { server: "resources", name: "Guide", uri: "docs://guide" },
@@ -1541,9 +1541,9 @@ it.live("discovers and reads MCP resources through Code Mode", () =>
 
       // Omitting the server lists every server, so the model can find which one owns a URI.
       assertion = yield* Deferred.make<Permission.AssertInput>()
-      const everywhere = yield* run("return await tools.opencode.list_mcp_resources({})")
+      const everywhere = yield* run("return await tools.nemoracode.list_mcp_resources({})")
       expect(yield* Deferred.await(assertion)).toMatchObject({
-        action: "opencode_list_mcp_resources",
+        action: "nemoracode_list_mcp_resources",
         resources: ["resources"],
         save: ["resources"],
       })
@@ -1560,7 +1560,7 @@ it.live("discovers and reads MCP resources through Code Mode", () =>
 
       // A server may declare resources without implementing template listing.
       server.state.templatesUnsupported = true
-      const untemplated = yield* run('return await tools.opencode.list_mcp_resources({ server: "resources" })')
+      const untemplated = yield* run('return await tools.nemoracode.list_mcp_resources({ server: "resources" })')
       expect(JSON.parse(untemplated.output.output)).toEqual({
         resources: [
           { server: "resources", name: "Guide", uri: "docs://guide" },
@@ -1572,7 +1572,7 @@ it.live("discovers and reads MCP resources through Code Mode", () =>
 
       assertion = yield* Deferred.make<Permission.AssertInput>()
       const read = yield* run(
-        'const resource = await tools.opencode.read_mcp_resource({ server: "resources", uri: "docs://readme" }); return resource.contents.filter(part => part.type === "text").map(part => part.text).join("\\n")',
+        'const resource = await tools.nemoracode.read_mcp_resource({ server: "resources", uri: "docs://readme" }); return resource.contents.filter(part => part.type === "text").map(part => part.text).join("\\n")',
       )
       expect(read.content).toEqual([
         { type: "text", text: "hello" },
@@ -1580,14 +1580,14 @@ it.live("discovers and reads MCP resources through Code Mode", () =>
       ])
       expect(read.metadata?.toolCalls).toMatchObject([
         {
-          tool: "opencode.read_mcp_resource",
+          tool: "nemoracode.read_mcp_resource",
           status: "completed",
           input: { server: "resources", uri: "docs://readme" },
         },
       ])
       expect(server.state.resourceReads).toEqual(["docs://readme"])
       expect(yield* Deferred.await(assertion)).toEqual({
-        action: "opencode_read_mcp_resource",
+        action: "nemoracode_read_mcp_resource",
         resources: ["resources:docs://readme"],
         save: ["resources:*"],
         metadata: { server: "resources", uri: "docs://readme" },
@@ -1598,7 +1598,7 @@ it.live("discovers and reads MCP resources through Code Mode", () =>
 
       server.state.contents = [{ uri: "docs://readme", text: "line\n".repeat(20_000), mimeType: "text/plain" }]
       const large = yield* run(
-        'const resource = await tools.opencode.read_mcp_resource({ server: "resources", uri: "docs://readme" }); return resource.contents[0].text',
+        'const resource = await tools.nemoracode.read_mcp_resource({ server: "resources", uri: "docs://readme" }); return resource.contents[0].text',
       )
       const bounded = yield* ToolOutput.Service.use((output) => output.truncate(large)).pipe(
         Effect.provide(AppNodeBuilder.build(ToolOutput.node)),
@@ -1613,29 +1613,29 @@ it.live("discovers and reads MCP resources through Code Mode", () =>
       // An empty contents array means the resource exists without content, not that it is missing.
       server.state.contents = []
       const empty = yield* run(
-        'return await tools.opencode.read_mcp_resource({ server: "resources", uri: "docs://empty" })',
+        'return await tools.nemoracode.read_mcp_resource({ server: "resources", uri: "docs://empty" })',
       )
       expect(empty.metadata?.error).toBeUndefined()
       expect(JSON.parse(empty.output.output)).toEqual({ server: "resources", uri: "docs://empty", contents: [] })
       server.state.missing = ["docs://gone"]
       const gone = yield* run(
-        'return await tools.opencode.read_mcp_resource({ server: "resources", uri: "docs://gone" })',
+        'return await tools.nemoracode.read_mcp_resource({ server: "resources", uri: "docs://gone" })',
       )
       expect(gone.metadata?.error).toBe(true)
       expect(gone.output.output).toContain("Unable to read MCP resource resources:docs://gone")
       expect(gone.output.output).toContain("Resource not found")
       const missing = yield* run(
-        'return await tools.opencode.read_mcp_resource({ server: "missing", uri: "docs://readme" })',
+        'return await tools.nemoracode.read_mcp_resource({ server: "missing", uri: "docs://readme" })',
       )
       expect(missing.metadata?.error).toBe(true)
       expect(missing.output.output).toContain("MCP server not found: missing")
 
       const reads = server.state.resourceReads.length
       decision = Effect.fail(
-        new Permission.BlockedError({ rules: [], permission: "opencode_read_mcp_resource", resources: ["*"] }),
+        new Permission.BlockedError({ rules: [], permission: "nemoracode_read_mcp_resource", resources: ["*"] }),
       )
       const denied = yield* run(
-        'return await tools.opencode.read_mcp_resource({ server: "resources", uri: "docs://denied" })',
+        'return await tools.nemoracode.read_mcp_resource({ server: "resources", uri: "docs://denied" })',
       )
       expect(denied.metadata?.error).toBe(true)
       expect(server.state.resourceReads).toHaveLength(reads)

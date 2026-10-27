@@ -1,11 +1,11 @@
 {
-  "name": "@opencode/ui",
+  "name": "@nemoracode/ui",
   "version": "2.1.4",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anomalyco/opencode.git",
+    "url": "git+https://github.com/pizadi/nemoracode.git",
     "directory": "packages/ui"
   },
   "publishConfig": {

@@ -2,12 +2,12 @@ export * as Credential from "./credential.js"
 
 import { asc, desc, eq } from "drizzle-orm"
 import { Cause, Context, Effect, Layer, Schema } from "effect"
-import { Credential } from "@opencode/schema/credential"
-import { CredentialLegacy } from "@opencode/schema/credential-legacy"
-import { Integration } from "@opencode/schema/integration"
+import { Credential } from "@nemoracode/schema/credential"
+import { CredentialLegacy } from "@nemoracode/schema/credential-legacy"
+import { Integration } from "@nemoracode/schema/integration"
 import { Database } from "./database/database.js"
 import { Bus } from "./bus.js"
-import { makeGlobalNode } from "@opencode/util/effect/app-node"
+import { makeGlobalNode } from "@nemoracode/util/effect/app-node"
 import { CredentialTable } from "./credential/sql.js"
 import { ErrorSummary } from "./util/error-summary.js"
 
@@ -61,7 +61,7 @@ export interface Interface {
   readonly remove: (id: ID) => Effect.Effect<void>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/Credential") {}
+export class Service extends Context.Service<Service, Interface>()("@nemoracode/Credential") {}
 
 const layer = Layer.effect(
   Service,

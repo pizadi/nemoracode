@@ -19,13 +19,13 @@ Enterprise inquiries use the company supplied by the visitor.
 
 Before applying to another org, retrieve and preserve that org's current LeadSource
 values, layouts, and LeadConvertSettings; these checked-in files are the additive
-changes prepared for the connected OpenCode org.
+changes prepared for the connected NemoraCode org.
 
 From this directory, deployment uses the existing Salesforce CLI authentication:
 
 ```sh
-sf project deploy start --source-dir force-app --target-org opencode --wait 10
-sf org assign permset --name Console_Account_Sync --target-org opencode
+sf project deploy start --source-dir force-app --target-org nemoracode --wait 10
+sf org assign permset --name Console_Account_Sync --target-org nemoracode
 ```
 
 The Console writes these fields when someone signs up. Enterprise inquiry Leads from

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@opencode/stats-app",
+  "name": "@nemoracode/stats-app",
   "version": "2.1.4",
   "private": true,
   "type": "module",
@@ -16,8 +16,8 @@
   "dependencies": {
     "@ibm/plex": "6.4.1",
     "@kobalte/core": "catalog:",
-    "@opencode/stats-core": "workspace:*",
-    "@opencode/ui": "workspace:*",
+    "@nemoracode/stats-core": "workspace:*",
+    "@nemoracode/ui": "workspace:*",
     "@solidjs/meta": "catalog:",
     "@solidjs/router": "catalog:",
     "@solidjs/start": "catalog:",

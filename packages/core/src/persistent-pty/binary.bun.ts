@@ -6,8 +6,8 @@ import asset from "./pty-binding.js"
 export const available = true
 
 export async function resolveBinary(bin: string) {
-  if (process.env.OPENCODE_PTY_BIN) return process.env.OPENCODE_PTY_BIN
-  if (!asset) return "opencode-pty"
+  if (process.env.NEMORACODE_PTY_BIN) return process.env.NEMORACODE_PTY_BIN
+  if (!asset) return "nemoracode-pty"
   if (typeof asset === "string") return asset
   return install(bin, asset)
 }
@@ -16,17 +16,17 @@ async function install(
   bin: string,
   input: { readonly path: string; readonly version: string; readonly sha256: string },
 ) {
-  const root = path.join(bin, "opencode-pty")
+  const root = path.join(bin, "nemoracode-pty")
   await privateDirectory(root)
   const directory = path.join(root, `${input.version}-${input.sha256.slice(0, 16)}`)
   await privateDirectory(directory)
   // Windows only launches executables with their extension.
-  const destination = path.join(directory, process.platform === "win32" ? "opencode-pty.exe" : "opencode-pty")
+  const destination = path.join(directory, process.platform === "win32" ? "nemoracode-pty.exe" : "nemoracode-pty")
   if (await validateIfPresent(destination, input.sha256)) return destination
 
   const bytes = new Uint8Array(await Bun.file(input.path).arrayBuffer())
-  if (sha256(bytes) !== input.sha256) throw new Error("Embedded opencode-pty checksum mismatch")
-  const temporary = path.join(directory, `opencode-pty.${process.pid}.${crypto.randomUUID()}.tmp`)
+  if (sha256(bytes) !== input.sha256) throw new Error("Embedded nemoracode-pty checksum mismatch")
+  const temporary = path.join(directory, `nemoracode-pty.${process.pid}.${crypto.randomUUID()}.tmp`)
   try {
     const file = await open(temporary, "wx", 0o700)
     try {
@@ -48,10 +48,10 @@ async function install(
 async function privateDirectory(directory: string) {
   await mkdir(directory, { recursive: true, mode: 0o700 })
   const info = await lstat(directory)
-  if (!info.isDirectory() || info.isSymbolicLink()) throw new Error(`Unsafe opencode-pty directory: ${directory}`)
+  if (!info.isDirectory() || info.isSymbolicLink()) throw new Error(`Unsafe nemoracode-pty directory: ${directory}`)
   const uid = typeof process.getuid === "function" ? process.getuid() : undefined
   if (uid !== undefined && info.uid !== uid)
-    throw new Error(`opencode-pty directory is owned by another user: ${directory}`)
+    throw new Error(`nemoracode-pty directory is owned by another user: ${directory}`)
   await chmod(directory, 0o700)
 }
 
@@ -67,11 +67,11 @@ async function validateIfPresent(file: string, expected: string) {
 
 async function validate(file: string, expected: string) {
   const info = await lstat(file)
-  if (!info.isFile() || info.isSymbolicLink()) throw new Error(`Unsafe opencode-pty executable: ${file}`)
+  if (!info.isFile() || info.isSymbolicLink()) throw new Error(`Unsafe nemoracode-pty executable: ${file}`)
   const uid = typeof process.getuid === "function" ? process.getuid() : undefined
   if (uid !== undefined && info.uid !== uid)
-    throw new Error(`opencode-pty executable is owned by another user: ${file}`)
-  if (sha256(await readFile(file)) !== expected) throw new Error(`Cached opencode-pty checksum mismatch: ${file}`)
+    throw new Error(`nemoracode-pty executable is owned by another user: ${file}`)
+  if (sha256(await readFile(file)) !== expected) throw new Error(`Cached nemoracode-pty checksum mismatch: ${file}`)
   await chmod(file, 0o755)
   return file
 }

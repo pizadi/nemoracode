@@ -19,9 +19,9 @@ import {
   TranscriptionClient,
   Video,
   VideoClient,
-} from "@opencode/ai/effect"
-import { Route, Protocol, RequestExecutor, WebSocketTransport } from "@opencode/ai/route"
-import { Provider as ProviderSubpath } from "@opencode/ai/provider"
+} from "@nemoracode/ai/effect"
+import { Route, Protocol, RequestExecutor, WebSocketTransport } from "@nemoracode/ai/route"
+import { Provider as ProviderSubpath } from "@nemoracode/ai/provider"
 import {
   Alibaba,
   AssemblyAI,
@@ -38,7 +38,7 @@ import {
   Fireworks,
   Google,
   Meta,
-  OpenCode,
+  NemoraCode,
   OpenAI,
   OpenAICompatible,
   OpenRouter,
@@ -49,7 +49,7 @@ import {
   VercelAIGateway,
   XAI,
   ZAI,
-} from "@opencode/ai/providers"
+} from "@nemoracode/ai/providers"
 import {
   OpenAIChat,
   OpenAICompatibleChat,
@@ -57,9 +57,9 @@ import {
   OpenAIResponses,
   OpenResponses,
   OpenResponsesChannel,
-} from "@opencode/ai/protocols"
-import * as AnthropicMessages from "@opencode/ai/protocols/anthropic-messages"
-import { TestLLM } from "@opencode/ai/testing"
+} from "@nemoracode/ai/protocols"
+import * as AnthropicMessages from "@nemoracode/ai/protocols/anthropic-messages"
+import { TestLLM } from "@nemoracode/ai/testing"
 
 describe("public exports", () => {
   test("modality, provider, and protocol entrypoints load first in a fresh process", async () => {
@@ -130,7 +130,7 @@ describe("public exports", () => {
   })
 
   test("provider barrels expose user-facing facades", async () => {
-    const { OpenAICompatibleResponses } = await import("@opencode/ai/providers")
+    const { OpenAICompatibleResponses } = await import("@nemoracode/ai/providers")
 
     expect(OpenAI.model).toBeFunction()
     expect(OpenAI.provider.responses).toBe(OpenAI.responses)
@@ -152,7 +152,7 @@ describe("public exports", () => {
     expect(OpenRouter.model).toBeFunction()
     expect(OpenRouter.decision).toBeFunction()
     expect(TypeSafeAI.decision).toBeFunction()
-    expect(OpenCode.decision).toBeFunction()
+    expect(NemoraCode.decision).toBeFunction()
     expect(VercelAIGateway.decision("typesafe-ai/jev").route.id).toBe("openai-decisions")
     expect(Baseten.decision).toBeFunction()
     expect(DigitalOcean.decision).toBeFunction()

@@ -4,16 +4,16 @@ import { createStore } from "solid-js/store"
 import { createMediaQuery } from "@solid-primitives/media"
 import { useLocal, type ModelSelection } from "@/providers/models/selection"
 import { isFreeModel } from "@/providers/models/models"
-import { useDialog } from "@opencode/ui/context/dialog"
+import { useDialog } from "@nemoracode/ui/context/dialog"
 import { popularProviders } from "@/providers/catalog/providers"
-import { Button } from "@opencode/ui/button"
-import { Badge } from "@opencode/ui/badge"
-import { Dialog, DialogBody, DialogHeader, DialogTitleGroup } from "@opencode/ui/dialog"
-import { Icon } from "@opencode/ui/icon"
-import { ScrollView } from "@opencode/ui/scroll-view"
-import { Tooltip } from "@opencode/ui/tooltip"
-import { Menu } from "@opencode/ui/menu"
-import { TextInput } from "@opencode/ui/text-input"
+import { Button } from "@nemoracode/ui/button"
+import { Badge } from "@nemoracode/ui/badge"
+import { Dialog, DialogBody, DialogHeader, DialogTitleGroup } from "@nemoracode/ui/dialog"
+import { Icon } from "@nemoracode/ui/icon"
+import { ScrollView } from "@nemoracode/ui/scroll-view"
+import { Tooltip } from "@nemoracode/ui/tooltip"
+import { Menu } from "@nemoracode/ui/menu"
+import { TextInput } from "@nemoracode/ui/text-input"
 import { ModelTooltip } from "./tooltip"
 import { useLanguage } from "@/runtime/i18n/language"
 import { ExternalLink } from "@/runtime/platform/external-link"
@@ -695,7 +695,7 @@ export function ModelSelectorPopoverView(props: {
                     <Menu.Group>
                       <Menu.GroupLabel
                         class="gap-1.5 pe-3"
-                        style={{ "padding-inline-start": group.items[0].provider.id === "opencode" ? "10px" : "12px" }}
+                        style={{ "padding-inline-start": group.items[0].provider.id === "nemoracode" ? "10px" : "12px" }}
                       >
                         <ProviderModelIcon provider={group.items[0].provider} class="shrink-0" />
                         <Show

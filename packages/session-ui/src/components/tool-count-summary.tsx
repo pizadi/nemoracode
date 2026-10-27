@@ -1,5 +1,5 @@
 import { Index, createMemo } from "solid-js"
-import { useI18n, type UiI18nPluralKey } from "@opencode/ui/context"
+import { useI18n, type UiI18nPluralKey } from "@nemoracode/ui/context"
 import { AnimatedCountLabel } from "./tool-count-label"
 
 export type CountItem = {

@@ -1,7 +1,7 @@
-import type { OpenCode } from "./client.js"
+import type { NemoraCode } from "./client.js"
 
 export * from "./generated/index.js"
-export { OpenCode } from "./client.js"
+export { NemoraCode } from "./client.js"
 export type {
   AgentApi,
   CommandApi,
@@ -20,5 +20,5 @@ export type {
   SessionApi,
   SkillApi,
 } from "./api.js"
-export type { EventSubscribeOutput as OpenCodeEvent } from "./generated/types.js"
-export type OpenCodeClient = ReturnType<typeof OpenCode.make>
+export type { EventSubscribeOutput as NemoraCodeEvent } from "./generated/types.js"
+export type NemoraCodeClient = ReturnType<typeof NemoraCode.make>

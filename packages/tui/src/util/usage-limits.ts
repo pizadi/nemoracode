@@ -1,6 +1,6 @@
-import type { UsageLimitsBudget, UsageLimitsInfo } from "@opencode/client"
+import type { UsageLimitsBudget, UsageLimitsInfo } from "@nemoracode/client"
 
-/** A model as the usage limits read it: its OpenCode IDs, its price and context window, and its provider. */
+/** A model as the usage limits read it: its NemoraCode IDs, its price and context window, and its provider. */
 export type LimitedModel = {
   readonly id: string
   readonly providerID: string
@@ -32,9 +32,9 @@ export type ModelUsage = {
  */
 export type UsageLevel = "plenty" | "low" | "out" | "reached"
 
-/** OpenCode Console serves the model, so the workspace's limits can apply; OpenCode Go bills its own allowance. */
+/** NemoraCode Console serves the model, so the workspace's limits can apply; NemoraCode Go bills its own allowance. */
 export function servedByConsole(provider: LimitedProvider | undefined) {
-  return provider?.integrationID === "opencode" && provider.id !== "opencode-go"
+  return provider?.integrationID === "nemoracode" && provider.id !== "nemoracode-go"
 }
 
 /** The limits on a paid model, or nothing when none applies; free models stay usable whatever is spent. */
@@ -91,7 +91,7 @@ export function formatReset(at: number) {
   return date.getHours() === 0 && date.getMinutes() === 0 ? day : `${day}, ${time}`
 }
 
-/** When a refused request's limit resets: OpenCode Console names it `resetsAt` in every protocol's error envelope. */
+/** When a refused request's limit resets: NemoraCode Console names it `resetsAt` in every protocol's error envelope. */
 export function refusalReset(error: { readonly response?: { readonly body: string } } | undefined) {
   const at = Date.parse(/"resetsAt"\s*:\s*"([^"]+)"/.exec(error?.response?.body ?? "")?.[1] ?? "")
   return Number.isNaN(at) ? undefined : at

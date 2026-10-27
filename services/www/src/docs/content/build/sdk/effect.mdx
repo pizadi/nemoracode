@@ -2,11 +2,11 @@
 title: "Effect"
 ---
 
-`@opencode/sdk/effect` is the Effect-native embedded SDK. Operations return typed Effects and Streams, and closing
+`@nemoracode/sdk/effect` is the Effect-native embedded SDK. Operations return typed Effects and Streams, and closing
 the owning Scope releases the router, Location services, fibers, and plugin registrations.
 
 ```sh
-bun add @opencode/sdk effect@4.0.1
+bun add @nemoracode/sdk effect@4.0.1
 ```
 
 ## Create a host
@@ -14,16 +14,16 @@ bun add @opencode/sdk effect@4.0.1
 Create the host inside `Effect.scoped`, then use its generated API groups or the `sessions` alias.
 
 ```ts
-import { AbsolutePath, Location, OpenCode } from "@opencode/sdk/effect"
+import { AbsolutePath, Location, NemoraCode } from "@nemoracode/sdk/effect"
 import { Effect } from "effect"
 
 const program = Effect.scoped(
   Effect.gen(function* () {
-    const opencode = yield* OpenCode.create()
-    const session = yield* opencode.sessions.create({
+    const nemoracode = yield* NemoraCode.create()
+    const session = yield* nemoracode.sessions.create({
       location: Location.Ref.make({ directory: AbsolutePath.make("/workspace") }),
     })
-    yield* opencode.sessions.prompt({
+    yield* nemoracode.sessions.prompt({
       sessionID: session.id,
       text: "Review the current changes",
     })
@@ -35,11 +35,11 @@ const session = await Effect.runPromise(program)
 ```
 
 The embedded host uses the same schema values, declared errors, request options, and Streams as
-`@opencode/client/effect`.
+`@nemoracode/client/effect`.
 
 ```ts
-const info = yield* opencode.server.info()
-const sessions = yield* opencode.sessions.list()
+const info = yield* nemoracode.server.info()
+const sessions = yield* nemoracode.sessions.list()
 ```
 
 ## Stream events
@@ -50,19 +50,19 @@ background.
 ```ts
 import { Effect, Stream } from "effect"
 
-yield* opencode.events.subscribe().pipe(
-  Stream.runForEach((event) => Effect.logInfo("OpenCode event", { type: event.type })),
+yield* nemoracode.events.subscribe().pipe(
+  Stream.runForEach((event) => Effect.logInfo("NemoraCode event", { type: event.type })),
   Effect.forkScoped,
 )
 ```
 
 ## Customize
 
-Customize your OpenCode instance by registering Effect plugins. Use the embedded
+Customize your NemoraCode instance by registering Effect plugins. Use the embedded
 host to customize agents, models, tools, and other behavior:
 
 ```ts
-import { Plugin } from "@opencode/plugin/effect"
+import { Plugin } from "@nemoracode/plugin/effect"
 import { Effect } from "effect"
 
 const plugin = Plugin.define({
@@ -78,7 +78,7 @@ const plugin = Plugin.define({
     }),
 })
 
-yield* opencode.plugin(plugin)
+yield* nemoracode.plugin(plugin)
 ```
 
 See the [full Effect plugins documentation](/build/plugins/effect) for plugin
@@ -86,16 +86,16 @@ hooks, transforms, tools, and the complete plugin context.
 
 ## Layer
 
-Use `OpenCode.layer()` when the embedded host should be an application service.
+Use `NemoraCode.layer()` when the embedded host should be an application service.
 
 ```ts
-import { OpenCode } from "@opencode/sdk/effect"
+import { NemoraCode } from "@nemoracode/sdk/effect"
 import { Effect } from "effect"
 
 const program = Effect.gen(function* () {
-  const opencode = yield* OpenCode.Service
-  return yield* opencode.server.info()
+  const nemoracode = yield* NemoraCode.Service
+  return yield* nemoracode.server.info()
 })
 
-const health = await Effect.runPromise(program.pipe(Effect.provide(OpenCode.layer())))
+const health = await Effect.runPromise(program.pipe(Effect.provide(NemoraCode.layer())))
 ```

@@ -2,24 +2,24 @@
 title: "MCP servers"
 ---
 
-OpenCode connects to [Model Context Protocol](https://modelcontextprotocol.io/) servers and exposes capabilities such as tools, prompts, resources, and instructions. MCP tools consume model context, so add only the servers you need.
+NemoraCode connects to [Model Context Protocol](https://modelcontextprotocol.io/) servers and exposes capabilities such as tools, prompts, resources, and instructions. MCP tools consume model context, so add only the servers you need.
 
 ## Setup
 
 Add a remote server from the project that should use it, then check its connection:
 
 ```sh
-opencode mcp add context7 --url https://mcp.context7.com/mcp
-opencode mcp list
+nemoracode mcp add context7 --url https://mcp.context7.com/mcp
+nemoracode mcp list
 ```
 
 The command writes the server to the project [configuration](/config). Add `--global` to make it available in every project:
 
 ```sh
-opencode mcp add context7 --global --url https://mcp.context7.com/mcp
+nemoracode mcp add context7 --global --url https://mcp.context7.com/mcp
 ```
 
-Remote servers use OAuth by default. If the list shows `needs authentication`, open OpenCode, run `/mcps`, select the server, and sign in. A connected server is ready for an agent to use:
+Remote servers use OAuth by default. If the list shows `needs authentication`, open NemoraCode, run `/mcps`, select the server, and sign in. A connected server is ready for an agent to use:
 
 ```text
 ✓ context7  connected
@@ -29,7 +29,7 @@ Remote servers use OAuth by default. If the list shows `needs authentication`, o
 
 To configure a server by hand, give it a unique name under `mcp.servers`. V2 does not place server names directly under `mcp`.
 
-```jsonc title="opencode.jsonc"
+```jsonc title="nemoracode.jsonc"
 {
   "$schema": "https://opencode.ai/config.json",
   "mcp": {
@@ -61,7 +61,7 @@ Servers connect automatically. Use `disabled`, not an `enabled` field, to keep o
 
 A higher-precedence project config replaces the entire server object with the same name. Use different names for separate connections or accounts; otherwise repeat every required field in the override:
 
-```jsonc title="opencode.jsonc"
+```jsonc title="nemoracode.jsonc"
 {
   "mcp": {
     "servers": {
@@ -76,21 +76,21 @@ A higher-precedence project config replaces the entire server object with the sa
 
 ## Local
 
-A local server is a command that OpenCode starts over the MCP stdio transport. Add one with a command after `--`:
+A local server is a command that NemoraCode starts over the MCP stdio transport. Add one with a command after `--`:
 
 ```sh
-opencode mcp add everything -- npx -y @modelcontextprotocol/server-everything
+nemoracode mcp add everything -- npx -y @modelcontextprotocol/server-everything
 ```
 
 Pass environment variables with repeated `--env` flags:
 
 ```sh
-opencode mcp add everything --env LOG_LEVEL=info -- npx -y @modelcontextprotocol/server-everything
+nemoracode mcp add everything --env LOG_LEVEL=info -- npx -y @modelcontextprotocol/server-everything
 ```
 
 Use configuration for other process options such as a working directory:
 
-```jsonc title="opencode.jsonc"
+```jsonc title="nemoracode.jsonc"
 {
   "$schema": "https://opencode.ai/config.json",
   "mcp": {
@@ -114,7 +114,7 @@ Use configuration for other process options such as a working directory:
 | `type` | Yes | Must be `"local"`. |
 | `command` | Yes | Executable followed by its arguments. |
 | `cwd` | No | Process directory. Relative paths resolve from the workspace, which is also the default. |
-| `environment` | No | String variables added to OpenCode's inherited process environment. |
+| `environment` | No | String variables added to NemoraCode's inherited process environment. |
 | `disabled` | No | Prevents connection when `true`. Defaults to `false`. |
 | `codemode` | No | Set to `false` to expose tools directly instead of through Code Mode. Defaults to `true`. |
 | `timeout` | No | Per-server timeout overrides. |
@@ -135,18 +135,18 @@ Use `{env:NAME}` for environment substitution. Shell expressions such as `$NAME`
 A remote server uses the MCP Streamable HTTP transport and requires an absolute URL:
 
 ```sh
-opencode mcp add context7 --url https://mcp.context7.com/mcp
+nemoracode mcp add context7 --url https://mcp.context7.com/mcp
 ```
 
 Pass request headers with repeated `--header` flags. Quote `{env:NAME}` references so the shell writes them literally:
 
 ```sh
-opencode mcp add context7 --url https://mcp.context7.com/mcp --header 'CONTEXT7_API_KEY={env:CONTEXT7_API_KEY}'
+nemoracode mcp add context7 --url https://mcp.context7.com/mcp --header 'CONTEXT7_API_KEY={env:CONTEXT7_API_KEY}'
 ```
 
 Use configuration for other options. Store secrets in environment variables rather than in the file:
 
-```jsonc title="opencode.jsonc"
+```jsonc title="nemoracode.jsonc"
 {
   "$schema": "https://opencode.ai/config.json",
   "mcp": {
@@ -188,11 +188,11 @@ Use `oauth: false` only when the server exclusively uses an API key or another h
 
 ## OAuth
 
-OAuth is enabled for remote servers unless `oauth` is `false`. OpenCode discovers the authorization server, signs in with PKCE, and refreshes tokens. Credentials are stored outside project configuration.
+OAuth is enabled for remote servers unless `oauth` is `false`. NemoraCode discovers the authorization server, signs in with PKCE, and refreshes tokens. Credentials are stored outside project configuration.
 
 Most servers need only the URL:
 
-```jsonc title="opencode.jsonc"
+```jsonc title="nemoracode.jsonc"
 {
   "$schema": "https://opencode.ai/config.json",
   "mcp": {
@@ -209,18 +209,18 @@ Most servers need only the URL:
 If the server needs authentication, run `/mcps`, select it, and complete authorization in the browser. The CLI can start the same flow:
 
 ```sh
-opencode mcp auth sentry
+nemoracode mcp auth sentry
 ```
 
 ### Client registration
 
-OpenCode identifies itself to the authorization server with the first method that applies:
+NemoraCode identifies itself to the authorization server with the first method that applies:
 
 | Method | Used when |
 | --- | --- |
 | Pre-registered client | `oauth.client_id` is configured. |
 | [Client ID Metadata Document](https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization#client-id-metadata-documents) (CIMD) | The authorization server supports CIMD and public clients, and `oauth.redirect_uri` is not set. |
-| [Dynamic client registration](https://datatracker.ietf.org/doc/html/rfc7591) (DCR) | Neither of the above applies. OpenCode registers a client and reuses it on later sign-ins. |
+| [Dynamic client registration](https://datatracker.ietf.org/doc/html/rfc7591) (DCR) | Neither of the above applies. NemoraCode registers a client and reuses it on later sign-ins. |
 
 An authorization server opts into CIMD through its metadata:
 
@@ -232,7 +232,7 @@ An authorization server opts into CIMD through its metadata:
 }
 ```
 
-With CIMD, OpenCode sends its metadata document URL as the `client_id` and skips registration:
+With CIMD, NemoraCode sends its metadata document URL as the `client_id` and skips registration:
 
 ```text
 https://opencode.ai/oauth/opencode/client.json
@@ -244,7 +244,7 @@ The document allows these loopback redirects without a port:
 - `http://localhost/callback`
 - `http://127.0.0.1/mcp/oauth/callback` for older clients
 
-Authorization servers accept any loopback port for these redirects, as [RFC 8252](https://datatracker.ietf.org/doc/html/rfc8252#section-7.3) requires, so `callback_port` works with CIMD. A custom `redirect_uri` does not, so OpenCode falls back to DCR.
+Authorization servers accept any loopback port for these redirects, as [RFC 8252](https://datatracker.ietf.org/doc/html/rfc8252#section-7.3) requires, so `callback_port` works with CIMD. A custom `redirect_uri` does not, so NemoraCode falls back to DCR.
 
 If the authorization server supports neither CIMD nor DCR, configure a pre-registered client.
 
@@ -252,7 +252,7 @@ If the authorization server supports neither CIMD nor DCR, configure a pre-regis
 
 When a provider gives you client credentials, use V2's snake_case OAuth fields:
 
-```jsonc title="opencode.jsonc"
+```jsonc title="nemoracode.jsonc"
 {
   "$schema": "https://opencode.ai/config.json",
   "mcp": {
@@ -285,14 +285,14 @@ When a provider gives you client credentials, use V2's snake_case OAuth fields:
 Remove stored OAuth credentials when you need to sign in again or switch accounts:
 
 ```sh
-opencode mcp logout sentry
+nemoracode mcp logout sentry
 ```
 
 ## Timeouts
 
 Timeouts are positive integer milliseconds. Set defaults under `mcp.timeout`; a server's `timeout` object overrides matching defaults.
 
-```jsonc title="opencode.jsonc"
+```jsonc title="nemoracode.jsonc"
 {
   "$schema": "https://opencode.ai/config.json",
   "mcp": {
@@ -322,9 +322,9 @@ Timeouts are positive integer milliseconds. Set defaults under `mcp.timeout`; a 
 
 ## Protocol version
 
-OpenCode opens every server with the classic MCP `initialize` handshake by default. Set a server's `protocol` to talk to one built on the 2026-07-28 revision:
+NemoraCode opens every server with the classic MCP `initialize` handshake by default. Set a server's `protocol` to talk to one built on the 2026-07-28 revision:
 
-```jsonc title="opencode.jsonc"
+```jsonc title="nemoracode.jsonc"
 {
   "$schema": "https://opencode.ai/config.json",
   "mcp": {
@@ -349,7 +349,7 @@ Probing a local `legacy` server adds a short-lived extra process and can wait up
 
 ## Names
 
-OpenCode names a tool `<server>_<tool>`. It replaces characters other than letters, numbers, `_`, and `-` with `_`:
+NemoraCode names a tool `<server>_<tool>`. It replaces characters other than letters, numbers, `_`, and `-` with `_`:
 
 ```text
 server: context 7
@@ -413,8 +413,8 @@ Agents read MCP resources through two built-in tools, `list_mcp_resources` and `
 
 | Action | Resource |
 | --- | --- |
-| `opencode_list_mcp_resources` | The server name. |
-| `opencode_read_mcp_resource` | `<server>:<uri>` |
+| `nemoracode_list_mcp_resources` | The server name. |
+| `nemoracode_read_mcp_resource` | `<server>:<uri>` |
 
 For example, allow every read from the `docs` server:
 
@@ -422,7 +422,7 @@ For example, allow every read from the `docs` server:
 {
   "permissions": [
     {
-      "action": "opencode_read_mcp_resource",
+      "action": "nemoracode_read_mcp_resource",
       "resource": "docs:*",
       "effect": "allow",
     },
@@ -432,7 +432,7 @@ For example, allow every read from the `docs` server:
 
 ## Server instructions
 
-When a server returns instructions during initialization, OpenCode adds them to the system prompt:
+When a server returns instructions during initialization, NemoraCode adds them to the system prompt:
 
 ```text
 <mcp_instructions>
@@ -442,13 +442,13 @@ When a server returns instructions during initialization, OpenCode adds them to 
 </mcp_instructions>
 ```
 
-For servers that use Code Mode, OpenCode adds a line that says where the agent can find the server's tools.
+For servers that use Code Mode, NemoraCode adds a line that says where the agent can find the server's tools.
 
 A server's instructions are omitted when the agent's permissions deny every one of its tools, or when they deny `execute` for a server that uses Code Mode.
 
 ## Input requests
 
-Servers can ask for input during a call through MCP elicitation. OpenCode shows the request as a form, or as a link to open for URL requests:
+Servers can ask for input during a call through MCP elicitation. NemoraCode shows the request as a form, or as a link to open for URL requests:
 
 ```text
 sentry is requesting input
@@ -458,7 +458,7 @@ Dismissing the form cancels the request.
 
 ## Context
 
-For calls made on behalf of a session, OpenCode sends the session ID in `CallToolRequest.params._meta["ai.opencode/sessionID"]`. This applies to direct tools and Code Mode over stdio and Streamable HTTP:
+For calls made on behalf of a session, NemoraCode sends the session ID in `CallToolRequest.params._meta["ai.nemoracode/sessionID"]`. This applies to direct tools and Code Mode over stdio and Streamable HTTP:
 
 ```json
 {
@@ -466,7 +466,7 @@ For calls made on behalf of a session, OpenCode sends the session ID in `CallToo
   "params": {
     "name": "lookup",
     "arguments": { "query": "example" },
-    "_meta": { "ai.opencode/sessionID": "ses_..." }
+    "_meta": { "ai.nemoracode/sessionID": "ses_..." }
   }
 }
 ```
@@ -475,7 +475,7 @@ The ID is request metadata, not a tool argument, so it is absent from the model-
 
 | Rule | Behavior |
 | --- | --- |
-| Identity | It identifies the invoking OpenCode session, not the MCP transport session. |
+| Identity | It identifies the invoking NemoraCode session, not the MCP transport session. |
 | Presence | It can be absent for calls without session context. |
 | Security | Do not use it by itself for authentication or authorization. |
 | Privacy | Remote servers receive the raw ID and may log or retain it. |
@@ -485,21 +485,21 @@ The ID is request metadata, not a tool argument, so it is absent from the model-
 List servers and their current connection state from any project:
 
 ```sh
-opencode mcp list
+nemoracode mcp list
 ```
 
-Use `/mcps` in OpenCode to view, connect, disconnect, or authenticate servers. Use the CLI to add servers and manage OAuth credentials:
+Use `/mcps` in NemoraCode to view, connect, disconnect, or authenticate servers. Use the CLI to add servers and manage OAuth credentials:
 
 ```sh
-opencode mcp add sentry --url https://mcp.sentry.dev/mcp
-opencode mcp auth sentry
-opencode mcp logout sentry
+nemoracode mcp add sentry --url https://mcp.sentry.dev/mcp
+nemoracode mcp auth sentry
+nemoracode mcp logout sentry
 ```
 
-Run `opencode mcp auth` without a name to pick from the OAuth-capable servers:
+Run `nemoracode mcp auth` without a name to pick from the OAuth-capable servers:
 
 ```sh
-opencode mcp auth
+nemoracode mcp auth
 ```
 
 To remove a server, delete its entry from the project or global configuration where it was added:

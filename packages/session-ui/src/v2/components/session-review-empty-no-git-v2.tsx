@@ -1,6 +1,6 @@
-import { FileIcon } from "@opencode/ui/file-icon"
-import { useI18n } from "@opencode/ui/context/i18n"
-import { Button } from "@opencode/ui/button"
+import { FileIcon } from "@nemoracode/ui/file-icon"
+import { useI18n } from "@nemoracode/ui/context/i18n"
+import { Button } from "@nemoracode/ui/button"
 import "./session-review-v2.css"
 
 export type SessionReviewEmptyNoGitV2Props = {

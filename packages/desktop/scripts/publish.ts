@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 
-import { Script } from "@opencode/script"
+import { Script } from "@nemoracode/script"
 import { UpdateArtifact } from "../../../script/update-artifact"
 
 const dryRun = process.argv.includes("--dry-run")
@@ -10,9 +10,9 @@ if (!Script.release) {
   process.exit(0)
 }
 
-const directory = process.env.OPENCODE_DESKTOP_DIST
+const directory = process.env.NEMORACODE_DESKTOP_DIST
 
-if (!directory) throw new Error("OPENCODE_DESKTOP_DIST is required")
+if (!directory) throw new Error("NEMORACODE_DESKTOP_DIST is required")
 
 const files = (
   await Array.fromAsync(
@@ -27,7 +27,7 @@ const uploaded = await UpdateArtifact.upload({ version: Script.version, files, d
 const artifact = {
   channel: Script.channel,
   name: "desktop",
-  distribution: "opencode",
+  distribution: "nemoracode",
   version: Script.version,
   metadata: { files: uploaded, ...(await metadata(Script.version, uploaded)) },
 }

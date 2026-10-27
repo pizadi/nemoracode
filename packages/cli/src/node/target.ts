@@ -13,7 +13,7 @@ export function nodeTarget(platform: string, arch: string) {
   const parcelWatcherPackage = `@parcel/watcher-${targetPlatform}-${targetArch}${targetPlatform === "linux" ? "-glibc" : ""}`
   const fffPackage = `@ff-labs/fff-bin-${targetPlatform}-${targetArch}${targetPlatform === "linux" ? "-gnu" : ""}`
   const fffFfiPackage = `@yuuang/ffi-rs-${targetPlatform}-${targetArch}${targetPlatform === "linux" ? "-gnu" : targetPlatform === "win32" ? "-msvc" : ""}`
-  const opencodePtyAsset = targetPlatform === "win32" ? "opencode-pty/opencode-pty.exe" : "opencode-pty/opencode-pty"
+  const nemoracodePtyAsset = targetPlatform === "win32" ? "nemoracode-pty/nemoracode-pty.exe" : "nemoracode-pty/nemoracode-pty"
 
   return {
     platform: targetPlatform,
@@ -26,7 +26,7 @@ export function nodeTarget(platform: string, arch: string) {
     fffAsset: `${fffPackage}/${targetPlatform === "darwin" ? "libfff_c.dylib" : targetPlatform === "win32" ? "fff_c.dll" : "libfff_c.so"}`,
     fffFfiPackage,
     fffFfiAsset: `${fffFfiPackage}/ffi-rs.${targetPlatform}-${targetArch}${targetPlatform === "linux" ? "-gnu" : targetPlatform === "win32" ? "-msvc" : ""}.node`,
-    opencodePtyAsset,
+    nemoracodePtyAsset,
   }
 }
 
@@ -39,9 +39,9 @@ export const shellParserWasmAssets = {
 export const nodeExecArgv = ["--experimental-ffi", "--use-system-ca", "--disable-warning=ExperimentalWarning"] as const
 
 export const attentionSoundAssets = [
-  "@opencode/ui/audio/bip-bop-01.mp3",
-  "@opencode/ui/audio/bip-bop-03.mp3",
-  "@opencode/ui/audio/staplebops-06.mp3",
-  "@opencode/ui/audio/nope-03.mp3",
-  "@opencode/ui/audio/yup-01.mp3",
+  "@nemoracode/ui/audio/bip-bop-01.mp3",
+  "@nemoracode/ui/audio/bip-bop-03.mp3",
+  "@nemoracode/ui/audio/staplebops-06.mp3",
+  "@nemoracode/ui/audio/nope-03.mp3",
+  "@nemoracode/ui/audio/yup-01.mp3",
 ] as const

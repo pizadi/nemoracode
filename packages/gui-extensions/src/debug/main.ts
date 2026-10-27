@@ -56,7 +56,7 @@ const setup: MainSetup<typeof definition> = (ctx) => {
   const capture = async () => {
     const directory = path.join(
       app.getPath("downloads"),
-      `opencode-heap-${new Date().toISOString().replace(/[:.]/g, "")}`,
+      `nemoracode-heap-${new Date().toISOString().replace(/[:.]/g, "")}`,
     )
 
     // Snapshots hold prompts, file contents and credentials. Recursive, because Downloads can be missing on Linux.

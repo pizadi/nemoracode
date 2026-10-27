@@ -4,15 +4,15 @@ Each environment has one R2 bucket, a Worker, and a `/files/*` route on its doma
 
 | Environment | Bucket and Worker           | Public URL                       |
 | ----------- | --------------------------- | -------------------------------- |
-| Development | `opencode-dev-files`        | `https://dev.opencode.ai/files/` |
-| Production  | `opencode-production-files` | `https://opencode.ai/files/`     |
+| Development | `nemoracode-dev-files`        | `https://dev.opencode.ai/files/` |
+| Production  | `nemoracode-production-files` | `https://opencode.ai/files/`     |
 
 The Worker removes `/files/` and URL-decodes the remaining path to obtain the R2
 object key. For example:
 
 ```text
-R2 key: releases/1.0.0/opencode-linux-x64.tar.gz
-URL:    https://opencode.ai/files/releases/1.0.0/opencode-linux-x64.tar.gz
+R2 key: releases/1.0.0/nemoracode-linux-x64.tar.gz
+URL:    https://opencode.ai/files/releases/1.0.0/nemoracode-linux-x64.tar.gz
 
 R2 key: videos/demo.mp4
 URL:    https://opencode.ai/files/videos/demo.mp4
@@ -33,7 +33,7 @@ bun run deploy --env production
 ```
 
 The existing buckets are reused. For a fresh environment, create its bucket once
-with `bunx wrangler r2 bucket create opencode-<stage>-files` and add the matching
+with `bunx wrangler r2 bucket create nemoracode-<stage>-files` and add the matching
 environment to `wrangler.jsonc`.
 
 `.github/workflows/deploy-files.yml` deploys development on every push to `dev`
@@ -77,8 +77,8 @@ Both publishers upload signed/packaged outputs to the production bucket for
 every release channel:
 
 ```text
-R2 key: bin/0.0.0-dev-123/opencode-linux-x64.tar.gz
-URL:    https://opencode.ai/files/bin/0.0.0-dev-123/opencode-linux-x64.tar.gz
+R2 key: bin/0.0.0-dev-123/nemoracode-linux-x64.tar.gz
+URL:    https://opencode.ai/files/bin/0.0.0-dev-123/nemoracode-linux-x64.tar.gz
 
 R2 key: bin/2.0.0/opencode-desktop-mac-arm64.dmg
 URL:    https://opencode.ai/files/bin/2.0.0/opencode-desktop-mac-arm64.dmg
@@ -95,15 +95,15 @@ S3 credentials from the verified token, streams uploads, and sets the content
 type, download filename, and immutable cache headers.
 
 The publishers register `cli`, `cli-node` (when built), and `desktop` (when
-released) with distribution `opencode`. Each record is published only after all
+released) with distribution `nemoracode`. Each record is published only after all
 of its files have uploaded successfully.
 Every `metadata.files` entry contains the direct CDN `url`, SHA-256 checksum,
 and byte size. Desktop `metadata.manifests` also use those CDN URLs and retain
 the original SHA-512 and blockmap metadata.
 
 For local verification, each package publisher accepts `--dry-run` with
-`OPENCODE_VERSION` and `OPENCODE_CHANNEL` matching the build. CLI reads its own
-`dist/` directory (or `OPENCODE_CLI_DIST`). Desktop reads `OPENCODE_DESKTOP_DIST`;
+`NEMORACODE_VERSION` and `NEMORACODE_CHANNEL` matching the build. CLI reads its own
+`dist/` directory (or `NEMORACODE_CLI_DIST`). Desktop reads `NEMORACODE_DESKTOP_DIST`;
 its dry run expects already-finalized manifests in `RUNNER_TEMP`.
 
 ## Caching

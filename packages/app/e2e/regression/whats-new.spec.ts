@@ -8,9 +8,9 @@ import { mockWorkspace } from "../utils/workspace"
 // The web app's version, which What's New compares with the version last seen.
 const current = pkg.version
 
-const SEEN = "opencode.global.dat:extension.updater.seen"
+const SEEN = "nemoracode.global.dat:extension.updater.seen"
 
-const RELEASE_NOTES = "opencode.global.dat:extension.updater.releaseNotes"
+const RELEASE_NOTES = "nemoracode.global.dat:extension.updater.releaseNotes"
 
 const cors = { "access-control-allow-origin": "*" }
 

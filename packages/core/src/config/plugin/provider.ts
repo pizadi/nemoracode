@@ -1,11 +1,11 @@
 export * as ConfigProviderPlugin from "./provider.js"
 
-import type { ModelEditor } from "@opencode/plugin/effect/model"
-import type { ProviderEditor } from "@opencode/plugin/effect/provider"
-import { define } from "@opencode/plugin/effect/plugin"
-import { Document, type Entry } from "@opencode/schema/config"
-import { ConfigProvider } from "@opencode/schema/config/provider"
-import { Money } from "@opencode/schema/money"
+import type { ModelEditor } from "@nemoracode/plugin/effect/model"
+import type { ProviderEditor } from "@nemoracode/plugin/effect/provider"
+import { define } from "@nemoracode/plugin/effect/plugin"
+import { Document, type Entry } from "@nemoracode/schema/config"
+import { ConfigProvider } from "@nemoracode/schema/config/provider"
+import { Money } from "@nemoracode/schema/money"
 import { Effect } from "effect"
 import { Config } from "../../config.js"
 import { Model } from "../../model.js"
@@ -15,7 +15,7 @@ import { ConfigIntegration } from "../integration.js"
 import { ConfigEntryObserver } from "./entry-observer.js"
 
 export const Plugin = define({
-  id: "opencode.config.provider",
+  id: "nemoracode.config.provider",
   effect: Effect.fn(function* (ctx) {
     const config = yield* Config.Service
     const loaded = yield* ConfigEntryObserver.observe(

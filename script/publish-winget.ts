@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 
-import { Script } from "@opencode/script"
+import { Script } from "@nemoracode/script"
 import { mkdir, rm } from "node:fs/promises"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
@@ -12,46 +12,46 @@ if (Script.channel !== "latest" || !/^\d+\.\d+\.\d+$/.test(Script.version)) {
 const root = fileURLToPath(new URL("..", import.meta.url))
 const dryRun = process.argv.includes("--dry-run")
 const token = process.env.WINGET_GITHUB_TOKEN
-const cli = path.resolve(process.env.OPENCODE_CLI_DIST ?? path.join(root, "packages", "cli", "dist"))
-const desktop = process.env.OPENCODE_DESKTOP_DIST
-if (!desktop) throw new Error("OPENCODE_DESKTOP_DIST is required")
+const cli = path.resolve(process.env.NEMORACODE_CLI_DIST ?? path.join(root, "packages", "cli", "dist"))
+const desktop = process.env.NEMORACODE_DESKTOP_DIST
+if (!desktop) throw new Error("NEMORACODE_DESKTOP_DIST is required")
 const outdir = path.join(cli, "winget")
 const manifestVersion = "1.12.0"
 
 const packages = [
   {
-    identifier: "Anomaly.OpenCode",
-    name: "OpenCode CLI",
-    moniker: "opencode",
+    identifier: "Anomaly.NemoraCode",
+    name: "NemoraCode CLI",
+    moniker: "nemoracode",
     description: "The open source AI coding agent for the terminal.",
     installer: [
       "InstallerType: zip",
       "NestedInstallerType: portable",
       "NestedInstallerFiles:",
-      "- RelativeFilePath: opencode.exe",
-      "  PortableCommandAlias: opencode",
+      "- RelativeFilePath: nemoracode.exe",
+      "  PortableCommandAlias: nemoracode",
       "Commands:",
-      "- opencode",
+      "- nemoracode",
     ],
     files: [
-      { architecture: "x64", file: path.join(cli, "opencode-windows-x64-baseline.zip") },
-      { architecture: "arm64", file: path.join(cli, "opencode-windows-arm64.zip") },
+      { architecture: "x64", file: path.join(cli, "nemoracode-windows-x64-baseline.zip") },
+      { architecture: "arm64", file: path.join(cli, "nemoracode-windows-arm64.zip") },
     ],
   },
   {
-    identifier: "Anomaly.OpenCode.Desktop",
+    identifier: "Anomaly.NemoraCode.Desktop",
     // Matches the display name the installer registers with Windows, without its version suffix.
-    name: "OpenCode",
+    name: "NemoraCode",
     moniker: "opencode-desktop",
     description: "The open source AI coding agent as a desktop app.",
     installer: [
       "InstallerType: nullsoft",
       "Scope: user",
       "UpgradeBehavior: install",
-      // electron-builder derives the NSIS uninstall key from the production app ID, ai.opencode.desktop.
+      // electron-builder derives the NSIS uninstall key from the production app ID, ai.nemoracode.desktop.
       "ProductCode: d074f30d-5f88-5885-b075-be1348cc7676",
       "Protocols:",
-      "- opencode",
+      "- nemoracode",
     ],
     files: [
       { architecture: "x64", file: path.join(desktop, "opencode-desktop-win-x64.exe") },
@@ -106,7 +106,7 @@ async function prepare(input: (typeof packages)[number]) {
       ...header("defaultLocale"),
       "PackageLocale: en-US",
       // Matches the publisher the desktop installer registers with Windows.
-      "Publisher: OpenCode",
+      "Publisher: NemoraCode",
       "PublisherUrl: https://anoma.ly/",
       "PublisherSupportUrl: https://github.com/anomalyco/opencode/issues",
       "PrivacyUrl: https://opencode.ai/legal/privacy-policy",
@@ -198,7 +198,7 @@ async function submit(input: Awaited<ReturnType<typeof prepare>>) {
         title,
         head: `${fork.owner.login}:${branch}`,
         base: "master",
-        body: `Published by the [OpenCode](https://github.com/anomalyco/opencode) release workflow${run ? ` in ${run}` : ""}.`,
+        body: `Published by the [NemoraCode](https://github.com/anomalyco/opencode) release workflow${run ? ` in ${run}` : ""}.`,
       },
     }),
   )

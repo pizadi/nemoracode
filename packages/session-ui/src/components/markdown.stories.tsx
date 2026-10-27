@@ -1,9 +1,9 @@
-import { markdown } from "@opencode/ui/storybook/fixtures"
+import { markdown } from "@nemoracode/ui/storybook/fixtures"
 import { createSignal, onCleanup } from "solid-js"
 import { Markdown } from "./markdown"
 
 export default {
-  title: "OpenCode/Conversation/Markdown response",
+  title: "NemoraCode/Conversation/Markdown response",
   id: "components-markdown",
   component: Markdown,
   parameters: {

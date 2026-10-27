@@ -11,9 +11,9 @@
     "env": [],
     "models": {}
   },
-  "opencode": {
-    "id": "opencode",
-    "name": "OpenCode",
+  "nemoracode": {
+    "id": "nemoracode",
+    "name": "NemoraCode",
     "env": [],
     "npm": "@ai-sdk/openai-compatible",
     "models": {

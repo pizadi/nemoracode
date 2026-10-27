@@ -1,95 +1,95 @@
 import { NodeFileSystem } from "@effect/platform-node"
-import { compile, emitEffectImported, emitEffectShape, emitPromise, write } from "@opencode/httpapi-codegen"
-import { ClientApi, effectOmitEndpoints, groupNames, promiseOmitEndpoints } from "@opencode/protocol/client"
-import { Agent } from "@opencode/schema/agent"
-import { Command } from "@opencode/schema/command"
-import { Config } from "@opencode/schema/config"
-import { Credential } from "@opencode/schema/credential"
-import { Event } from "@opencode/schema/event"
-import { EventLog } from "@opencode/schema/event-log"
-import { FileDiff } from "@opencode/schema/file-diff"
-import { FileSystem } from "@opencode/schema/filesystem"
-import { Form } from "@opencode/schema/form"
-import { Instruction } from "@opencode/schema/instruction"
-import { InstructionEntry } from "@opencode/schema/instruction-entry"
-import { Integration } from "@opencode/schema/integration"
-import { Location } from "@opencode/schema/location"
-import { Mcp } from "@opencode/schema/mcp"
-import { Model } from "@opencode/schema/model"
-import { Money } from "@opencode/schema/money"
-import { Permission } from "@opencode/schema/permission"
-import { PermissionSaved } from "@opencode/schema/permission-saved"
-import { Plugin } from "@opencode/schema/plugin"
-import { Project } from "@opencode/schema/project"
-import { Worktree } from "@opencode/schema/worktree"
-import { AgentAttachment, FileAttachment, Prompt, PromptMention } from "@opencode/schema/prompt"
-import { PromptInput } from "@opencode/schema/prompt-input"
-import { Provider } from "@opencode/schema/provider"
-import { Pty } from "@opencode/schema/pty"
-import { PtyTicket } from "@opencode/schema/pty-ticket"
-import { Question } from "@opencode/schema/question"
-import { Reference } from "@opencode/schema/reference"
-import { AbsolutePath, RelativePath } from "@opencode/schema/schema"
-import { Session } from "@opencode/schema/session"
-import { SessionMessage } from "@opencode/schema/session-message"
-import { SessionInbox } from "@opencode/schema/session-inbox"
-import { Shell } from "@opencode/schema/shell"
-import { Skill } from "@opencode/schema/skill"
-import { Snapshot } from "@opencode/schema/snapshot"
-import { UsageLimits } from "@opencode/schema/usage-limits"
-import { Vcs } from "@opencode/schema/vcs"
-import { WebSearch } from "@opencode/schema/websearch"
-import { Workspace } from "@opencode/schema/workspace"
+import { compile, emitEffectImported, emitEffectShape, emitPromise, write } from "@nemoracode/httpapi-codegen"
+import { ClientApi, effectOmitEndpoints, groupNames, promiseOmitEndpoints } from "@nemoracode/protocol/client"
+import { Agent } from "@nemoracode/schema/agent"
+import { Command } from "@nemoracode/schema/command"
+import { Config } from "@nemoracode/schema/config"
+import { Credential } from "@nemoracode/schema/credential"
+import { Event } from "@nemoracode/schema/event"
+import { EventLog } from "@nemoracode/schema/event-log"
+import { FileDiff } from "@nemoracode/schema/file-diff"
+import { FileSystem } from "@nemoracode/schema/filesystem"
+import { Form } from "@nemoracode/schema/form"
+import { Instruction } from "@nemoracode/schema/instruction"
+import { InstructionEntry } from "@nemoracode/schema/instruction-entry"
+import { Integration } from "@nemoracode/schema/integration"
+import { Location } from "@nemoracode/schema/location"
+import { Mcp } from "@nemoracode/schema/mcp"
+import { Model } from "@nemoracode/schema/model"
+import { Money } from "@nemoracode/schema/money"
+import { Permission } from "@nemoracode/schema/permission"
+import { PermissionSaved } from "@nemoracode/schema/permission-saved"
+import { Plugin } from "@nemoracode/schema/plugin"
+import { Project } from "@nemoracode/schema/project"
+import { Worktree } from "@nemoracode/schema/worktree"
+import { AgentAttachment, FileAttachment, Prompt, PromptMention } from "@nemoracode/schema/prompt"
+import { PromptInput } from "@nemoracode/schema/prompt-input"
+import { Provider } from "@nemoracode/schema/provider"
+import { Pty } from "@nemoracode/schema/pty"
+import { PtyTicket } from "@nemoracode/schema/pty-ticket"
+import { Question } from "@nemoracode/schema/question"
+import { Reference } from "@nemoracode/schema/reference"
+import { AbsolutePath, RelativePath } from "@nemoracode/schema/schema"
+import { Session } from "@nemoracode/schema/session"
+import { SessionMessage } from "@nemoracode/schema/session-message"
+import { SessionInbox } from "@nemoracode/schema/session-inbox"
+import { Shell } from "@nemoracode/schema/shell"
+import { Skill } from "@nemoracode/schema/skill"
+import { Snapshot } from "@nemoracode/schema/snapshot"
+import { UsageLimits } from "@nemoracode/schema/usage-limits"
+import { Vcs } from "@nemoracode/schema/vcs"
+import { WebSearch } from "@nemoracode/schema/websearch"
+import { Workspace } from "@nemoracode/schema/workspace"
 import { Effect, Schema } from "effect"
 import { fileURLToPath } from "url"
 
 const promiseContract = compile(ClientApi, { groupNames, omitEndpoints: promiseOmitEndpoints })
 const effectContract = compile(ClientApi, { groupNames, omitEndpoints: effectOmitEndpoints })
 const effectTypeReferences = [
-  ...namespaceTypes("Agent", "@opencode/schema/agent", Agent),
-  ...namespaceTypes("Command", "@opencode/schema/command", Command),
-  ...namespaceTypes("Config", "@opencode/schema/config", Config),
-  ...namespaceTypes("Credential", "@opencode/schema/credential", Credential),
-  ...namespaceTypes("Event", "@opencode/schema/event", Event),
-  ...namespaceTypes("EventLog", "@opencode/schema/event-log", EventLog),
-  ...namespaceTypes("FileDiff", "@opencode/schema/file-diff", FileDiff),
-  ...namespaceTypes("FileSystem", "@opencode/schema/filesystem", FileSystem),
-  ...namespaceTypes("Form", "@opencode/schema/form", Form),
-  ...namespaceTypes("Instruction", "@opencode/schema/instruction", Instruction),
-  ...namespaceTypes("InstructionEntry", "@opencode/schema/instruction-entry", InstructionEntry),
-  ...namespaceTypes("Integration", "@opencode/schema/integration", Integration),
-  typeReference("Location.PublicRef", "@opencode/schema/location", Location.PublicRef),
-  typeReference("Location.PublicInfo", "@opencode/schema/location", Location.PublicInfo),
-  ...namespaceTypes("Mcp", "@opencode/schema/mcp", Mcp),
-  ...namespaceTypes("Model", "@opencode/schema/model", Model),
-  ...namespaceTypes("Money", "@opencode/schema/money", Money),
-  ...namespaceTypes("Permission", "@opencode/schema/permission", Permission),
-  ...namespaceTypes("PermissionSaved", "@opencode/schema/permission-saved", PermissionSaved),
-  ...namespaceTypes("Plugin", "@opencode/schema/plugin", Plugin),
-  ...namespaceTypes("Project", "@opencode/schema/project", Project),
-  ...namespaceTypes("Worktree", "@opencode/schema/worktree", Worktree),
-  ...namespaceTypes("PromptInput", "@opencode/schema/prompt-input", PromptInput),
-  ...namespaceTypes("Provider", "@opencode/schema/provider", Provider),
-  ...namespaceTypes("Pty", "@opencode/schema/pty", Pty),
-  ...namespaceTypes("PtyTicket", "@opencode/schema/pty-ticket", PtyTicket),
-  ...namespaceTypes("Question", "@opencode/schema/question", Question),
-  ...namespaceTypes("Reference", "@opencode/schema/reference", Reference),
-  ...namespaceTypes("Session", "@opencode/schema/session", Session),
-  ...namespaceTypes("SessionMessage", "@opencode/schema/session-message", SessionMessage),
-  ...namespaceTypes("SessionInbox", "@opencode/schema/session-inbox", SessionInbox),
-  ...namespaceTypes("Shell", "@opencode/schema/shell", Shell),
-  ...namespaceTypes("Skill", "@opencode/schema/skill", Skill),
-  ...namespaceTypes("Snapshot", "@opencode/schema/snapshot", Snapshot),
-  ...namespaceTypes("UsageLimits", "@opencode/schema/usage-limits", UsageLimits),
-  ...namespaceTypes("Vcs", "@opencode/schema/vcs", Vcs),
-  ...namespaceTypes("WebSearch", "@opencode/schema/websearch", WebSearch),
-  ...namespaceTypes("Workspace", "@opencode/schema/workspace", Workspace),
-  typeReference("Prompt", "@opencode/schema/prompt", Prompt),
-  typeReference("PromptMention", "@opencode/schema/prompt", PromptMention),
-  typeReference("FileAttachment", "@opencode/schema/prompt", FileAttachment),
-  typeReference("AgentAttachment", "@opencode/schema/prompt", AgentAttachment),
-  typeReference("AbsolutePath", "@opencode/schema/schema", AbsolutePath),
-  typeReference("RelativePath", "@opencode/schema/schema", RelativePath),
+  ...namespaceTypes("Agent", "@nemoracode/schema/agent", Agent),
+  ...namespaceTypes("Command", "@nemoracode/schema/command", Command),
+  ...namespaceTypes("Config", "@nemoracode/schema/config", Config),
+  ...namespaceTypes("Credential", "@nemoracode/schema/credential", Credential),
+  ...namespaceTypes("Event", "@nemoracode/schema/event", Event),
+  ...namespaceTypes("EventLog", "@nemoracode/schema/event-log", EventLog),
+  ...namespaceTypes("FileDiff", "@nemoracode/schema/file-diff", FileDiff),
+  ...namespaceTypes("FileSystem", "@nemoracode/schema/filesystem", FileSystem),
+  ...namespaceTypes("Form", "@nemoracode/schema/form", Form),
+  ...namespaceTypes("Instruction", "@nemoracode/schema/instruction", Instruction),
+  ...namespaceTypes("InstructionEntry", "@nemoracode/schema/instruction-entry", InstructionEntry),
+  ...namespaceTypes("Integration", "@nemoracode/schema/integration", Integration),
+  typeReference("Location.PublicRef", "@nemoracode/schema/location", Location.PublicRef),
+  typeReference("Location.PublicInfo", "@nemoracode/schema/location", Location.PublicInfo),
+  ...namespaceTypes("Mcp", "@nemoracode/schema/mcp", Mcp),
+  ...namespaceTypes("Model", "@nemoracode/schema/model", Model),
+  ...namespaceTypes("Money", "@nemoracode/schema/money", Money),
+  ...namespaceTypes("Permission", "@nemoracode/schema/permission", Permission),
+  ...namespaceTypes("PermissionSaved", "@nemoracode/schema/permission-saved", PermissionSaved),
+  ...namespaceTypes("Plugin", "@nemoracode/schema/plugin", Plugin),
+  ...namespaceTypes("Project", "@nemoracode/schema/project", Project),
+  ...namespaceTypes("Worktree", "@nemoracode/schema/worktree", Worktree),
+  ...namespaceTypes("PromptInput", "@nemoracode/schema/prompt-input", PromptInput),
+  ...namespaceTypes("Provider", "@nemoracode/schema/provider", Provider),
+  ...namespaceTypes("Pty", "@nemoracode/schema/pty", Pty),
+  ...namespaceTypes("PtyTicket", "@nemoracode/schema/pty-ticket", PtyTicket),
+  ...namespaceTypes("Question", "@nemoracode/schema/question", Question),
+  ...namespaceTypes("Reference", "@nemoracode/schema/reference", Reference),
+  ...namespaceTypes("Session", "@nemoracode/schema/session", Session),
+  ...namespaceTypes("SessionMessage", "@nemoracode/schema/session-message", SessionMessage),
+  ...namespaceTypes("SessionInbox", "@nemoracode/schema/session-inbox", SessionInbox),
+  ...namespaceTypes("Shell", "@nemoracode/schema/shell", Shell),
+  ...namespaceTypes("Skill", "@nemoracode/schema/skill", Skill),
+  ...namespaceTypes("Snapshot", "@nemoracode/schema/snapshot", Snapshot),
+  ...namespaceTypes("UsageLimits", "@nemoracode/schema/usage-limits", UsageLimits),
+  ...namespaceTypes("Vcs", "@nemoracode/schema/vcs", Vcs),
+  ...namespaceTypes("WebSearch", "@nemoracode/schema/websearch", WebSearch),
+  ...namespaceTypes("Workspace", "@nemoracode/schema/workspace", Workspace),
+  typeReference("Prompt", "@nemoracode/schema/prompt", Prompt),
+  typeReference("PromptMention", "@nemoracode/schema/prompt", PromptMention),
+  typeReference("FileAttachment", "@nemoracode/schema/prompt", FileAttachment),
+  typeReference("AgentAttachment", "@nemoracode/schema/prompt", AgentAttachment),
+  typeReference("AbsolutePath", "@nemoracode/schema/schema", AbsolutePath),
+  typeReference("RelativePath", "@nemoracode/schema/schema", RelativePath),
 ]
 
 await Effect.runPromise(
@@ -114,8 +114,8 @@ await Effect.runPromise(
           typeReferences: effectTypeReferences,
           outputTypes: {
             "event.subscribe": {
-              name: "OpenCodeEvent",
-              import: 'import type { OpenCodeEvent } from "@opencode/protocol/groups/event"',
+              name: "NemoraCodeEvent",
+              import: 'import type { NemoraCodeEvent } from "@nemoracode/protocol/groups/event"',
             },
           },
         }),

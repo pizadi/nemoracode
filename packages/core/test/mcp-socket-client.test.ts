@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test"
 import { Client, type JSONRPCMessage } from "@modelcontextprotocol/client"
 import { fromJsonSchema, McpServer } from "@modelcontextprotocol/server"
-import { McpSocketClient } from "@opencode/core/mcp/socket-client"
+import { McpSocketClient } from "@nemoracode/core/mcp/socket-client"
 
 function fakeSocket() {
   const socket = {
@@ -208,7 +208,7 @@ describe("McpSocketClient", () => {
       },
       async (input) => ({ content: [{ type: "text", text: `echo: ${input.text}` }] }),
     )
-    const client = new Client({ name: "opencode", version: "1.0.0" })
+    const client = new Client({ name: "nemoracode", version: "1.0.0" })
     const closed = Promise.withResolvers<void>()
     server.server.onclose = () => closed.resolve()
     await Promise.all([server.connect(ends.server), client.connect(ends.client)])

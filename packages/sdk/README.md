@@ -1,24 +1,24 @@
-# @opencode/sdk
+# @nemoracode/sdk
 
-In-process OpenCode host for Promise and Effect applications. The SDK executes Server's assembled HTTP router in memory, opening no listener and adding no network hop.
+In-process NemoraCode host for Promise and Effect applications. The SDK executes Server's assembled HTTP router in memory, opening no listener and adding no network hop.
 
 ```ts
-import { OpenCode } from "@opencode/sdk"
+import { NemoraCode } from "@nemoracode/sdk"
 
-await using opencode = await OpenCode.create()
-const session = await opencode.sessions.create({
+await using nemoracode = await NemoraCode.create()
+const session = await nemoracode.sessions.create({
   location: { directory: "/workspace" },
 })
 ```
 
-Pass imported Promise plugins in `plugins`, or register one later with `await opencode.plugin(plugin)`.
+Pass imported Promise plugins in `plugins`, or register one later with `await nemoracode.plugin(plugin)`.
 
-The Promise API uses the same values, errors, request options, and `AsyncIterable` streams as `@opencode/client`.
+The Promise API uses the same values, errors, request options, and `AsyncIterable` streams as `@nemoracode/client`.
 
 Embedded hosts are silent by default. Set `log` to receive structured log entries:
 
 ```ts
-await using opencode = await OpenCode.create({
+await using nemoracode = await NemoraCode.create({
   log: {
     level: "warn",
     emit: (entry) => console.error(entry.message, entry.attributes, entry.cause),
@@ -33,11 +33,11 @@ await using opencode = await OpenCode.create({
 Use `instances` when Sessions in the same directory need different application plugins. The application selects a stable key from Session metadata; the SDK constructs and caches an instance for that key and the Session's current Location.
 
 ```ts
-import { OpenCode } from "@opencode/sdk"
+import { NemoraCode } from "@nemoracode/sdk"
 import { threads } from "./threads"
 import { slackPlugin } from "./slack-plugin"
 
-await using opencode = await OpenCode.create({
+await using nemoracode = await NemoraCode.create({
   database: { path: "./sessions.db" },
   instances: {
     key(session) {
@@ -51,11 +51,11 @@ await using opencode = await OpenCode.create({
   },
 })
 
-const session = await opencode.sessions.create({
+const session = await nemoracode.sessions.create({
   location: { directory: "/workspace" },
   metadata: { threadID: "thread-42" },
 })
-await opencode.sessions.prompt({ sessionID: session.id, text: "Review the changes" })
+await nemoracode.sessions.prompt({ sessionID: session.id, text: "Review the changes" })
 ```
 
 `threads` and `slackPlugin` are application-owned modules. `key` is synchronous and should only select identity, not initialize plugins. `configure` returns plugin definitions; their setup receives the selected instance's `ctx.location`.
@@ -69,7 +69,7 @@ await opencode.sessions.prompt({ sessionID: session.id, text: "Review the change
 
 ### Restart and Lifetime
 
-The selector is installed before automatic recovery starts. Its callbacks must be able to load application data without depending on the returned `opencode` handle or a later registration call. Functions are reconstructed, not serialized.
+The selector is installed before automatic recovery starts. Its callbacks must be able to load application data without depending on the returned `nemoracode` handle or a later registration call. Functions are reconstructed, not serialized.
 
 Use a persistent `database.path` to recover Sessions after restart; the default database is in memory. Workerd uses its injected Durable Object storage. After restart, the next capability-dependent operation or recovery drain rebuilds the selected instance from saved Session metadata and application data.
 
@@ -80,15 +80,15 @@ Promise plugin resources should be acquired in `setup` and released by its clean
 Use the Workerd entrypoint inside a Cloudflare Durable Object. Hold one host for the lifetime of the object instance rather than creating one per request.
 
 ```ts
-import { OpenCodeWorkerd } from "@opencode/sdk/workerd"
+import { NemoraCodeWorkerd } from "@nemoracode/sdk/workerd"
 import myPlugin from "./my-plugin"
 
-export class OpenCodeDO {
-  private readonly opencode: Promise<OpenCodeWorkerd.Interface>
+export class NemoraCodeDO {
+  private readonly nemoracode: Promise<NemoraCodeWorkerd.Interface>
 
   constructor(state: DurableObjectState) {
-    this.opencode = state.blockConcurrencyWhile(() =>
-      OpenCodeWorkerd.create({
+    this.nemoracode = state.blockConcurrencyWhile(() =>
+      NemoraCodeWorkerd.create({
         storage: state.storage,
         config: { default_agent: "build" },
         plugins: [myPlugin],
@@ -97,8 +97,8 @@ export class OpenCodeDO {
   }
 
   async fetch() {
-    const opencode = await this.opencode
-    return Response.json(await opencode.server.info())
+    const nemoracode = await this.nemoracode
+    return Response.json(await nemoracode.server.info())
   }
 }
 ```
@@ -107,27 +107,27 @@ export class OpenCodeDO {
 
 ## Effect
 
-The Effect-native API remains available from `@opencode/sdk/effect`:
+The Effect-native API remains available from `@nemoracode/sdk/effect`:
 
 ```ts
-import { OpenCode } from "@opencode/sdk/effect"
+import { NemoraCode } from "@nemoracode/sdk/effect"
 
-const opencode = yield * OpenCode.create()
-const session = yield * opencode.sessions.get({ sessionID })
+const nemoracode = yield * NemoraCode.create()
+const session = yield * nemoracode.sessions.get({ sessionID })
 ```
 
-The Effect Workerd entrypoint is `@opencode/sdk/workerd/effect`.
+The Effect Workerd entrypoint is `@nemoracode/sdk/workerd/effect`.
 
-Effect configuration uses the same keys and lifetime rules, with canonical `Session.Info` values and an Effect-returning factory. `configure` may require services; `OpenCode.create` and `OpenCode.layer` carry those requirements, so the application satisfies them where it builds the SDK, as with any other Effect callback:
+Effect configuration uses the same keys and lifetime rules, with canonical `Session.Info` values and an Effect-returning factory. `configure` may require services; `NemoraCode.create` and `NemoraCode.layer` carry those requirements, so the application satisfies them where it builds the SDK, as with any other Effect callback:
 
 ```ts
-import { OpenCode } from "@opencode/sdk/effect"
+import { NemoraCode } from "@nemoracode/sdk/effect"
 import { Effect, Layer, Schema } from "effect"
 import { Threads } from "./threads-effect"
 import { slackPlugin } from "./slack-plugin-effect"
 
 const threadMetadata = Schema.decodeUnknownSync(Schema.Struct({ threadID: Schema.String }))
-const opencode = OpenCode.layer({
+const nemoracode = NemoraCode.layer({
   database: { path: "./sessions.db" },
   instances: {
     key: (session) => threadMetadata(session.metadata).threadID,
@@ -140,4 +140,4 @@ const opencode = OpenCode.layer({
 }).pipe(Layer.provide(Threads.layer))
 ```
 
-Resources acquired in `configure` still belong to the instance, not to the Scope the SDK was built in. Both Workerd entrypoints also accept `instances`. The public `OpenCode.InstanceOptions` and `OpenCode.InstanceConfiguration` types describe the corresponding Promise or Effect callbacks.
+Resources acquired in `configure` still belong to the instance, not to the Scope the SDK was built in. Both Workerd entrypoints also accept `instances`. The public `NemoraCode.InstanceOptions` and `NemoraCode.InstanceConfiguration` types describe the corresponding Promise or Effect callbacks.

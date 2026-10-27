@@ -1,17 +1,17 @@
 ---
 title: GitHub
-description: GitHub sorunlarında ve çekme isteklerinde opencode'u kullanın.
+description: GitHub sorunlarında ve çekme isteklerinde nemoracode'u kullanın.
 ---
 
-opencode, GitHub iş akışınızla bütünleşir. Yorumunuzda `/opencode` veya `/oc`'den bahsedin; opencode, GitHub Actions çalıştırıcınızdaki görevleri yürütecektir.
+nemoracode, GitHub iş akışınızla bütünleşir. Yorumunuzda `/nemoracode` veya `/oc`'den bahsedin; nemoracode, GitHub Actions çalıştırıcınızdaki görevleri yürütecektir.
 
 ---
 
 ## Özellikler
 
-- **Sorunları önceliklendirin**: opencode'dan bir sorunu araştırıp size açıklamasını isteyin.
-- **Düzelt ve uygula**: opencode'dan bir sorunu düzeltmesini veya bir özelliği uygulamasını isteyin. Ve yeni bir şubede çalışacak ve tüm değişiklikleri içeren bir PR gönderecek.
-- **Güvenli**: opencode, GitHub'ınızın çalıştırıcılarının içinde çalışır.
+- **Sorunları önceliklendirin**: nemoracode'dan bir sorunu araştırıp size açıklamasını isteyin.
+- **Düzelt ve uygula**: nemoracode'dan bir sorunu düzeltmesini veya bir özelliği uygulamasını isteyin. Ve yeni bir şubede çalışacak ve tüm değişiklikleri içeren bir PR gönderecek.
+- **Güvenli**: nemoracode, GitHub'ınızın çalıştırıcılarının içinde çalışır.
 
 ---
 
@@ -20,7 +20,7 @@ opencode, GitHub iş akışınızla bütünleşir. Yorumunuzda `/opencode` veya 
 GitHub deposundaki bir projede aşağıdaki komutu çalıştırın:
 
 ```bash
-opencode github install
+nemoracode github install
 ```
 
 Bu size GitHub uygulamasını yükleme, iş akışını oluşturma ve gizli dizileri ayarlama adımlarında yol gösterecektir.
@@ -37,10 +37,10 @@ Veya manuel olarak ayarlayabilirsiniz.
 
 2. **İş akışını ekleyin**
 
-   Aşağıdaki iş akışı dosyasını deponuzdaki `.github/workflows/opencode.yml`'a ekleyin. `model`'de uygun `env` ve gerekli API anahtarlarını ayarladığınızdan emin olun.
+   Aşağıdaki iş akışı dosyasını deponuzdaki `.github/workflows/nemoracode.yml`'a ekleyin. `model`'de uygun `env` ve gerekli API anahtarlarını ayarladığınızdan emin olun.
 
-   ```yml title=".github/workflows/opencode.yml" {24,26}
-   name: opencode
+   ```yml title=".github/workflows/nemoracode.yml" {24,26}
+   name: nemoracode
 
    on:
      issue_comment:
@@ -49,10 +49,10 @@ Veya manuel olarak ayarlayabilirsiniz.
        types: [created]
 
    jobs:
-     opencode:
+     nemoracode:
        if: |
          contains(github.event.comment.body, '/oc') ||
-         contains(github.event.comment.body, '/opencode')
+         contains(github.event.comment.body, '/nemoracode')
        runs-on: ubuntu-latest
        permissions:
          id-token: write
@@ -63,7 +63,7 @@ Veya manuel olarak ayarlayabilirsiniz.
              fetch-depth: 1
              persist-credentials: false
 
-         - name: Run OpenCode
+         - name: Run NemoraCode
            uses: anomalyco/opencode/github@latest
            env:
              ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -80,12 +80,12 @@ Veya manuel olarak ayarlayabilirsiniz.
 
 ## Yapılandırma
 
-- `model`: opencode ile kullanılacak model. `provider/model` biçimini alır. Bu **gerekli**.
+- `model`: nemoracode ile kullanılacak model. `provider/model` biçimini alır. Bu **gerekli**.
 - `agent`: Kullanılacak aracı. Birincil ajan olmalı. Yapılandırmadan `default_agent`'ye veya bulunamazsa `"build"`'ye geri döner.
-- `prompt`: Varsayılan çalışma geçersiz olduğundan dolayı özel istem. opencode'un işleme biçimini kişiselleştirmek için bunu kullanın.
-- `token`: Yorum oluşturma, değişiklik yapma ve çekme isteklerini açma gibi işlemleri gerçekleştirmek için isteğe bağlı GitHub erişim belirteci. Varsayılan olarak opencode, opencode GitHub Uygulamasındaki kurulum erişim belirtecini kullanır, bu nedenle taahhütler, yorumlar ve çekme istekleri uygulamadan geliyormuş gibi görünür.
+- `prompt`: Varsayılan çalışma geçersiz olduğundan dolayı özel istem. nemoracode'un işleme biçimini kişiselleştirmek için bunu kullanın.
+- `token`: Yorum oluşturma, değişiklik yapma ve çekme isteklerini açma gibi işlemleri gerçekleştirmek için isteğe bağlı GitHub erişim belirteci. Varsayılan olarak nemoracode, nemoracode GitHub Uygulamasındaki kurulum erişim belirtecini kullanır, bu nedenle taahhütler, yorumlar ve çekme istekleri uygulamadan geliyormuş gibi görünür.
 
-  Alternatif olarak, opencode GitHub'u yüklemeden GitHub Eylem çalıştırıcısının [built-in `GITHUB_TOKEN`](https://docs.github.com/en/actions/tutorials/authenticate-with-github_token) akışını kullanabilirsiniz. İşinizde gerekli izinlere sahip olduğunuzdan emin olun:
+  Alternatif olarak, nemoracode GitHub'u yüklemeden GitHub Eylem çalıştırıcısının [built-in `GITHUB_TOKEN`](https://docs.github.com/en/actions/tutorials/authenticate-with-github_token) akışını kullanabilirsiniz. İşinizde gerekli izinlere sahip olduğunuzdan emin olun:
 
   ```yaml
   permissions:
@@ -101,30 +101,30 @@ Veya manuel olarak ayarlayabilirsiniz.
 
 ## Desteklenen Olaylar
 
-opencode aşağıdaki GitHub olayları tarafından tetiklenebilir:
+nemoracode aşağıdaki GitHub olayları tarafından tetiklenebilir:
 
 | Olay Tipi                     | Tetikleyen                                    | Detaylar                                                                                                                                            |
 | ----------------------------- | --------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `issue_comment`               | Bir soruna veya halkla ilişkilere yorum yapın | Yorumunuzda `/opencode` veya `/oc`'den bahsedin. opencode bağlamı okur ve şubeler oluşturabilir, PR'leri açabilir veya yanıt verebilir.             |
-| `pull_request_review_comment` | PR'deki belirli kod satırlarına yorum yapın   | Kodu incelerken `/opencode` veya `/oc`'den bahsedin. opencode dosya yolunu, satır numaralarını ve fark içeriğini alır.                              |
-| `issues`                      | Sayı açıldı veya düzenlendi                   | Sorunlar oluşturulduğunda veya değiştirildiğinde opencode'u otomatik olarak tetikleyin. `prompt` girişi gerektirir.                                 |
-| `pull_request`                | PR açıldı veya güncellendi                    | PR'ler açıldığında, senkronize edildiğinde veya yeniden açıldığında opencode'u otomatik olarak tetikleyin. Otomatik incelemeler için kullanışlıdır. |
-| `schedule`                    | Cron tabanlı program                          | opencode'u bir programa göre çalıştırın. `prompt` girişi gerektirir. Çıktı, günlüklere ve PR'lere gider (yorum yapılacak bir sorun yoktur).         |
-| `workflow_dispatch`           | GitHub kullanıcı arayüzünden manuel tetikleme | Eylemler sekmesi aracılığıyla opencode'u isteğe bağlı olarak tetikleyin. `prompt` girişi gerektirir. Çıktı günlüklere ve PR'lere gider.             |
+| `issue_comment`               | Bir soruna veya halkla ilişkilere yorum yapın | Yorumunuzda `/nemoracode` veya `/oc`'den bahsedin. nemoracode bağlamı okur ve şubeler oluşturabilir, PR'leri açabilir veya yanıt verebilir.             |
+| `pull_request_review_comment` | PR'deki belirli kod satırlarına yorum yapın   | Kodu incelerken `/nemoracode` veya `/oc`'den bahsedin. nemoracode dosya yolunu, satır numaralarını ve fark içeriğini alır.                              |
+| `issues`                      | Sayı açıldı veya düzenlendi                   | Sorunlar oluşturulduğunda veya değiştirildiğinde nemoracode'u otomatik olarak tetikleyin. `prompt` girişi gerektirir.                                 |
+| `pull_request`                | PR açıldı veya güncellendi                    | PR'ler açıldığında, senkronize edildiğinde veya yeniden açıldığında nemoracode'u otomatik olarak tetikleyin. Otomatik incelemeler için kullanışlıdır. |
+| `schedule`                    | Cron tabanlı program                          | nemoracode'u bir programa göre çalıştırın. `prompt` girişi gerektirir. Çıktı, günlüklere ve PR'lere gider (yorum yapılacak bir sorun yoktur).         |
+| `workflow_dispatch`           | GitHub kullanıcı arayüzünden manuel tetikleme | Eylemler sekmesi aracılığıyla nemoracode'u isteğe bağlı olarak tetikleyin. `prompt` girişi gerektirir. Çıktı günlüklere ve PR'lere gider.             |
 
 ### Zamanlama Örneği
 
-Otomatik görevleri gerçekleştirmek için opencode'u bir zamanlamaya göre çalıştırın:
+Otomatik görevleri gerçekleştirmek için nemoracode'u bir zamanlamaya göre çalıştırın:
 
-```yaml title=".github/workflows/opencode-scheduled.yml"
-name: Scheduled OpenCode Task
+```yaml title=".github/workflows/nemoracode-scheduled.yml"
+name: Scheduled NemoraCode Task
 
 on:
   schedule:
     - cron: "0 9 * * 1" # Every Monday at 9am UTC
 
 jobs:
-  opencode:
+  nemoracode:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -137,7 +137,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Run OpenCode
+      - name: Run NemoraCode
         uses: anomalyco/opencode/github@latest
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -148,7 +148,7 @@ jobs:
             If you find issues worth addressing, open an issue to track them.
 ```
 
-Zamanlanmış etkinlikler için, talimatların alınabileceği bir yorum bulunmadığından `prompt` girişi **gereklidir**. Zamanlanmış iş akışları, izin kontrolü yapılacak bir kullanıcı bağlamı olmadan çalışır; bu nedenle, opencode'un şubeler veya PR'ler oluşturmasını bekliyorsanız iş akışının `contents: write` ve `pull-requests: write` vermesi gerekir.
+Zamanlanmış etkinlikler için, talimatların alınabileceği bir yorum bulunmadığından `prompt` girişi **gereklidir**. Zamanlanmış iş akışları, izin kontrolü yapılacak bir kullanıcı bağlamı olmadan çalışır; bu nedenle, nemoracode'un şubeler veya PR'ler oluşturmasını bekliyorsanız iş akışının `contents: write` ve `pull-requests: write` vermesi gerekir.
 
 ---
 
@@ -156,8 +156,8 @@ Zamanlanmış etkinlikler için, talimatların alınabileceği bir yorum bulunma
 
 PR'leri açıldığında veya güncellendiğinde otomatik olarak inceleyin:
 
-```yaml title=".github/workflows/opencode-review.yml"
-name: opencode-review
+```yaml title=".github/workflows/nemoracode-review.yml"
+name: nemoracode-review
 
 on:
   pull_request:
@@ -189,7 +189,7 @@ jobs:
             - Suggest improvements
 ```
 
-`pull_request` olaylar için, `prompt` sağlanmazsa, opencode varsayılan olarak çekme isteklerini inceler.
+`pull_request` olaylar için, `prompt` sağlanmazsa, nemoracode varsayılan olarak çekme isteklerini inceler.
 
 ---
 
@@ -197,7 +197,7 @@ jobs:
 
 Yeni sorunları otomatik olarak önceliklendirin. Bu örnek, spam'i azaltmak için 30 günden eski hesapları filtreler:
 
-```yaml title=".github/workflows/opencode-triage.yml"
+```yaml title=".github/workflows/nemoracode-triage.yml"
 name: Issue Triage
 
 on:
@@ -250,9 +250,9 @@ jobs:
 
 ## Özel istemler
 
-opencode'un davranışını iş akışınız için özelleştirmek için varsayılan istemi geçersiz kılın.
+nemoracode'un davranışını iş akışınız için özelleştirmek için varsayılan istemi geçersiz kılın.
 
-```yaml title=".github/workflows/opencode.yml"
+```yaml title=".github/workflows/nemoracode.yml"
 - uses: anomalyco/opencode/github@latest
   with:
     model: anthropic/claude-sonnet-5-5
@@ -269,27 +269,27 @@ Bu, projenizle ilgili spesifik inceleme kriterlerini, kodlama standartlarını v
 
 ## Örnekler
 
-GitHub'da opencode'u nasıl kullanabileceğinize dair bazı örnekleri burada bulabilirsiniz.
+GitHub'da nemoracode'u nasıl kullanabileceğinize dair bazı örnekleri burada bulabilirsiniz.
 
 - **Bir sorunu açıklama**
 
   Bu yorumu GitHub sayısına ekleyin.
 
   ```
-  /opencode explain this issue
+  /nemoracode explain this issue
   ```
 
-  opencode, tüm yorumlar da dahil olmak üzere ileti dizisinin tamamını okuyacak ve net bir açıklama ile yanıt verecektir.
+  nemoracode, tüm yorumlar da dahil olmak üzere ileti dizisinin tamamını okuyacak ve net bir açıklama ile yanıt verecektir.
 
 - **Bir sorunu düzeltme**
 
   In a GitHub issue, say:
 
   ```
-  /opencode fix this
+  /nemoracode fix this
   ```
 
-  Ve opencode yeni bir şube oluşturacak, değişiklikleri uygulayacak ve değişiklikleri içeren bir PR açacak.
+  Ve nemoracode yeni bir şube oluşturacak, değişiklikleri uygulayacak ve değişiklikleri içeren bir PR açacak.
 
 - **PR'leri inceleyin ve değişiklik yapın**
 
@@ -299,18 +299,18 @@ GitHub'da opencode'u nasıl kullanabileceğinize dair bazı örnekleri burada bu
   Delete the attachment from S3 when the note is removed /oc
   ```
 
-  opencode istenen değişikliği uygulayacak ve aynı PR'ye uygulayacaktır.
+  nemoracode istenen değişikliği uygulayacak ve aynı PR'ye uygulayacaktır.
 
 - **Belirli kod satırlarını inceleme**
 
-  PR'nin "Dosyalar" sekmesindeki kod satırlarına doğrudan yorum bırakın. opencode, kesin yanıtlar sağlamak için dosyayı, satır numaralarını ve fark içeriğini otomatik olarak algılar.
+  PR'nin "Dosyalar" sekmesindeki kod satırlarına doğrudan yorum bırakın. nemoracode, kesin yanıtlar sağlamak için dosyayı, satır numaralarını ve fark içeriğini otomatik olarak algılar.
 
   ```
   [Comment on specific lines in Files tab]
   /oc add error handling here
   ```
 
-  Belirli satırlara yorum yaparken opencode şunları alır:
+  Belirli satırlara yorum yaparken nemoracode şunları alır:
   - İncelenmekte olan dosyanın tamamı
   - Belirli kod satırları
   - Çevreleyen fark bağlamı

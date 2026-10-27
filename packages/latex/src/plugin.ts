@@ -1,8 +1,8 @@
-import { Plugin } from "@opencode/plugin/tui"
+import { Plugin } from "@nemoracode/plugin/tui"
 import { createLatexCodeBlockRenderer } from "./markdown"
 
 export default Plugin.define({
-  id: "opencode.latex",
+  id: "nemoracode.latex",
   setup(context) {
     const render = createLatexCodeBlockRenderer(context.renderer, () => ({
       text: context.theme.text.base,

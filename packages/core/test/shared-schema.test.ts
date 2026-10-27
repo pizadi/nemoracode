@@ -1,32 +1,32 @@
 import { expect, test } from "bun:test"
 import { Schema } from "effect"
-import { Agent } from "@opencode/core/agent"
-import { Session } from "@opencode/core/session"
-import { SessionStore } from "@opencode/core/session/store"
-import { Location } from "@opencode/schema/location"
-import { Model } from "@opencode/schema/model"
-import { Provider } from "@opencode/schema/provider"
-import { Project } from "@opencode/schema/project"
-import { Worktree } from "@opencode/schema/worktree"
-import { Prompt } from "@opencode/schema/prompt"
-import { SessionInbox } from "@opencode/schema/session-inbox"
-import { SessionMessage } from "@opencode/schema/session-message"
-import { Workspace } from "@opencode/schema/workspace"
-import { Command } from "@opencode/schema/command"
-import { Connection } from "@opencode/schema/connection"
-import { Credential } from "@opencode/schema/credential"
-import { FileSystem } from "@opencode/schema/filesystem"
-import { Integration } from "@opencode/schema/integration"
-import { LLM } from "@opencode/schema/llm"
-import { Permission } from "@opencode/schema/permission"
-import { Pty } from "@opencode/schema/pty"
-import { Reference } from "@opencode/schema/reference"
-import { Skill } from "@opencode/schema/skill"
-import { AbsolutePath, optional, statics } from "@opencode/schema/schema"
+import { Agent } from "@nemoracode/core/agent"
+import { Session } from "@nemoracode/core/session"
+import { SessionStore } from "@nemoracode/core/session/store"
+import { Location } from "@nemoracode/schema/location"
+import { Model } from "@nemoracode/schema/model"
+import { Provider } from "@nemoracode/schema/provider"
+import { Project } from "@nemoracode/schema/project"
+import { Worktree } from "@nemoracode/schema/worktree"
+import { Prompt } from "@nemoracode/schema/prompt"
+import { SessionInbox } from "@nemoracode/schema/session-inbox"
+import { SessionMessage } from "@nemoracode/schema/session-message"
+import { Workspace } from "@nemoracode/schema/workspace"
+import { Command } from "@nemoracode/schema/command"
+import { Connection } from "@nemoracode/schema/connection"
+import { Credential } from "@nemoracode/schema/credential"
+import { FileSystem } from "@nemoracode/schema/filesystem"
+import { Integration } from "@nemoracode/schema/integration"
+import { LLM } from "@nemoracode/schema/llm"
+import { Permission } from "@nemoracode/schema/permission"
+import { Pty } from "@nemoracode/schema/pty"
+import { Reference } from "@nemoracode/schema/reference"
+import { Skill } from "@nemoracode/schema/skill"
+import { AbsolutePath, optional, statics } from "@nemoracode/schema/schema"
 
 test("Core reuses the canonical shared schemas", async () => {
-  const schemaAgent = await import("@opencode/schema/agent")
-  const schemaSession = await import("@opencode/schema/session")
+  const schemaAgent = await import("@nemoracode/schema/agent")
+  const schemaSession = await import("@nemoracode/schema/session")
   const [
     coreCommand,
     coreConnection,
@@ -48,25 +48,25 @@ test("Core reuses the canonical shared schemas", async () => {
     coreSchema,
     coreWorkspace,
   ] = await Promise.all([
-    import("@opencode/core/command"),
-    import("@opencode/core/integration/connection"),
-    import("@opencode/core/credential"),
-    import("@opencode/core/filesystem"),
-    import("@opencode/core/integration"),
-    import("@opencode/core/location"),
-    import("@opencode/ai/effect"),
-    import("@opencode/core/model"),
-    import("@opencode/core/permission"),
-    import("@opencode/core/worktree"),
-    import("@opencode/core/pty"),
-    import("@opencode/core/project/schema"),
-    import("@opencode/core/provider"),
-    import("@opencode/core/reference"),
-    import("@opencode/core/session/inbox"),
-    import("@opencode/core/session/message"),
-    import("@opencode/core/skill"),
-    import("@opencode/core/schema"),
-    import("@opencode/core/workspace"),
+    import("@nemoracode/core/command"),
+    import("@nemoracode/core/integration/connection"),
+    import("@nemoracode/core/credential"),
+    import("@nemoracode/core/filesystem"),
+    import("@nemoracode/core/integration"),
+    import("@nemoracode/core/location"),
+    import("@nemoracode/ai/effect"),
+    import("@nemoracode/core/model"),
+    import("@nemoracode/core/permission"),
+    import("@nemoracode/core/worktree"),
+    import("@nemoracode/core/pty"),
+    import("@nemoracode/core/project/schema"),
+    import("@nemoracode/core/provider"),
+    import("@nemoracode/core/reference"),
+    import("@nemoracode/core/session/inbox"),
+    import("@nemoracode/core/session/message"),
+    import("@nemoracode/core/skill"),
+    import("@nemoracode/core/schema"),
+    import("@nemoracode/core/workspace"),
   ])
 
   const schemas = [

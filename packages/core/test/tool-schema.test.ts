@@ -1,11 +1,11 @@
 import { expect, test } from "bun:test"
 import { Effect, Schema, SchemaGetter } from "effect"
 import { z } from "zod"
-import { emptyInputJsonSchema } from "@opencode/ai/tool"
-import { Agent } from "@opencode/schema/agent"
-import { Session } from "@opencode/schema/session"
-import { SessionMessage } from "@opencode/schema/session-message"
-import type { Info } from "@opencode/schema/tool"
+import { emptyInputJsonSchema } from "@nemoracode/ai/tool"
+import { Agent } from "@nemoracode/schema/agent"
+import { Session } from "@nemoracode/schema/session"
+import { SessionMessage } from "@nemoracode/schema/session-message"
+import type { Info } from "@nemoracode/schema/tool"
 import { Tool } from "../src/tool"
 import { definition, execute } from "../src/tool/runtime"
 
@@ -109,7 +109,7 @@ test("empty input normalization preserves explicit Effect overrides and raw JSON
   }
 })
 
-// Projection rules are covered by @opencode/ai; core must delegate to them and execute the decoded input.
+// Projection rules are covered by @nemoracode/ai; core must delegate to them and execute the decoded input.
 test("Effect inputs delegate empty-input projection to the shared helper", async () => {
   // Callers send `{}`; the handler receives a token.
   const defaulted = Schema.Struct({}).pipe(

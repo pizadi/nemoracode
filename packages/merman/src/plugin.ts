@@ -1,14 +1,14 @@
-import { Plugin } from "@opencode/plugin/tui"
+import { Plugin } from "@nemoracode/plugin/tui"
 import { createMermaidCodeBlockRenderer } from "./markdown.js"
-import { resolveOpenCodeDiagramPalette } from "./palette.js"
+import { resolveNemoraCodeDiagramPalette } from "./palette.js"
 
 export default Plugin.define({
-  id: "opencode.merman",
+  id: "nemoracode.merman",
   setup(context) {
     context.markdown.registerCodeBlockRenderer(
       "mermaid",
       createMermaidCodeBlockRenderer(context.renderer, () => ({
-        colors: resolveOpenCodeDiagramPalette(context.theme, context.themeMode),
+        colors: resolveNemoraCodeDiagramPalette(context.theme, context.themeMode),
       })),
     )
   },

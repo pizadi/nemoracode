@@ -130,12 +130,12 @@ export interface Definition {
    * state, always loaded. See `Store`. Keys known only at runtime go through `ctx.storage.store`.
    */
   readonly stores?: Readonly<Record<string, StoreDeclaration | MainStoreDeclaration>>
-  /** The window entry; its default export is a `Setup<typeof Definition>` (`@opencode/gui-extensions/sdk`). */
+  /** The window entry; its default export is a `Setup<typeof Definition>` (`@nemoracode/gui-extensions/sdk`). */
   readonly renderer?: () => Promise<{
     /** The window setup. */
     readonly default: (ctx: never) => void
   }>
-  /** The main entry; its default export is a `MainSetup` (`@opencode/gui-extensions/sdk/main`). */
+  /** The main entry; its default export is a `MainSetup` (`@nemoracode/gui-extensions/sdk/main`). */
   readonly main?: () => Promise<{
     /** The main setup. */
     readonly default: (ctx: never) => Result
@@ -373,7 +373,7 @@ export type Live<T> =
       readonly reason: "disabled" | "failed" | "blocked" | "restarting"
     }
 
-const live = Symbol.for("opencode.extension.live")
+const live = Symbol.for("nemoracode.extension.live")
 
 /**
  * Helpers for `Live` accessors. Extension code reads `ctx.uses.*` and passes them to `createKeyed`; it rarely calls
@@ -604,18 +604,18 @@ export interface StoreDeclaration<
  *
  * @example
  * ```ts
- * Store.main(Schema.Boolean, false, { state: ["opencode.settings", "keepScreenActive"] })
+ * Store.main(Schema.Boolean, false, { state: ["nemoracode.settings", "keepScreenActive"] })
  * ```
  */
 export type MainStoreFrom =
   | {
       /** The key in the settings file, e.g. `ssh.servers`. */
       readonly settings: string
-      /** Another settings file of the desktop app, e.g. `opencode.updater`. Defaults to the app's settings file. */
+      /** Another settings file of the desktop app, e.g. `nemoracode.updater`. Defaults to the app's settings file. */
       readonly file?: string
     }
   | {
-      /** The storage namespace and the key in it, e.g. `["opencode.settings", "keepScreenActive"]`. */
+      /** The storage namespace and the key in it, e.g. `["nemoracode.settings", "keepScreenActive"]`. */
       readonly state: readonly [namespace: string, key: string]
     }
 

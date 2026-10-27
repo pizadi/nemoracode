@@ -18,8 +18,8 @@ import {
 import { OAuthMetadataSchema, OpenIdProviderDiscoveryMetadataSchema } from "@modelcontextprotocol/core"
 import { Cause, Deferred, Effect } from "effect"
 import type { ServerResponse } from "node:http"
-import { ConfigMCP } from "@opencode/schema/config/mcp"
-import { noTimeoutFetch } from "@opencode/util/no-timeout-fetch"
+import { ConfigMCP } from "@nemoracode/schema/config/mcp"
+import { noTimeoutFetch } from "@nemoracode/util/no-timeout-fetch"
 import { Credential } from "../credential.js"
 import { OauthCallbackPage } from "../oauth/page.js"
 import type { Integration } from "../integration.js"
@@ -182,7 +182,7 @@ export const provider = (options: Options): OAuthClientProvider => {
     ...(redirect ? { state: () => redirect.state } : {}),
     clientMetadata: {
       redirect_uris: [redirectUrl],
-      client_name: "opencode",
+      client_name: "nemoracode",
       client_uri: "https://opencode.ai",
       grant_types: ["authorization_code", "refresh_token"],
       response_types: ["code"],
@@ -421,7 +421,7 @@ export const authorize = (input: {
           jsonrpc: "2.0",
           id: 0,
           method: "initialize",
-          params: { protocolVersion: LATEST_PROTOCOL_VERSION, capabilities: {}, clientInfo: { name: "opencode" } },
+          params: { protocolVersion: LATEST_PROTOCOL_VERSION, capabilities: {}, clientInfo: { name: "nemoracode" } },
         }),
         signal,
       }),

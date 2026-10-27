@@ -95,7 +95,7 @@
             ],
             "patterns": [
               {
-                "regex": "^@opencode/(app|desktop)(/|$)",
+                "regex": "^@nemoracode/(app|desktop)(/|$)",
                 "message": "GUI extensions never import the app or desktop packages. Use the SDK."
               },
               {
@@ -123,7 +123,7 @@
           {
             "patterns": [
               {
-                "regex": "^@opencode/(app|desktop)(/|$)",
+                "regex": "^@nemoracode/(app|desktop)(/|$)",
                 "message": "GUI extensions never import the app or desktop packages. Use the SDK."
               },
               {
@@ -159,7 +159,7 @@
     ".continue/**",
     ".cursor/**",
     ".gemini/**",
-    ".opencode/**",
+    ".nemoracode/**",
     ".pi/**",
     ".roo/**",
     ".windsurf/**",

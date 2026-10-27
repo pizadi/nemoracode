@@ -1,9 +1,9 @@
 import type { Renderable } from "@opentui/core"
-import type { SimulationProtocol } from "@opencode/simulation/protocol"
+import type { SimulationProtocol } from "@nemoracode/simulation/protocol"
 
 type Definition = Omit<SimulationProtocol.Frontend.SemanticNode, "id" | "element" | "parent">
 
-const key = Symbol.for("opencode.simulation.semantics")
+const key = Symbol.for("nemoracode.simulation.semantics")
 
 const bind = (definition: () => Definition) => (renderable: Renderable) => {
   Object.defineProperty(renderable, key, { value: definition, configurable: true })

@@ -1,10 +1,10 @@
 import { Popover } from "@kobalte/core/popover"
-import type { PluginInfo } from "@opencode/client"
-import { Icon } from "@opencode/ui/icon"
-import { Switch } from "@opencode/ui/switch"
-import { showToast } from "@opencode/ui/toast"
-import { Tooltip } from "@opencode/ui/tooltip"
-import { getDirectory } from "@opencode/util/path"
+import type { PluginInfo } from "@nemoracode/client"
+import { Icon } from "@nemoracode/ui/icon"
+import { Switch } from "@nemoracode/ui/switch"
+import { showToast } from "@nemoracode/ui/toast"
+import { Tooltip } from "@nemoracode/ui/tooltip"
+import { getDirectory } from "@nemoracode/util/path"
 import { useMutation } from "@tanstack/solid-query"
 import {
   children,

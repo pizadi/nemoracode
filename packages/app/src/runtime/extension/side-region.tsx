@@ -6,21 +6,21 @@ import { isSortable } from "@dnd-kit/solid/sortable"
 import { Accessibility, AutoScroller, Feedback, PointerActivationConstraints } from "@dnd-kit/dom"
 import { RestrictToHorizontalAxis } from "@dnd-kit/abstract/modifiers"
 import { RestrictToElement } from "@dnd-kit/dom/modifiers"
-import { Tabs } from "@opencode/ui/tabs"
-import { IconButton } from "@opencode/ui/icon-button"
-import { Icon } from "@opencode/ui/icon"
-import { ResizeHandle } from "@opencode/ui/resize-handle"
-import { Mark } from "@opencode/ui/logo"
-import { Keybind } from "@opencode/ui/keybind"
-import { Tooltip } from "@opencode/ui/tooltip"
-import { Menu } from "@opencode/ui/menu"
+import { Tabs } from "@nemoracode/ui/tabs"
+import { IconButton } from "@nemoracode/ui/icon-button"
+import { Icon } from "@nemoracode/ui/icon"
+import { ResizeHandle } from "@nemoracode/ui/resize-handle"
+import { Mark } from "@nemoracode/ui/logo"
+import { Keybind } from "@nemoracode/ui/keybind"
+import { Tooltip } from "@nemoracode/ui/tooltip"
+import { Menu } from "@nemoracode/ui/menu"
 import {
   MenuItem,
   type MountedSession,
   type SessionScreen,
   type PanelSidebar,
   type SessionPanelMenuItem,
-} from "@opencode/gui-extensions/sdk"
+} from "@nemoracode/gui-extensions/sdk"
 import { useCommand } from "@/shell/commands/command"
 import { useLanguage } from "@/runtime/i18n/language"
 import { useLayout } from "@/shell/state/layout"

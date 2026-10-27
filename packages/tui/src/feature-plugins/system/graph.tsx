@@ -1,6 +1,6 @@
 /** @jsxImportSource @opentui/solid */
-import type { GraphNodeRow } from "@opencode/client"
-import { Plugin } from "@opencode/plugin/tui"
+import type { GraphNodeRow } from "@nemoracode/client"
+import { Plugin } from "@nemoracode/plugin/tui"
 
 import { createMemo, createResource, createSignal, For, Match, Show, Switch } from "solid-js"
 import { StoryFooter } from "./storybook/footer"
@@ -338,7 +338,7 @@ function Commands(props: { context: Plugin.Context }) {
 }
 
 export default Plugin.define({
-  id: "opencode.graph",
+  id: "nemoracode.graph",
   setup(context) {
     context.ui.router.register({
       name: ROUTE,

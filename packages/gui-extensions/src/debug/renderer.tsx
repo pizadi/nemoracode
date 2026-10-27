@@ -1,4 +1,4 @@
-import { showToast, toaster } from "@opencode/ui/toast"
+import { showToast, toaster } from "@nemoracode/ui/toast"
 import { createSignal, lazy, Show, Suspense } from "solid-js"
 import { createKeyed, Command, Slot, TitlebarItem, type Setup } from "../sdk"
 import type Debug from "./index"

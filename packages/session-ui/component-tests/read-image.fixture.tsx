@@ -1,8 +1,8 @@
 import { createMemo, Show } from "solid-js"
 import { createStore } from "solid-js/store"
 import { render } from "solid-js/web"
-import { DialogProvider } from "@opencode/ui/context/dialog"
-import { OpenCode } from "@opencode/client/promise"
+import { DialogProvider } from "@nemoracode/ui/context/dialog"
+import { NemoraCode } from "@nemoracode/client/promise"
 import { readLocalImage } from "../../app/src/runtime/server/image"
 import { MarkdownProvider } from "../src/context/markdown"
 import { CurrentSessionProviders } from "../src/storybook/current-session-story"
@@ -14,9 +14,9 @@ export function mountReadImage(options: { path: string; grouped: boolean; runnin
   host.dataset.testid = "read-image-fixture"
   document.body.appendChild(host)
   render(() => {
-    const api = OpenCode.make({
+    const api = NemoraCode.make({
       baseUrl: location.origin,
-      headers: { Authorization: `Basic ${btoa("opencode:fixture")}` },
+      headers: { Authorization: `Basic ${btoa("nemoracode:fixture")}` },
     })
 
     const [state, setState] = createStore({ open: true, visible: true, running: !!options.running, appended: false })

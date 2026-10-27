@@ -1,12 +1,12 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@opencode/client",
+  "name": "@nemoracode/client",
   "version": "2.1.4",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anomalyco/opencode.git",
+    "url": "git+https://github.com/pizadi/nemoracode.git",
     "directory": "packages/client"
   },
   "publishConfig": {
@@ -35,8 +35,8 @@
     "typecheck:tsc": "tsc --noEmit"
   },
   "dependencies": {
-    "@opencode/schema": "workspace:*",
-    "@opencode/protocol": "workspace:*"
+    "@nemoracode/schema": "workspace:*",
+    "@nemoracode/protocol": "workspace:*"
   },
   "peerDependencies": {
     "effect": "catalog:",
@@ -53,7 +53,7 @@
   "devDependencies": {
     "@effect/platform-node": "catalog:",
     "@modelcontextprotocol/client": "2.3.1",
-    "@opencode/httpapi-codegen": "workspace:*",
+    "@nemoracode/httpapi-codegen": "workspace:*",
     "@tsconfig/bun": "catalog:",
     "@types/bun": "catalog:",
     "@typescript/native": "catalog:",

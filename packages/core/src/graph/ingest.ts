@@ -19,7 +19,7 @@ const SKIP_DIRS = new Set([
   ".plan",
   ".work",
   ".nemora",
-  ".opencode",
+  ".nemoracode",
   "work",
   "build",
   "node_modules",

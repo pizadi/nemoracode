@@ -1,9 +1,9 @@
 export * as Plugin from "./plugin.js"
-export { Event, ID, Info, Source, State } from "@opencode/schema/plugin"
+export { Event, ID, Info, Source, State } from "@nemoracode/schema/plugin"
 
-import { Plugin } from "@opencode/schema/plugin"
-import { Node } from "@opencode/util/effect/app-node"
-import { LayerNode } from "@opencode/util/effect/layer-node"
+import { Plugin } from "@nemoracode/schema/plugin"
+import { Node } from "@nemoracode/util/effect/app-node"
+import { LayerNode } from "@nemoracode/util/effect/layer-node"
 import type { PersistentPty } from "./persistent-pty.js"
 import { Cause, Context, Effect, Exit, Latch, Layer, Logger, Queue, References, Scope, Semaphore } from "effect"
 import { Bus } from "./bus.js"

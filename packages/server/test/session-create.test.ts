@@ -1,5 +1,5 @@
 import { expect } from "bun:test"
-import { Session } from "@opencode/schema/session"
+import { Session } from "@nemoracode/schema/session"
 import { Effect, Schema } from "effect"
 import { it } from "../../core/test/lib/effect"
 import { ServerFetch } from "../src/fetch"
@@ -17,7 +17,7 @@ it.live("creates a child at its parent's location and lists it under the parent"
     const create = (body: unknown) =>
       Effect.promise(async () => {
         const response = await handler(
-          new Request("http://opencode.local/api/session", {
+          new Request("http://nemoracode.local/api/session", {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(body),
@@ -29,7 +29,7 @@ it.live("creates a child at its parent's location and lists it under the parent"
     const parent = yield* create({ title: "Parent" })
     const child = yield* create({ parentID: parent.id, title: "Child", location: { directory: "/unused" } })
     const response = yield* Effect.promise(() =>
-      handler(new Request(`http://opencode.local/api/session?parentID=${parent.id}`)),
+      handler(new Request(`http://nemoracode.local/api/session?parentID=${parent.id}`)),
     )
     expect(response.status).toBe(200)
     const children = Schema.decodeUnknownSync(SessionsResponse)(yield* Effect.promise(() => response.json()))
@@ -49,7 +49,7 @@ it.live("returns not found when creating a child of a missing session", () =>
     const parentID = Session.ID.create()
     const response = yield* Effect.promise(() =>
       handler(
-        new Request("http://opencode.local/api/session", {
+        new Request("http://nemoracode.local/api/session", {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: JSON.stringify({ parentID, title: "Child" }),

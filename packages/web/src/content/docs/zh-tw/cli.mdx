@@ -1,30 +1,30 @@
 ---
 title: CLI
-description: OpenCode CLI 選項和指令。
+description: NemoraCode CLI 選項和指令。
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components"
 
-OpenCode CLI 在不帶任何參數執行時，預設啟動 [TUI](/docs/tui)。
+NemoraCode CLI 在不帶任何參數執行時，預設啟動 [TUI](/docs/tui)。
 
 ```bash
-opencode
+nemoracode
 ```
 
-但它也接受本頁面中記錄的指令，使您可以透過程式方式與 OpenCode 進行互動。
+但它也接受本頁面中記錄的指令，使您可以透過程式方式與 NemoraCode 進行互動。
 
 ```bash
-opencode run "Explain how closures work in JavaScript"
+nemoracode run "Explain how closures work in JavaScript"
 ```
 
 ---
 
 ### tui
 
-啟動 OpenCode 終端機使用者介面。
+啟動 NemoraCode 終端機使用者介面。
 
 ```bash
-opencode [project]
+nemoracode [project]
 ```
 
 #### 旗標
@@ -44,26 +44,26 @@ opencode [project]
 
 ## 指令
 
-OpenCode CLI 還提供以下指令。
+NemoraCode CLI 還提供以下指令。
 
 ---
 
 ### attach
 
-將終端機連接到已透過 `serve` 或 `web` 指令啟動的 OpenCode 後端伺服器。
+將終端機連接到已透過 `serve` 或 `web` 指令啟動的 NemoraCode 後端伺服器。
 
 ```bash
-opencode attach [url]
+nemoracode attach [url]
 ```
 
-這允許將 TUI 與遠端 OpenCode 後端搭配使用。例如：
+這允許將 TUI 與遠端 NemoraCode 後端搭配使用。例如：
 
 ```bash
 # Start the backend server for web/mobile access
-opencode web --port 4096 --hostname 0.0.0.0
+nemoracode web --port 4096 --hostname 0.0.0.0
 
 # In another terminal, attach the TUI to the running backend
-opencode attach http://10.20.30.40:4096
+nemoracode attach http://10.20.30.40:4096
 ```
 
 #### 旗標
@@ -74,8 +74,8 @@ opencode attach http://10.20.30.40:4096
 | <nobr><code>{"--continue"}</code></nobr> | `-c` | 繼續上一個工作階段                                                      |
 | <nobr><code>{"--session"}</code></nobr>  | `-s` | 要繼續的工作階段 ID                                                     |
 | <nobr><code>{"--fork"}</code></nobr>     |      | 繼續時分支工作階段（與 `--continue` 或 `--session` 一起使用）           |
-| <nobr><code>{"--password"}</code></nobr> | `-p` | 基本驗證密碼（預設使用 `OPENCODE_SERVER_PASSWORD`）                     |
-| <nobr><code>{"--username"}</code></nobr> | `-u` | 基本驗證使用者名稱（預設使用 `OPENCODE_SERVER_USERNAME` 或 `opencode`） |
+| <nobr><code>{"--password"}</code></nobr> | `-p` | 基本驗證密碼（預設使用 `NEMORACODE_SERVER_PASSWORD`）                     |
+| <nobr><code>{"--username"}</code></nobr> | `-u` | 基本驗證使用者名稱（預設使用 `NEMORACODE_SERVER_USERNAME` 或 `nemoracode`） |
 
 ---
 
@@ -84,20 +84,20 @@ opencode attach http://10.20.30.40:4096
 管理供應商的憑證和登入資訊的指令。
 
 ```bash
-opencode auth [command]
+nemoracode auth [command]
 ```
 
 ---
 
 #### login
 
-OpenCode 基於 [Models.dev](https://models.dev) 的供應商列表運作，因此您可以使用 `opencode auth login` 為任何想要使用的供應商設定 API 金鑰。金鑰儲存在 `~/.local/share/opencode/auth.json` 中。
+NemoraCode 基於 [Models.dev](https://models.dev) 的供應商列表運作，因此您可以使用 `nemoracode auth login` 為任何想要使用的供應商設定 API 金鑰。金鑰儲存在 `~/.local/share/nemoracode/auth.json` 中。
 
 ```bash
-opencode auth login
+nemoracode auth login
 ```
 
-OpenCode 啟動時會從憑證檔案載入供應商資訊，同時也會載入環境變數或專案中 `.env` 檔案中定義的金鑰。
+NemoraCode 啟動時會從憑證檔案載入供應商資訊，同時也會載入環境變數或專案中 `.env` 檔案中定義的金鑰。
 
 ---
 
@@ -106,13 +106,13 @@ OpenCode 啟動時會從憑證檔案載入供應商資訊，同時也會載入�
 列出憑證檔案中儲存的所有已認證供應商。
 
 ```bash
-opencode auth list
+nemoracode auth list
 ```
 
 或使用簡寫版本。
 
 ```bash
-opencode auth ls
+nemoracode auth ls
 ```
 
 ---
@@ -122,7 +122,7 @@ opencode auth ls
 從憑證檔案中清除供應商資訊以完成登出。
 
 ```bash
-opencode auth logout
+nemoracode auth logout
 ```
 
 ---
@@ -132,7 +132,7 @@ opencode auth logout
 管理用於儲存庫自動化的 GitHub 代理。
 
 ```bash
-opencode github [command]
+nemoracode github [command]
 ```
 
 ---
@@ -142,7 +142,7 @@ opencode github [command]
 在您的儲存庫中安裝 GitHub 代理。
 
 ```bash
-opencode github install
+nemoracode github install
 ```
 
 此指令會設定必要的 GitHub Actions 工作流程並引導您完成設定過程。[了解更多](/docs/github)。
@@ -154,7 +154,7 @@ opencode github install
 執行 GitHub 代理。通常在 GitHub Actions 中使用。
 
 ```bash
-opencode github run
+nemoracode github run
 ```
 
 ##### 旗標
@@ -171,7 +171,7 @@ opencode github run
 管理 Model Context Protocol 伺服器。
 
 ```bash
-opencode mcp [command]
+nemoracode mcp [command]
 ```
 
 ---
@@ -181,7 +181,7 @@ opencode mcp [command]
 將 MCP 伺服器新增到您的設定中。
 
 ```bash
-opencode mcp add
+nemoracode mcp add
 ```
 
 此指令將引導您新增本地或遠端 MCP 伺服器。
@@ -193,13 +193,13 @@ opencode mcp add
 列出所有已設定的 MCP 伺服器及其連線狀態。
 
 ```bash
-opencode mcp list
+nemoracode mcp list
 ```
 
 或使用簡寫版本。
 
 ```bash
-opencode mcp ls
+nemoracode mcp ls
 ```
 
 ---
@@ -209,7 +209,7 @@ opencode mcp ls
 對支援 OAuth 的 MCP 伺服器進行認證。
 
 ```bash
-opencode mcp auth [name]
+nemoracode mcp auth [name]
 ```
 
 如果您不提供伺服器名稱，系統將提示您從可用的支援 OAuth 的伺服器中進行選擇。
@@ -217,13 +217,13 @@ opencode mcp auth [name]
 您還可以列出支援 OAuth 的伺服器及其認證狀態。
 
 ```bash
-opencode mcp auth list
+nemoracode mcp auth list
 ```
 
 或使用簡寫版本。
 
 ```bash
-opencode mcp auth ls
+nemoracode mcp auth ls
 ```
 
 ---
@@ -233,7 +233,7 @@ opencode mcp auth ls
 移除 MCP 伺服器的 OAuth 憑證。
 
 ```bash
-opencode mcp logout [name]
+nemoracode mcp logout [name]
 ```
 
 ---
@@ -243,7 +243,7 @@ opencode mcp logout [name]
 偵錯 MCP 伺服器的 OAuth 連線問題。
 
 ```bash
-opencode mcp debug <name>
+nemoracode mcp debug <name>
 ```
 
 ---
@@ -253,7 +253,7 @@ opencode mcp debug <name>
 列出已設定供應商的所有可用模型。
 
 ```bash
-opencode models [provider]
+nemoracode models [provider]
 ```
 
 此指令以 `provider/model` 的格式顯示所有已設定供應商中可用的模型。
@@ -263,7 +263,7 @@ opencode models [provider]
 您可以選擇傳入供應商 ID 來按供應商篩選模型。
 
 ```bash
-opencode models anthropic
+nemoracode models anthropic
 ```
 
 #### 旗標
@@ -273,36 +273,36 @@ opencode models anthropic
 | <nobr><code>{"--refresh"}</code></nobr> | 從 models.dev 重新整理模型快取             |
 | <nobr><code>{"--verbose"}</code></nobr> | 使用更詳細的模型輸出（包含費用等中繼資料） |
 
-使用 `--refresh` 旗標可以更新快取的模型列表。當供應商新增了模型並且您希望在 OpenCode 中看到它們時，此功能非常有用。
+使用 `--refresh` 旗標可以更新快取的模型列表。當供應商新增了模型並且您希望在 NemoraCode 中看到它們時，此功能非常有用。
 
 ```bash
-opencode models --refresh
+nemoracode models --refresh
 ```
 
 ---
 
 ### run
 
-以非互動模式執行 OpenCode，直接傳入提示詞。
+以非互動模式執行 NemoraCode，直接傳入提示詞。
 
 ```bash
-opencode run [message..]
+nemoracode run [message..]
 ```
 
 這對於指令碼編寫、自動化或無需啟動完整 TUI 即可快速取得答案的情境非常有用。例如：
 
-```bash "opencode run"
-opencode run Explain the use of context in Go
+```bash "nemoracode run"
+nemoracode run Explain the use of context in Go
 ```
 
-您還可以連接到正在執行的 `opencode serve` 實例，以避免每次執行時 MCP 伺服器的冷啟動時間：
+您還可以連接到正在執行的 `nemoracode serve` 實例，以避免每次執行時 MCP 伺服器的冷啟動時間：
 
 ```bash
 # Start a headless server in one terminal
-opencode serve
+nemoracode serve
 
 # In another terminal, run commands that attach to it
-opencode run --attach http://localhost:4096 "Explain async/await in JavaScript"
+nemoracode run --attach http://localhost:4096 "Explain async/await in JavaScript"
 ```
 
 #### 旗標
@@ -318,9 +318,9 @@ opencode run --attach http://localhost:4096 "Explain async/await in JavaScript"
 | <nobr><code>{"--file"}</code></nobr>     | `-f` | 附加到訊息的檔案                                                        |
 | <nobr><code>{"--format"}</code></nobr>   |      | 格式：default（格式化輸出）或 json（原始 JSON 事件）                    |
 | <nobr><code>{"--title"}</code></nobr>    |      | 工作階段標題（未提供值時使用截斷的提示詞）                              |
-| <nobr><code>{"--attach"}</code></nobr>   |      | 連接到正在執行的 opencode 伺服器（例如 http://localhost:4096）          |
-| <nobr><code>{"--password"}</code></nobr> | `-p` | 基本驗證密碼（預設使用 `OPENCODE_SERVER_PASSWORD`）                     |
-| <nobr><code>{"--username"}</code></nobr> | `-u` | 基本驗證使用者名稱（預設使用 `OPENCODE_SERVER_USERNAME` 或 `opencode`） |
+| <nobr><code>{"--attach"}</code></nobr>   |      | 連接到正在執行的 nemoracode 伺服器（例如 http://localhost:4096）          |
+| <nobr><code>{"--password"}</code></nobr> | `-p` | 基本驗證密碼（預設使用 `NEMORACODE_SERVER_PASSWORD`）                     |
+| <nobr><code>{"--username"}</code></nobr> | `-u` | 基本驗證使用者名稱（預設使用 `NEMORACODE_SERVER_USERNAME` 或 `nemoracode`） |
 | <nobr><code>{"--dir"}</code></nobr>      |      | 執行目錄，或附加時遠端伺服器上的路徑                                    |
 | <nobr><code>{"--variant"}</code></nobr>  |      | 模型變體（特定於提供者的推理級別）                                      |
 | <nobr><code>{"--thinking"}</code></nobr> |      | 顯示思考區塊                                                            |
@@ -330,13 +330,13 @@ opencode run --attach http://localhost:4096 "Explain async/await in JavaScript"
 
 ### serve
 
-啟動無介面的 OpenCode 伺服器以提供 API 存取。查看[伺服器文件](/docs/server)了解完整的 HTTP 介面。
+啟動無介面的 NemoraCode 伺服器以提供 API 存取。查看[伺服器文件](/docs/server)了解完整的 HTTP 介面。
 
 ```bash
-opencode serve
+nemoracode serve
 ```
 
-此指令啟動一個 HTTP 伺服器，提供對 OpenCode 功能的 API 存取，無需 TUI 介面。設定 `OPENCODE_SERVER_PASSWORD` 可啟用 HTTP 基本認證（使用者名稱預設為 `opencode`）。
+此指令啟動一個 HTTP 伺服器，提供對 NemoraCode 功能的 API 存取，無需 TUI 介面。設定 `NEMORACODE_SERVER_PASSWORD` 可啟用 HTTP 基本認證（使用者名稱預設為 `nemoracode`）。
 
 #### 旗標
 
@@ -351,20 +351,20 @@ opencode serve
 
 ### session
 
-管理 OpenCode 工作階段。
+管理 NemoraCode 工作階段。
 
 ```bash
-opencode session [command]
+nemoracode session [command]
 ```
 
 ---
 
 #### list
 
-列出所有 OpenCode 工作階段。
+列出所有 NemoraCode 工作階段。
 
 ```bash
-opencode session list
+nemoracode session list
 ```
 
 ##### 旗標
@@ -378,10 +378,10 @@ opencode session list
 
 ### stats
 
-顯示 OpenCode 工作階段的 Token 用量和費用統計資訊。
+顯示 NemoraCode 工作階段的 Token 用量和費用統計資訊。
 
 ```bash
-opencode stats
+nemoracode stats
 ```
 
 #### 旗標
@@ -400,7 +400,7 @@ opencode stats
 將工作階段資料匯出為 JSON。
 
 ```bash
-opencode export [sessionID]
+nemoracode export [sessionID]
 ```
 
 如果您不提供工作階段 ID，系統將提示您從可用的工作階段中進行選擇。
@@ -412,24 +412,24 @@ opencode export [sessionID]
 從 JSON 檔案匯入工作階段資料。
 
 ```bash
-opencode import <file>
+nemoracode import <file>
 ```
 
 ```bash
-opencode import session.json
+nemoracode import session.json
 ```
 
 ---
 
 ### web
 
-啟動帶有 Web 介面的無介面 OpenCode 伺服器。
+啟動帶有 Web 介面的無介面 NemoraCode 伺服器。
 
 ```bash
-opencode web
+nemoracode web
 ```
 
-此指令啟動一個 HTTP 伺服器並開啟瀏覽器，透過 Web 介面存取 OpenCode。設定 `OPENCODE_SERVER_PASSWORD` 可啟用 HTTP 基本認證（使用者名稱預設為 `opencode`）。
+此指令啟動一個 HTTP 伺服器並開啟瀏覽器，透過 Web 介面存取 NemoraCode。設定 `NEMORACODE_SERVER_PASSWORD` 可啟用 HTTP 基本認證（使用者名稱預設為 `nemoracode`）。
 
 #### 旗標
 
@@ -447,7 +447,7 @@ opencode web
 啟動 ACP（Agent Client Protocol）伺服器。
 
 ```bash
-opencode acp
+nemoracode acp
 ```
 
 此指令啟動一個透過 stdin/stdout 使用 nd-JSON 進行通訊的 ACP 伺服器。
@@ -464,10 +464,10 @@ opencode acp
 
 ### uninstall
 
-解除安裝 OpenCode 並刪除所有相關檔案。
+解除安裝 NemoraCode 並刪除所有相關檔案。
 
 ```bash
-opencode uninstall
+nemoracode uninstall
 ```
 
 #### 旗標
@@ -483,22 +483,22 @@ opencode uninstall
 
 ### upgrade
 
-將 OpenCode 更新到最新版本或指定版本。
+將 NemoraCode 更新到最新版本或指定版本。
 
 ```bash
-opencode upgrade [target]
+nemoracode upgrade [target]
 ```
 
 更新到最新版本。
 
 ```bash
-opencode upgrade
+nemoracode upgrade
 ```
 
 更新到指定版本。
 
 ```bash
-opencode upgrade v0.1.48
+nemoracode upgrade v0.1.48
 ```
 
 #### 旗標
@@ -511,7 +511,7 @@ opencode upgrade v0.1.48
 
 ## 全域旗標
 
-OpenCode CLI 接受以下全域旗標。
+NemoraCode CLI 接受以下全域旗標。
 
 | 旗標                                       | 簡寫 | 說明                                 |
 | ------------------------------------------ | ---- | ------------------------------------ |
@@ -524,33 +524,33 @@ OpenCode CLI 接受以下全域旗標。
 
 ## 環境變數
 
-OpenCode 可以透過環境變數進行設定。
+NemoraCode 可以透過環境變數進行設定。
 
 | 變數                                  | 類型    | 說明                                        |
 | ------------------------------------- | ------- | ------------------------------------------- |
-| `OPENCODE_GIT_BASH_PATH`              | string  | Windows 上 Git Bash 可執行檔的路徑          |
-| `OPENCODE_CONFIG`                     | string  | 設定檔路徑                                  |
-| `OPENCODE_TUI_CONFIG`                 | string  | TUI 設定檔路徑                              |
-| `OPENCODE_CONFIG_DIR`                 | string  | 設定目錄路徑                                |
-| `OPENCODE_CONFIG_CONTENT`             | string  | 內嵌 JSON 設定內容                          |
-| `OPENCODE_DISABLE_AUTOUPDATE`         | boolean | 停用自動更新檢查                            |
-| `OPENCODE_DISABLE_PRUNE`              | boolean | 停用舊資料清理                              |
-| `OPENCODE_DISABLE_TERMINAL_TITLE`     | boolean | 停用自動終端機標題更新                      |
-| `OPENCODE_PERMISSION`                 | string  | 內嵌 JSON 權限設定                          |
-| `OPENCODE_DISABLE_DEFAULT_PLUGINS`    | boolean | 停用預設外掛程式                            |
-| `OPENCODE_DISABLE_LSP_DOWNLOAD`       | boolean | 停用 LSP 伺服器自動下載                     |
-| `OPENCODE_ENABLE_EXPERIMENTAL_MODELS` | boolean | 啟用實驗性模型                              |
-| `OPENCODE_DISABLE_AUTOCOMPACT`        | boolean | 停用自動上下文壓縮                          |
-| `OPENCODE_DISABLE_CLAUDE_CODE`        | boolean | 停用讀取 `.claude`（提示詞 + 技能）         |
-| `OPENCODE_DISABLE_CLAUDE_CODE_PROMPT` | boolean | 停用讀取 `~/.claude/CLAUDE.md`              |
-| `OPENCODE_DISABLE_CLAUDE_CODE_SKILLS` | boolean | 停用載入 `.claude/skills`                   |
-| `OPENCODE_DISABLE_MODELS_FETCH`       | boolean | 停用從遠端來源擷取模型                      |
-| `OPENCODE_FAKE_VCS`                   | string  | 用於測試目的的模擬 VCS 供應商               |
-| `OPENCODE_CLIENT`                     | string  | 用戶端識別碼（預設為 `cli`）                |
-| `OPENCODE_ENABLE_EXA`                 | boolean | 啟用 Exa 網路搜尋工具                       |
-| `OPENCODE_SERVER_PASSWORD`            | string  | 為 `serve`/`web` 啟用基本認證               |
-| `OPENCODE_SERVER_USERNAME`            | string  | 覆寫基本認證使用者名稱（預設為 `opencode`） |
-| `OPENCODE_MODELS_URL`                 | string  | 自訂模型設定擷取 URL                        |
+| `NEMORACODE_GIT_BASH_PATH`              | string  | Windows 上 Git Bash 可執行檔的路徑          |
+| `NEMORACODE_CONFIG`                     | string  | 設定檔路徑                                  |
+| `NEMORACODE_TUI_CONFIG`                 | string  | TUI 設定檔路徑                              |
+| `NEMORACODE_CONFIG_DIR`                 | string  | 設定目錄路徑                                |
+| `NEMORACODE_CONFIG_CONTENT`             | string  | 內嵌 JSON 設定內容                          |
+| `NEMORACODE_DISABLE_AUTOUPDATE`         | boolean | 停用自動更新檢查                            |
+| `NEMORACODE_DISABLE_PRUNE`              | boolean | 停用舊資料清理                              |
+| `NEMORACODE_DISABLE_TERMINAL_TITLE`     | boolean | 停用自動終端機標題更新                      |
+| `NEMORACODE_PERMISSION`                 | string  | 內嵌 JSON 權限設定                          |
+| `NEMORACODE_DISABLE_DEFAULT_PLUGINS`    | boolean | 停用預設外掛程式                            |
+| `NEMORACODE_DISABLE_LSP_DOWNLOAD`       | boolean | 停用 LSP 伺服器自動下載                     |
+| `NEMORACODE_ENABLE_EXPERIMENTAL_MODELS` | boolean | 啟用實驗性模型                              |
+| `NEMORACODE_DISABLE_AUTOCOMPACT`        | boolean | 停用自動上下文壓縮                          |
+| `NEMORACODE_DISABLE_CLAUDE_CODE`        | boolean | 停用讀取 `.claude`（提示詞 + 技能）         |
+| `NEMORACODE_DISABLE_CLAUDE_CODE_PROMPT` | boolean | 停用讀取 `~/.claude/CLAUDE.md`              |
+| `NEMORACODE_DISABLE_CLAUDE_CODE_SKILLS` | boolean | 停用載入 `.claude/skills`                   |
+| `NEMORACODE_DISABLE_MODELS_FETCH`       | boolean | 停用從遠端來源擷取模型                      |
+| `NEMORACODE_FAKE_VCS`                   | string  | 用於測試目的的模擬 VCS 供應商               |
+| `NEMORACODE_CLIENT`                     | string  | 用戶端識別碼（預設為 `cli`）                |
+| `NEMORACODE_ENABLE_EXA`                 | boolean | 啟用 Exa 網路搜尋工具                       |
+| `NEMORACODE_SERVER_PASSWORD`            | string  | 為 `serve`/`web` 啟用基本認證               |
+| `NEMORACODE_SERVER_USERNAME`            | string  | 覆寫基本認證使用者名稱（預設為 `nemoracode`） |
+| `NEMORACODE_MODELS_URL`                 | string  | 自訂模型設定擷取 URL                        |
 
 ---
 
@@ -560,20 +560,20 @@ OpenCode 可以透過環境變數進行設定。
 
 | 變數                                            | 類型    | 說明                            |
 | ----------------------------------------------- | ------- | ------------------------------- |
-| `OPENCODE_EXPERIMENTAL`                         | boolean | 啟用受總開關控制的實驗性功能    |
-| `OPENCODE_EXPERIMENTAL_ICON_DISCOVERY`          | boolean | 啟用圖示探索                    |
-| `OPENCODE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolean | 停用 TUI 中的選取即複製         |
-| `OPENCODE_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | number  | bash 指令的預設逾時時間（毫秒） |
-| `OPENCODE_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | number  | LLM 回應的最大輸出 Token 數     |
-| `OPENCODE_EXPERIMENTAL_FILEWATCHER`             | boolean | 啟用整個目錄的檔案監看器        |
-| `OPENCODE_EXPERIMENTAL_OXFMT`                   | boolean | 啟用 oxfmt 格式化器             |
-| `OPENCODE_EXPERIMENTAL_LSP_TOOL`                | boolean | 啟用實驗性 LSP 工具             |
-| `OPENCODE_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolean | 停用檔案監看器                  |
-| `OPENCODE_EXPERIMENTAL_EXA`                     | boolean | 啟用實驗性 Exa 功能             |
-| `OPENCODE_EXPERIMENTAL_LSP_TY`                  | boolean | 為 python 檔案啟用 TY LSP       |
-| `OPENCODE_EXPERIMENTAL_PLAN_MODE`               | boolean | 啟用計畫模式                    |
-| `OPENCODE_EXPERIMENTAL_EVENT_SYSTEM`            | boolean | 啟用實驗性事件系統              |
-| `OPENCODE_EXPERIMENTAL_NATIVE_LLM`              | boolean | 啟用原生 LLM 請求路徑           |
-| `OPENCODE_EXPERIMENTAL_PARALLEL`                | boolean | 啟用平行 Web 搜尋執行           |
-| `OPENCODE_EXPERIMENTAL_SCOUT`                   | boolean | 啟用 Scout 子代理               |
-| `OPENCODE_EXPERIMENTAL_WORKSPACES`              | boolean | 啟用工作區支援                  |
+| `NEMORACODE_EXPERIMENTAL`                         | boolean | 啟用受總開關控制的實驗性功能    |
+| `NEMORACODE_EXPERIMENTAL_ICON_DISCOVERY`          | boolean | 啟用圖示探索                    |
+| `NEMORACODE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolean | 停用 TUI 中的選取即複製         |
+| `NEMORACODE_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | number  | bash 指令的預設逾時時間（毫秒） |
+| `NEMORACODE_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | number  | LLM 回應的最大輸出 Token 數     |
+| `NEMORACODE_EXPERIMENTAL_FILEWATCHER`             | boolean | 啟用整個目錄的檔案監看器        |
+| `NEMORACODE_EXPERIMENTAL_OXFMT`                   | boolean | 啟用 oxfmt 格式化器             |
+| `NEMORACODE_EXPERIMENTAL_LSP_TOOL`                | boolean | 啟用實驗性 LSP 工具             |
+| `NEMORACODE_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolean | 停用檔案監看器                  |
+| `NEMORACODE_EXPERIMENTAL_EXA`                     | boolean | 啟用實驗性 Exa 功能             |
+| `NEMORACODE_EXPERIMENTAL_LSP_TY`                  | boolean | 為 python 檔案啟用 TY LSP       |
+| `NEMORACODE_EXPERIMENTAL_PLAN_MODE`               | boolean | 啟用計畫模式                    |
+| `NEMORACODE_EXPERIMENTAL_EVENT_SYSTEM`            | boolean | 啟用實驗性事件系統              |
+| `NEMORACODE_EXPERIMENTAL_NATIVE_LLM`              | boolean | 啟用原生 LLM 請求路徑           |
+| `NEMORACODE_EXPERIMENTAL_PARALLEL`                | boolean | 啟用平行 Web 搜尋執行           |
+| `NEMORACODE_EXPERIMENTAL_SCOUT`                   | boolean | 啟用 Scout 子代理               |
+| `NEMORACODE_EXPERIMENTAL_WORKSPACES`              | boolean | 啟用工作區支援                  |

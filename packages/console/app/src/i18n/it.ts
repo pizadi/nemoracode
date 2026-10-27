@@ -15,7 +15,7 @@ export const dict = {
   "nav.home": "Home",
   "nav.openMenu": "Apri menu",
   "nav.getStartedFree": "Inizia gratis",
-  "nav.logoAlt": "OpenCode",
+  "nav.logoAlt": "NemoraCode",
 
   "nav.context.copyLogo": "Copia il logo come SVG",
   "nav.context.copyWordmark": "Copia il wordmark come SVG",
@@ -38,14 +38,14 @@ export const dict = {
   "email.success": "Quasi fatto, controlla la posta in arrivo e conferma il tuo indirizzo email",
   "email.error": "Iscrizione non riuscita. Riprova.",
 
-  "notFound.title": "Non trovato | opencode",
+  "notFound.title": "Non trovato | nemoracode",
   "notFound.heading": "404 - Pagina non trovata",
   "notFound.home": "Home",
   "notFound.docs": "Documentazione",
   "notFound.github": "GitHub",
   "notFound.discord": "Discord",
-  "notFound.logoLightAlt": "logo chiaro di opencode",
-  "notFound.logoDarkAlt": "logo scuro di opencode",
+  "notFound.logoLightAlt": "logo chiaro di nemoracode",
+  "notFound.logoDarkAlt": "logo scuro di nemoracode",
 
   "common.cancel": "Annulla",
   "common.contactUs": "Contattaci",
@@ -55,9 +55,9 @@ export const dict = {
   "common.faq": "FAQ",
   "common.learnMore": "Scopri di più",
 
-  "app.meta.description": "OpenCode - L'agente di programmazione open source.",
+  "app.meta.description": "NemoraCode - L'agente di programmazione open source.",
 
-  "home.title": "OpenCode | L'agente di coding IA open source",
+  "home.title": "NemoraCode | L'agente di coding IA open source",
 
   "home.banner.badge": "Nuovo",
 
@@ -67,8 +67,8 @@ export const dict = {
 
   "home.install.ariaLabel": "Opzioni di installazione",
 
-  "home.what.title": "Che cos'è OpenCode?",
-  "home.what.body": "OpenCode è un agente open source che ti aiuta a scrivere codice nel terminale, IDE o desktop.",
+  "home.what.title": "Che cos'è NemoraCode?",
+  "home.what.body": "NemoraCode è un agente open source che ti aiuta a scrivere codice nel terminale, IDE o desktop.",
   "home.what.multiSession.title": "Multi-session",
   "home.what.multiSession.body": "Avvia più agenti in parallelo sullo stesso progetto",
   "home.what.copilot.title": "GitHub Copilot",
@@ -83,48 +83,48 @@ export const dict = {
 
   "home.growth.title": "L'agente di coding IA open source",
   "home.growth.body":
-    "Con oltre <strong>{{stars}}</strong> stelle su GitHub, <strong>{{contributors}}</strong> contributori e oltre <strong>{{commits}}</strong> commit, OpenCode è usato e apprezzato da oltre <strong>{{monthlyUsers}}</strong> sviluppatori ogni mese.",
+    "Con oltre <strong>{{stars}}</strong> stelle su GitHub, <strong>{{contributors}}</strong> contributori e oltre <strong>{{commits}}</strong> commit, NemoraCode è usato e apprezzato da oltre <strong>{{monthlyUsers}}</strong> sviluppatori ogni mese.",
   "home.growth.githubStars": "Stelle GitHub",
   "home.growth.contributors": "Contributori",
   "home.growth.monthlyDevs": "Devs mensili",
 
   "home.privacy.title": "Progettato per la privacy",
   "home.privacy.body":
-    "OpenCode non archivia il tuo codice né i dati di contesto, così può operare in ambienti sensibili alla privacy.",
+    "NemoraCode non archivia il tuo codice né i dati di contesto, così può operare in ambienti sensibili alla privacy.",
   "home.privacy.learnMore": "Scopri di più su",
   "home.privacy.link": "privacy",
 
-  "home.faq.q1": "Che cos'è OpenCode?",
+  "home.faq.q1": "Che cos'è NemoraCode?",
   "home.faq.a1":
-    "OpenCode è un agente open source che ti aiuta a scrivere ed eseguire codice con qualsiasi modello di IA. È disponibile come interfaccia terminale, app desktop o estensione IDE.",
-  "home.faq.q2": "Come uso OpenCode?",
+    "NemoraCode è un agente open source che ti aiuta a scrivere ed eseguire codice con qualsiasi modello di IA. È disponibile come interfaccia terminale, app desktop o estensione IDE.",
+  "home.faq.q2": "Come uso NemoraCode?",
   "home.faq.a2.before": "Il modo più semplice per iniziare è leggere l'",
   "home.faq.a2.link": "introduzione",
-  "home.faq.q3": "Mi servono abbonamenti IA extra per usare OpenCode?",
+  "home.faq.q3": "Mi servono abbonamenti IA extra per usare NemoraCode?",
   "home.faq.a3.p1":
-    "Non necessariamente: OpenCode include un set di modelli gratuiti che puoi usare senza creare un account.",
+    "Non necessariamente: NemoraCode include un set di modelli gratuiti che puoi usare senza creare un account.",
   "home.faq.a3.p2.beforeZen": "Inoltre, puoi usare modelli popolari per il coding creando un account",
   "home.faq.a3.p2.afterZen": ".",
   "home.faq.a3.p3":
-    "Anche se incoraggiamo gli utenti a usare Zen, OpenCode funziona anche con i provider più diffusi come OpenAI, Anthropic, xAI, ecc.",
+    "Anche se incoraggiamo gli utenti a usare Zen, NemoraCode funziona anche con i provider più diffusi come OpenAI, Anthropic, xAI, ecc.",
   "home.faq.a3.p4.beforeLocal": "Puoi anche collegare i tuoi",
   "home.faq.a3.p4.localLink": "modelli locali",
-  "home.faq.q4": "Posso usare i miei abbonamenti IA esistenti con OpenCode?",
+  "home.faq.q4": "Posso usare i miei abbonamenti IA esistenti con NemoraCode?",
   "home.faq.a4.p1": "Sì, puoi usare i tuoi abbonamenti ChatGPT Plus/Pro o GitHub Copilot.",
-  "home.faq.q5": "Posso usare OpenCode solo nel terminale?",
-  "home.faq.a5.beforeDesktop": "Non più! OpenCode ora è disponibile come app per",
+  "home.faq.q5": "Posso usare NemoraCode solo nel terminale?",
+  "home.faq.a5.beforeDesktop": "Non più! NemoraCode ora è disponibile come app per",
   "home.faq.a5.desktop": "desktop",
   "home.faq.a5.and": "e",
   "home.faq.a5.web": "web",
-  "home.faq.q6": "Quanto costa OpenCode?",
+  "home.faq.q6": "Quanto costa NemoraCode?",
   "home.faq.a6":
-    "OpenCode è gratuito al 100%. Include anche un set di modelli gratuiti. Potrebbero esserci costi aggiuntivi se colleghi altri provider.",
+    "NemoraCode è gratuito al 100%. Include anche un set di modelli gratuiti. Potrebbero esserci costi aggiuntivi se colleghi altri provider.",
   "home.faq.q7": "E per quanto riguarda dati e privacy?",
   "home.faq.a7.p1": "I tuoi dati vengono archiviati solo quando usi i nostri modelli gratuiti.",
   "home.faq.a7.p2.beforeModels": "Scopri di più su",
   "home.faq.a7.p2.modelsLink": "i nostri modelli",
-  "home.faq.q8": "OpenCode è open source?",
-  "home.faq.a8.p1": "Sì, OpenCode è completamente open source. Il codice sorgente è pubblico su",
+  "home.faq.q8": "NemoraCode è open source?",
+  "home.faq.a8.p1": "Sì, NemoraCode è completamente open source. Il codice sorgente è pubblico su",
   "home.faq.a8.p2": "sotto la",
   "home.faq.a8.mitLicense": "Licenza MIT",
   "home.faq.a8.p3":
@@ -132,23 +132,23 @@ export const dict = {
 
   "home.zenCta.title": "Accedi a modelli affidabili e ottimizzati per agenti di coding",
   "home.zenCta.body":
-    "Zen ti dà accesso a una selezione di modelli di IA che OpenCode ha testato e benchmarkato specificamente per agenti di coding. Niente più preoccupazioni per prestazioni e qualità incoerenti tra provider: usa modelli validati che funzionano.",
+    "Zen ti dà accesso a una selezione di modelli di IA che NemoraCode ha testato e benchmarkato specificamente per agenti di coding. Niente più preoccupazioni per prestazioni e qualità incoerenti tra provider: usa modelli validati che funzionano.",
   "home.zenCta.link": "Scopri Zen",
 
-  "zen.title": "OpenCode Zen | Una selezione curata di modelli affidabili e ottimizzati per agenti di coding",
+  "zen.title": "NemoraCode Zen | Una selezione curata di modelli affidabili e ottimizzati per agenti di coding",
   "zen.hero.title": "Accedi a modelli affidabili e ottimizzati per agenti di coding",
   "zen.hero.body":
-    "Zen ti dà accesso a una selezione di modelli di IA che OpenCode ha testato e benchmarkato specificamente per agenti di coding. Niente più preoccupazioni per prestazioni e qualità incoerenti tra provider: usa modelli validati che funzionano.",
+    "Zen ti dà accesso a una selezione di modelli di IA che NemoraCode ha testato e benchmarkato specificamente per agenti di coding. Niente più preoccupazioni per prestazioni e qualità incoerenti tra provider: usa modelli validati che funzionano.",
 
-  "zen.faq.q1": "Cos'è OpenCode Zen?",
+  "zen.faq.q1": "Cos'è NemoraCode Zen?",
   "zen.faq.a1":
-    "Zen è un set curato di modelli di IA testati e benchmarkati per agenti di coding, creato dal team dietro OpenCode.",
+    "Zen è un set curato di modelli di IA testati e benchmarkati per agenti di coding, creato dal team dietro NemoraCode.",
   "zen.faq.q2": "Cosa rende Zen più accurato?",
   "zen.faq.a2":
     "Zen offre solo modelli testati e benchmarkati specificamente per agenti di coding. Non useresti un coltello da burro per tagliare una bistecca; non usare modelli scarsi per programmare.",
   "zen.faq.q3": "Zen è più economico?",
   "zen.faq.a3":
-    "Zen non è a scopo di lucro. Zen ribalta i costi dei provider di modelli direttamente su di te. Più Zen viene usato, più OpenCode può negoziare tariffe migliori e passarle a te.",
+    "Zen non è a scopo di lucro. Zen ribalta i costi dei provider di modelli direttamente su di te. Più Zen viene usato, più NemoraCode può negoziare tariffe migliori e passarle a te.",
   "zen.faq.q4": "Quanto costa Zen?",
   "zen.faq.a4.p1.beforePricing": "Zen",
   "zen.faq.a4.p1.pricingLink": "addebita per richiesta",
@@ -156,7 +156,7 @@ export const dict = {
   "zen.faq.a4.p2.beforeAccount": "Il costo totale dipende dall'uso e puoi impostare limiti di spesa mensili nel tuo",
   "zen.faq.a4.p2.accountLink": "account",
   "zen.faq.a4.p3":
-    "Per coprire i costi, OpenCode aggiunge solo una piccola commissione di elaborazione del pagamento di $1.23 per ogni ricarica di saldo da $20.",
+    "Per coprire i costi, NemoraCode aggiunge solo una piccola commissione di elaborazione del pagamento di $1.23 per ogni ricarica di saldo da $20.",
   "zen.faq.q5": "E per quanto riguarda dati e privacy?",
   "zen.faq.a5.beforeExceptions":
     "Tutti i modelli Zen sono ospitati negli Stati Uniti e nell'UE. I provider seguono una policy di zero-retention e non usano i tuoi dati per l'addestramento dei modelli, con le",
@@ -167,7 +167,7 @@ export const dict = {
   "zen.faq.a7": "Sì, puoi disattivare la fatturazione in qualsiasi momento e usare il saldo rimanente.",
   "zen.faq.q8": "Posso usare Zen con altri agenti di coding?",
   "zen.faq.a8":
-    "Anche se Zen funziona alla grande con OpenCode, puoi usare Zen con qualsiasi agente. Segui le istruzioni di configurazione nel tuo agente di coding preferito.",
+    "Anche se Zen funziona alla grande con NemoraCode, puoi usare Zen con qualsiasi agente. Segui le istruzioni di configurazione nel tuo agente di coding preferito.",
   "zen.faq.q9": "Posso ottenere un rimborso?",
   "zen.faq.a9":
     "Potresti avere diritto a un rimborso se l'addebito è stato effettuato negli ultimi 14 giorni e non hai utilizzato il credito di quell'acquisto. {{contact}} per richiedere un rimborso.",
@@ -179,12 +179,12 @@ export const dict = {
   "zen.problem.title": "Quale problema risolve Zen?",
   "zen.problem.body":
     "Sono disponibili numerosi modelli, ma solo pochi funzionano bene con gli agenti di coding. La maggior parte dei provider li configura in modo diverso con risultati variabili.",
-  "zen.problem.subtitle": "Stiamo risolvendo questo problema per tutti, non solo per gli utenti OpenCode.",
+  "zen.problem.subtitle": "Stiamo risolvendo questo problema per tutti, non solo per gli utenti NemoraCode.",
   "zen.problem.item1": "Testare modelli selezionati e consultare i loro team",
   "zen.problem.item2": "Collaborare con i provider per garantire che vengano consegnati correttamente",
   "zen.problem.item3": "Benchmark di tutte le combinazioni modello-provider che raccomandiamo",
   "zen.how.title": "Come funziona Zen",
-  "zen.how.body": "Anche se ti consigliamo di utilizzare Zen con OpenCode, puoi utilizzare Zen con qualsiasi agente.",
+  "zen.how.body": "Anche se ti consigliamo di utilizzare Zen con NemoraCode, puoi utilizzare Zen con qualsiasi agente.",
   "zen.how.step1.title": "Iscriviti e aggiungi un saldo di $20",
   "zen.how.step1.beforeLink": "segui le",
   "zen.how.step1.link": "istruzioni di configurazione",
@@ -200,7 +200,7 @@ export const dict = {
   "zen.privacy.exceptionsLink": "seguenti eccezioni",
 
   "go.promo.kimiK31Pro": "Kimi K3.1 Pro è ora disponibile in Go.",
-  "go.title": "OpenCode Go | Modelli di coding a basso costo per tutti",
+  "go.title": "NemoraCode Go | Modelli di coding a basso costo per tutti",
   "go.meta.description":
     "Go costa $10/mese, con limiti di utilizzo generosi e un accesso affidabile ai principali modelli di coding.",
   "go.hero.title": "Modelli di coding a basso costo per tutti",
@@ -236,13 +236,13 @@ export const dict = {
 
   "go.problem.title": "Quale problema risolve Go?",
   "go.problem.body":
-    "Ci concentriamo nel portare l'esperienza OpenCode a quante più persone possibile. OpenCode Go è un abbonamento a basso costo da $10/mese. Offre limiti generosi e accesso affidabile ai modelli open source più capaci.",
+    "Ci concentriamo nel portare l'esperienza NemoraCode a quante più persone possibile. NemoraCode Go è un abbonamento a basso costo da $10/mese. Offre limiti generosi e accesso affidabile ai modelli open source più capaci.",
   "go.problem.item1": "Prezzo di abbonamento a basso costo",
   "go.problem.item2": "Limiti generosi e accesso affidabile",
   "go.problem.item3": "Costruito per il maggior numero possibile di programmatori",
   "go.problem.item4": "Una selezione curata di modelli testati per il coding agentico",
   "go.how.title": "Come funziona Go",
-  "go.how.body": "Go costa $10/mese. Puoi usarlo con OpenCode o qualsiasi agente.",
+  "go.how.body": "Go costa $10/mese. Puoi usarlo con NemoraCode o qualsiasi agente.",
   "go.how.step1.title": "Crea un account",
   "go.how.step1.beforeLink": "segui le",
   "go.how.step1.link": "istruzioni di configurazione",
@@ -251,7 +251,7 @@ export const dict = {
   "go.how.step2.afterLink": "con limiti generosi",
   "go.how.step3.title": "Inizia a programmare",
   "go.how.step3.body": "con accesso affidabile ai modelli open source",
-  "go.faq.q1": "Che cos'è OpenCode Go?",
+  "go.faq.q1": "Che cos'è NemoraCode Go?",
   "go.faq.a1":
     "Go è un abbonamento a basso costo che ti dà un accesso affidabile a modelli open source capaci per il coding agentico.",
   "go.faq.q2": "Quali modelli include Go?",
@@ -299,12 +299,12 @@ export const dict = {
   "go.faq.a10":
     "Potresti avere diritto a un rimborso se l'addebito è stato effettuato negli ultimi 14 giorni e non hai utilizzato la tua quota Go durante quel periodo di fatturazione. {{contact}} per richiedere un rimborso.",
 
-  "download.title": "OpenCode | Download",
-  "download.meta.description": "Scarica OpenCode per macOS, Windows e Linux",
-  "download.section.terminal": "OpenCode Terminal",
-  "download.section.desktop": "OpenCode Desktop",
-  "download.section.extensions": "OpenCode Extensions",
-  "download.section.integrations": "OpenCode Integrations",
+  "download.title": "NemoraCode | Download",
+  "download.meta.description": "Scarica NemoraCode per macOS, Windows e Linux",
+  "download.section.terminal": "NemoraCode Terminal",
+  "download.section.desktop": "NemoraCode Desktop",
+  "download.section.extensions": "NemoraCode Extensions",
+  "download.section.integrations": "NemoraCode Integrations",
   "download.action.download": "Scarica",
   "download.action.install": "Installa",
 
@@ -316,21 +316,21 @@ export const dict = {
   "download.platform.linuxRpm": "Linux (.rpm)",
 
   "download.faq.a3.beforeLocal":
-    "Non necessariamente, ma probabilmente. Avrai bisogno di un abbonamento IA se vuoi collegare OpenCode a un provider a pagamento, sebbene tu possa lavorare con",
+    "Non necessariamente, ma probabilmente. Avrai bisogno di un abbonamento IA se vuoi collegare NemoraCode a un provider a pagamento, sebbene tu possa lavorare con",
   "download.faq.a3.localLink": "modelli locali",
   "download.faq.a3.afterLocal.beforeZen": "gratuitamente. Mentre incoraggiamo gli utenti a usare",
-  "download.faq.a3.afterZen": ", OpenCode funziona con tutti i provider popolari come OpenAI, Anthropic, xAI ecc.",
+  "download.faq.a3.afterZen": ", NemoraCode funziona con tutti i provider popolari come OpenAI, Anthropic, xAI ecc.",
 
-  "download.faq.a5.p1": "OpenCode è gratuito al 100%.",
+  "download.faq.a5.p1": "NemoraCode è gratuito al 100%.",
   "download.faq.a5.p2.beforeZen":
-    "Eventuali costi aggiuntivi proverranno dal tuo abbonamento a un provider di modelli. Mentre OpenCode funziona con qualsiasi provider di modelli, raccomandiamo di usare",
+    "Eventuali costi aggiuntivi proverranno dal tuo abbonamento a un provider di modelli. Mentre NemoraCode funziona con qualsiasi provider di modelli, raccomandiamo di usare",
   "download.faq.a5.p2.afterZen": ".",
 
-  "enterprise.title": "OpenCode | Soluzioni Enterprise per la tua organizzazione",
-  "enterprise.meta.description": "Contatta OpenCode per soluzioni enterprise",
+  "enterprise.title": "NemoraCode | Soluzioni Enterprise per la tua organizzazione",
+  "enterprise.meta.description": "Contatta NemoraCode per soluzioni enterprise",
   "enterprise.hero.title": "Il tuo codice è tuo",
   "enterprise.hero.body1":
-    "OpenCode opera in modo sicuro all'interno della tua organizzazione senza dati o contesto archiviati e senza restrizioni di licenza o rivendicazioni di proprietà. Inizia una prova con il tuo team, poi distribuisci attraverso la tua organizzazione integrandolo con il tuo SSO e gateway IA interno.",
+    "NemoraCode opera in modo sicuro all'interno della tua organizzazione senza dati o contesto archiviati e senza restrizioni di licenza o rivendicazioni di proprietà. Inizia una prova con il tuo team, poi distribuisci attraverso la tua organizzazione integrandolo con il tuo SSO e gateway IA interno.",
   "enterprise.hero.body2": "Facci sapere come possiamo aiutare.",
   "enterprise.form.name.label": "Nome completo",
   "enterprise.form.name.placeholder": "Jeff Bezos",
@@ -362,29 +362,29 @@ export const dict = {
   "enterprise.form.error.internalServer": "Errore interno del server.",
   "enterprise.form.error.captcha": "Verifica captcha non riuscita. Riprova.",
   "enterprise.faq.title": "FAQ",
-  "enterprise.faq.q1": "Cos'è OpenCode Enterprise?",
+  "enterprise.faq.q1": "Cos'è NemoraCode Enterprise?",
   "enterprise.faq.a1":
-    "OpenCode Enterprise è per le organizzazioni che vogliono garantire che il loro codice e dati non lascino mai la loro infrastruttura. Può farlo usando una configurazione centralizzata che si integra con il tuo SSO e gateway IA interno.",
-  "enterprise.faq.q2": "Come inizio con OpenCode Enterprise?",
+    "NemoraCode Enterprise è per le organizzazioni che vogliono garantire che il loro codice e dati non lascino mai la loro infrastruttura. Può farlo usando una configurazione centralizzata che si integra con il tuo SSO e gateway IA interno.",
+  "enterprise.faq.q2": "Come inizio con NemoraCode Enterprise?",
   "enterprise.faq.a2":
-    "Inizia semplicemente con una prova interna con il tuo team. OpenCode per impostazione predefinita non archivia il tuo codice o dati di contesto, rendendo facile iniziare. Poi contattaci per discutere prezzi e opzioni di implementazione.",
+    "Inizia semplicemente con una prova interna con il tuo team. NemoraCode per impostazione predefinita non archivia il tuo codice o dati di contesto, rendendo facile iniziare. Poi contattaci per discutere prezzi e opzioni di implementazione.",
   "enterprise.faq.q3": "Come funziona il prezzo enterprise?",
   "enterprise.faq.a3":
     "Se hai il tuo gateway LLM, non addebitiamo per i token usati. Per ulteriori dettagli, contattaci per un preventivo personalizzato basato sulle esigenze della tua organizzazione.",
-  "enterprise.faq.q4": "I miei dati sono sicuri con OpenCode Enterprise?",
+  "enterprise.faq.q4": "I miei dati sono sicuri con NemoraCode Enterprise?",
   "enterprise.faq.a4":
-    "Sì. OpenCode non archivia il tuo codice o dati di contesto. Tutto il trattamento avviene localmente o attraverso chiamate API dirette al tuo provider IA. Con configurazione centrale e integrazione SSO, i tuoi dati rimangono sicuri all'interno dell'infrastruttura della tua organizzazione.",
+    "Sì. NemoraCode non archivia il tuo codice o dati di contesto. Tutto il trattamento avviene localmente o attraverso chiamate API dirette al tuo provider IA. Con configurazione centrale e integrazione SSO, i tuoi dati rimangono sicuri all'interno dell'infrastruttura della tua organizzazione.",
 
-  "brand.title": "OpenCode | Brand",
-  "brand.meta.description": "Linee guida del brand OpenCode",
+  "brand.title": "NemoraCode | Brand",
+  "brand.meta.description": "Linee guida del brand NemoraCode",
   "brand.heading": "Linee guida del brand",
-  "brand.subtitle": "Risorse e asset per aiutarti a lavorare con il brand OpenCode.",
+  "brand.subtitle": "Risorse e asset per aiutarti a lavorare con il brand NemoraCode.",
   "brand.downloadAll": "Scarica tutti gli asset",
 
-  "changelog.title": "OpenCode | Changelog",
-  "changelog.meta.description": "Note di rilascio e changelog OpenCode",
+  "changelog.title": "NemoraCode | Changelog",
+  "changelog.meta.description": "Note di rilascio e changelog NemoraCode",
   "changelog.hero.title": "Changelog",
-  "changelog.hero.subtitle": "Nuovi aggiornamenti e miglioramenti a OpenCode",
+  "changelog.hero.subtitle": "Nuovi aggiornamenti e miglioramenti a NemoraCode",
   "changelog.empty": "Nessuna voce del changelog trovata.",
   "changelog.viewJson": "Vedi JSON",
 } satisfies Dict

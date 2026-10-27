@@ -1,25 +1,25 @@
 import { Effect } from "effect"
-import { OpenCode, type IntegrationInfo, type IntegrationMethod, type OpenCodeClient } from "@opencode/client"
-import { Service } from "@opencode/client/effect/service"
+import { NemoraCode, type IntegrationInfo, type IntegrationMethod, type NemoraCodeClient } from "@nemoracode/client"
+import { Service } from "@nemoracode/client/effect/service"
 import { ServerConnection } from "../../../services/server-connection"
 
 export const location = { directory: process.cwd() }
 
 export const createClient = Effect.fn("cli.auth.client")(function* (input: ServerConnection.Args = {}) {
   const server = yield* ServerConnection.resolve(input)
-  return OpenCode.make({ baseUrl: server.endpoint.url, headers: Service.headers(server.endpoint) })
+  return NemoraCode.make({ baseUrl: server.endpoint.url, headers: Service.headers(server.endpoint) })
 })
 
 export function request<A>(run: (signal: AbortSignal) => Promise<A>) {
   return Effect.tryPromise({ try: run, catch: (cause) => cause })
 }
 
-export const loadIntegrations = Effect.fn("cli.auth.integrations")(function* (client: OpenCodeClient) {
+export const loadIntegrations = Effect.fn("cli.auth.integrations")(function* (client: NemoraCodeClient) {
   // The model endpoint is the existing public readiness boundary for the initial plugin generation.
   yield* request((signal) => client.model.default({ location }, { signal }))
   return yield* request((signal) => client.integration.list({ location }, { signal })).pipe(
     Effect.map((response) =>
-      response.data.toSorted((a, b) => Number(b.id === "opencode-go") - Number(a.id === "opencode-go")),
+      response.data.toSorted((a, b) => Number(b.id === "nemoracode-go") - Number(a.id === "nemoracode-go")),
     ),
   )
 })

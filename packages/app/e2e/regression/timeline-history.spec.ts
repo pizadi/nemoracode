@@ -1,4 +1,4 @@
-import type { SessionMessageAssistant, SessionMessageInfo } from "@opencode/client/promise"
+import type { SessionMessageAssistant, SessionMessageInfo } from "@nemoracode/client/promise"
 import { expect, test, type Page } from "@playwright/test"
 import { seed, sessionHref } from "../utils/app"
 import { trackPageErrors } from "../utils/errors"
@@ -260,7 +260,7 @@ test.describe("timeline history", () => {
           id,
           type: "assistant",
           time: { ...time, completed: time.created + 500 },
-          model: { id: "claude-opus-4-6", providerID: "opencode" },
+          model: { id: "claude-opus-4-6", providerID: "nemoracode" },
           agent: "build",
           content: [{ type: "text", text: index === 60 ? "## Hydrated tail\n\n**Ready.**" : `Answer ${index}` }],
         }

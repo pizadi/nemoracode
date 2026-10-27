@@ -1,7 +1,7 @@
 import { RGBA, TextAttributes, type Renderable } from "@opentui/core"
 import { useRenderer, useTerminalDimensions } from "@opentui/solid"
-import type { FormAnswer, IntegrationOauthConnectOutput, IntegrationOAuthMethod } from "@opencode/client"
-import * as Open from "@opencode/util/open"
+import type { FormAnswer, IntegrationOauthConnectOutput, IntegrationOAuthMethod } from "@nemoracode/client"
+import * as Open from "@nemoracode/util/open"
 import { createEffect, createMemo, createSignal, For, onCleanup, Show } from "solid-js"
 import { useConfig, useNewDesigns } from "../config"
 import { useClient } from "../context/client"
@@ -169,7 +169,7 @@ export function DialogGoUpsell(props: {
                 You've used today's free messages.{props.reset ? ` Resets at ${props.reset}.` : ""}
               </text>
               <text fg={theme.text.muted} bg={textBg()} wrapMode="word">
-                OpenCode Go gives you reliable access to the best open-source models for $10/month.
+                NemoraCode Go gives you reliable access to the best open-source models for $10/month.
               </text>
               <Link href={GO_URL} fg={primary()} bg={textBg()} wrapMode="none" />
             </scrollbox>
@@ -180,7 +180,7 @@ export function DialogGoUpsell(props: {
               You've used today's free messages.{props.reset ? ` Resets at ${props.reset}.` : ""}
             </text>
             <text fg={theme.text.muted} bg={textBg()} wrapMode="word">
-              OpenCode Go gives you reliable access to the best open-source models for $10/month.
+              NemoraCode Go gives you reliable access to the best open-source models for $10/month.
             </text>
           </box>
           <box ref={setAnchor} height={7} paddingBottom={1} alignItems="center" justifyContent="flex-end">
@@ -219,7 +219,7 @@ function DialogGoUpsellConnect(props: { canContinue?: () => boolean; onSubscribe
   const newDesigns = useNewDesigns()
   const theme = useTheme().surface("dialog")
   const [attempt, setAttempt] = createSignal<IntegrationAttempt>()
-  const integration = createMemo(() => data.location.integration.list(location)?.find((item) => item.id === "opencode"))
+  const integration = createMemo(() => data.location.integration.list(location)?.find((item) => item.id === "nemoracode"))
   const method = createMemo(() =>
     integration()?.methods.find((item): item is IntegrationOAuthMethod => item.type === "oauth" && item.id === "device"),
   )
@@ -231,7 +231,7 @@ function DialogGoUpsellConnect(props: { canContinue?: () => boolean; onSubscribe
   let pendingAttemptID: string | undefined
 
   const valid = () => {
-    const current = data.location.integration.list(location)?.find((item) => item.id === "opencode")
+    const current = data.location.integration.list(location)?.find((item) => item.id === "nemoracode")
     const active = current ? credentialConnections(current)[0] : undefined
     return Boolean(active && !active.status)
   }
@@ -242,7 +242,7 @@ function DialogGoUpsellConnect(props: { canContinue?: () => boolean; onSubscribe
       return
     }
     const goModel = (data.location.model.list(location) ?? []).find(
-      (item) => item.providerID === "opencode-go" && item.status !== "deprecated",
+      (item) => item.providerID === "nemoracode-go" && item.status !== "deprecated",
     )
     if (goModel) {
       local.model.set({ providerID: goModel.providerID, modelID: goModel.id }, { recent: true })
@@ -272,7 +272,7 @@ function DialogGoUpsellConnect(props: { canContinue?: () => boolean; onSubscribe
     if (closed || dialog.stack.length === 0) return false
     if (!valid()) return null
     if (announce) {
-      toast.show({ variant: "success", message: `Connected ${integration()?.name ?? "OpenCode Console"}` })
+      toast.show({ variant: "success", message: `Connected ${integration()?.name ?? "NemoraCode Console"}` })
     }
     finish()
     return true
@@ -283,7 +283,7 @@ function DialogGoUpsellConnect(props: { canContinue?: () => boolean; onSubscribe
       (async () => {
         try {
           const result = await client.api.integration.oauth.status({
-            integrationID: "opencode",
+            integrationID: "nemoracode",
             attemptID: current.attemptID,
             location: { directory: location.directory },
           })
@@ -325,7 +325,7 @@ function DialogGoUpsellConnect(props: { canContinue?: () => boolean; onSubscribe
       (async () => {
         try {
           const base = {
-            integrationID: "opencode",
+            integrationID: "nemoracode",
             location: { directory: location.directory },
             methodID: oauthMethod.id,
           }
@@ -334,7 +334,7 @@ function DialogGoUpsellConnect(props: { canContinue?: () => boolean; onSubscribe
           )
           if (closed) {
             void client.api.integration.oauth.cancel({
-              integrationID: "opencode",
+              integrationID: "nemoracode",
               attemptID: result.data.attemptID,
               location: { directory: location.directory },
             })
@@ -375,7 +375,7 @@ function DialogGoUpsellConnect(props: { canContinue?: () => boolean; onSubscribe
     if (timer) clearTimeout(timer)
     if (settled || !pendingAttemptID) return
     void client.api.integration.oauth.cancel({
-      integrationID: "opencode",
+      integrationID: "nemoracode",
       attemptID: pendingAttemptID,
       location: { directory: location.directory },
     })

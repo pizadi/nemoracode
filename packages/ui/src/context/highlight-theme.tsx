@@ -4,8 +4,8 @@ import type { Theme } from "@pierre/highlights"
 // Token types are grouped as in Pierre's own `pierre-dark` theme (for example, properties share the variable colour
 // and all punctuation is one muted colour); each group uses the app syntax role with the same meaning.
 // Token names fall back to their parent scope, so `keyword.control` uses `keyword`.
-export const OpenCodeTheme = {
-  name: "OpenCode",
+export const NemoraCodeTheme = {
+  name: "NemoraCode",
   appearance: "dark",
   cssVariables: { prefix: "--" },
   style: {

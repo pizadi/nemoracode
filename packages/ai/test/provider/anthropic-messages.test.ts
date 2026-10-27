@@ -1320,7 +1320,7 @@ describe("Anthropic Messages route", () => {
               {
                 type: "message_delta",
                 delta: { stop_reason: "end_turn" },
-                usage: { output_tokens: 2, cost: 0, opencode: { allowance: 0.0042 } },
+                usage: { output_tokens: 2, cost: 0, nemoracode: { allowance: 0.0042 } },
               },
               { type: "message_stop" },
             ),

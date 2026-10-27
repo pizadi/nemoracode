@@ -1,6 +1,6 @@
 export * as AgentPlugin from "./agent.js"
 
-import { define } from "@opencode/plugin/effect/plugin"
+import { define } from "@nemoracode/plugin/effect/plugin"
 import { Effect } from "effect"
 import { Agent } from "../agent.js"
 
@@ -50,7 +50,7 @@ Rules:
 - If the conversation ends with an imperative statement or request to the user (e.g. "Now please run the command and paste the console output"), always include that exact request in the summary`
 
 export const Plugin = define({
-  id: "opencode.agent",
+  id: "nemoracode.agent",
   effect: Effect.fn(function* (ctx) {
     yield* ctx.agent.transform((editor) => {
       editor.update(Agent.defaultID, (item) => {

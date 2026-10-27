@@ -1,8 +1,8 @@
 import { expect, test, type Page } from "@playwright/test"
-import type { OpenCodeEvent, SessionInboxInfo, SessionMessageInfo } from "@opencode/client/promise"
-import { PromptInput } from "@opencode/schema/prompt-input"
-import { SessionInbox } from "@opencode/schema/session-inbox"
-import { SessionMessage } from "@opencode/schema/session-message"
+import type { NemoraCodeEvent, SessionInboxInfo, SessionMessageInfo } from "@nemoracode/client/promise"
+import { PromptInput } from "@nemoracode/schema/prompt-input"
+import { SessionInbox } from "@nemoracode/schema/session-inbox"
+import { SessionMessage } from "@nemoracode/schema/session-message"
 import { Schema } from "effect"
 import { holdRoute, provider } from "../utils/app"
 import type { MockServerConfig } from "../utils/mock-server"
@@ -60,26 +60,26 @@ function createQueueMock(seed: string[], messages: SessionMessageInfo[] = []) {
     delivery: "queue",
   }))
 
-  const events: OpenCodeEvent[] = []
+  const events: NemoraCodeEvent[] = []
   const prompts: (typeof PromptBody.Type)[] = []
   const compactions: SessionInboxInfo[] = []
   const changes: { inboxID: string; action: "cancel" | "steer" | "queue" }[] = []
   const log: string[] = []
   let sequence = 0
 
-  const emit = <Type extends OpenCodeEvent["type"]>(
+  const emit = <Type extends NemoraCodeEvent["type"]>(
     type: Type,
-    data: Extract<OpenCodeEvent, { type: Type }>["data"],
+    data: Extract<NemoraCodeEvent, { type: Type }>["data"],
   ) => {
     sequence += 1
-    // SAFETY: `type` selects `data` from the same OpenCodeEvent member, so the pair is that member.
+    // SAFETY: `type` selects `data` from the same NemoraCodeEvent member, so the pair is that member.
     events.push({
       id: `evt_queue_${sequence}`,
       type,
       created: Date.now(),
       durable: { aggregateID: sessionID, seq: sequence, version: type === "session.tool.success" ? 2 : 1 },
       data,
-    } as OpenCodeEvent)
+    } as NemoraCodeEvent)
   }
 
   return {
@@ -170,7 +170,7 @@ async function openQueue(
       {
         id: sessionID,
         title: "Session queue regression",
-        model: { id: model.id, providerID: "opencode" },
+        model: { id: model.id, providerID: "nemoracode" },
         revert: revert ? { messageID: revert } : undefined,
       },
     ],
@@ -266,7 +266,7 @@ test("a steer into an idle session leaves the finished turn finished until deliv
         id: "msg_queue_finished_assistant",
         type: "assistant",
         agent: "build",
-        model: { id: "queue-model", providerID: "opencode" },
+        model: { id: "queue-model", providerID: "nemoracode" },
         content: [{ type: "text", text: "The queue is fine." }],
         finish: "stop",
         time: { created: 1700000000001, completed: 1700000000002 },
@@ -802,7 +802,7 @@ test("/compact runs with the composer model and shows a queued compaction, as in
   await expect(page.locator('[data-timeline-row="CompactionQueued"]')).toHaveText("Session compaction queued")
   // The row is optimistic; the model switch still precedes the admission.
   await expect.poll(() => mock.log).toEqual(["model", "compact"])
-  expect(models).toMatchObject([{ model: { id: "queue-model", providerID: "opencode" } }])
+  expect(models).toMatchObject([{ model: { id: "queue-model", providerID: "nemoracode" } }])
 })
 
 for (const [action, status] of [
@@ -893,7 +893,7 @@ for (const delivery of ["steer", "queue"] as const) {
   test(`keeps finished tools above a pending ${delivery === "queue" ? "queue-to-steer" : "steer"} follow-up`, async ({
     page,
   }, testInfo) => {
-    const model = { id: "queue-model", providerID: "opencode" }
+    const model = { id: "queue-model", providerID: "nemoracode" }
     const userID = "msg_queue_initial_user"
     const assistantID = "msg_queue_continued_assistant"
     const followUp = "U2: Also check the retry path."

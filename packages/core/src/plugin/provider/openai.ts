@@ -1,6 +1,6 @@
-import type { IntegrationOAuthMethodRegistration } from "@opencode/plugin/effect/integration"
-import { define } from "@opencode/plugin/effect/plugin"
-import type { SessionRequest } from "@opencode/plugin/effect/session"
+import type { IntegrationOAuthMethodRegistration } from "@nemoracode/plugin/effect/integration"
+import { define } from "@nemoracode/plugin/effect/plugin"
+import type { SessionRequest } from "@nemoracode/plugin/effect/session"
 import { Deferred, Effect, Option, Schema, Semaphore, Stream } from "effect"
 import type { Server } from "node:http"
 import { App } from "../../app.js"
@@ -230,7 +230,7 @@ const headless = (app: App.Info) =>
   }) satisfies IntegrationOAuthMethodRegistration
 
 export const OpenAIPlugin = define({
-  id: "opencode.provider.openai",
+  id: "nemoracode.provider.openai",
   effect: Effect.fn(function* (ctx) {
     const bus = yield* Bus.Service
     const loading = Semaphore.makeUnsafe(1)
@@ -268,7 +268,7 @@ export const OpenAIPlugin = define({
         })
         if (!chatgpt) return
         provider.headers = Provider.mergeHeaders(provider.headers, {
-          originator: "opencode",
+          originator: "nemoracode",
           "x-codex-beta-features": "remote_compaction_v2",
           ...(typeof account === "string" ? { "chatgpt-account-id": account } : {}),
         })
@@ -306,7 +306,7 @@ export const OpenAIPlugin = define({
           const session = yield* ctx.session
             .get({ sessionID: evt.sessionID })
             .pipe(Effect.orElseSucceed(() => undefined))
-          evt.headers.originator = "opencode"
+          evt.headers.originator = "nemoracode"
           // ChatGPT routes its prompt cache on this header, so children share the parent's.
           evt.headers["session-id"] = session ? SessionAffinity.get(session) : evt.sessionID
         }),
@@ -408,7 +408,7 @@ function authorizeURL(redirect: string, pkce: Pkce, state: string) {
     id_token_add_organizations: "true",
     codex_cli_simplified_flow: "true",
     state,
-    originator: "opencode",
+    originator: "nemoracode",
   })}`
 }
 

@@ -8,32 +8,32 @@ import {
   SystemPart,
   TransportError,
   type LLMRequest,
-} from "@opencode/ai/effect"
-import { OpenAIChat } from "@opencode/ai/protocols"
-import { Agent } from "@opencode/core/agent"
-import { Database } from "@opencode/core/database/database"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { llmClient } from "@opencode/core/effect/app-node-platform"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { Bus } from "@opencode/core/bus"
-import { SessionEvent } from "@opencode/core/session/event"
-import { SessionMessage } from "@opencode/core/session/message"
-import { SessionProjector } from "@opencode/core/session/projector"
-import { SessionRunnerModel } from "@opencode/core/session/runner/model"
-import { SessionTable } from "@opencode/core/session/sql"
-import { SessionStore } from "@opencode/core/session/store"
-import { SessionTitle } from "@opencode/core/session/title"
-import { PluginHooks } from "@opencode/core/plugin/hooks"
-import { PluginSupervisor } from "@opencode/core/plugin/supervisor"
-import { Location } from "@opencode/core/location"
-import { Session } from "@opencode/core/session"
-import { Project } from "@opencode/core/project"
-import { ProjectTable } from "@opencode/core/project/sql"
-import { App } from "@opencode/core/app"
-import { Model } from "@opencode/core/model"
-import { Provider } from "@opencode/core/provider"
-import { AbsolutePath } from "@opencode/core/schema"
-import { Money } from "@opencode/schema/money"
+} from "@nemoracode/ai/effect"
+import { OpenAIChat } from "@nemoracode/ai/protocols"
+import { Agent } from "@nemoracode/core/agent"
+import { Database } from "@nemoracode/core/database/database"
+import { AppNodeBuilder } from "@nemoracode/core/effect/app-node-builder"
+import { llmClient } from "@nemoracode/core/effect/app-node-platform"
+import { LayerNode } from "@nemoracode/util/effect/layer-node"
+import { Bus } from "@nemoracode/core/bus"
+import { SessionEvent } from "@nemoracode/core/session/event"
+import { SessionMessage } from "@nemoracode/core/session/message"
+import { SessionProjector } from "@nemoracode/core/session/projector"
+import { SessionRunnerModel } from "@nemoracode/core/session/runner/model"
+import { SessionTable } from "@nemoracode/core/session/sql"
+import { SessionStore } from "@nemoracode/core/session/store"
+import { SessionTitle } from "@nemoracode/core/session/title"
+import { PluginHooks } from "@nemoracode/core/plugin/hooks"
+import { PluginSupervisor } from "@nemoracode/core/plugin/supervisor"
+import { Location } from "@nemoracode/core/location"
+import { Session } from "@nemoracode/core/session"
+import { Project } from "@nemoracode/core/project"
+import { ProjectTable } from "@nemoracode/core/project/sql"
+import { App } from "@nemoracode/core/app"
+import { Model } from "@nemoracode/core/model"
+import { Provider } from "@nemoracode/core/provider"
+import { AbsolutePath } from "@nemoracode/core/schema"
+import { Money } from "@nemoracode/schema/money"
 import { Deferred, Effect, Fiber, Layer, Stream } from "effect"
 import { testEffect } from "./lib/effect"
 
@@ -214,13 +214,13 @@ it.effect("generates a title from the sole user message and renames the session"
 
     expect(requests).toHaveLength(1)
     expect(requests[0]?.http?.headers).toEqual({
-      "x-opencode-session-id": sessionID,
+      "x-nemoracode-session-id": sessionID,
       "x-session-affinity": sessionID,
       "X-Session-Id": sessionID,
       "User-Agent": App.useragent(App.make()),
-      "x-opencode-project": Project.ID.global,
-      "x-opencode-session": sessionID,
-      "x-opencode-client": "opencode",
+      "x-nemoracode-project": Project.ID.global,
+      "x-nemoracode-session": sessionID,
+      "x-nemoracode-client": "nemoracode",
     })
     expect(requests[0]?.promptCacheKey).toBe(sessionID)
     expect(requests[0]?.tools).toEqual([])

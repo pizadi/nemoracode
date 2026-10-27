@@ -6,19 +6,19 @@ import { isSortable, useSortable } from "@dnd-kit/solid/sortable"
 import { AutoScroller, Feedback, PointerActivationConstraints } from "@dnd-kit/dom"
 import { RestrictToVerticalAxis } from "@dnd-kit/abstract/modifiers"
 import { RestrictToElement } from "@dnd-kit/dom/modifiers"
-import { ScrollView } from "@opencode/ui/scroll-view"
+import { ScrollView } from "@nemoracode/ui/scroll-view"
 import {
   displayName,
   getProjectAvatarSource,
   getProjectAvatarVariant,
   ProjectAvatar,
-} from "@opencode/ui/project-avatar"
-import { Icon } from "@opencode/ui/icon"
-import { IconButton } from "@opencode/ui/icon-button"
-import { Button } from "@opencode/ui/button"
-import { Spinner } from "@opencode/ui/spinner"
-import { Menu } from "@opencode/ui/menu"
-import { Tooltip } from "@opencode/ui/tooltip"
+} from "@nemoracode/ui/project-avatar"
+import { Icon } from "@nemoracode/ui/icon"
+import { IconButton } from "@nemoracode/ui/icon-button"
+import { Button } from "@nemoracode/ui/button"
+import { Spinner } from "@nemoracode/ui/spinner"
+import { Menu } from "@nemoracode/ui/menu"
+import { Tooltip } from "@nemoracode/ui/tooltip"
 import type { HomeProjectSelection, LocalProject } from "@/shell/state/layout"
 import { ServerConnection } from "@/runtime/server/registry"
 import { useLanguage } from "@/runtime/i18n/language"

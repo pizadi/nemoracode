@@ -2,8 +2,8 @@
 
 Every feature of the desktop and web app that is not the core shell is an extension: the terminal, review, files, the browser, SSH, WSL, the updater and more. Each one builds only on the SDK in [`src/sdk`](src/sdk). The SDK is typed so that the common bugs fail to compile or fail the lint, and every declaration has TSDoc, so editor hovers answer most questions. This guide shows how the parts fit, with code from the extensions that ship. [Build your first extension](#build-your-first-extension) walks through [`src/pairing`](src/pairing), a small built-in that uses both processes. `bun run lint` checks every code block marked with its source against that source.
 
-- Window SDK: `@opencode/gui-extensions/sdk` ([`index.ts`](src/sdk/index.ts))
-- Main-process SDK: `@opencode/gui-extensions/sdk/main` ([`main.ts`](src/sdk/main.ts))
+- Window SDK: `@nemoracode/gui-extensions/sdk` ([`index.ts`](src/sdk/index.ts))
+- Main-process SDK: `@nemoracode/gui-extensions/sdk/main` ([`main.ts`](src/sdk/main.ts))
 - Rules for agents: [`AGENTS.md`](AGENTS.md)
 
 ```mermaid
@@ -209,7 +209,7 @@ const screenActive = useQuery(() => ({
 
 Each line links to the file whose TSDoc covers every field.
 
-SDK icon fields use `IconName` from `@opencode/ui/icons/catalog`, a dependency-free module with no Solid or CSS imports. The UI renderer reads that same catalog: there is no copied name list or dependency on a UI component's props, and no artwork in the general-purpose util package.
+SDK icon fields use `IconName` from `@nemoracode/ui/icons/catalog`, a dependency-free module with no Solid or CSS imports. The UI renderer reads that same catalog: there is no copied name list or dependency on a UI component's props, and no artwork in the general-purpose util package.
 
 ### Registries
 
@@ -254,7 +254,7 @@ SDK icon fields use `IconName` from `@opencode/ui/icons/catalog`, a dependency-f
 | `ctx.serverEndpoints` (main) | `ServerEndpoints`                                              | URL and credentials of a server the windows use                   |
 | `ctx.windows` (main)         | `Windows`                                                      | The app's main windows                                            |
 | `ctx.embeds` (main)          | `Embeds`                                                       | `create(view, window)` places a web page                          |
-| `ctx.cli` (main)             | `Cli`                                                          | The opencode CLI the app runs                                     |
+| `ctx.cli` (main)             | `Cli`                                                          | The nemoracode CLI the app runs                                     |
 
 ## Ipc: main ↔ window
 
@@ -489,13 +489,13 @@ export default Extension.define({
   provides: { pairing: Pairing },
   stores: {
     // Whether main keeps the display awake; stored before in the desktop's own settings namespace.
-    keepScreenActive: Store.main(Schema.Boolean, false, { state: ["opencode.settings", "keepScreenActive"] }),
+    keepScreenActive: Store.main(Schema.Boolean, false, { state: ["nemoracode.settings", "keepScreenActive"] }),
   },
   i18n: { en },
 })
 ```
 
-3. **Provide it from main.** `MainSetup<typeof definition>` types `ctx.stores`, which main reads synchronously. Remote access runs `opencode service` through `ctx.cli`, with the caller's signal for a read and `ctx.scope.signal` for a change a closing window must not cancel. A finalizer releases the blocker when the instance goes away.
+3. **Provide it from main.** `MainSetup<typeof definition>` types `ctx.stores`, which main reads synchronously. Remote access runs `nemoracode service` through `ctx.cli`, with the caller's signal for a read and `ctx.scope.signal` for a change a closing window must not cancel. A finalizer releases the blocker when the instance goes away.
 
 <!-- source: src/pairing/main.ts -->
 
@@ -509,7 +509,7 @@ import type definition from "./index"
 /** The display sleep blocker this instance holds, if any. */
 type Blocker = { id?: number }
 
-/** The last `opencode service` command; the next one starts after it settles. */
+/** The last `nemoracode service` command; the next one starts after it settles. */
 type Queue = { tail: Promise<unknown> }
 
 const setup: MainSetup<typeof definition> = (ctx) => {
@@ -533,13 +533,13 @@ const setup: MainSetup<typeof definition> = (ctx) => {
   }
 
   // Remote access is a setting of the background service, so it changes through the CLI the app runs, as with
-  // `opencode pair --remote`. A change restarts the service, so commands run one at a time.
+  // `nemoracode pair --remote`. A change restarts the service, so commands run one at a time.
   const service = (args: readonly string[], signal: AbortSignal) => {
     const run = queue.tail.then(
       () =>
         new Promise<string>((resolve, reject) => {
           execFile(
-            cli.command[0] ?? "opencode",
+            cli.command[0] ?? "nemoracode",
             [...cli.command.slice(1), "service", ...args],
             { signal, windowsHide: true },
             (error, stdout, stderr) => {

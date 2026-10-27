@@ -1,12 +1,12 @@
 export * as ConfigIntegration from "./integration.js"
 
 import { Option, Schema, SchemaGetter } from "effect"
-import { Config } from "@opencode/schema/config"
-import { ConfigMCP } from "@opencode/schema/config/mcp"
-import { ConfigPolicy } from "@opencode/schema/config/policy"
-import { ConfigProvider } from "@opencode/schema/config/provider"
-import { Connection } from "@opencode/schema/connection"
-import { IntegrationID } from "@opencode/schema/integration-id"
+import { Config } from "@nemoracode/schema/config"
+import { ConfigMCP } from "@nemoracode/schema/config/mcp"
+import { ConfigPolicy } from "@nemoracode/schema/config/policy"
+import { ConfigProvider } from "@nemoracode/schema/config/provider"
+import { Connection } from "@nemoracode/schema/connection"
+import { IntegrationID } from "@nemoracode/schema/integration-id"
 
 // Drop statements whose action or effect is a value this version does not know, so a newer remote source can
 // extend either enum. Malformed statements still fail validation.
@@ -38,7 +38,7 @@ export const Remote = Schema.Struct({
 export type Remote = typeof Remote.Type
 
 /**
- * A config document delivered by an integration connection, such as the OpenCode Console's config. Config loads it
+ * A config document delivered by an integration connection, such as the NemoraCode Console's config. Config loads it
  * right after managed policies, so user and project config override its settings while its policies outrank theirs.
  * Its providers authenticate with, and only exist for, that connection.
  */

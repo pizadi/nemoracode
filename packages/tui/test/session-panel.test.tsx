@@ -7,7 +7,7 @@ import {
   ScrollBoxRenderable,
   TextareaRenderable,
 } from "@opentui/core"
-import type { FileDiffInfo, FormInfo, PermissionRequest, SessionInfo } from "@opencode/client"
+import type { FileDiffInfo, FormInfo, PermissionRequest, SessionInfo } from "@nemoracode/client"
 import type { Config } from "../src/config"
 import { createAppFixture } from "./fixture/app"
 import { directory, json } from "./fixture/tui-client"
@@ -511,10 +511,10 @@ test("disabling the registered diff plugin closes its open panel and removes its
   setup.mockInput.pressEnter()
   await setup.waitForFrame((frame) => frame.includes("Plugins") && frame.includes("show internal"))
   setup.mockInput.pressKey("a", { ctrl: true })
-  await setup.waitForFrame((frame) => frame.includes("opencode.diffs"))
+  await setup.waitForFrame((frame) => frame.includes("nemoracode.diffs"))
   await setup.waitFor(() => setup.renderer.currentFocusedEditor instanceof InputRenderable)
-  await setup.mockInput.typeText("opencode.diffs")
-  await setup.waitFor(() => setup.renderer.currentFocusedEditor?.plainText === "opencode.diffs")
+  await setup.mockInput.typeText("nemoracode.diffs")
+  await setup.waitFor(() => setup.renderer.currentFocusedEditor?.plainText === "nemoracode.diffs")
   await setup.flush()
   setup.mockInput.pressEnter()
   await setup.waitFor(() => !setup.renderer.root.findDescendantById("session-panel"))

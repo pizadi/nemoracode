@@ -6,8 +6,8 @@ import { chmod, copyFile, mkdir, mkdtemp, readFile, realpath, rename, rm, stat, 
 import os from "node:os"
 import path from "node:path"
 import { build } from "vite"
-import { Script } from "@opencode/script"
-import { embed } from "@opencode/script/highlights"
+import { Script } from "@nemoracode/script"
+import { embed } from "@nemoracode/script/highlights"
 import pkg from "../package.json"
 import { collectNodeAssets, copyNodeAssets, hashNodeAssets, seaAssetMap } from "./node-assets"
 import { appArchiveAsset, mainConfig } from "../vite.node.config"
@@ -30,7 +30,7 @@ const bundleOnly = process.argv.includes("--bundle-only")
 const single = process.argv.includes("--single")
 const skipInstall = process.argv.includes("--skip-install")
 const appArchiveOnly = process.argv.includes("--app-archive-only")
-const highlights = Script.preview ? undefined : embed(process.env.OPENCODE_RELEASE_NOTES)
+const highlights = Script.preview ? undefined : embed(process.env.NEMORACODE_RELEASE_NOTES)
 const requestedArchive = process.argv.find((arg) => arg.startsWith("--app-archive="))?.slice("--app-archive=".length)
 const archivePath = requestedArchive ? path.resolve(dir, requestedArchive) : undefined
 const requested = process.argv.find((arg) => arg.startsWith("--target="))?.slice("--target=".length)
@@ -103,24 +103,24 @@ for (const target of targets) {
   await copyNodeAssets(assets)
   await writeFile(path.join("dist-node", "assets", appArchiveAsset), appArchive)
   await build(mainConfig(input))
-  await assertTextImportsInlined("dist-node/opencode.mjs")
-  if (bundleOnly) await verifyArtifact("dist-node/opencode.mjs")
+  await assertTextImportsInlined("dist-node/nemoracode.mjs")
+  if (bundleOnly) await verifyArtifact("dist-node/nemoracode.mjs")
 
   const host = target.platform === process.platform && target.arch === process.arch
   if (host) {
     if (!builder) throw new Error("Node SEA builder is unavailable")
-    run(builder, [...nodeExecArgv, "dist-node/opencode.mjs", "--version"])
-    run(builder, [...nodeExecArgv, "dist-node/opencode.mjs", "--help"])
+    run(builder, [...nodeExecArgv, "dist-node/nemoracode.mjs", "--version"])
+    run(builder, [...nodeExecArgv, "dist-node/nemoracode.mjs", "--help"])
   }
   if (bundleOnly) continue
 
   const name = `cli-node-${targetName(target)}`
-  const binary = target.platform === "win32" ? "opencode2-node.exe" : "opencode2-node"
+  const binary = target.platform === "win32" ? "nemoracode2-node.exe" : "nemoracode2-node"
   const output = path.join(outdir, name, "bin", binary)
   if (!builder) throw new Error("Node SEA builder is unavailable")
   await mkdir(path.dirname(output), { recursive: true })
   const config = {
-    main: "dist-node/opencode.mjs",
+    main: "dist-node/nemoracode.mjs",
     mainFormat: "module",
     executable: await resolveTargetNode(target, builder),
     output: path.relative(dir, output),
@@ -143,10 +143,10 @@ for (const target of targets) {
     path.join(outdir, name, "package.json"),
     `${JSON.stringify(
       {
-        name: `@opencode/${name}`,
+        name: `@nemoracode/${name}`,
         version: Script.version,
         license: pkg.license,
-        repository: { type: "git", url: "git+https://github.com/anomalyco/opencode.git" },
+        repository: { type: "git", url: "git+https://github.com/pizadi/nemoracode.git" },
         os: [target.platform],
         cpu: [target.arch],
       },
@@ -226,7 +226,7 @@ async function resolveTargetNode(target: NodeTarget, host?: string) {
 }
 
 async function smoke(output: string) {
-  const root = await mkdtemp(path.join(os.tmpdir(), "opencode-node-smoke-"))
+  const root = await mkdtemp(path.join(os.tmpdir(), "nemoracode-node-smoke-"))
   const executable = path.join(root, path.basename(output))
   await copyFile(output, executable)
   if (process.platform !== "win32") await chmod(executable, 0o755)

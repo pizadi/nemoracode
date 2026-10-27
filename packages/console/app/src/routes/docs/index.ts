@@ -1,5 +1,5 @@
 import type { APIEvent } from "@solidjs/start/server"
-import { Resource } from "@opencode/console-resource"
+import { Resource } from "@nemoracode/console-resource"
 import { docs, pageLocale, tag } from "~/lib/language"
 
 async function handler(evt: APIEvent) {

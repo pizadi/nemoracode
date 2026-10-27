@@ -7,7 +7,7 @@ Permissions control whether an agent may perform an action on a resource.
 ## Configure
 
 A common setup is to ask before running shell commands, allow routine Git
-inspection, and always block pushes. Add these ordered rules to `opencode.jsonc`:
+inspection, and always block pushes. Add these ordered rules to `nemoracode.jsonc`:
 
 ```jsonc
 {
@@ -53,7 +53,7 @@ Each rule requires three string fields:
 | `deny`  | Block the operation                 |
 | `ask`   | Wait for a decision from the client |
 
-If no rule matches, OpenCode uses `ask`.
+If no rule matches, NemoraCode uses `ask`.
 
 ## Matching
 
@@ -84,7 +84,7 @@ A shell pattern ending in ` *` also matches the command without arguments:
 
 This matches both `git status` and `git status --short`.
 
-OpenCode combines rules in order and uses the last match. Lower-priority
+NemoraCode combines rules in order and uses the last match. Lower-priority
 configuration is loaded first, global rules are appended next, and agent rules
 are appended last.
 
@@ -120,8 +120,8 @@ currently use these actions and resources:
 | `websearch`          | Search query                                                                |
 | `external_directory` | Canonical external directory boundary, normally ending in `/*`              |
 | `<server>_<tool>`    | `*` for an MCP tool; unsupported characters in both names become `_`        |
-| `opencode_list_mcp_resources` | MCP server name                                                    |
-| `opencode_read_mcp_resource`  | `<server>:<uri>`                                                   |
+| `nemoracode_list_mcp_resources` | MCP server name                                                    |
+| `nemoracode_read_mcp_resource`  | `<server>:<uri>`                                                   |
 | `execute`            | `*`; a deny removes Code Mode and the tools reached only through it, while nested tools enforce their rules |
 
 For example, allow one skill and deny all other skills:
@@ -228,7 +228,7 @@ Shipped agents append these policies:
 | Agent        | Additional policy                                                              |
 | ------------ | ------------------------------------------------------------------------------ |
 | `build`      | Allows questions                                                               |
-| `plan`       | Allows questions; denies edits except files under `~/.opencode/plan`           |
+| `plan`       | Allows questions; denies edits except files under `~/.nemoracode/plan`           |
 | `general`    | Denies questions and launching subagents                                       |
 | `explore`    | Denies everything except shell, reads, globs, grep, web fetches, web searches, and external directories; asks for `.env` reads |
 | `title`      | Denies all actions                                                              |

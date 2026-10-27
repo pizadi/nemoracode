@@ -113,7 +113,7 @@ describe("loadSource", () => {
     const { cache, entries } = memoryCache()
     entries.set(
       "https://opencode.ai/changelog/source.md",
-      new Response("stale", { headers: { "x-opencode-changelog-fetched-at": String(Date.now() - 301_000) } }),
+      new Response("stale", { headers: { "x-nemoracode-changelog-fetched-at": String(Date.now() - 301_000) } }),
     )
     const calls = stub(undefined)
     const waits: Promise<unknown>[] = []

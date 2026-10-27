@@ -23,9 +23,9 @@ export type RealtimeSession = Readonly<Record<string, unknown>>
 export interface RealtimeConnectInput {
   readonly model: string
   readonly apiKey: Redacted.Redacted
-  /** Where a GPT-Live session starts, OpenAI by default: another host of its API, such as OpenCode's. */
+  /** Where a GPT-Live session starts, OpenAI by default: another host of its API, such as NemoraCode's. */
   readonly baseURL?: string
-  /** Headers that host needs besides the API key, such as OpenCode's workspace. */
+  /** Headers that host needs besides the API key, such as NemoraCode's workspace. */
   readonly headers?: Readonly<Record<string, string>>
   readonly session?: RealtimeSession
   readonly transport: RealtimeTransportInput

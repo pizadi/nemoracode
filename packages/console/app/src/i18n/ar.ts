@@ -14,7 +14,7 @@ export const dict = {
   "nav.home": "الرئيسية",
   "nav.openMenu": "فتح القائمة",
   "nav.getStartedFree": "ابدأ مجانا",
-  "nav.logoAlt": "OpenCode",
+  "nav.logoAlt": "NemoraCode",
 
   "nav.context.copyLogo": "نسخ الشعار كـ SVG",
   "nav.context.copyWordmark": "نسخ اسم العلامة كـ SVG",
@@ -37,14 +37,14 @@ export const dict = {
   "email.success": "تبقّت خطوة واحدة: تحقق من بريدك وأكّد عنوانك",
   "email.error": "تعذّر الاشتراك. يُرجى المحاولة مرة أخرى.",
 
-  "notFound.title": "غير موجود | opencode",
+  "notFound.title": "غير موجود | nemoracode",
   "notFound.heading": "404 - الصفحة غير موجودة",
   "notFound.home": "الرئيسية",
   "notFound.docs": "الوثائق",
   "notFound.github": "GitHub",
   "notFound.discord": "Discord",
-  "notFound.logoLightAlt": "شعار opencode الفاتح",
-  "notFound.logoDarkAlt": "شعار opencode الداكن",
+  "notFound.logoLightAlt": "شعار nemoracode الفاتح",
+  "notFound.logoDarkAlt": "شعار nemoracode الداكن",
 
   "common.cancel": "إلغاء",
   "common.contactUs": "اتصل بنا",
@@ -54,9 +54,9 @@ export const dict = {
   "common.faq": "الأسئلة الشائعة",
   "common.learnMore": "اعرف المزيد",
 
-  "app.meta.description": "OpenCode - وكيل البرمجة مفتوح المصدر.",
+  "app.meta.description": "NemoraCode - وكيل البرمجة مفتوح المصدر.",
 
-  "home.title": "OpenCode | وكيل برمجة بالذكاء الاصطناعي مفتوح المصدر",
+  "home.title": "NemoraCode | وكيل برمجة بالذكاء الاصطناعي مفتوح المصدر",
 
   "home.banner.badge": "جديد",
 
@@ -66,8 +66,8 @@ export const dict = {
 
   "home.install.ariaLabel": "خيارات التثبيت",
 
-  "home.what.title": "ما هو OpenCode؟",
-  "home.what.body": "OpenCode وكيل مفتوح المصدر يساعدك على كتابة الكود في الطرفية، IDE، أو سطح المكتب.",
+  "home.what.title": "ما هو NemoraCode؟",
+  "home.what.body": "NemoraCode وكيل مفتوح المصدر يساعدك على كتابة الكود في الطرفية، IDE، أو سطح المكتب.",
   "home.what.multiSession.title": "جلسات متعددة",
   "home.what.multiSession.body": "ابدأ عدة وكلاء بالتوازي على نفس المشروع",
   "home.what.copilot.title": "GitHub Copilot",
@@ -82,47 +82,47 @@ export const dict = {
 
   "home.growth.title": "وكيل برمجة بالذكاء الاصطناعي مفتوح المصدر",
   "home.growth.body":
-    "مع أكثر من <strong>{{stars}}</strong> نجمة على GitHub، و<strong>{{contributors}}</strong> مساهمًا، وأكثر من <strong>{{commits}}</strong> Commit، يستخدم OpenCode ويثق به أكثر من <strong>{{monthlyUsers}}</strong> مطوّر كل شهر.",
+    "مع أكثر من <strong>{{stars}}</strong> نجمة على GitHub، و<strong>{{contributors}}</strong> مساهمًا، وأكثر من <strong>{{commits}}</strong> Commit، يستخدم NemoraCode ويثق به أكثر من <strong>{{monthlyUsers}}</strong> مطوّر كل شهر.",
   "home.growth.githubStars": "نجوم GitHub",
   "home.growth.contributors": "المساهمون",
   "home.growth.monthlyDevs": "مطورون شهريًا",
 
   "home.privacy.title": "مصمم للخصوصية أولاً",
-  "home.privacy.body": "لا يخزّن OpenCode أي كود أو بيانات سياق، ليتمكن من العمل في بيئات حساسة للخصوصية.",
+  "home.privacy.body": "لا يخزّن NemoraCode أي كود أو بيانات سياق، ليتمكن من العمل في بيئات حساسة للخصوصية.",
   "home.privacy.learnMore": "اعرف المزيد عن",
   "home.privacy.link": "الخصوصية",
 
-  "home.faq.q1": "ما هو OpenCode؟",
+  "home.faq.q1": "ما هو NemoraCode؟",
   "home.faq.a1":
-    "OpenCode وكيل مفتوح المصدر يساعدك على كتابة وتشغيل الكود مع أي نموذج ذكاء اصطناعي. متاح كواجهة طرفية، وتطبيق سطح مكتب، أو امتداد IDE.",
-  "home.faq.q2": "كيف أستخدم OpenCode؟",
+    "NemoraCode وكيل مفتوح المصدر يساعدك على كتابة وتشغيل الكود مع أي نموذج ذكاء اصطناعي. متاح كواجهة طرفية، وتطبيق سطح مكتب، أو امتداد IDE.",
+  "home.faq.q2": "كيف أستخدم NemoraCode؟",
   "home.faq.a2.before": "أسهل طريقة للبدء هي قراءة",
   "home.faq.a2.link": "المقدمة",
-  "home.faq.q3": "هل أحتاج لاشتراكات ذكاء اصطناعي إضافية لاستخدام OpenCode؟",
+  "home.faq.q3": "هل أحتاج لاشتراكات ذكاء اصطناعي إضافية لاستخدام NemoraCode؟",
   "home.faq.a3.p1":
-    "ليس بالضرورة، فـ OpenCode يأتي مع مجموعة من النماذج المجانية التي تستطيع استخدامها دون إنشاء حساب.",
+    "ليس بالضرورة، فـ NemoraCode يأتي مع مجموعة من النماذج المجانية التي تستطيع استخدامها دون إنشاء حساب.",
   "home.faq.a3.p2.beforeZen": "وبخلاف ذلك، يمكنك استخدام أي من نماذج البرمجة الشائعة بإنشاء حساب",
   "home.faq.a3.p2.afterZen": ".",
   "home.faq.a3.p3":
-    "مع أننا نشجّع المستخدمين على استخدام Zen، فإن OpenCode يعمل أيضًا مع كل المزودين الشائعين مثل OpenAI، Anthropic، xAI إلخ.",
+    "مع أننا نشجّع المستخدمين على استخدام Zen، فإن NemoraCode يعمل أيضًا مع كل المزودين الشائعين مثل OpenAI، Anthropic، xAI إلخ.",
   "home.faq.a3.p4.beforeLocal": "ويمكنك أيضًا ربط",
   "home.faq.a3.p4.localLink": "النماذج المحلية",
-  "home.faq.q4": "هل يمكنني استخدام اشتراكاتي الحالية مع OpenCode؟",
+  "home.faq.q4": "هل يمكنني استخدام اشتراكاتي الحالية مع NemoraCode؟",
   "home.faq.a4.p1": "نعم، يمكنك استخدام اشتراكات ChatGPT Plus/Pro أو GitHub Copilot.",
-  "home.faq.q5": "هل يمكنني استخدام OpenCode في الطرفية فقط؟",
-  "home.faq.a5.beforeDesktop": "ليس بعد الآن! OpenCode متاح الآن كتطبيق لـ",
+  "home.faq.q5": "هل يمكنني استخدام NemoraCode في الطرفية فقط؟",
+  "home.faq.a5.beforeDesktop": "ليس بعد الآن! NemoraCode متاح الآن كتطبيق لـ",
   "home.faq.a5.desktop": "سطح المكتب",
   "home.faq.a5.and": "و",
   "home.faq.a5.web": "الويب",
-  "home.faq.q6": "كم تكلفة OpenCode؟",
+  "home.faq.q6": "كم تكلفة NemoraCode؟",
   "home.faq.a6":
-    "OpenCode مجاني 100% للاستخدام. كما يأتي مع مجموعة من النماذج المجانية. قد توجد تكاليف إضافية إذا ربطت مزوّدًا آخر.",
+    "NemoraCode مجاني 100% للاستخدام. كما يأتي مع مجموعة من النماذج المجانية. قد توجد تكاليف إضافية إذا ربطت مزوّدًا آخر.",
   "home.faq.q7": "ماذا عن البيانات والخصوصية؟",
   "home.faq.a7.p1": "لا يتم تخزين بياناتك ومعلوماتك إلا عندما تستخدم نماذجنا المجانية.",
   "home.faq.a7.p2.beforeModels": "اعرف المزيد عن",
   "home.faq.a7.p2.modelsLink": "نماذجنا",
-  "home.faq.q8": "هل OpenCode مفتوح المصدر؟",
-  "home.faq.a8.p1": "نعم، OpenCode مفتوح المصدر بالكامل. الكود المصدري متاح علنًا على",
+  "home.faq.q8": "هل NemoraCode مفتوح المصدر؟",
+  "home.faq.a8.p1": "نعم، NemoraCode مفتوح المصدر بالكامل. الكود المصدري متاح علنًا على",
   "home.faq.a8.p2": "بموجب",
   "home.faq.a8.mitLicense": "رخصة MIT",
   "home.faq.a8.p3":
@@ -130,23 +130,23 @@ export const dict = {
 
   "home.zenCta.title": "وصول لنماذج محسنة وموثوقة لوكلاء البرمجة",
   "home.zenCta.body":
-    "يمنحك Zen الوصول إلى مجموعة مختارة بعناية من نماذج الذكاء الاصطناعي التي اختبرها OpenCode وقاس أداءها خصيصًا لوكلاء البرمجة. لا حاجة للقلق بشأن اختلاف الأداء والجودة بين المزودين، استخدم نماذج محققة تعمل بكفاءة.",
+    "يمنحك Zen الوصول إلى مجموعة مختارة بعناية من نماذج الذكاء الاصطناعي التي اختبرها NemoraCode وقاس أداءها خصيصًا لوكلاء البرمجة. لا حاجة للقلق بشأن اختلاف الأداء والجودة بين المزودين، استخدم نماذج محققة تعمل بكفاءة.",
   "home.zenCta.link": "تعرف على Zen",
 
-  "zen.title": "OpenCode Zen | مجموعة منسقة من النماذج المحسنة والموثوقة لوكلاء البرمجة",
+  "zen.title": "NemoraCode Zen | مجموعة منسقة من النماذج المحسنة والموثوقة لوكلاء البرمجة",
   "zen.hero.title": "نماذج محسنة وموثوقة لوكلاء البرمجة",
   "zen.hero.body":
-    "يمنحك Zen الوصول إلى مجموعة منسقة من نماذج الذكاء الاصطناعي التي اختبرها OpenCode وقاس أداءها خصيصًا لوكلاء البرمجة. لا حاجة للقلق بشأن اختلاف الأداء والجودة، استخدم نماذج محققة تعمل بكفاءة.",
+    "يمنحك Zen الوصول إلى مجموعة منسقة من نماذج الذكاء الاصطناعي التي اختبرها NemoraCode وقاس أداءها خصيصًا لوكلاء البرمجة. لا حاجة للقلق بشأن اختلاف الأداء والجودة، استخدم نماذج محققة تعمل بكفاءة.",
 
-  "zen.faq.q1": "ما هو OpenCode Zen؟",
+  "zen.faq.q1": "ما هو NemoraCode Zen؟",
   "zen.faq.a1":
-    "Zen هو مجموعة منسقة من نماذج الذكاء الاصطناعي التي تم اختبارها وقياس أدائها لوكلاء البرمجة، أنشأها الفريق المطور لـ OpenCode.",
+    "Zen هو مجموعة منسقة من نماذج الذكاء الاصطناعي التي تم اختبارها وقياس أدائها لوكلاء البرمجة، أنشأها الفريق المطور لـ NemoraCode.",
   "zen.faq.q2": "ما الذي يجعل Zen أكثر دقة؟",
   "zen.faq.a2":
     "يوفر Zen فقط النماذج التي تم اختبارها وقياس أدائها خصيصًا لوكلاء البرمجة. لن تستخدم سكين زبدة لقطع شريحة لحم، فلا تستخدم نماذج ضعيفة للبرمجة.",
   "zen.faq.q3": "هل Zen أرخص؟",
   "zen.faq.a3":
-    "Zen ليس للربح. يمرر Zen التكاليف من مزودي النماذج إليك مباشرة. كلما زاد استخدام Zen، تمكن OpenCode من التفاوض على أسعار أفضل وتمريرها إليك.",
+    "Zen ليس للربح. يمرر Zen التكاليف من مزودي النماذج إليك مباشرة. كلما زاد استخدام Zen، تمكن NemoraCode من التفاوض على أسعار أفضل وتمريرها إليك.",
   "zen.faq.q4": "كم تكلفة Zen؟",
   "zen.faq.a4.p1.beforePricing": "Zen",
   "zen.faq.a4.p1.pricingLink": "يحاسب لكل طلب",
@@ -154,7 +154,7 @@ export const dict = {
   "zen.faq.a4.p2.beforeAccount": "تعتمد تكلفتك الإجمالية على الاستخدام، ويمكنك تعيين حدود إنفاق شهرية في",
   "zen.faq.a4.p2.accountLink": "حسابك",
   "zen.faq.a4.p3":
-    "لتغطية التكاليف، يضيف OpenCode فقط رسومًا صغيرة لمعالجة الدفع قدرها 1.23 دولار لكل إعادة شحن رصيد بقيمة 20 دولارًا.",
+    "لتغطية التكاليف، يضيف NemoraCode فقط رسومًا صغيرة لمعالجة الدفع قدرها 1.23 دولار لكل إعادة شحن رصيد بقيمة 20 دولارًا.",
   "zen.faq.q5": "ماذا عن البيانات والخصوصية؟",
   "zen.faq.a5.beforeExceptions":
     "تتم استضافة جميع نماذج Zen في الولايات المتحدة والاتحاد الأوروبي. يتبع المزودون سياسة عدم الاحتفاظ بالبيانات ولا يستخدمون بياناتك لتدريب النماذج، مع",
@@ -165,7 +165,7 @@ export const dict = {
   "zen.faq.a7": "نعم، يمكنك تعطيل الفوترة في أي وقت واستخدام رصيدك المتبقي.",
   "zen.faq.q8": "هل يمكنني استخدام Zen مع وكلاء برمجة آخرين؟",
   "zen.faq.a8":
-    "بينما يعمل Zen بشكل رائع مع OpenCode، يمكنك استخدام Zen مع أي وكيل. اتبع تعليمات الإعداد في وكيل البرمجة المفضل لديك.",
+    "بينما يعمل Zen بشكل رائع مع NemoraCode، يمكنك استخدام Zen مع أي وكيل. اتبع تعليمات الإعداد في وكيل البرمجة المفضل لديك.",
   "zen.faq.q9": "هل يمكنني استرداد أموالي؟",
   "zen.faq.a9":
     "قد تكون مؤهلًا لاسترداد أموالك إذا تم الخصم خلال آخر 14 يومًا ولم تستخدم الرصيد الناتج عن عملية الشراء هذه. {{contact}} لطلب استرداد الأموال.",
@@ -177,12 +177,12 @@ export const dict = {
   "zen.problem.title": "ما المشكلة التي يحلها Zen؟",
   "zen.problem.body":
     "هناك العديد من النماذج المتاحة، ولكن القليل منها فقط يعمل بشكل جيد مع وكلاء البرمجة. يقوم معظم مقدمي الخدمة بتكوينها بشكل مختلف مما يعطي نتائج متفاوتة.",
-  "zen.problem.subtitle": "نحن نعمل على إصلاح هذا للجميع، وليس فقط لمستخدمي OpenCode.",
+  "zen.problem.subtitle": "نحن نعمل على إصلاح هذا للجميع، وليس فقط لمستخدمي NemoraCode.",
   "zen.problem.item1": "اختبار نماذج مختارة واستشارة فرقها",
   "zen.problem.item2": "العمل مع مقدمي الخدمة لضمان تسليمها بشكل صحيح",
   "zen.problem.item3": "قياس أداء جميع مجموعات النماذج والمزودين التي نوصي بها",
   "zen.how.title": "كيف يعمل Zen",
-  "zen.how.body": "بينما نقترح عليك استخدام Zen مع OpenCode، يمكنك استخدام Zen مع أي وكيل.",
+  "zen.how.body": "بينما نقترح عليك استخدام Zen مع NemoraCode، يمكنك استخدام Zen مع أي وكيل.",
   "zen.how.step1.title": "سجّل وأضف رصيدًا بقيمة 20 دولارًا",
   "zen.how.step1.beforeLink": "اتبع",
   "zen.how.step1.link": "تعليمات الإعداد",
@@ -197,7 +197,7 @@ export const dict = {
   "zen.privacy.exceptionsLink": "الاستثناءات التالية",
 
   "go.promo.kimiK31Pro": "يتوفر Kimi K3.1 Pro الآن في Go.",
-  "go.title": "OpenCode Go | نماذج برمجة منخفضة التكلفة للجميع",
+  "go.title": "NemoraCode Go | نماذج برمجة منخفضة التكلفة للجميع",
   "go.meta.description": "يبلغ سعر Go ‏$10/شهر، مع حدود استخدام سخية ووصول موثوق إلى نماذج البرمجة الرائدة.",
   "go.hero.title": "نماذج برمجة منخفضة التكلفة للجميع",
   "go.hero.tagline": "استخدمه مع أي وكيل. قم بزيادة الرصيد إذا لزم الأمر. الإلغاء في أي وقت.",
@@ -232,13 +232,13 @@ export const dict = {
 
   "go.problem.title": "ما المشكلة التي يحلها Go؟",
   "go.problem.body":
-    "نحن نركز على تقديم تجربة OpenCode لأكبر عدد ممكن من الناس. OpenCode Go هو اشتراك منخفض التكلفة بسعر $10/شهر. يوفر حدودا سخية ووصولا موثوقا إلى نماذج المصدر المفتوح الأكثر قدرة.",
+    "نحن نركز على تقديم تجربة NemoraCode لأكبر عدد ممكن من الناس. NemoraCode Go هو اشتراك منخفض التكلفة بسعر $10/شهر. يوفر حدودا سخية ووصولا موثوقا إلى نماذج المصدر المفتوح الأكثر قدرة.",
   "go.problem.item1": "أسعار اشتراك منخفضة التكلفة",
   "go.problem.item2": "حدود سخية ووصول موثوق",
   "go.problem.item3": "مصمم لأكبر عدد ممكن من المبرمجين",
   "go.problem.item4": "مجموعة منسقة من النماذج المختبرة للبرمجة الوكيلة",
   "go.how.title": "كيف يعمل Go",
-  "go.how.body": "يبلغ سعر Go ‏$10/شهر. يمكنك استخدامه مع OpenCode أو أي وكيل.",
+  "go.how.body": "يبلغ سعر Go ‏$10/شهر. يمكنك استخدامه مع NemoraCode أو أي وكيل.",
   "go.how.step1.title": "أنشئ حسابًا",
   "go.how.step1.beforeLink": "اتبع",
   "go.how.step1.link": "تعليمات الإعداد",
@@ -247,7 +247,7 @@ export const dict = {
   "go.how.step2.afterLink": "مع حدود سخية",
   "go.how.step3.title": "ابدأ البرمجة",
   "go.how.step3.body": "مع وصول موثوق لنماذج مفتوحة المصدر",
-  "go.faq.q1": "ما هو OpenCode Go؟",
+  "go.faq.q1": "ما هو NemoraCode Go؟",
   "go.faq.a1": "Go هو اشتراك منخفض التكلفة يمنحك وصولًا موثوقًا إلى نماذج مفتوحة المصدر قادرة على البرمجة الوكيلة.",
   "go.faq.q2": "ما النماذج التي يتضمنها Go؟",
   "go.faq.a2": "يتضمن Go النماذج المدرجة أدناه، مع حدود سخية وإتاحة موثوقة.",
@@ -292,12 +292,12 @@ export const dict = {
   "go.faq.a10":
     "قد تكون مؤهلًا لاسترداد أموالك إذا تم الخصم خلال آخر 14 يومًا ولم تستخدم مخصصات Go خلال فترة الفوترة تلك. {{contact}} لطلب استرداد الأموال.",
 
-  "download.title": "OpenCode | تنزيل",
-  "download.meta.description": "نزّل OpenCode لـ macOS، Windows، وLinux",
-  "download.section.terminal": "OpenCode للطرفية",
-  "download.section.desktop": "OpenCode لسطح المكتب",
-  "download.section.extensions": "امتدادات OpenCode",
-  "download.section.integrations": "تكاملات OpenCode",
+  "download.title": "NemoraCode | تنزيل",
+  "download.meta.description": "نزّل NemoraCode لـ macOS، Windows، وLinux",
+  "download.section.terminal": "NemoraCode للطرفية",
+  "download.section.desktop": "NemoraCode لسطح المكتب",
+  "download.section.extensions": "امتدادات NemoraCode",
+  "download.section.integrations": "تكاملات NemoraCode",
   "download.action.download": "تنزيل",
   "download.action.install": "تثبيت",
 
@@ -309,21 +309,21 @@ export const dict = {
   "download.platform.linuxRpm": "Linux (.rpm)",
 
   "download.faq.a3.beforeLocal":
-    "ليس بالضرورة، ولكن على الأرجح. ستحتاج إلى اشتراك ذكاء اصطناعي إذا كنت تريد ربط OpenCode بمزوّد مدفوع، رغم أنه يمكنك العمل مع",
+    "ليس بالضرورة، ولكن على الأرجح. ستحتاج إلى اشتراك ذكاء اصطناعي إذا كنت تريد ربط NemoraCode بمزوّد مدفوع، رغم أنه يمكنك العمل مع",
   "download.faq.a3.localLink": "النماذج المحلية",
   "download.faq.a3.afterLocal.beforeZen": "مجانًا. بينما نشجع المستخدمين على استخدام",
-  "download.faq.a3.afterZen": "، فإن OpenCode يعمل مع جميع المزودين الشائعين مثل OpenAI، Anthropic، xAI إلخ.",
+  "download.faq.a3.afterZen": "، فإن NemoraCode يعمل مع جميع المزودين الشائعين مثل OpenAI، Anthropic، xAI إلخ.",
 
-  "download.faq.a5.p1": "OpenCode مجاني 100% للاستخدام.",
+  "download.faq.a5.p1": "NemoraCode مجاني 100% للاستخدام.",
   "download.faq.a5.p2.beforeZen":
-    "أي تكاليف إضافية ستأتي من اشتراكك لدى مزود النماذج. بينما يعمل OpenCode مع أي مزود نماذج، نوصي باستخدام",
+    "أي تكاليف إضافية ستأتي من اشتراكك لدى مزود النماذج. بينما يعمل NemoraCode مع أي مزود نماذج، نوصي باستخدام",
   "download.faq.a5.p2.afterZen": ".",
 
-  "enterprise.title": "OpenCode | حلول المؤسسات لمنظمتك",
-  "enterprise.meta.description": "تواصل مع OpenCode لحلول المؤسسات",
+  "enterprise.title": "NemoraCode | حلول المؤسسات لمنظمتك",
+  "enterprise.meta.description": "تواصل مع NemoraCode لحلول المؤسسات",
   "enterprise.hero.title": "كودك ملكك",
   "enterprise.hero.body1":
-    "يعمل OpenCode بأمان داخل مؤسستك دون تخزين أي بيانات أو سياق، ودون قيود ترخيص أو مطالبات ملكية. ابدأ تجربة مع فريقك، ثم انشره عبر مؤسستك من خلال دمجه مع SSO وبوابة الذكاء الاصطناعي الداخلية لديك.",
+    "يعمل NemoraCode بأمان داخل مؤسستك دون تخزين أي بيانات أو سياق، ودون قيود ترخيص أو مطالبات ملكية. ابدأ تجربة مع فريقك، ثم انشره عبر مؤسستك من خلال دمجه مع SSO وبوابة الذكاء الاصطناعي الداخلية لديك.",
   "enterprise.hero.body2": "أخبرنا كيف يمكننا المساعدة.",
   "enterprise.form.name.label": "الاسم الكامل",
   "enterprise.form.name.placeholder": "جيف بيزوس",
@@ -356,29 +356,29 @@ export const dict = {
   "enterprise.form.error.internalServer": "خطأ داخلي في الخادم.",
   "enterprise.form.error.captcha": "فشل التحقق من captcha. يرجى المحاولة مرة أخرى.",
   "enterprise.faq.title": "الأسئلة الشائعة",
-  "enterprise.faq.q1": "ما هو OpenCode Enterprise؟",
+  "enterprise.faq.q1": "ما هو NemoraCode Enterprise؟",
   "enterprise.faq.a1":
-    "OpenCode Enterprise مخصص للمؤسسات التي تريد التأكد من أن الكود والبيانات لا تغادر بنيتها التحتية أبدًا. يتحقق ذلك عبر استخدام تكوين مركزي يندمج مع SSO وبوابة الذكاء الاصطناعي الداخلية لديك.",
-  "enterprise.faq.q2": "كيف أبدأ مع OpenCode Enterprise؟",
+    "NemoraCode Enterprise مخصص للمؤسسات التي تريد التأكد من أن الكود والبيانات لا تغادر بنيتها التحتية أبدًا. يتحقق ذلك عبر استخدام تكوين مركزي يندمج مع SSO وبوابة الذكاء الاصطناعي الداخلية لديك.",
+  "enterprise.faq.q2": "كيف أبدأ مع NemoraCode Enterprise؟",
   "enterprise.faq.a2":
-    "ابدأ ببساطة بتجربة داخلية مع فريقك. افتراضيًا، لا يقوم OpenCode بتخزين الكود أو بيانات السياق، مما يجعل البدء سهلاً. ثم اتصل بنا لمناقشة الأسعار وخيارات التنفيذ.",
+    "ابدأ ببساطة بتجربة داخلية مع فريقك. افتراضيًا، لا يقوم NemoraCode بتخزين الكود أو بيانات السياق، مما يجعل البدء سهلاً. ثم اتصل بنا لمناقشة الأسعار وخيارات التنفيذ.",
   "enterprise.faq.q3": "كيف تعمل تسعيرة المؤسسات؟",
   "enterprise.faq.a3":
     "إذا كان لديك بوابة LLM خاصة بك، فلن نفرض رسومًا على التوكنات المستخدمة. لمزيد من التفاصيل، اتصل بنا للحصول على عرض سعر مخصص بناءً على احتياجات مؤسستك.",
-  "enterprise.faq.q4": "هل بياناتي آمنة مع OpenCode Enterprise؟",
+  "enterprise.faq.q4": "هل بياناتي آمنة مع NemoraCode Enterprise؟",
   "enterprise.faq.a4":
-    "نعم. لا يقوم OpenCode بتخزين الكود أو بيانات السياق. تتم جميع المعالجة محليًا أو عبر استدعاءات API مباشرة إلى مزود الذكاء الاصطناعي لديك. مع التكوين المركزي وتكامل SSO، تظل بياناتك آمنة داخل البنية التحتية لمؤسستك.",
+    "نعم. لا يقوم NemoraCode بتخزين الكود أو بيانات السياق. تتم جميع المعالجة محليًا أو عبر استدعاءات API مباشرة إلى مزود الذكاء الاصطناعي لديك. مع التكوين المركزي وتكامل SSO، تظل بياناتك آمنة داخل البنية التحتية لمؤسستك.",
 
-  "brand.title": "OpenCode | العلامة التجارية",
-  "brand.meta.description": "إرشادات العلامة التجارية لـ OpenCode",
+  "brand.title": "NemoraCode | العلامة التجارية",
+  "brand.meta.description": "إرشادات العلامة التجارية لـ NemoraCode",
   "brand.heading": "إرشادات العلامة التجارية",
-  "brand.subtitle": "موارد وأصول لمساعدتك في العمل مع العلامة التجارية لـ OpenCode.",
+  "brand.subtitle": "موارد وأصول لمساعدتك في العمل مع العلامة التجارية لـ NemoraCode.",
   "brand.downloadAll": "تنزيل جميع الأصول",
 
-  "changelog.title": "OpenCode | سجل التغييرات",
-  "changelog.meta.description": "ملاحظات الإصدار وسجل التغييرات لـ OpenCode",
+  "changelog.title": "NemoraCode | سجل التغييرات",
+  "changelog.meta.description": "ملاحظات الإصدار وسجل التغييرات لـ NemoraCode",
   "changelog.hero.title": "سجل التغييرات",
-  "changelog.hero.subtitle": "تحديثات وتحسينات جديدة لـ OpenCode",
+  "changelog.hero.subtitle": "تحديثات وتحسينات جديدة لـ NemoraCode",
   "changelog.empty": "لم يتم العثور على مدخلات في سجل التغييرات.",
   "changelog.viewJson": "عرض JSON",
 } satisfies Dict

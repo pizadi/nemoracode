@@ -1,6 +1,6 @@
 import { Schema } from "effect"
-import { NonNegativeInt } from "@opencode/schema"
-import { Tool } from "@opencode/schema/tool"
+import { NonNegativeInt } from "@nemoracode/schema"
+import { Tool } from "@nemoracode/schema/tool"
 import { ModelID, ProviderID, RouteID } from "./ids.js"
 
 export const ProviderFailureClassification = Schema.Literals(["context-overflow", "payload-too-large"])

@@ -1,5 +1,5 @@
-import { getFilename } from "@opencode/util/path"
-import type { PromptFileAttachment } from "@opencode/client/promise"
+import { getFilename } from "@nemoracode/util/path"
+import type { PromptFileAttachment } from "@nemoracode/client/promise"
 
 export function attached(file: PromptFileAttachment) {
   if (file.mention) return false

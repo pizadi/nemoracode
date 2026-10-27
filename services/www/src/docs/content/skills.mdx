@@ -2,9 +2,9 @@
 title: "Skills"
 ---
 
-Create a skill to give an agent reusable instructions for a specific task. Put a `SKILL.md` file in `.opencode/skills/<skill-id>` and describe when to use it in `description`.
+Create a skill to give an agent reusable instructions for a specific task. Put a `SKILL.md` file in `.nemoracode/skills/<skill-id>` and describe when to use it in `description`.
 
-```markdown title=".opencode/skills/git-release/SKILL.md"
+```markdown title=".nemoracode/skills/git-release/SKILL.md"
 ---
 name: Git Release
 description: Prepare release notes, version bumps, and GitHub releases
@@ -18,14 +18,14 @@ description: Prepare release notes, version bumps, and GitHub releases
 4. Run `scripts/changelog.ts` only after the user approves the version.
 ```
 
-OpenCode advertises this skill when it is relevant. The agent can then load its instructions with the `skill` tool instead of adding every skill to every prompt.
+NemoraCode advertises this skill when it is relevant. The agent can then load its instructions with the `skill` tool instead of adding every skill to every prompt.
 
 ## Create
 
 Keep related scripts, references, and templates beside `SKILL.md`:
 
 ```text
-.opencode/skills/
+.nemoracode/skills/
 └── git-release/
     ├── SKILL.md
     ├── scripts/
@@ -38,16 +38,16 @@ Paths written inside the skill are relative to the directory containing `SKILL.m
 
 ## Discovery
 
-OpenCode automatically searches these locations:
+NemoraCode automatically searches these locations:
 
 | Scope                 | Sources                                |
 | --------------------- | -------------------------------------- |
-| Global                | `~/.config/opencode/skills`            |
+| Global                | `~/.config/nemoracode/skills`            |
 | Global compatibility  | `~/.claude/skills`, `~/.agents/skills` |
-| Project               | `.opencode/skills`                     |
+| Project               | `.nemoracode/skills`                     |
 | Project compatibility | `.claude/skills`, `.agents/skills`     |
 
-For project sources, OpenCode searches from the current directory up to the project root and includes matching directories at every level.
+For project sources, NemoraCode searches from the current directory up to the project root and includes matching directories at every level.
 
 Each source can contain either form:
 
@@ -60,29 +60,29 @@ skills/
 
 - Markdown files must be at the source root, such as `skills/review.md`.
 - Files named exactly `SKILL.md` can be nested in grouping directories, such as `skills/git-release/SKILL.md` or `skills/teams/release/SKILL.md`.
-- A directory containing `SKILL.md` is one skill. OpenCode does not search inside it for more skills.
+- A directory containing `SKILL.md` is one skill. NemoraCode does not search inside it for more skills.
 - Hidden files and directories and `node_modules` are skipped.
 - Search stops six directories below the source root.
 
 ## Sources
 
-Add more local directories or HTTP catalogs with the `skills` array in any `opencode.json` or `opencode.jsonc`:
+Add more local directories or HTTP catalogs with the `skills` array in any `nemoracode.json` or `nemoracode.jsonc`:
 
-```jsonc title="opencode.jsonc"
+```jsonc title="nemoracode.jsonc"
 {
   "$schema": "https://opencode.ai/config.json",
   "skills": [
     "./team-skills",
-    "~/shared/opencode-skills",
+    "~/shared/nemoracode-skills",
     "/opt/company-skills",
-    "https://example.com/opencode/skills/",
+    "https://example.com/nemoracode/skills/",
   ],
 }
 ```
 
 | Value | Resolution |
 | ----- | ---------- |
-| Relative path | From the active OpenCode working directory, not the config file |
+| Relative path | From the active NemoraCode working directory, not the config file |
 | `~/` path | From the current user's home directory |
 | Absolute path | Used as written |
 | `http://` or `https://` URL | Loaded as an HTTP catalog |
@@ -105,13 +105,13 @@ An HTTP catalog is a base URL with an `index.json` file:
 }
 ```
 
-For that entry, OpenCode downloads each file from `<base-url>/git-release/<file>`.
+For that entry, NemoraCode downloads each file from `<base-url>/git-release/<file>`.
 
 | Rule | Requirement |
 | ---- | ----------- |
 | Paths | Must be safe, relative, and same-origin |
 | Entry file | Include `SKILL.md` or `<name>.md`, such as `git-release.md` |
-| Updates | Increment `version` when files change so OpenCode refreshes its cache |
+| Updates | Increment `version` when files change so NemoraCode refreshes its cache |
 
 Each downloaded skill directory becomes a source root named after the entry, so both `git-release.md` and `SKILL.md` have the ID `git-release`.
 
@@ -124,7 +124,7 @@ Use frontmatter to name the skill and control where it appears:
 name: Git Release
 description: Prepare a repository release
 metadata:
-  opencode/autoinvoke: false
+  nemoracode/autoinvoke: false
 ---
 
 Prepare the changelog, version bump, tag, and release notes.
@@ -134,12 +134,12 @@ Prepare the changelog, version bump, tag, and release notes.
 | ------------------------------ | ----------------------------------------------------------------- |
 | `name`                         | Display name; defaults to the path-derived ID                     |
 | `description`                  | Summary used to show the skill to the model                       |
-| `metadata.opencode/autoinvoke` | Set to `false` to omit the skill from the model's available list  |
-| `disable-model-invocation`     | Set to `true` for the same effect as `opencode/autoinvoke: false` |
+| `metadata.nemoracode/autoinvoke` | Set to `false` to omit the skill from the model's available list  |
+| `disable-model-invocation`     | Set to `true` for the same effect as `nemoracode/autoinvoke: false` |
 
 All frontmatter is optional at runtime. Add a clear `description` when the model should discover the skill; skills without one are not advertised.
 
-`opencode/autoinvoke: false` only hides the skill from the model's available list. The skill remains registered and can still be loaded explicitly by ID. When both `disable-model-invocation` and `opencode/autoinvoke` are set, `opencode/autoinvoke` wins. V2 accepts portability fields such as `license` and `compatibility` but does not interpret them.
+`nemoracode/autoinvoke: false` only hides the skill from the model's available list. The skill remains registered and can still be loaded explicitly by ID. When both `disable-model-invocation` and `nemoracode/autoinvoke` are set, `nemoracode/autoinvoke` wins. V2 accepts portability fields such as `license` and `compatibility` but does not interpret them.
 
 ## IDs
 
@@ -161,11 +161,11 @@ V2 currently does not enforce this pattern, the 1–64 character recommendation,
 
 ## Precedence
 
-Skills are selected by ID. If two sources define `git-release`, the source registered later supplies the skill that OpenCode loads:
+Skills are selected by ID. If two sources define `git-release`, the source registered later supplies the skill that NemoraCode loads:
 
 ```text
-~/.config/opencode/skills/git-release/SKILL.md  ← lower precedence
-.opencode/skills/git-release/SKILL.md           ← loaded
+~/.config/nemoracode/skills/git-release/SKILL.md  ← lower precedence
+.nemoracode/skills/git-release/SKILL.md           ← loaded
 ```
 
 Sources are registered from lower to higher precedence:
@@ -173,15 +173,15 @@ Sources are registered from lower to higher precedence:
 1. Built-in skills
 2. `.claude/skills`, global first and then from the farthest ancestor toward the current directory
 3. `.agents/skills`, global first and then from the farthest ancestor toward the current directory
-4. `~/.config/opencode/skills`
-5. Project `.opencode/skills`, from the project root toward the current directory
+4. `~/.config/nemoracode/skills`
+5. Project `.nemoracode/skills`, from the project root toward the current directory
 6. Explicit `skills` config entries, in config priority and array order
 
 Avoid duplicate IDs unless you intend to override an earlier skill.
 
 ## Loading
 
-At each model step, OpenCode lists permitted skills that have a description and do not set `opencode/autoinvoke` to `false`. The list includes only the ID, name, and description, not the full Markdown body.
+At each model step, NemoraCode lists permitted skills that have a description and do not set `nemoracode/autoinvoke` to `false`. The list includes only the ID, name, and description, not the full Markdown body.
 
 The model loads a skill by calling the `skill` tool with its exact ID:
 
@@ -191,7 +191,7 @@ The model loads a skill by calling the `skill` tool with its exact ID:
 }
 ```
 
-OpenCode then:
+NemoraCode then:
 
 1. Selects the current definition for that ID.
 2. Checks the selected agent's `skill` permission.
@@ -206,7 +206,7 @@ Supporting file contents are not loaded automatically. The agent reads them when
 
 Use the `skill` action and the skill ID as the resource. Rules run in order, and the last matching rule wins:
 
-```jsonc title="opencode.jsonc"
+```jsonc title="nemoracode.jsonc"
 {
   "permissions": [
     { "action": "skill", "resource": "*", "effect": "allow" },
@@ -229,7 +229,7 @@ Place the same rules under `agents.<id>.permissions` to apply them only to one a
 For example, this skill's ID is `release`, not its frontmatter name `Git Release`:
 
 ```text
-.opencode/skills/release/SKILL.md
+.nemoracode/skills/release/SKILL.md
                       └─ ID: release
 ```
 
@@ -238,6 +238,6 @@ If a skill is missing or loads the wrong content:
 1. Confirm the file is either a root-level `*.md` or a nested file named exactly `SKILL.md`.
 2. Check the path-derived, case-sensitive ID rather than the frontmatter `name`.
 3. Add a `description` if the model should discover the skill.
-4. Check `opencode/autoinvoke` and the selected agent's `skill` permissions.
+4. Check `nemoracode/autoinvoke` and the selected agent's `skill` permissions.
 5. Look for a later source that defines the same ID.
 6. For HTTP catalogs, verify `index.json`, same-origin file paths, and a changed `version`.

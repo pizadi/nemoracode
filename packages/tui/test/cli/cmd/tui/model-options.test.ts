@@ -27,7 +27,7 @@ describe("sortModelOptions", () => {
   test.each(["browse", "search", "provider"])("orders %s results free-first, keeping the given order", (mode) => {
     const options = [
       { providerID: "anthropic", title: "Claude Haiku 4.5" },
-      { providerID: "opencode", title: "Claude Haiku 3" },
+      { providerID: "nemoracode", title: "Claude Haiku 3" },
       { providerID: "anthropic", title: "Claude Haiku Free", free: true },
     ].map((item) => ({ ...item, providerID: mode === "provider" ? "anthropic" : item.providerID }))
     const matches = mode === "search" ? go("haik", options, { key: "title" }).map((item) => item.obj) : options
@@ -37,22 +37,22 @@ describe("sortModelOptions", () => {
     expect(titles.slice(1)).toEqual(matches.map((item) => item.title).filter((title) => title !== "Claude Haiku Free"))
   })
 
-  test("orders OpenCode Go before Zen and other providers", () => {
+  test("orders NemoraCode Go before Zen and other providers", () => {
     const sorted = sortModelOptions([
       { providerID: "openai", providerName: "OpenAI", title: "GPT 5" },
-      { providerID: "opencode", providerName: "OpenCode Zen", title: "Claude Sonnet 4" },
+      { providerID: "nemoracode", providerName: "NemoraCode Zen", title: "Claude Sonnet 4" },
       { providerID: "anthropic", providerName: "Anthropic", title: "Claude Opus 4" },
-      { providerID: "opencode-go", providerName: "OpenCode Go", title: "Kimi K3" },
+      { providerID: "nemoracode-go", providerName: "NemoraCode Go", title: "Kimi K3" },
     ])
 
     expect(sorted.map((model) => model.title)).toEqual(["Kimi K3", "Claude Sonnet 4", "Claude Opus 4", "GPT 5"])
   })
 
-  test("keeps ungrouped results free-first regardless of OpenCode provider", () => {
+  test("keeps ungrouped results free-first regardless of NemoraCode provider", () => {
     const sorted = sortModelOptions(
       [
-        { providerID: "opencode-go", title: "Go model" },
-        { providerID: "opencode", title: "Free Zen model", free: true },
+        { providerID: "nemoracode-go", title: "Go model" },
+        { providerID: "nemoracode", title: "Free Zen model", free: true },
         { providerID: "anthropic", title: "Anthropic model" },
       ],
       false,
@@ -81,7 +81,7 @@ describe("sortModelOptions", () => {
     expect(sorted.map((model) => model.title)).toEqual(["Claude Sonnet 4", "Claude Opus 4"])
   })
 
-  test("preserves the server's order for free OpenCode models", () => {
+  test("preserves the server's order for free NemoraCode models", () => {
     // `Model.available()` puts the preferred free models first, then the rest newest-first.
     const serverOrder = [
       "Big Pickle",
@@ -91,9 +91,9 @@ describe("sortModelOptions", () => {
       "Nemotron 3.5 Super VL Free",
     ]
     const options = serverOrder.map((title, index) => ({
-      value: { providerID: "opencode", modelID: title.toLowerCase().replaceAll(" ", "-") },
-      providerID: "opencode",
-      providerName: "OpenCode Zen",
+      value: { providerID: "nemoracode", modelID: title.toLowerCase().replaceAll(" ", "-") },
+      providerID: "nemoracode",
+      providerName: "NemoraCode Zen",
       releaseDate: index === 0 ? 1000 : 5000 - index,
       title,
       free: true,

@@ -1,6 +1,6 @@
 import { expect } from "bun:test"
-import { PermissionSaved } from "@opencode/schema/permission-saved"
-import { Session } from "@opencode/schema/session"
+import { PermissionSaved } from "@nemoracode/schema/permission-saved"
+import { Session } from "@nemoracode/schema/session"
 import { Effect, Schema } from "effect"
 import { it } from "../../core/test/lib/effect"
 import { ServerFetch } from "../src/fetch"
@@ -21,7 +21,7 @@ it.live("edits saved permissions through PATCH", () =>
     const request = (path: string, method: string, body?: unknown) =>
       Effect.promise(async () => {
         const response = await handler(
-          new Request(`http://opencode.local${path}`, {
+          new Request(`http://nemoracode.local${path}`, {
             method,
             headers: { "content-type": "application/json" },
             body: body === undefined ? undefined : JSON.stringify(body),

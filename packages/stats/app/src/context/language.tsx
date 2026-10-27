@@ -1,7 +1,7 @@
 import { createEffect } from "solid-js"
 import { getRequestEvent } from "solid-js/web"
 import { createStore } from "solid-js/store"
-import { createSimpleContext } from "@opencode/ui/context"
+import { createSimpleContext } from "@nemoracode/ui/context"
 import {
   LOCALES,
   cookie,

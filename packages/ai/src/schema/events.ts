@@ -1,5 +1,5 @@
 import { Schema } from "effect"
-import { LLM } from "@opencode/schema/llm"
+import { LLM } from "@nemoracode/schema/llm"
 import { ContentBlockID, ToolCallID } from "./ids.js"
 import {
   Message,
@@ -73,7 +73,7 @@ export class Usage extends Schema.Class<Usage>("AI.Usage")({
   reasoningTokens: Schema.optional(Schema.Number),
   totalTokens: Schema.optional(Schema.Number),
   /**
-   * USD the endpoint says it charged for this request, as OpenRouter, LiteLLM and OpenCode Zen report it in
+   * USD the endpoint says it charged for this request, as OpenRouter, LiteLLM and NemoraCode Zen report it in
    * `usage.cost`. `0` is authoritative: the request was free or a subscription covered it. Absent, callers price the
    * tokens themselves.
    */

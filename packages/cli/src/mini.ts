@@ -1,7 +1,7 @@
-import { Service, type Endpoint } from "@opencode/client/effect/service"
-import { ClientError, OpenCode, type OpenCodeClient } from "@opencode/client/promise"
-import type { MiniFrontendInput } from "@opencode/tui/mini"
-import { noTimeoutFetch } from "@opencode/util/no-timeout-fetch"
+import { Service, type Endpoint } from "@nemoracode/client/effect/service"
+import { ClientError, NemoraCode, type NemoraCodeClient } from "@nemoracode/client/promise"
+import type { MiniFrontendInput } from "@nemoracode/tui/mini"
+import { noTimeoutFetch } from "@nemoracode/util/no-timeout-fetch"
 import { setTimeout } from "node:timers/promises"
 import { readStdin } from "./util/io"
 import { createMiniHost, INTERACTIVE_INPUT_ERROR, usingInteractiveStdin } from "./mini-host"
@@ -36,7 +36,7 @@ export async function runMini(input: MiniCommandInput) {
     validate(input)
     await usingInteractiveStdin(async (terminal) => {
       const initialInput = mergeInput(process.stdin.isTTY ? undefined : await readStdin(), input.prompt)
-      const frontendTask = import("@opencode/tui/mini")
+      const frontendTask = import("@nemoracode/tui/mini")
       const directory = localDirectory()
       const connection = createMiniConnection(input.server)
       const sdk = connection.sdk
@@ -44,7 +44,7 @@ export async function runMini(input: MiniCommandInput) {
       const requested = parseModel(input.model)
       const model = requested ? { providerID: requested.providerID, modelID: requested.id } : undefined
       const prepare = prepareTarget(input.agent)
-      const resolveTarget = async (initial: OpenCodeClient, signal: AbortSignal) => {
+      const resolveTarget = async (initial: NemoraCodeClient, signal: AbortSignal) => {
         const resolved = await resolveMiniTarget({
           sdk: initial,
           reconnect: connection.reconnect,
@@ -80,7 +80,7 @@ export async function runMini(input: MiniCommandInput) {
         }
       }
       const create = (
-        client: OpenCodeClient,
+        client: NemoraCodeClient,
         next: {
           location: { directory: string }
           agent: string | undefined
@@ -138,7 +138,7 @@ export async function runMini(input: MiniCommandInput) {
 /** @internal Exported for CLI boundary tests. */
 export function createMiniConnection(input: MiniCommandInput["server"]) {
   const make = (endpoint: Endpoint) =>
-    OpenCode.make({
+    NemoraCode.make({
       baseUrl: endpoint.url,
       headers: Service.headers(endpoint),
       // Session waits can remain idle until background work finishes.
@@ -158,10 +158,10 @@ export function createMiniConnection(input: MiniCommandInput["server"]) {
 
 /** @internal Exported for reconnect lifecycle tests. */
 export async function resolveMiniTarget<A>(input: {
-  sdk: OpenCodeClient
-  reconnect?: (signal: AbortSignal) => Promise<OpenCodeClient>
+  sdk: NemoraCodeClient
+  reconnect?: (signal: AbortSignal) => Promise<NemoraCodeClient>
   signal: AbortSignal
-  resolve: (sdk: OpenCodeClient) => Promise<A>
+  resolve: (sdk: NemoraCodeClient) => Promise<A>
 }) {
   let sdk = input.sdk
   while (true) {
@@ -183,7 +183,7 @@ export async function resolveMiniTarget<A>(input: {
 }
 
 export function validateMiniTerminal() {
-  if (!process.stdout.isTTY) fail("opencode mini requires a TTY stdout")
+  if (!process.stdout.isTTY) fail("nemoracode mini requires a TTY stdout")
 }
 
 /** @internal Exported for testing. */

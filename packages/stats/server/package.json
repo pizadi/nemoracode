@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@opencode/stats-server",
+  "name": "@nemoracode/stats-server",
   "version": "2.1.4",
   "private": true,
   "type": "module",
@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@effect/platform-node": "catalog:",
-    "@opencode/stats-core": "workspace:*",
+    "@nemoracode/stats-core": "workspace:*",
     "effect": "catalog:",
     "sst": "catalog:"
   },

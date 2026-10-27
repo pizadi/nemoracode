@@ -2,7 +2,7 @@ import { codeToHtml, isSupportedLanguage } from "@pierre/highlights"
 import katex from "katex"
 import type { MarkedExtension, Tokens } from "marked"
 import { createMarkdownBase } from "./marked-base"
-import { OpenCodeTheme } from "./highlight-theme"
+import { NemoraCodeTheme } from "./highlight-theme"
 
 export function createMarkdownParser() {
   return createMarkdownBase().use(markdownMath, markdownCode)
@@ -17,7 +17,7 @@ const markdownCode: MarkedExtension = {
       const language = (token.lang?.match(/^\S*/)?.[0] ?? "").toLowerCase().replace(/[^\w#+.-]/g, "") || "text"
 
       const html = decoder.decode(
-        codeToHtml(token.text, { lang: isSupportedLanguage(language) ? language : "text", theme: OpenCodeTheme }),
+        codeToHtml(token.text, { lang: isSupportedLanguage(language) ? language : "text", theme: NemoraCodeTheme }),
       )
 
       return html.replace("<code>", `<code class="language-${language}">`) + "\n"

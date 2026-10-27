@@ -1,5 +1,5 @@
 export const available = true
 
 export async function resolveBinary() {
-  return process.env.OPENCODE_PTY_BIN || "opencode-pty"
+  return process.env.NEMORACODE_PTY_BIN || "nemoracode-pty"
 }

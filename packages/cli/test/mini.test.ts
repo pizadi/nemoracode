@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test"
-import { ClientError, OpenCode } from "@opencode/client/promise"
-import { OPENCODE_VERSION } from "../src/version"
+import { ClientError, NemoraCode } from "@nemoracode/client/promise"
+import { NEMORACODE_VERSION } from "../src/version"
 import path from "node:path"
 import { createMiniConnection, mergeInput as mergeInteractiveInput, resolveMiniTarget } from "../src/mini"
 import { mergeInput as mergeNonInteractiveInput, parseRunModel } from "../src/run/run"
@@ -32,10 +32,10 @@ describe("mini command", () => {
       port: 0,
       fetch() {
         return Response.json({
-          version: OPENCODE_VERSION,
+          version: NEMORACODE_VERSION,
           pid: process.pid,
           urls: [],
-          paths: { tmp: "/tmp/opencode" },
+          paths: { tmp: "/tmp/nemoracode" },
         })
       },
     })
@@ -44,10 +44,10 @@ describe("mini command", () => {
       fetch(request) {
         authorization.push(request.headers.get("authorization"))
         return Response.json({
-          version: OPENCODE_VERSION,
+          version: NEMORACODE_VERSION,
           pid: process.pid,
           urls: [],
-          paths: { tmp: "/tmp/opencode" },
+          paths: { tmp: "/tmp/nemoracode" },
         })
       },
     })
@@ -80,8 +80,8 @@ describe("mini command", () => {
   })
 
   test("re-resolves a managed target when the endpoint moves before transport construction", async () => {
-    const initial = OpenCode.make({ baseUrl: "https://initial.opencode.test" })
-    const replacement = OpenCode.make({ baseUrl: "https://replacement.opencode.test" })
+    const initial = NemoraCode.make({ baseUrl: "https://initial.nemoracode.test" })
+    const replacement = NemoraCode.make({ baseUrl: "https://replacement.nemoracode.test" })
     const controller = new AbortController()
     const seen: (typeof initial)[] = []
     let reconnects = 0
@@ -128,7 +128,7 @@ describe("mini command", () => {
 
     expect(result.exitCode).toBe(0)
     expect(result.stdout).toMatch(/^  mini[ \t]+Start the minimal interactive interface\r?$/m)
-    expect(result.stdout).toMatch(/^  run[ \t]+Run OpenCode with a message\r?$/m)
+    expect(result.stdout).toMatch(/^  run[ \t]+Run NemoraCode with a message\r?$/m)
   })
 
   test("exposes run without legacy interactive, attach, or command modes", async () => {
@@ -159,10 +159,10 @@ describe("mini command", () => {
         requests.push(url.pathname)
         if (url.pathname === "/api/info")
           return Response.json({
-            version: OPENCODE_VERSION,
+            version: NEMORACODE_VERSION,
             pid: process.pid,
             urls: [],
-            paths: { tmp: "/tmp/opencode" },
+            paths: { tmp: "/tmp/nemoracode" },
           })
         if (url.pathname === "/api/location")
           return Response.json({ directory: process.cwd(), project: { id: "global", directory: process.cwd() } })
@@ -209,7 +209,7 @@ describe("mini command", () => {
           version: "incompatible",
           pid: process.pid,
           urls: [],
-          paths: { tmp: "/tmp/opencode" },
+          paths: { tmp: "/tmp/nemoracode" },
         })
       },
     })
@@ -246,7 +246,7 @@ describe("mini command", () => {
       const result = await cli(args)
 
       expect(result.exitCode).toBe(1)
-      expect(result.stderr).toContain("opencode mini requires a TTY stdout")
+      expect(result.stderr).toContain("nemoracode mini requires a TTY stdout")
     }
   })
 })

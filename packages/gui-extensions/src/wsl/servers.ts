@@ -2,7 +2,7 @@ import type { MainContext } from "../sdk/main"
 import type {
   WslDistroProbe,
   WslJob,
-  WslOpencodeCheck,
+  WslNemoracodeCheck,
   WslServerConfig,
   WslServerItem,
   WslServerRuntime,
@@ -79,10 +79,10 @@ export function createWslServersController(options: WslServersControllerOptions)
     updateServer(id, (item) => ({ ...item, runtime }))
   }
 
-  const setCliCheck = (distro: string, check: WslOpencodeCheck) => {
+  const setCliCheck = (distro: string, check: WslNemoracodeCheck) => {
     setState({
-      opencodeChecks: {
-        ...state.opencodeChecks,
+      nemoracodeChecks: {
+        ...state.nemoracodeChecks,
         [distro]: check,
       },
     })
@@ -115,16 +115,16 @@ export function createWslServersController(options: WslServersControllerOptions)
       setState({ distroProbes: { ...state.distroProbes, ...Object.fromEntries(distroProbes) } })
     }
 
-    const opencodeChecks = await Promise.all(
+    const nemoracodeChecks = await Promise.all(
       unique.flatMap((distro) =>
-        distroProbeReady(state.distroProbes[distro]) && !state.opencodeChecks[distro]
+        distroProbeReady(state.distroProbes[distro]) && !state.nemoracodeChecks[distro]
           ? [inspectCli(distro).then((check) => [distro, check] as const)]
           : [],
       ),
     )
 
-    if (opencodeChecks.length) {
-      setState({ opencodeChecks: { ...state.opencodeChecks, ...Object.fromEntries(opencodeChecks) } })
+    if (nemoracodeChecks.length) {
+      setState({ nemoracodeChecks: { ...state.nemoracodeChecks, ...Object.fromEntries(nemoracodeChecks) } })
     }
   }
 
@@ -280,8 +280,8 @@ export function createWslServersController(options: WslServersControllerOptions)
       await runJob({ kind: "probe-addable", distros, startedAt: Date.now() }, () => probeAddableDistros(distros))
     },
 
-    async installOpencode(distro: string) {
-      await runJob({ kind: "install-opencode", distro, startedAt: Date.now() }, async () => {
+    async installNemoracode(distro: string) {
+      await runJob({ kind: "install-nemoracode", distro, startedAt: Date.now() }, async () => {
         const id = state.servers.find((item) => item.config.distro === distro)?.config.id
 
         if (id) await stopServer(id)
@@ -345,7 +345,7 @@ function initialState(): WslServersState {
     installed: [],
     online: [],
     distroProbes: {},
-    opencodeChecks: {},
+    nemoracodeChecks: {},
     pendingRestart: false,
     servers: [],
     job: null,
@@ -358,7 +358,7 @@ function cliCheck(
   resolvedPath: string | null,
   version: string | null,
   expectedVersion: string,
-): WslOpencodeCheck {
+): WslNemoracodeCheck {
   if (!resolvedPath) {
     return {
       distro,
@@ -366,7 +366,7 @@ function cliCheck(
       version: null,
       expectedVersion,
       matchesDesktop: null,
-      error: t("error.opencodeMissing"),
+      error: t("error.nemoracodeMissing"),
     }
   }
 
@@ -377,7 +377,7 @@ function cliCheck(
       version: null,
       expectedVersion,
       matchesDesktop: null,
-      error: t("error.opencodeCannotRun"),
+      error: t("error.nemoracodeCannotRun"),
     }
   }
 
@@ -391,7 +391,7 @@ function cliCheck(
   }
 }
 
-function requireMatchingCli(t: MainContext["t"], check: WslOpencodeCheck, expected: string) {
+function requireMatchingCli(t: MainContext["t"], check: WslNemoracodeCheck, expected: string) {
   if (check.version === expected) return
   throw new Error(
     t("error.updateVersion", {
@@ -404,11 +404,11 @@ function requireMatchingCli(t: MainContext["t"], check: WslOpencodeCheck, expect
 
 function removeDistroState(state: WslServersState, distro: string) {
   const distroProbes = { ...state.distroProbes }
-  const opencodeChecks = { ...state.opencodeChecks }
+  const nemoracodeChecks = { ...state.nemoracodeChecks }
   delete distroProbes[distro]
-  delete opencodeChecks[distro]
+  delete nemoracodeChecks[distro]
 
-  return { distroProbes, opencodeChecks }
+  return { distroProbes, nemoracodeChecks }
 }
 
 function distroProbeReady(probe: WslDistroProbe | undefined) {

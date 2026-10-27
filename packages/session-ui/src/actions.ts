@@ -1,4 +1,4 @@
-import type { PromptFileAttachment } from "@opencode/client/promise"
+import type { PromptFileAttachment } from "@nemoracode/client/promise"
 
 export type SessionUserComment =
   | {

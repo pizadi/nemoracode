@@ -1,17 +1,17 @@
 import { describe, expect, test } from "bun:test"
-import { Money } from "@opencode/schema/money"
+import { Money } from "@nemoracode/schema/money"
 import { Effect, Fiber, Layer, Ref, Scope, Stream } from "effect"
 import { HttpClient, HttpClientResponse } from "effect/http"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { LayerNodePlatform } from "@opencode/util/effect/app-node-platform"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { Bus } from "@opencode/core/bus"
-import { KV } from "@opencode/core/kv"
-import { Location } from "@opencode/core/location"
-import { Model } from "@opencode/core/model"
-import { bodyDigest, ModelsDev } from "@opencode/core/models-dev"
-import { Provider } from "@opencode/core/provider"
-import { AbsolutePath } from "@opencode/core/schema"
+import { AppNodeBuilder } from "@nemoracode/core/effect/app-node-builder"
+import { LayerNodePlatform } from "@nemoracode/util/effect/app-node-platform"
+import { LayerNode } from "@nemoracode/util/effect/layer-node"
+import { Bus } from "@nemoracode/core/bus"
+import { KV } from "@nemoracode/core/kv"
+import { Location } from "@nemoracode/core/location"
+import { Model } from "@nemoracode/core/model"
+import { bodyDigest, ModelsDev } from "@nemoracode/core/models-dev"
+import { Provider } from "@nemoracode/core/provider"
+import { AbsolutePath } from "@nemoracode/core/schema"
 import { location } from "./fixture/location"
 import { it } from "./lib/effect"
 
@@ -53,7 +53,7 @@ const fixtureSnapshot = [
       id: Provider.ID.make("acme"),
       name: "Acme",
       activation: "auto",
-      package: "@opencode/ai/providers/openai-compatible",
+      package: "@nemoracode/ai/providers/openai-compatible",
     },
     models: [
       {
@@ -117,7 +117,7 @@ const fixture2Snapshot = [
       id: Provider.ID.make("beta"),
       name: "Beta",
       activation: "auto",
-      package: "@opencode/ai/providers/openai-compatible",
+      package: "@nemoracode/ai/providers/openai-compatible",
     },
     models: [
       {
@@ -299,14 +299,14 @@ describe("ModelsDev Service", () => {
         cache,
         ModelsDev.Service.use((service) => service.get()),
       )
-      expect(result[0]?.info.package).toBe("@opencode/ai/providers/openai-compatible")
-      expect(result[0]?.models[0]?.package).toBe("@opencode/ai/providers/openai")
-      expect(result[1]?.info.package).toBe("@opencode/ai/providers/cloudflare-workers-ai")
+      expect(result[0]?.info.package).toBe("@nemoracode/ai/providers/openai-compatible")
+      expect(result[0]?.models[0]?.package).toBe("@nemoracode/ai/providers/openai")
+      expect(result[1]?.info.package).toBe("@nemoracode/ai/providers/cloudflare-workers-ai")
       expect(result[1]?.info.settings).toBeUndefined()
-      expect(result[2]?.info.package).toBe("@opencode/ai/providers/azure/responses")
+      expect(result[2]?.info.package).toBe("@nemoracode/ai/providers/azure/responses")
       expect(result[2]?.models.find((model) => model.id === "gpt-5")?.package).toBeUndefined()
       expect(result[2]?.models.find((model) => model.id === "custom-chat")?.package).toBe(
-        "@opencode/ai/providers/azure/chat",
+        "@nemoracode/ai/providers/azure/chat",
       )
     }),
   )
@@ -479,7 +479,7 @@ describe("ModelsDev Service", () => {
       const final = yield* Ref.get(state)
       expect(final.calls.length).toBe(1)
       expect(final.calls[0].url).toContain("/api.json")
-      expect(final.calls[0].userAgent).toContain("/opencode")
+      expect(final.calls[0].userAgent).toContain("/nemoracode")
     }),
   )
 

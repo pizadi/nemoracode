@@ -1,38 +1,38 @@
-import { Database } from "@opencode/core/database/database"
-import { V1Migration } from "@opencode/core/database/v1-migration"
-import { App } from "@opencode/core/app"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { Node } from "@opencode/util/effect/app-node"
-import { httpClient } from "@opencode/util/effect/app-node-platform"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { Bus } from "@opencode/core/bus"
-import { EventLogger } from "@opencode/core/event-logger"
-import { FileSystemSearch } from "@opencode/core/filesystem/search"
-import { Credential } from "@opencode/core/credential"
-import { Config } from "@opencode/core/config"
-import { PermissionSaved } from "@opencode/core/permission/saved"
-import { PtyTicket } from "@opencode/core/pty/ticket"
-import { PersistentPty } from "@opencode/core/persistent-pty"
-import { Project } from "@opencode/core/project"
-import { Worktree } from "@opencode/core/worktree"
-import { Session } from "@opencode/core/session"
-import { Instance } from "@opencode/core/instance/service"
-import { SessionTransfer } from "@opencode/core/session/transfer"
-import { ShellSelect } from "@opencode/core/shell/select"
-import { Job } from "@opencode/core/job"
-import { Mcp } from "@opencode/core/mcp/index"
-import { Global } from "@opencode/util/global"
-import { FSUtil } from "@opencode/util/fs-util"
-import { InstructionDiscovery } from "@opencode/core/instruction-discovery"
-import { LocationServiceMap } from "@opencode/core/location-service-map"
-import { LocationActivity } from "@opencode/core/location-activity"
-import { ModelsDev } from "@opencode/core/models-dev"
-import { SessionRestart } from "@opencode/core/session/execution/restart"
-import { PluginUpdate } from "@opencode/core/plugin/update"
-import { SdkPlugins } from "@opencode/core/plugin/sdk"
-import { WellKnown } from "@opencode/core/wellknown"
-import { Workspace } from "@opencode/core/workspace"
-import { Watcher } from "@opencode/core/filesystem/watcher"
+import { Database } from "@nemoracode/core/database/database"
+import { V1Migration } from "@nemoracode/core/database/v1-migration"
+import { App } from "@nemoracode/core/app"
+import { LayerNode } from "@nemoracode/util/effect/layer-node"
+import { Node } from "@nemoracode/util/effect/app-node"
+import { httpClient } from "@nemoracode/util/effect/app-node-platform"
+import { AppNodeBuilder } from "@nemoracode/core/effect/app-node-builder"
+import { Bus } from "@nemoracode/core/bus"
+import { EventLogger } from "@nemoracode/core/event-logger"
+import { FileSystemSearch } from "@nemoracode/core/filesystem/search"
+import { Credential } from "@nemoracode/core/credential"
+import { Config } from "@nemoracode/core/config"
+import { PermissionSaved } from "@nemoracode/core/permission/saved"
+import { PtyTicket } from "@nemoracode/core/pty/ticket"
+import { PersistentPty } from "@nemoracode/core/persistent-pty"
+import { Project } from "@nemoracode/core/project"
+import { Worktree } from "@nemoracode/core/worktree"
+import { Session } from "@nemoracode/core/session"
+import { Instance } from "@nemoracode/core/instance/service"
+import { SessionTransfer } from "@nemoracode/core/session/transfer"
+import { ShellSelect } from "@nemoracode/core/shell/select"
+import { Job } from "@nemoracode/core/job"
+import { Mcp } from "@nemoracode/core/mcp/index"
+import { Global } from "@nemoracode/util/global"
+import { FSUtil } from "@nemoracode/util/fs-util"
+import { InstructionDiscovery } from "@nemoracode/core/instruction-discovery"
+import { LocationServiceMap } from "@nemoracode/core/location-service-map"
+import { LocationActivity } from "@nemoracode/core/location-activity"
+import { ModelsDev } from "@nemoracode/core/models-dev"
+import { SessionRestart } from "@nemoracode/core/session/execution/restart"
+import { PluginUpdate } from "@nemoracode/core/plugin/update"
+import { SdkPlugins } from "@nemoracode/core/plugin/sdk"
+import { WellKnown } from "@nemoracode/core/wellknown"
+import { Workspace } from "@nemoracode/core/workspace"
+import { Watcher } from "@nemoracode/core/filesystem/watcher"
 import { HttpRouter } from "effect/http"
 import { HttpApiBuilder } from "effect/http-api"
 import { Context, Effect, Layer, Option } from "effect"
@@ -135,7 +135,7 @@ function makeRoutes<AuthError, AuthServices>(
     Mcp.node.replace(
       Mcp.configured({
         clientInfo: {
-          name: "opencode",
+          name: "nemoracode",
           version: options.app?.version ?? "unknown",
         },
       }),
@@ -153,7 +153,7 @@ function makeRoutes<AuthError, AuthServices>(
   const serviceLayer = options.simulation
     ? Layer.unwrap(
         Effect.gen(function* () {
-          const { simulationReplacements } = yield* Effect.promise(() => import("@opencode/simulation/backend"))
+          const { simulationReplacements } = yield* Effect.promise(() => import("@nemoracode/simulation/backend"))
           const simulation = yield* simulationReplacements({ version: App.make(options.app).version })
           return build([...overrides, ...simulation])
         }),

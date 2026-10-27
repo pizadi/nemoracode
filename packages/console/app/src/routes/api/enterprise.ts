@@ -1,5 +1,5 @@
 import type { APIEvent } from "@solidjs/start/server"
-import { Resource } from "@opencode/console-resource"
+import { Resource } from "@nemoracode/console-resource"
 import { i18n } from "~/i18n"
 import { handleEnterpriseRequest } from "~/lib/enterprise"
 import { localeFromRequest } from "~/lib/language"

@@ -2,24 +2,24 @@ import fs from "fs/promises"
 import path from "path"
 import { describe, expect, test } from "bun:test"
 import { Deferred, Effect, Fiber, Layer, Schema, Stream } from "effect"
-import { Config } from "@opencode/core/config"
-import { Directory, Document, type Entry, Info } from "@opencode/schema/config"
-import { ConfigSkillPlugin } from "@opencode/core/config/plugin/skill"
-import { ConfigCompatibilityPlugin } from "@opencode/core/config/plugin/compatibility"
-import { SkillFile } from "@opencode/core/config/plugin/skill-file"
-import { SkillScan } from "@opencode/core/config/plugin/skill-scan"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { Watcher } from "@opencode/core/filesystem/watcher"
-import { Bus } from "@opencode/core/bus"
-import { Credential } from "@opencode/core/credential"
-import { FSUtil } from "@opencode/util/fs-util"
-import { Global } from "@opencode/util/global"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { Location } from "@opencode/core/location"
-import { AbsolutePath } from "@opencode/core/schema"
-import { Skill } from "@opencode/core/skill"
-import { SkillDiscovery } from "@opencode/core/skill/discovery"
-import { WellKnown } from "@opencode/core/wellknown"
+import { Config } from "@nemoracode/core/config"
+import { Directory, Document, type Entry, Info } from "@nemoracode/schema/config"
+import { ConfigSkillPlugin } from "@nemoracode/core/config/plugin/skill"
+import { ConfigCompatibilityPlugin } from "@nemoracode/core/config/plugin/compatibility"
+import { SkillFile } from "@nemoracode/core/config/plugin/skill-file"
+import { SkillScan } from "@nemoracode/core/config/plugin/skill-scan"
+import { AppNodeBuilder } from "@nemoracode/core/effect/app-node-builder"
+import { Watcher } from "@nemoracode/core/filesystem/watcher"
+import { Bus } from "@nemoracode/core/bus"
+import { Credential } from "@nemoracode/core/credential"
+import { FSUtil } from "@nemoracode/util/fs-util"
+import { Global } from "@nemoracode/util/global"
+import { LayerNode } from "@nemoracode/util/effect/layer-node"
+import { Location } from "@nemoracode/core/location"
+import { AbsolutePath } from "@nemoracode/core/schema"
+import { Skill } from "@nemoracode/core/skill"
+import { SkillDiscovery } from "@nemoracode/core/skill/discovery"
+import { WellKnown } from "@nemoracode/core/wellknown"
 import { emptyCredentialNode, emptyWellknownNode } from "../fixture/config-nodes"
 import { tmpdir } from "../fixture/tmpdir"
 import { location } from "../fixture/location"
@@ -132,7 +132,7 @@ describe("SkillFile.parse", () => {
     expect(parse("disable-model-invocation: false")).not.toMatchObject({ skill: { autoinvoke: expect.anything() } })
     expect(parse("disable-model-invocation: maybe")).not.toMatchObject({ skill: { autoinvoke: expect.anything() } })
     expect(
-      parse("disable-model-invocation: true\nmetadata:\n  opencode/autoinvoke: true"),
+      parse("disable-model-invocation: true\nmetadata:\n  nemoracode/autoinvoke: true"),
     ).toMatchObject({ skill: { autoinvoke: true } })
   })
 
@@ -146,7 +146,7 @@ describe("SkillFile.parse", () => {
 name: Manual
 description: Manual only
 metadata:
-  opencode/autoinvoke: false
+  nemoracode/autoinvoke: false
 ---
 # manual`,
       ),
@@ -182,14 +182,14 @@ describe("ConfigSkillPlugin.Plugin", () => {
         Effect.gen(function* () {
           const claude = path.join(tmp.path, "claude")
           const agents = path.join(tmp.path, "agents")
-          const opencode = path.join(tmp.path, "opencode")
+          const nemoracode = path.join(tmp.path, "nemoracode")
           const home = path.join(tmp.path, "home")
           const directory = path.join(tmp.path, "project")
           const expected = [
             path.join(claude, "skills"),
             path.join(agents, "skills"),
-            path.join(opencode, "skill"),
-            path.join(opencode, "skills"),
+            path.join(nemoracode, "skill"),
+            path.join(nemoracode, "skills"),
             path.join(home, "shared"),
             path.join(directory, "relative"),
           ]
@@ -197,7 +197,7 @@ describe("ConfigSkillPlugin.Plugin", () => {
 
           yield* startEntries(
             [
-              new Directory({ type: "directory", path: AbsolutePath.make(opencode) }),
+              new Directory({ type: "directory", path: AbsolutePath.make(nemoracode) }),
               new Document({ type: "document", info: decode({ skills: ["~/shared", "./relative"] }) }),
             ],
             directory,

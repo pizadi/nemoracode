@@ -1,13 +1,13 @@
 import { Effect } from "effect"
-import { define } from "@opencode/plugin/effect/plugin"
-import { Form } from "@opencode/schema/form"
+import { define } from "@nemoracode/plugin/effect/plugin"
+import { Form } from "@nemoracode/schema/form"
 import { Provider } from "../../provider.js"
 import { configuredSettings } from "./configured.js"
 
 const providerID = Provider.ID.make("cloudflare-workers-ai")
 
 export const CloudflareWorkersAIPlugin = define({
-  id: "opencode.provider.cloudflare.workers.ai",
+  id: "nemoracode.provider.cloudflare.workers.ai",
   effect: Effect.fn(function* (ctx) {
     const configured = yield* configuredSettings(providerID)
     const form =
@@ -44,7 +44,7 @@ export const CloudflareWorkersAIPlugin = define({
         const accountId = resolveAccountId(provider.settings ?? {})
         if (!accountId) return
         provider.settings =
-          provider.package === "@opencode/ai/providers/cloudflare-workers-ai"
+          provider.package === "@nemoracode/ai/providers/cloudflare-workers-ai"
             ? { ...provider.settings, accountId }
             : { ...provider.settings, baseURL: workersEndpoint(accountId) }
       })

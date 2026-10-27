@@ -10,7 +10,7 @@
   autoPatchelfHook,
   copyDesktopItems,
   makeDesktopItem,
-  opencode,
+  nemoracode,
 }:
 let
   electronPin =
@@ -22,7 +22,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "opencode-desktop";
-  inherit (opencode)
+  inherit (nemoracode)
     version
     src
     node_modules
@@ -51,16 +51,16 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   desktopItems = lib.optional stdenv.hostPlatform.isLinux (makeDesktopItem {
-    name = "ai.opencode.desktop";
-    desktopName = "OpenCode";
+    name = "ai.nemoracode.desktop";
+    desktopName = "NemoraCode";
     exec = "opencode-desktop %U";
-    icon = "ai.opencode.desktop";
+    icon = "ai.nemoracode.desktop";
     # Electron derives X11 WM_CLASS from app.name.
-    startupWMClass = "OpenCode";
+    startupWMClass = "NemoraCode";
     categories = [ "Development" ];
   });
 
-  env = opencode.env // {
+  env = nemoracode.env // {
     ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
   };
 
@@ -95,17 +95,17 @@ stdenv.mkDerivation (finalAttrs: {
 
     cd packages/desktop
 
-    export OPENCODE_CLI_DIST="$TMPDIR/desktop-cli"
-    cli_package=$(bun -e 'import { getCurrentCli } from "./scripts/utils.ts"; console.log(getCurrentCli().package.replace("@opencode/", ""))')
+    export NEMORACODE_CLI_DIST="$TMPDIR/desktop-cli"
+    cli_package=$(bun -e 'import { getCurrentCli } from "./scripts/utils.ts"; console.log(getCurrentCli().package.replace("@nemoracode/", ""))')
     # copyBuiltCliToResources joins this dist with the npm package name getCurrentCli()
     # reports, not the Nix build's name. It reads only .version from the manifest and
-    # writes it as opencode-cli.version beside the binary.
-    mkdir -p "$OPENCODE_CLI_DIST/$cli_package/bin"
-    cp ${lib.getExe opencode} "$OPENCODE_CLI_DIST/$cli_package/bin/opencode"
-    # OPENCODE_VERSION is what the bundled CLI prints for --version, so the manifest
+    # writes it as nemoracode-cli.version beside the binary.
+    mkdir -p "$NEMORACODE_CLI_DIST/$cli_package/bin"
+    cp ${lib.getExe nemoracode} "$NEMORACODE_CLI_DIST/$cli_package/bin/nemoracode"
+    # NEMORACODE_VERSION is what the bundled CLI prints for --version, so the manifest
     # and the executable cannot drift.
-    bun -e 'await Bun.write(process.argv[1], JSON.stringify({ version: process.env.OPENCODE_VERSION }) + "\n")' \
-      "$OPENCODE_CLI_DIST/$cli_package/package.json"
+    bun -e 'await Bun.write(process.argv[1], JSON.stringify({ version: process.env.NEMORACODE_VERSION }) + "\n")' \
+      "$NEMORACODE_CLI_DIST/$cli_package/package.json"
 
     bun run build
     npx electron-builder --dir \
@@ -122,23 +122,23 @@ stdenv.mkDerivation (finalAttrs: {
   + lib.optionalString stdenv.hostPlatform.isDarwin ''
     mkdir -p $out/Applications
     mv dist/mac*/*.app $out/Applications
-    makeWrapper "$out/Applications/OpenCode.app/Contents/MacOS/OpenCode" $out/bin/opencode-desktop
+    makeWrapper "$out/Applications/NemoraCode.app/Contents/MacOS/NemoraCode" $out/bin/opencode-desktop
   ''
   + lib.optionalString stdenv.hostPlatform.isLinux ''
     mkdir -p $out/opt/opencode-desktop
     cp -r dist/linux*-unpacked/{resources,LICENSE*} $out/opt/opencode-desktop
     install -Dm644 resources/icons/32x32.png \
-      "$out/share/icons/hicolor/32x32/apps/ai.opencode.desktop.png"
+      "$out/share/icons/hicolor/32x32/apps/ai.nemoracode.desktop.png"
     install -Dm644 resources/icons/64x64.png \
-      "$out/share/icons/hicolor/64x64/apps/ai.opencode.desktop.png"
+      "$out/share/icons/hicolor/64x64/apps/ai.nemoracode.desktop.png"
     install -Dm644 resources/icons/128x128.png \
-      "$out/share/icons/hicolor/128x128/apps/ai.opencode.desktop.png"
+      "$out/share/icons/hicolor/128x128/apps/ai.nemoracode.desktop.png"
     install -Dm644 resources/icons/128x128@2x.png \
-      "$out/share/icons/hicolor/256x256/apps/ai.opencode.desktop.png"
+      "$out/share/icons/hicolor/256x256/apps/ai.nemoracode.desktop.png"
     install -Dm644 resources/icons/icon.png \
-      "$out/share/icons/hicolor/512x512/apps/ai.opencode.desktop.png"
-    install -Dm644 resources/ai.opencode.desktop.metainfo.xml \
-      "$out/share/metainfo/ai.opencode.desktop.metainfo.xml"
+      "$out/share/icons/hicolor/512x512/apps/ai.nemoracode.desktop.png"
+    install -Dm644 resources/ai.nemoracode.desktop.metainfo.xml \
+      "$out/share/metainfo/ai.nemoracode.desktop.metainfo.xml"
     makeWrapper ${lib.getExe electron} $out/bin/opencode-desktop \
      --inherit-argv0 \
      --set ELECTRON_FORCE_IS_PACKAGED 1 \
@@ -161,8 +161,8 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "OpenCode Desktop App";
+    description = "NemoraCode Desktop App";
     mainProgram = "opencode-desktop";
-    inherit (opencode.meta) homepage license platforms;
+    inherit (nemoracode.meta) homepage license platforms;
   };
 })

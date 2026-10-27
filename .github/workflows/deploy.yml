@@ -32,7 +32,7 @@ jobs:
         if: github.ref_name != 'beta'
         with:
           role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
-          role-session-name: opencode-${{ github.run_id }}
+          role-session-name: nemoracode-${{ github.run_id }}
           aws-region: us-east-1
 
       - run: bun sst deploy --stage=${{ github.ref_name }}

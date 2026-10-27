@@ -1,6 +1,6 @@
 import { For, Show } from "solid-js"
-import { Button } from "@opencode/ui/button"
-import { TextShimmer } from "@opencode/ui/text-shimmer"
+import { Button } from "@nemoracode/ui/button"
+import { TextShimmer } from "@nemoracode/ui/text-shimmer"
 import { useLanguage } from "@/runtime/i18n/language"
 
 export function ConsoleAuthorization(props: {

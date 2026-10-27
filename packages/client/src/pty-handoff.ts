@@ -1,6 +1,6 @@
 export * as PtyHandoff from "./pty-handoff.js"
 
-import type { PersistentPty } from "@opencode/schema/persistent-pty"
+import type { PersistentPty } from "@nemoracode/schema/persistent-pty"
 import { readFile, rename, rm, writeFile } from "node:fs/promises"
 import type { Info } from "./service.js"
 import { headers } from "./service-probe.js"
@@ -18,12 +18,12 @@ type Sidecar = {
 export async function prepare(file: string, info: Info, timeout: number) {
   const existing = await read(file)
   if (existing !== undefined && existing.expiresAt > Date.now() && same(existing.source, info)) return
-  const { OpenCode } = await import("./promise/index.js")
-  const client = OpenCode.make({
+  const { NemoraCode } = await import("./promise/index.js")
+  const client = NemoraCode.make({
     baseUrl: info.url,
     headers: headers({
       url: info.url,
-      auth: info.password === undefined ? undefined : { type: "basic", username: "opencode", password: info.password },
+      auth: info.password === undefined ? undefined : { type: "basic", username: "nemoracode", password: info.password },
     }),
   })
   const handoff = await client.experimental.persistentPty
@@ -75,7 +75,7 @@ export async function environment(file: string, env?: Readonly<Record<string, st
     record !== undefined && record.expiresAt > Date.now() && (current === undefined || same(record.source, current))
       ? record.handoff
       : undefined
-  return { ...env, OPENCODE_PTY_HANDOFF: handoff == null ? undefined : JSON.stringify(handoff) }
+  return { ...env, NEMORACODE_PTY_HANDOFF: handoff == null ? undefined : JSON.stringify(handoff) }
 }
 
 export async function complete(file: string, info: Info) {

@@ -1,6 +1,6 @@
-import { Environment } from "@opencode/core/environment/index"
-import { CrossSpawnSpawner } from "@opencode/util/cross-spawn-spawner"
-import { LayerNode } from "@opencode/util/effect/layer-node"
+import { Environment } from "@nemoracode/core/environment/index"
+import { CrossSpawnSpawner } from "@nemoracode/util/cross-spawn-spawner"
+import { LayerNode } from "@nemoracode/util/effect/layer-node"
 import { Effect, Layer } from "effect"
 import { ChildProcess, ChildProcessSpawner } from "effect/process"
 

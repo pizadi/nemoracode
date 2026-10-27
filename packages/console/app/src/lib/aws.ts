@@ -1,4 +1,4 @@
-import { Resource } from "@opencode/console-resource"
+import { Resource } from "@nemoracode/console-resource"
 import { AwsClient } from "aws4fetch"
 
 let client: AwsClient | undefined
@@ -16,7 +16,7 @@ export async function sendEmail(input: { to: string; subject: string; body: stri
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      FromEmailAddress: `OpenCode Zen <contact@anoma.ly>`,
+      FromEmailAddress: `NemoraCode Zen <contact@anoma.ly>`,
       Destination: {
         ToAddresses: [input.to],
       },

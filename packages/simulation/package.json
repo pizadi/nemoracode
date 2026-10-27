@@ -1,12 +1,12 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@opencode/simulation",
+  "name": "@nemoracode/simulation",
   "version": "2.1.4",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anomalyco/opencode.git",
+    "url": "git+https://github.com/pizadi/nemoracode.git",
     "directory": "packages/simulation"
   },
   "publishConfig": {
@@ -30,11 +30,11 @@
     "typecheck:tsc": "tsc -b"
   },
   "dependencies": {
-    "@opencode/core": "workspace:*",
-    "@opencode/ai": "workspace:*",
-    "@opencode/plugin": "workspace:*",
-    "@opencode/protocol": "workspace:*",
-    "@opencode/util": "workspace:*",
+    "@nemoracode/core": "workspace:*",
+    "@nemoracode/ai": "workspace:*",
+    "@nemoracode/plugin": "workspace:*",
+    "@nemoracode/protocol": "workspace:*",
+    "@nemoracode/util": "workspace:*",
     "@opentui/core": "catalog:",
     "effect": "catalog:",
     "ws": "8.21.0"

@@ -5333,7 +5333,7 @@ export type McpClientTokenInput = {
     readonly location?: { readonly directory?: string | undefined } | undefined
     readonly name: string
   }["name"]
-  readonly "x-opencode-ticket"?: { readonly "x-opencode-ticket"?: string | undefined }["x-opencode-ticket"]
+  readonly "x-nemoracode-ticket"?: { readonly "x-nemoracode-ticket"?: string | undefined }["x-nemoracode-ticket"]
 }
 
 export type McpClientTokenOutput = { location: LocationPublicRef; data: PtyTicketConnectToken }
@@ -5784,7 +5784,7 @@ export type PtyRemoveOutput = void
 export type PtyConnectTokenInput = {
   readonly ptyID: { readonly ptyID: string }["ptyID"]
   readonly location?: { readonly location?: { readonly directory?: string | undefined } | undefined }["location"]
-  readonly "x-opencode-ticket"?: { readonly "x-opencode-ticket"?: string | undefined }["x-opencode-ticket"]
+  readonly "x-nemoracode-ticket"?: { readonly "x-nemoracode-ticket"?: string | undefined }["x-nemoracode-ticket"]
 }
 
 export type PtyConnectTokenOutput = { location: LocationPublicRef; data: PtyTicketConnectToken }
@@ -5886,7 +5886,7 @@ export type ExperimentalPersistentPtyRemoveOutput = void
 
 export type ExperimentalPersistentPtyConnectTokenInput = {
   readonly ptyID: { readonly ptyID: string }["ptyID"]
-  readonly "x-opencode-ticket"?: { readonly "x-opencode-ticket"?: string | undefined }["x-opencode-ticket"]
+  readonly "x-nemoracode-ticket"?: { readonly "x-nemoracode-ticket"?: string | undefined }["x-nemoracode-ticket"]
 }
 
 export type ExperimentalPersistentPtyConnectTokenOutput = { data: PtyTicketConnectToken }["data"]

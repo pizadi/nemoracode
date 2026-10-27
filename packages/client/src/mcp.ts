@@ -1,5 +1,5 @@
 export type ClientMcpOptions = {
-  /** Base URL of the opencode server, for example `http://127.0.0.1:4096`. Its query params are kept. */
+  /** Base URL of the nemoracode server, for example `http://127.0.0.1:4096`. Its query params are kept. */
   readonly url: string
   /** Client name, `[a-zA-Z0-9_-]+`. Tools are exposed to the model as `<name>_<tool>`. */
   readonly name: string
@@ -24,7 +24,7 @@ export type ClientMcpTool = {
 }
 
 export type ClientMcpToolContext = {
-  /** The opencode session that issued the call. */
+  /** The nemoracode session that issued the call. */
   readonly sessionID?: string
 }
 
@@ -51,14 +51,14 @@ type Message = {
   }
 }
 
-const SESSION_ID_META_KEY = "ai.opencode/sessionID"
+const SESSION_ID_META_KEY = "ai.nemoracode/sessionID"
 const PROTOCOL_VERSION = "2025-11-25"
 const RECONNECT_MIN = 500
 const RECONNECT_MAX = 10_000
 
 /**
- * Exposes tools to the opencode server: opens a WebSocket to `/api/experimental/client-mcp` and answers MCP
- * JSON-RPC over it (one message per text frame), so the opencode server is the MCP client. Reconnects with
+ * Exposes tools to the nemoracode server: opens a WebSocket to `/api/experimental/client-mcp` and answers MCP
+ * JSON-RPC over it (one message per text frame), so the nemoracode server is the MCP client. Reconnects with
  * backoff until `close()`.
  */
 export function connectClientMcp(options: ClientMcpOptions): ClientMcpConnection {
@@ -79,7 +79,7 @@ export function connectClientMcp(options: ClientMcpOptions): ClientMcpConnection
       if (state.disposed || typeof event.data !== "string") return
       const message = parse(event.data)
       if (!message) return
-      // Reset backoff only once the opencode server finished initializing, so a failed attach keeps backing off.
+      // Reset backoff only once the nemoracode server finished initializing, so a failed attach keeps backing off.
       if (message.method === "notifications/initialized") state.delay = RECONNECT_MIN
       // Notifications and responses need no reply.
       if ((typeof message.id !== "string" && typeof message.id !== "number") || typeof message.method !== "string")
@@ -112,7 +112,7 @@ async function respond(options: ClientMcpOptions, method: string, params: Messag
     case "initialize":
       return {
         result: {
-          // The opencode server only offers versions it supports, so echo its choice.
+          // The nemoracode server only offers versions it supports, so echo its choice.
           protocolVersion: typeof params?.protocolVersion === "string" ? params.protocolVersion : PROTOCOL_VERSION,
           capabilities: { tools: {} },
           serverInfo: { name: options.name, version: "1.0.0" },

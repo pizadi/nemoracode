@@ -1,7 +1,7 @@
 import { expect, test, type Page } from "@playwright/test"
 import { SERVER, holdRoute, seed, sessionHref } from "../utils/app"
 import { openWithDirection } from "../utils/direction"
-import { mockOpenCodeServer } from "../utils/mock-server"
+import { mockNemoraCodeServer } from "../utils/mock-server"
 import { fixture, installStressSessionTabs, mockStressTimeline, pageMessages } from "../utils/session-fixture"
 
 const cors = { "access-control-allow-origin": "*" }
@@ -93,7 +93,7 @@ test("summary disclosures import legacy settings and persist in extension storag
   await expect(trigger).toBeFocused()
   await expect
     .poll(() =>
-      page.evaluate(() => JSON.parse(localStorage.getItem("opencode.global.dat:extension.details.prefs") ?? "null")),
+      page.evaluate(() => JSON.parse(localStorage.getItem("nemoracode.global.dat:extension.details.prefs") ?? "null")),
     )
     .toEqual({ projectExpanded: true, serverExpanded: false })
 
@@ -107,7 +107,7 @@ test("summary disclosures import legacy settings and persist in extension storag
 })
 
 test("a session in a worktree subfolder names its worktree and lists cached worktrees at once", async ({ page }) => {
-  const root = "C:/OpenCode/SmokeWorktrees"
+  const root = "C:/NemoraCode/SmokeWorktrees"
   await mockStressTimeline(page, {
     sessions: fixture.sessions.map((item) =>
       item.id === fixture.targetID ? { ...item, directory: `${root}/feature/packages/app` } : { ...item },
@@ -140,7 +140,7 @@ test("a session in a worktree subfolder names its worktree and lists cached work
 })
 
 test("a subagent shows its details but cannot move to another worktree", async ({ page }) => {
-  const root = "C:/OpenCode/SmokeWorktrees"
+  const root = "C:/NemoraCode/SmokeWorktrees"
 
   await mockStressTimeline(page, {
     sessions: fixture.sessions.map((item) =>
@@ -161,7 +161,7 @@ test("a subagent shows its details but cannot move to another worktree", async (
 })
 
 test("the details follow the routed session when it moves to another worktree", async ({ page }) => {
-  const root = "C:/OpenCode/SmokeWorktrees"
+  const root = "C:/NemoraCode/SmokeWorktrees"
 
   const sessions = fixture.sessions.map((item) =>
     item.id === fixture.targetID ? { ...item, directory: `${root}/feature` } : { ...item },
@@ -342,7 +342,7 @@ test("summary catalogs load, refresh while cached, and tell errors from empty", 
             { id: "builtin", source: { type: "builtin" }, features: {}, state: { status: "active" } },
             {
               id: "supermemory",
-              source: { type: "package", target: "opencode-supermemory" },
+              source: { type: "package", target: "nemoracode-supermemory" },
               features: { server: true },
               state: { status: "active" },
             },
@@ -356,7 +356,7 @@ test("summary catalogs load, refresh while cached, and tell errors from empty", 
               ? [
                   {
                     id: "daytona",
-                    source: { type: "package", target: "opencode-daytona" },
+                    source: { type: "package", target: "nemoracode-daytona" },
                     features: {},
                     state: { status: "active" },
                   },
@@ -564,7 +564,7 @@ test("multiple desktop connections show the session's server name", async ({ pag
   await mockStressTimeline(page)
   await page.route("http://secondary.test/**", (route) =>
     route.fulfill({
-      json: { version: "2.0.0", pid: 1, urls: ["http://secondary.test"], paths: { tmp: "/tmp/opencode" } },
+      json: { version: "2.0.0", pid: 1, urls: ["http://secondary.test"], paths: { tmp: "/tmp/nemoracode" } },
     }),
   )
   await seed(page, {
@@ -589,18 +589,18 @@ test.describe("remote configuration", () => {
 
   test("remote servers copy each service's configuration path", async ({ page }) => {
     const remote = "http://summary-remote.test:4096"
-    const home = "/home/remote/.config/opencode"
+    const home = "/home/remote/.config/nemoracode"
 
     const entries = [
       { type: "document", path: `${home}/mcp.jsonc`, info: { mcp: { servers: {} } } },
       { type: "document", path: `${home}/plugins.json`, info: { plugins: [] } },
       { type: "document", path: `${home}/skills.jsonc`, info: { skills: [] } },
       { type: "document", path: `${home}/lsp.json`, info: { lsp: false } },
-      { type: "document", path: `${fixture.directory}/opencode.json`, info: {} },
-      { type: "document", path: `${fixture.directory}/.opencode/agents/review.md`, info: {} },
+      { type: "document", path: `${fixture.directory}/nemoracode.json`, info: {} },
+      { type: "document", path: `${fixture.directory}/.nemoracode/agents/review.md`, info: {} },
     ]
 
-    await mockOpenCodeServer(page, {
+    await mockNemoraCodeServer(page, {
       server: remote,
       sessions: fixture.sessions,
       provider: fixture.provider,

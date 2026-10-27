@@ -11,7 +11,7 @@ afterAll(() => GlobalRegistrator.register())
 
 test("asks the server to write into the folder, and records where an older server wrote instead", async () => {
   const memory = { rss: 5, heapTotal: 4, heapUsed: 3, external: 2, arrayBuffers: 1 }
-  const directory = path.join(os.tmpdir(), "opencode-heap-capture")
+  const directory = path.join(os.tmpdir(), "nemoracode-heap-capture")
   const requests: string[] = []
 
   using server = Bun.serve({

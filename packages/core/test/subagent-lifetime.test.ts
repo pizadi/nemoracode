@@ -1,23 +1,23 @@
 import { describe, expect } from "bun:test"
 import { Effect, Layer } from "effect"
-import { LanguageModel } from "@opencode/ai/effect"
-import { OpenAIChat } from "@opencode/ai/protocols"
-import { TestLLM } from "@opencode/ai/testing"
-import { Agent } from "@opencode/core/agent"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { LayerNodePlatform } from "@opencode/core/effect/app-node-platform"
-import { Watcher } from "@opencode/core/filesystem/watcher"
-import { Job } from "@opencode/core/job"
-import { LocationServiceMap } from "@opencode/core/location-service-map"
-import { Model } from "@opencode/core/model"
-import { Plugin } from "@opencode/core/plugin"
-import { Provider } from "@opencode/core/provider"
-import { AbsolutePath } from "@opencode/core/schema"
-import { Session } from "@opencode/core/session"
-import { SessionRunnerModel } from "@opencode/core/session/runner/model"
-import { Tool } from "@opencode/core/tool"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { Global } from "@opencode/util/global"
+import { LanguageModel } from "@nemoracode/ai/effect"
+import { OpenAIChat } from "@nemoracode/ai/protocols"
+import { TestLLM } from "@nemoracode/ai/testing"
+import { Agent } from "@nemoracode/core/agent"
+import { AppNodeBuilder } from "@nemoracode/core/effect/app-node-builder"
+import { LayerNodePlatform } from "@nemoracode/core/effect/app-node-platform"
+import { Watcher } from "@nemoracode/core/filesystem/watcher"
+import { Job } from "@nemoracode/core/job"
+import { LocationServiceMap } from "@nemoracode/core/location-service-map"
+import { Model } from "@nemoracode/core/model"
+import { Plugin } from "@nemoracode/core/plugin"
+import { Provider } from "@nemoracode/core/provider"
+import { AbsolutePath } from "@nemoracode/core/schema"
+import { Session } from "@nemoracode/core/session"
+import { SessionRunnerModel } from "@nemoracode/core/session/runner/model"
+import { Tool } from "@nemoracode/core/tool"
+import { LayerNode } from "@nemoracode/util/effect/layer-node"
+import { Global } from "@nemoracode/util/global"
 import { tempGlobalLayer } from "./fixture/global"
 import { offlineModels } from "./fixture/models"
 import { tmpdirScoped } from "./fixture/tmpdir"
@@ -66,7 +66,7 @@ describe("subagent observer lifetime", () => {
           const childDir = yield* tmpdirScoped()
           yield* Effect.promise(() =>
             Bun.write(
-              `${parentDir.path}/opencode.json`,
+              `${parentDir.path}/nemoracode.json`,
               JSON.stringify({
                 agents: { reviewer: { mode: "subagent" } },
                 permissions: [{ action: "*", resource: "*", effect: "allow" }],
@@ -74,7 +74,7 @@ describe("subagent observer lifetime", () => {
             ),
           )
           yield* Effect.promise(() =>
-            Bun.write(`${childDir.path}/opencode.json`, JSON.stringify({ agents: { reviewer: { mode: "subagent" } } })),
+            Bun.write(`${childDir.path}/nemoracode.json`, JSON.stringify({ agents: { reviewer: { mode: "subagent" } } })),
           )
           const sessions = yield* Session.Service
           const locations = yield* LocationServiceMap.Service

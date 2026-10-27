@@ -1,6 +1,6 @@
-import { Tool } from "@opencode/schema/tool"
-import type { Rpc } from "@opencode/schema/rpc"
-import type { RpcCallOptions, RpcEventPayload } from "@opencode/client/promise/api"
+import { Tool } from "@nemoracode/schema/tool"
+import type { Rpc } from "@nemoracode/schema/rpc"
+import type { RpcCallOptions, RpcEventPayload } from "@nemoracode/client/promise/api"
 import { Effect, Schema, SchemaAST, Stream } from "effect"
 import type { Scope } from "effect"
 import { HttpApiEndpoint, HttpApiSchema } from "effect/http-api"
@@ -220,10 +220,10 @@ export function fromPromise(plugin: Plugin) {
     id: plugin.id,
     effect: (host) =>
       Effect.gen(function* () {
-        const [{ ClientApi }, { OpenCodeEvent }] = yield* Effect.promise(() =>
-          Promise.all([import("@opencode/protocol/client"), import("@opencode/protocol/groups/event")]),
+        const [{ ClientApi }, { NemoraCodeEvent }] = yield* Effect.promise(() =>
+          Promise.all([import("@nemoracode/protocol/client"), import("@nemoracode/protocol/groups/event")]),
         )
-        const encodeOpenCodeEvent = Schema.encodeUnknownEffect(OpenCodeEvent)
+        const encodeNemoraCodeEvent = Schema.encodeUnknownEffect(NemoraCodeEvent)
         const AgentEndpoints = ClientApi.groups["server.agent"].endpoints
         const CommandEndpoints = ClientApi.groups["server.command"].endpoints
         const CredentialEndpoints = ClientApi.groups["server.credential"].endpoints
@@ -332,7 +332,7 @@ export function fromPromise(plugin: Plugin) {
             subscribe: (options) =>
               streams(
                 host.event.subscribe().pipe(
-                  Stream.mapEffect((event) => encodeOpenCodeEvent(event)),
+                  Stream.mapEffect((event) => encodeNemoraCodeEvent(event)),
                   Stream.map((event) => event as PromiseEvent),
                 ),
                 options,

@@ -856,7 +856,7 @@ export function DialogSelect<T>(props: DialogSelectProps<T>) {
 
 /**
  * Trailing value of a row that can be changed, under the "new-designs" experiment. The selected row shows how:
- * `‹ dark ›` cycles with ←/→, `opencode ↵` opens a picker. Other rows pad the value to the same width so it does
+ * `‹ dark ›` cycles with ←/→, `nemoracode ↵` opens a picker. Other rows pad the value to the same width so it does
  * not shift as the selection moves. Pass it with `footerOverhang: 2` so the value itself ends where plain footers do.
  */
 export function DialogSelectChoice(props: { value: string; active: boolean; open?: boolean }) {

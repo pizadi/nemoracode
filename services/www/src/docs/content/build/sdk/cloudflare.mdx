@@ -2,25 +2,25 @@
 title: "Cloudflare"
 ---
 
-Use `@opencode/sdk/workerd` inside a Cloudflare Durable Object. This profile uses the object's SQLite storage,
+Use `@nemoracode/sdk/workerd` inside a Cloudflare Durable Object. This profile uses the object's SQLite storage,
 persists durable events for eviction recovery, and replaces unavailable local filesystem and process services.
 
 ```sh
-bun add @opencode/sdk
+bun add @nemoracode/sdk
 ```
 
 Hold one host for the lifetime of the Durable Object instance instead of creating one for every request.
 
 ```ts
-import { OpenCodeWorkerd } from "@opencode/sdk/workerd"
+import { NemoraCodeWorkerd } from "@nemoracode/sdk/workerd"
 import myPlugin from "./my-plugin"
 
-export class OpenCodeDO {
-  private readonly opencode: Promise<OpenCodeWorkerd.Interface>
+export class NemoraCodeDO {
+  private readonly nemoracode: Promise<NemoraCodeWorkerd.Interface>
 
   constructor(state: DurableObjectState) {
-    this.opencode = state.blockConcurrencyWhile(() =>
-      OpenCodeWorkerd.create({
+    this.nemoracode = state.blockConcurrencyWhile(() =>
+      NemoraCodeWorkerd.create({
         storage: state.storage,
         config: { default_agent: "build" },
         plugins: [myPlugin],
@@ -29,8 +29,8 @@ export class OpenCodeDO {
   }
 
   async fetch() {
-    const opencode = await this.opencode
-    return Response.json(await opencode.server.info())
+    const nemoracode = await this.nemoracode
+    return Response.json(await nemoracode.server.info())
   }
 }
 ```
@@ -40,13 +40,13 @@ initialization fails. The retained Promise gives request handlers direct access 
 
 ```ts
 constructor(state: DurableObjectState) {
-  this.opencode = state.blockConcurrencyWhile(() =>
-    OpenCodeWorkerd.create({ storage: state.storage }),
+  this.nemoracode = state.blockConcurrencyWhile(() =>
+    NemoraCodeWorkerd.create({ storage: state.storage }),
   )
 }
 ```
 
-Wrangler selects OpenCode's Workerd-safe implementations through the `workerd` package condition. Cloudflare may evict
+Wrangler selects NemoraCode's Workerd-safe implementations through the `workerd` package condition. Cloudflare may evict
 a Durable Object without running cleanup, so correctness does not depend on `close()` being called.
 
 ```jsonc title="wrangler.jsonc"
@@ -57,13 +57,13 @@ a Durable Object without running cleanup, so correctness does not depend on `clo
 
 ## Customize
 
-Customize your OpenCode instance by registering plugins bundled with your
-Worker. Pass plugins to `OpenCodeWorkerd.create()` to customize agents, models,
+Customize your NemoraCode instance by registering plugins bundled with your
+Worker. Pass plugins to `NemoraCodeWorkerd.create()` to customize agents, models,
 tools, and other behavior:
 
 ```ts
-import { Plugin } from "@opencode/plugin"
-import { OpenCodeWorkerd } from "@opencode/sdk/workerd"
+import { Plugin } from "@nemoracode/plugin"
+import { NemoraCodeWorkerd } from "@nemoracode/sdk/workerd"
 
 const plugin = Plugin.define({
   id: "customize-agent",
@@ -76,7 +76,7 @@ const plugin = Plugin.define({
   },
 })
 
-await OpenCodeWorkerd.create({
+await NemoraCodeWorkerd.create({
   storage: state.storage,
   config: { default_agent: "build" },
   plugins: [plugin],

@@ -1,5 +1,5 @@
-import { Graph } from "@opencode/schema/graph"
-import { Location } from "@opencode/schema/location"
+import { Graph } from "@nemoracode/schema/graph"
+import { Location } from "@nemoracode/schema/location"
 import { Schema } from "effect"
 import { HttpApiEndpoint, HttpApiGroup, OpenApi } from "effect/http-api"
 import { ServiceUnavailableError } from "../errors.js"

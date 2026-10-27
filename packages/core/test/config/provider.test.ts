@@ -1,20 +1,20 @@
 import { describe, expect } from "bun:test"
-import { Money } from "@opencode/schema/money"
-import { Document, Info, type Entry } from "@opencode/schema/config"
+import { Money } from "@nemoracode/schema/money"
+import { Document, Info, type Entry } from "@nemoracode/schema/config"
 import { Effect, Schema } from "effect"
-import { Config } from "@opencode/core/config"
-import { ConfigProviderPlugin } from "@opencode/core/config/plugin/provider"
-import { ConfigNormalize } from "@opencode/core/config/normalize"
-import { Integration } from "@opencode/core/integration"
-import { Model } from "@opencode/core/model"
-import { ModelResolver } from "@opencode/core/model-resolver"
-import { Plugin } from "@opencode/core/plugin"
-import { PluginHost } from "@opencode/core/plugin/host"
-import { AzurePlugin } from "@opencode/core/plugin/provider/azure"
-import { OpenAIPlugin } from "@opencode/core/plugin/provider/openai"
-import { PromptCacheKeyPlugin } from "@opencode/core/plugin/provider/prompt-cache-key"
-import { XAIPlugin } from "@opencode/core/plugin/provider/xai"
-import { Provider } from "@opencode/core/provider"
+import { Config } from "@nemoracode/core/config"
+import { ConfigProviderPlugin } from "@nemoracode/core/config/plugin/provider"
+import { ConfigNormalize } from "@nemoracode/core/config/normalize"
+import { Integration } from "@nemoracode/core/integration"
+import { Model } from "@nemoracode/core/model"
+import { ModelResolver } from "@nemoracode/core/model-resolver"
+import { Plugin } from "@nemoracode/core/plugin"
+import { PluginHost } from "@nemoracode/core/plugin/host"
+import { AzurePlugin } from "@nemoracode/core/plugin/provider/azure"
+import { OpenAIPlugin } from "@nemoracode/core/plugin/provider/openai"
+import { PromptCacheKeyPlugin } from "@nemoracode/core/plugin/provider/prompt-cache-key"
+import { XAIPlugin } from "@nemoracode/core/plugin/provider/xai"
+import { Provider } from "@nemoracode/core/provider"
 import { withEnv } from "../fixture/env"
 import { testEffect } from "../lib/effect"
 import { PluginTestLayer } from "../plugin/fixture"
@@ -45,18 +45,18 @@ describe("ConfigProviderPlugin.Plugin", () => {
           info: decode({
             providers: {
               custom: {
-                package: "@opencode/ai/providers/openai/responses",
+                package: "@nemoracode/ai/providers/openai/responses",
                 settings: { compaction: { type: "native" } },
                 models: {
                   native: {},
                   local: {
                     settings: { compaction: { type: "summary" } },
-                    package: "@opencode/ai/providers/openai/chat",
+                    package: "@nemoracode/ai/providers/openai/chat",
                   },
-                  unsupported: { package: "@opencode/ai/providers/openai/chat" },
+                  unsupported: { package: "@nemoracode/ai/providers/openai/chat" },
                 },
               },
-              default: { package: "@opencode/ai/providers/openai/chat", models: { chat: {} } },
+              default: { package: "@nemoracode/ai/providers/openai/chat", models: { chat: {} } },
             },
           }),
         }),
@@ -86,7 +86,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
       const providerID = Provider.ID.make("proxy")
       yield* providers.transform((editor) => {
         editor.update(providerID, (provider) => {
-          provider.package = "@opencode/ai/providers/openai/chat"
+          provider.package = "@nemoracode/ai/providers/openai/chat"
         })
         editor.models.update(providerID, Model.ID.make("catalog"), () => {})
       })
@@ -141,7 +141,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
       const providerID = Provider.ID.make("venice")
       yield* providers.transform((editor) => {
         editor.update(providerID, (provider) => {
-          provider.package = "@opencode/ai/providers/openai-compatible"
+          provider.package = "@nemoracode/ai/providers/openai-compatible"
         })
         editor.models.update(providerID, Model.ID.make("chat"), () => {})
         editor.models.update(providerID, Model.ID.make("keyed"), () => {})
@@ -182,7 +182,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
           info: decode({
             providers: {
               litellm: {
-                package: "@opencode/ai/providers/openai-compatible",
+                package: "@nemoracode/ai/providers/openai-compatible",
                 settings: { baseURL: "https://litellm.test/v1" },
                 compatibility: { cacheFormat: "anthropic" },
                 models: { "claude-sonnet-5": {} },
@@ -205,7 +205,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
       const providerID = Provider.ID.make("proxy")
       yield* providers.transform((editor) => {
         editor.update(providerID, (provider) => {
-          provider.package = "@opencode/ai/providers/openai/chat"
+          provider.package = "@nemoracode/ai/providers/openai/chat"
         })
         editor.models.update(providerID, Model.ID.make("catalog"), (model) => {
           model.compatibility = { maxTokensField: "max_tokens" }
@@ -248,7 +248,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
       const providerID = Provider.ID.make("strict")
       yield* providers.transform((editor) => {
         editor.update(providerID, (provider) => {
-          provider.package = "@opencode/ai/providers/openai-compatible"
+          provider.package = "@nemoracode/ai/providers/openai-compatible"
           provider.settings = { baseURL: "https://strict.test/v1" }
         })
         editor.models.update(providerID, Model.ID.make("catalog"), () => {})
@@ -276,7 +276,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
           info: decode({
             providers: {
               custom: {
-                package: "@opencode/ai/providers/openai/responses",
+                package: "@nemoracode/ai/providers/openai/responses",
                 settings: { transport: "http", timeout: 100, chunkTimeout: 200, shared: "provider" },
                 models: {
                   inherited: {
@@ -284,7 +284,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
                   },
                 },
               },
-              default: { package: "@opencode/ai/providers/openai/responses", models: { untouched: {} } },
+              default: { package: "@nemoracode/ai/providers/openai/responses", models: { untouched: {} } },
             },
           }),
         }),
@@ -298,10 +298,10 @@ describe("ConfigProviderPlugin.Plugin", () => {
   )
 
   for (const builtin of [
-    { id: "openai", model: "gpt-5.6-sol", package: "@opencode/ai/providers/openai/responses", plugin: OpenAIPlugin },
-    { id: "xai", model: "grok-4.6", package: "@opencode/ai/providers/xai", plugin: XAIPlugin },
-    { id: "azure", model: "gpt-5.6-sol", package: "@opencode/ai/providers/azure/responses", plugin: AzurePlugin },
-    { id: "custom-azure", model: "deployment", package: "@opencode/ai/providers/azure/responses", plugin: AzurePlugin },
+    { id: "openai", model: "gpt-5.6-sol", package: "@nemoracode/ai/providers/openai/responses", plugin: OpenAIPlugin },
+    { id: "xai", model: "grok-4.6", package: "@nemoracode/ai/providers/xai", plugin: XAIPlugin },
+    { id: "azure", model: "gpt-5.6-sol", package: "@nemoracode/ai/providers/azure/responses", plugin: AzurePlugin },
+    { id: "custom-azure", model: "deployment", package: "@nemoracode/ai/providers/azure/responses", plugin: AzurePlugin },
   ]) {
     it.live(`configured provider transport overrides ${builtin.id} defaults`, () =>
       Effect.gen(function* () {
@@ -617,16 +617,16 @@ describe("ConfigProviderPlugin.Plugin", () => {
     {
       name: "built-in provider routes",
       legacy: {
-        npm: "@opencode/ai/providers/google-vertex",
+        npm: "@nemoracode/ai/providers/google-vertex",
         options: { project: "my-project", location: "europe-west4" },
         models: {
           chat: { provider: { npm: "@opencode-ai/ai/providers/google-vertex/mistral" } },
         },
       },
       native: {
-        package: "@opencode/ai/providers/google-vertex",
+        package: "@nemoracode/ai/providers/google-vertex",
         settings: { project: "my-project", location: "europe-west4" },
-        models: { chat: { package: "@opencode/ai/providers/google-vertex/mistral" } },
+        models: { chat: { package: "@nemoracode/ai/providers/google-vertex/mistral" } },
       },
     },
     {
@@ -745,7 +745,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
       ])
 
       const model = required(yield* models.get(Provider.ID.make("custom"), Model.ID.make("claude")))
-      expect(model.package).toBe("@opencode/ai/providers/anthropic")
+      expect(model.package).toBe("@nemoracode/ai/providers/anthropic")
       expect(model.variants.map((variant) => variant.id)).toEqual([
         Model.VariantID.make("low"),
         Model.VariantID.make("medium"),
@@ -764,7 +764,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
       const modelID = Model.ID.make("anthropic.claude-opus-5-5")
       yield* providers.transform((editor) => {
         editor.models.update(providerID, modelID, (model) => {
-          model.package = "@opencode/ai/providers/amazon-bedrock"
+          model.package = "@nemoracode/ai/providers/amazon-bedrock"
           model.variants = [
             {
               id: Model.VariantID.make("high"),
@@ -778,14 +778,14 @@ describe("ConfigProviderPlugin.Plugin", () => {
           type: "document",
           info: decode({
             providers: {
-              bedrock: { models: { [modelID]: { package: "@opencode/ai/providers/amazon-bedrock/mantle" } } },
+              bedrock: { models: { [modelID]: { package: "@nemoracode/ai/providers/amazon-bedrock/mantle" } } },
             },
           }),
         }),
       ])
 
       const model = required(yield* models.get(providerID, modelID))
-      expect(model.package).toBe("@opencode/ai/providers/amazon-bedrock/mantle/messages")
+      expect(model.package).toBe("@nemoracode/ai/providers/amazon-bedrock/mantle/messages")
       expect(model.variants.find((variant) => variant.id === "high")).toEqual({
         id: Model.VariantID.make("high"),
         settings: { effort: "high", thinking: { type: "adaptive", display: "summarized" } },
@@ -801,7 +801,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
       const modelID = Model.ID.make("anthropic.claude-plain")
       yield* providers.transform((editor) => {
         editor.models.update(providerID, modelID, (model) => {
-          model.package = "@opencode/ai/providers/amazon-bedrock"
+          model.package = "@nemoracode/ai/providers/amazon-bedrock"
         })
       })
       yield* addPlugin([
@@ -809,7 +809,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
           type: "document",
           info: decode({
             providers: {
-              bedrock: { models: { [modelID]: { package: "@opencode/ai/providers/amazon-bedrock/mantle" } } },
+              bedrock: { models: { [modelID]: { package: "@nemoracode/ai/providers/amazon-bedrock/mantle" } } },
             },
           }),
         }),
@@ -875,16 +875,16 @@ describe("ConfigProviderPlugin.Plugin", () => {
         },
       ])
       const gpt = required(yield* models.get(providerID, Model.ID.make("gpt")))
-      expect(gpt.package).toBe("@opencode/ai/providers/openai")
+      expect(gpt.package).toBe("@nemoracode/ai/providers/openai")
       expect(gpt.variants).toEqual(effort.variants)
       const claude = required(yield* models.get(providerID, Model.ID.make("claude-sonnet-4-5")))
-      expect(claude.package).toBe("@opencode/ai/providers/anthropic")
+      expect(claude.package).toBe("@nemoracode/ai/providers/anthropic")
       expect(claude.variants).toEqual([
         { id: Model.VariantID.make("high"), settings: { thinking: { type: "enabled", budgetTokens: 16_000 } } },
         { id: Model.VariantID.make("max"), settings: { thinking: { type: "enabled", budgetTokens: 31_999 } } },
       ])
       const gemini = required(yield* models.get(providerID, Model.ID.make("gemini-3.1-pro")))
-      expect(gemini.package).toBe("@opencode/ai/providers/google")
+      expect(gemini.package).toBe("@nemoracode/ai/providers/google")
       expect(gemini.variants).toEqual([
         {
           id: Model.VariantID.make("low"),
@@ -896,7 +896,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
         },
       ])
       const magistral = required(yield* models.get(providerID, Model.ID.make("magistral-medium")))
-      expect(magistral.package).toBe("@opencode/ai/providers/mistral")
+      expect(magistral.package).toBe("@nemoracode/ai/providers/mistral")
       expect(magistral.variants).toEqual([
         { id: Model.VariantID.make("low"), settings: { reasoningEffort: "low" } },
         { id: Model.VariantID.make("high"), settings: { reasoningEffort: "high" } },
@@ -939,16 +939,16 @@ describe("ConfigProviderPlugin.Plugin", () => {
   it.effect("keeps configured model variant bodies unchanged", () =>
     Effect.gen(function* () {
       const models = yield* Model.Service
-      const providerID = Provider.ID.opencode
+      const providerID = Provider.ID.nemoracode
       const modelID = Model.ID.make("alpha-gpt-next")
       const entries = [
         new Document({
           type: "document",
           info: decode({
             providers: {
-              opencode: {
+              nemoracode: {
                 package: "aisdk:@ai-sdk/openai",
-                settings: { baseURL: "https://opencode.test/v1" },
+                settings: { baseURL: "https://nemoracode.test/v1" },
                 models: {
                   "alpha-gpt-next": {
                     variants: [
@@ -988,16 +988,16 @@ describe("ConfigProviderPlugin.Plugin", () => {
   it.effect("keeps layered model variant bodies unchanged", () =>
     Effect.gen(function* () {
       const models = yield* Model.Service
-      const providerID = Provider.ID.opencode
+      const providerID = Provider.ID.nemoracode
       const modelID = Model.ID.make("alpha-gpt-next")
       const entries = [
         new Document({
           type: "document",
           info: decode({
             providers: {
-              opencode: {
+              nemoracode: {
                 package: "aisdk:@ai-sdk/openai",
-                settings: { baseURL: "https://opencode.test/v1" },
+                settings: { baseURL: "https://nemoracode.test/v1" },
               },
             },
           }),
@@ -1006,7 +1006,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
           type: "document",
           info: decode({
             providers: {
-              opencode: {
+              nemoracode: {
                 models: {
                   "alpha-gpt-next": {
                     variants: [{ id: "high", body: { reasoningEffort: "high" } }],

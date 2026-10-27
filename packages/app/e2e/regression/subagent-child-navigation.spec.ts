@@ -1,5 +1,5 @@
-import type { OpenCodeEvent, SessionMessageInfo } from "@opencode/client/promise"
-import { timelinePresets } from "@opencode/session-ui/timeline/detail"
+import type { NemoraCodeEvent, SessionMessageInfo } from "@nemoracode/client/promise"
+import { timelinePresets } from "@nemoracode/session-ui/timeline/detail"
 import { expect, test, type Locator, type Page } from "@playwright/test"
 import { expectPath, SERVER, sessionHref } from "../utils/app"
 import { currentSession } from "../utils/mock-server"
@@ -7,7 +7,7 @@ import { assistantMessage, session, sessionID, setupTimeline, textPart, userMess
 import { expectSessionTitle } from "../utils/waits"
 import { mockWorkspace } from "../utils/workspace"
 
-const directory = "C:/OpenCode/SubagentNavigation"
+const directory = "C:/NemoraCode/SubagentNavigation"
 
 const projectID = "proj_subagentnavigation"
 
@@ -260,7 +260,7 @@ test("keeps the parent tab selected while a loaded child session resolves", asyn
 })
 
 test("shows the not found fallback when the viewed session is deleted", async ({ page }) => {
-  const events: OpenCodeEvent[] = []
+  const events: NemoraCodeEvent[] = []
   await setup(page, () => events.splice(0, 1))
   await openChildFromParent(page)
   await expectSessionTitle(page, taskDescription)
@@ -314,7 +314,7 @@ test.describe("session ID links", () => {
   })
 })
 
-async function setup(page: Page, events?: () => OpenCodeEvent[], nestedDepth: 0 | 1 | 2 = 0) {
+async function setup(page: Page, events?: () => NemoraCodeEvent[], nestedDepth: 0 | 1 | 2 = 0) {
   await mockWorkspace(page, {
     name: "SubagentNavigation",
     sessions: [
@@ -398,7 +398,7 @@ function parentMessages(): SessionMessageInfo[] {
       id: assistantID,
       type: "assistant",
       time: { created: 1700000001000, completed: 1700000002000 },
-      model: { id: "claude-opus-4-6", providerID: "opencode" },
+      model: { id: "claude-opus-4-6", providerID: "nemoracode" },
       agent: "build",
       cost: 0.01,
       tokens: { input: 100, output: 200, reasoning: 0, cache: { read: 0, write: 0 } },

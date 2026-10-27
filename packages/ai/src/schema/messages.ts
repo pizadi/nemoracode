@@ -1,6 +1,6 @@
 import { Option, Schema } from "effect"
-import { withStatics } from "@opencode/schema/schema"
-import { Tool } from "@opencode/schema/tool"
+import { withStatics } from "@nemoracode/schema/schema"
+import { Tool } from "@nemoracode/schema/tool"
 import {
   CacheHint,
   CachePolicy,

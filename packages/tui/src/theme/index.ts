@@ -1,8 +1,8 @@
-import { migrateV1, parseThemeDocument, type ThemeDocument, type ModeDefinition } from "@opencode/theme/tui"
+import { migrateV1, parseThemeDocument, type ThemeDocument, type ModeDefinition } from "@nemoracode/theme/tui"
 import { resolveThemeColors } from "./resolve"
 import { DEFAULT_THEMES, type Theme, type ThemeV1Json } from "./v1"
-import opencode from "./assets/v2/opencode.json" with { type: "json" }
-import opencode2 from "./assets/v2/opencode2.json" with { type: "json" }
+import nemoracode from "./assets/v2/nemoracode.json" with { type: "json" }
+import nemoracode2 from "./assets/v2/nemoracode2.json" with { type: "json" }
 
 export { DEFAULT_THEMES, type Theme, type ThemeV1Json } from "./v1"
 
@@ -12,37 +12,37 @@ let customThemes: Record<string, ThemeDocumentSource> = {}
 let systemTheme: ThemeDocumentSource | undefined
 const listeners = new Set<(themes: Record<string, ThemeDocumentSource>) => void>()
 const parsed = new WeakMap<object, ThemeDocument>()
-let opencodeTheme: (ThemeDocument & {
+let nemoracodeTheme: (ThemeDocument & {
   readonly light: ModeDefinition
   readonly dark: ModeDefinition
 }) | undefined
 
-export function getOpenCodeTheme() {
-  if (opencodeTheme) return opencodeTheme
-  const document = parseThemeDocument(opencode, "opencode") as NonNullable<typeof opencodeTheme>
-  opencodeTheme = document
+export function getNemoraCodeTheme() {
+  if (nemoracodeTheme) return nemoracodeTheme
+  const document = parseThemeDocument(nemoracode, "nemoracode") as NonNullable<typeof nemoracodeTheme>
+  nemoracodeTheme = document
   return document
 }
 
-let opencode2Theme: ThemeDocument | undefined
+let nemoracode2Theme: ThemeDocument | undefined
 
 // Temporary theme for the "new-designs" experiment. It is not part of allThemes(), so only the
 // TUI theme context offers it, and only while the experiment is enabled.
-export function getOpenCode2Theme() {
-  opencode2Theme ??= parseThemeDocument(opencode2, "opencode2")
-  return opencode2Theme
+export function getNemoraCode2Theme() {
+  nemoracode2Theme ??= parseThemeDocument(nemoracode2, "nemoracode2")
+  return nemoracode2Theme
 }
 
 function listThemes(): Record<string, ThemeDocumentSource> {
   // Priority: defaults < custom files < generated system.
   const themes: Record<string, ThemeDocumentSource> = {
     ...DEFAULT_THEMES,
-    opencode: getOpenCodeTheme(),
+    nemoracode: getNemoraCodeTheme(),
     ...customThemes,
   }
   return {
     ...themes,
-    system: systemTheme ?? themes.system ?? themes.opencode,
+    system: systemTheme ?? themes.system ?? themes.nemoracode,
   }
 }
 

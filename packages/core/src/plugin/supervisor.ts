@@ -1,13 +1,13 @@
 export * as PluginSupervisor from "./supervisor.js"
 
-import { Event } from "@opencode/schema/config"
+import { Event } from "@nemoracode/schema/config"
 import { Cause, Effect, Layer, Queue, Stream } from "effect"
 import path from "path"
 import { ConfigPluginSource } from "../config/plugin/source.js"
-import { makeLocationNode } from "@opencode/util/effect/app-node"
+import { makeLocationNode } from "@nemoracode/util/effect/app-node"
 import { ManagedPolicy } from "../managed-policy.js"
 import { Bus } from "../bus.js"
-import { Npm } from "@opencode/util/npm"
+import { Npm } from "@nemoracode/util/npm"
 import { Plugin } from "../plugin.js"
 import { InstancePlugins } from "./instance.js"
 import { PluginInternal } from "./internal.js"
@@ -50,7 +50,7 @@ const resolve = Effect.fn("PluginSupervisor.resolve")(function* (
       matched.length > 0 ||
       operation.target === "*" ||
       operation.target.endsWith(".*") ||
-      operation.target.startsWith("opencode.")
+      operation.target.startsWith("nemoracode.")
     if (selectsPlugins) {
       matched.forEach((plugin) => enabled.add(plugin.id))
       continue

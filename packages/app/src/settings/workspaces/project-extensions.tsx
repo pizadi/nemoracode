@@ -1,7 +1,7 @@
-import { Icon } from "@opencode/ui/icon"
-import { Switch } from "@opencode/ui/switch"
-import { Tabs } from "@opencode/ui/tabs"
-import { Button } from "@opencode/ui/button"
+import { Icon } from "@nemoracode/ui/icon"
+import { Switch } from "@nemoracode/ui/switch"
+import { Tabs } from "@nemoracode/ui/tabs"
+import { Button } from "@nemoracode/ui/button"
 import { useQuery } from "@tanstack/solid-query"
 import {
   type Component,

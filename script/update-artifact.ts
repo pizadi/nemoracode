@@ -68,7 +68,7 @@ export namespace UpdateArtifact {
             if (client) {
               await client.send(
                 new PutObjectCommand({
-                  Bucket: "opencode-production-files",
+                  Bucket: "nemoracode-production-files",
                   Key: `${prefix}${name}`,
                   Body: createReadStream(filepath),
                   ContentLength: file.size,

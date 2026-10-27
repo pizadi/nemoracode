@@ -1,12 +1,12 @@
-import { createData } from "@opencode/client/solid"
-import type { LocationRef } from "@opencode/client"
-import type { Plugin } from "@opencode/plugin/tui"
+import { createData } from "@nemoracode/client/solid"
+import type { LocationRef } from "@nemoracode/client"
+import type { Plugin } from "@nemoracode/plugin/tui"
 import { createStore } from "solid-js/store"
 import { createSimpleContext } from "./helper"
 import { useClient } from "./client"
 
-export { locationKey } from "@opencode/client/solid"
-export type { FormWithLocation } from "@opencode/client/solid"
+export { locationKey } from "@nemoracode/client/solid"
+export type { FormWithLocation } from "@nemoracode/client/solid"
 
 export const { use: useData, provider: DataProvider } = createSimpleContext({
   name: "Data",

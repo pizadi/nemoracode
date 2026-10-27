@@ -1,8 +1,8 @@
 import { Config, Effect, Formatter, Schema, Stream } from "effect"
 import { NodeFileSystem } from "@effect/platform-node"
-import { AIClient, Image, LLM, LLMRequest, Media, Message, ProviderID, Tool, ToolRuntime } from "@opencode/ai/effect"
-import { Route, Auth, Endpoint, Framing, Protocol } from "@opencode/ai/route"
-import { OpenAI } from "@opencode/ai/providers"
+import { AIClient, Image, LLM, LLMRequest, Media, Message, ProviderID, Tool, ToolRuntime } from "@nemoracode/ai/effect"
+import { Route, Auth, Endpoint, Framing, Protocol } from "@nemoracode/ai/route"
+import { OpenAI } from "@nemoracode/ai/providers"
 
 /**
  * A runnable walkthrough of the LLM package use-site API.

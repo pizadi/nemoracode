@@ -1,6 +1,6 @@
 ---
 title: Intro
-description: Get started with OpenCode.
+description: Get started with NemoraCode.
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components"
@@ -8,13 +8,13 @@ import config from "../../../config.mjs"
 export const console = config.console
 
 :::note
-OpenCode 1 and OpenCode 2 both use the `opencode` command and cannot be installed side by side under their default command.
-See the [OpenCode 2 docs](https://opencode.ai/v2/docs/) to migrate to V2.
+NemoraCode 1 and NemoraCode 2 both use the `nemoracode` command and cannot be installed side by side under their default command.
+See the [NemoraCode 2 docs](https://opencode.ai/v2/docs/) to migrate to V2.
 :::
 
-[**OpenCode**](/) is an open source AI coding agent. It's available as a terminal-based interface, desktop app, or IDE extension.
+[**NemoraCode**](/) is an open source AI coding agent. It's available as a terminal-based interface, desktop app, or IDE extension.
 
-![OpenCode TUI with the opencode theme](../../assets/lander/screenshot.png)
+![NemoraCode TUI with the nemoracode theme](../../assets/lander/screenshot.png)
 
 Let's get started.
 
@@ -22,7 +22,7 @@ Let's get started.
 
 #### Prerequisites
 
-To use OpenCode in your terminal, you'll need:
+To use NemoraCode in your terminal, you'll need:
 
 1. A modern terminal emulator like:
    - [WezTerm](https://wezterm.org), cross-platform
@@ -36,8 +36,8 @@ To use OpenCode in your terminal, you'll need:
 
 ## Install
 
-The easiest way to install OpenCode 1 is through the install script. These installation methods provide the `opencode`
-binary and can conflict with or replace an OpenCode 2 installation.
+The easiest way to install NemoraCode 1 is through the install script. These installation methods provide the `nemoracode`
+binary and can conflict with or replace an NemoraCode 2 installation.
 
 ```bash
 curl -fsSL https://opencode.ai/install | bash
@@ -82,36 +82,36 @@ You can also install it with the following commands:
 - **Using Homebrew on macOS and Linux**
 
   ```bash
-  brew install anomalyco/tap/opencode
+  brew install anomalyco/tap/nemoracode
   ```
 
-  > Use the OpenCode tap above for V1. Homebrew's `brew install opencode` formula currently installs V2. See the [V2 docs](https://opencode.ai/v2/docs/).
+  > Use the NemoraCode tap above for V1. Homebrew's `brew install opencode` formula currently installs V2. See the [V2 docs](https://opencode.ai/v2/docs/).
 
 - **Installing on Arch Linux**
 
   ```bash
-  sudo pacman -S opencode           # Arch Linux (OpenCode 2)
-  paru -S opencode-bin              # Arch Linux (OpenCode 1, from AUR)
+  sudo pacman -S opencode           # Arch Linux (NemoraCode 2)
+  paru -S nemoracode-bin              # Arch Linux (NemoraCode 1, from AUR)
   ```
 
-  The official Arch package installs OpenCode 2. Use the AUR package to install OpenCode 1.
+  The official Arch package installs NemoraCode 2. Use the AUR package to install NemoraCode 1.
 
 #### Windows
 
 :::tip[Recommended: Use WSL]
-For the best experience on Windows, we recommend using [Windows Subsystem for Linux (WSL)](/docs/windows-wsl). It provides better performance and full compatibility with OpenCode's features.
+For the best experience on Windows, we recommend using [Windows Subsystem for Linux (WSL)](/docs/windows-wsl). It provides better performance and full compatibility with NemoraCode's features.
 :::
 
 - **Using Chocolatey**
 
   ```bash
-  choco install opencode
+  choco install nemoracode
   ```
 
 - **Using Scoop**
 
   ```bash
-  scoop install opencode
+  scoop install nemoracode
   ```
 
 - **Using NPM**
@@ -132,7 +132,7 @@ For the best experience on Windows, we recommend using [Windows Subsystem for Li
   docker run -it --rm ghcr.io/anomalyco/opencode
   ```
 
-Support for installing OpenCode on Windows using Bun is currently in progress.
+Support for installing NemoraCode on Windows using Bun is currently in progress.
 
 You can also grab the binary from the [Releases](https://github.com/anomalyco/opencode/releases).
 
@@ -140,13 +140,13 @@ You can also grab the binary from the [Releases](https://github.com/anomalyco/op
 
 ## Configure
 
-With OpenCode you can use any LLM provider by configuring their API keys.
+With NemoraCode you can use any LLM provider by configuring their API keys.
 
-If you are new to using LLM providers, we recommend using [OpenCode Zen](https://opencode.ai/v2/docs/console/).
-It's a curated list of models that have been tested and verified by the OpenCode
+If you are new to using LLM providers, we recommend using [NemoraCode Zen](https://opencode.ai/v2/docs/console/).
+It's a curated list of models that have been tested and verified by the NemoraCode
 team.
 
-1. Run the `/connect` command in the TUI, select opencode, and head to [opencode.ai/auth](https://opencode.ai/auth).
+1. Run the `/connect` command in the TUI, select nemoracode, and head to [opencode.ai/auth](https://opencode.ai/auth).
 
    ```txt
    /connect
@@ -176,33 +176,33 @@ you want to work on.
 cd /path/to/project
 ```
 
-And run OpenCode.
+And run NemoraCode.
 
 ```bash
-opencode
+nemoracode
 ```
 
-Next, initialize OpenCode for the project by running the following command.
+Next, initialize NemoraCode for the project by running the following command.
 
 ```bash frame="none"
 /init
 ```
 
-This will get OpenCode to analyze your project and create an `AGENTS.md` file in
+This will get NemoraCode to analyze your project and create an `AGENTS.md` file in
 the project root.
 
 :::tip
 You should commit your project's `AGENTS.md` file to Git.
 :::
 
-This helps OpenCode understand the project structure and the coding patterns
+This helps NemoraCode understand the project structure and the coding patterns
 used.
 
 ---
 
 ## Usage
 
-You are now ready to use OpenCode to work on your project. Feel free to ask it
+You are now ready to use NemoraCode to work on your project. Feel free to ask it
 anything!
 
 If you are new to using an AI coding agent, here are some examples that might
@@ -212,7 +212,7 @@ help.
 
 ### Ask questions
 
-You can ask OpenCode to explain the codebase to you.
+You can ask NemoraCode to explain the codebase to you.
 
 :::tip
 Use the `@` key to fuzzy search for files in the project.
@@ -228,11 +228,11 @@ This is helpful if there's a part of the codebase that you didn't work on.
 
 ### Add features
 
-You can ask OpenCode to add new features to your project. Though we first recommend asking it to create a plan.
+You can ask NemoraCode to add new features to your project. Though we first recommend asking it to create a plan.
 
 1. **Create a plan**
 
-   OpenCode has a _Plan mode_ that disables its ability to make changes and
+   NemoraCode has a _Plan mode_ that disables its ability to make changes and
    instead suggest _how_ it'll implement the feature.
 
    Switch to it using the **Tab** key. You'll see an indicator for this in the lower right corner.
@@ -249,11 +249,11 @@ You can ask OpenCode to add new features to your project. Though we first recomm
    From this screen, the user can undelete a note or permanently delete it.
    ```
 
-   You want to give OpenCode enough details to understand what you want. It helps
+   You want to give NemoraCode enough details to understand what you want. It helps
    to talk to it like you are talking to a junior developer on your team.
 
    :::tip
-   Give OpenCode plenty of context and examples to help it understand what you
+   Give NemoraCode plenty of context and examples to help it understand what you
    want.
    :::
 
@@ -270,7 +270,7 @@ You can ask OpenCode to add new features to your project. Though we first recomm
    Drag and drop images into the terminal to add them to the prompt.
    :::
 
-   OpenCode can scan any images you give it and add them to the prompt. You can
+   NemoraCode can scan any images you give it and add them to the prompt. You can
    do this by dragging and dropping an image into the terminal.
 
 3. **Build the feature**
@@ -292,7 +292,7 @@ You can ask OpenCode to add new features to your project. Though we first recomm
 
 ### Make changes
 
-For more straightforward changes, you can ask OpenCode to directly build it
+For more straightforward changes, you can ask NemoraCode to directly build it
 without having to review the plan first.
 
 ```txt frame="none" "@packages/functions/src/settings.ts" "@packages/functions/src/notes.ts"
@@ -301,14 +301,14 @@ handled in the /notes route in @packages/functions/src/notes.ts and implement
 the same logic in @packages/functions/src/settings.ts
 ```
 
-You want to make sure you provide a good amount of detail so OpenCode makes the right
+You want to make sure you provide a good amount of detail so NemoraCode makes the right
 changes.
 
 ---
 
 ### Undo changes
 
-Let's say you ask OpenCode to make some changes.
+Let's say you ask NemoraCode to make some changes.
 
 ```txt frame="none" "@packages/functions/src/api/index.ts"
 Can you refactor the function in @packages/functions/src/api/index.ts?
@@ -321,14 +321,14 @@ using the `/undo` command.
 /undo
 ```
 
-OpenCode will now revert the changes you made and show your original message
+NemoraCode will now revert the changes you made and show your original message
 again.
 
 ```txt frame="none" "@packages/functions/src/api/index.ts"
 Can you refactor the function in @packages/functions/src/api/index.ts?
 ```
 
-From here you can tweak the prompt and ask OpenCode to try again.
+From here you can tweak the prompt and ask NemoraCode to try again.
 
 :::tip
 You can run `/undo` multiple times to undo multiple changes.
@@ -344,6 +344,6 @@ Or you **can redo** the changes using the `/redo` command.
 
 ## Customize
 
-And that's it! You are now a pro at using OpenCode.
+And that's it! You are now a pro at using NemoraCode.
 
-To make it your own, we recommend [picking a theme](/docs/themes), [customizing the keybinds](/docs/keybinds), [configuring code formatters](/docs/formatters), [creating custom commands](/docs/commands), or playing around with the [OpenCode config](/docs/config).
+To make it your own, we recommend [picking a theme](/docs/themes), [customizing the keybinds](/docs/keybinds), [configuring code formatters](/docs/formatters), [creating custom commands](/docs/commands), or playing around with the [NemoraCode config](/docs/config).

@@ -1,17 +1,17 @@
 ---
 title: GitHub
-description: ใช้ OpenCode ในปัญหา GitHub และคำขอแบบดึง
+description: ใช้ NemoraCode ในปัญหา GitHub และคำขอแบบดึง
 ---
 
-OpenCode ผสานรวมกับเวิร์กโฟลว์ GitHub ของคุณ พูดถึง `/opencode` หรือ `/oc` ในความคิดเห็นของคุณ แล้ว OpenCode จะดำเนินการงานภายใน GitHub Actions runner ของคุณ
+NemoraCode ผสานรวมกับเวิร์กโฟลว์ GitHub ของคุณ พูดถึง `/nemoracode` หรือ `/oc` ในความคิดเห็นของคุณ แล้ว NemoraCode จะดำเนินการงานภายใน GitHub Actions runner ของคุณ
 
 ---
 
 ## คุณสมบัติ
 
-- **Issue Triage**: ขอให้ OpenCode ตรวจสอบปัญหาและอธิบายให้คุณทราบ
-- **แก้ไขและนำไปใช้**: ขอให้ OpenCode แก้ไขปัญหาหรือใช้ฟีเจอร์ และมันจะทำงานในสาขาใหม่และส่ง PR พร้อมการเปลี่ยนแปลงทั้งหมด
-- **ปลอดภัย**: OpenCode ทำงานภายในรันเนอร์ของ GitHub ของคุณ
+- **Issue Triage**: ขอให้ NemoraCode ตรวจสอบปัญหาและอธิบายให้คุณทราบ
+- **แก้ไขและนำไปใช้**: ขอให้ NemoraCode แก้ไขปัญหาหรือใช้ฟีเจอร์ และมันจะทำงานในสาขาใหม่และส่ง PR พร้อมการเปลี่ยนแปลงทั้งหมด
+- **ปลอดภัย**: NemoraCode ทำงานภายในรันเนอร์ของ GitHub ของคุณ
 
 ---
 
@@ -20,7 +20,7 @@ OpenCode ผสานรวมกับเวิร์กโฟลว์ GitHub 
 รันคำสั่งต่อไปนี้ในโปรเจ็กต์ที่อยู่ใน repo GitHub:
 
 ```bash
-opencode github install
+nemoracode github install
 ```
 
 ขั้นตอนนี้จะแนะนำคุณตลอดขั้นตอนการติดตั้งแอป GitHub การสร้างเวิร์กโฟลว์ และการตั้งค่าความลับ
@@ -37,10 +37,10 @@ opencode github install
 
 2. **เพิ่มขั้นตอนการทำงาน**
 
-   เพิ่มไฟล์เวิร์กโฟลว์ต่อไปนี้ไปที่ `.github/workflows/opencode.yml` ใน repo ของคุณ ตรวจสอบให้แน่ใจว่าได้ตั้งค่า `model` ที่เหมาะสมและคีย์ API ที่จำเป็นใน `env`
+   เพิ่มไฟล์เวิร์กโฟลว์ต่อไปนี้ไปที่ `.github/workflows/nemoracode.yml` ใน repo ของคุณ ตรวจสอบให้แน่ใจว่าได้ตั้งค่า `model` ที่เหมาะสมและคีย์ API ที่จำเป็นใน `env`
 
-   ```yml title=".github/workflows/opencode.yml" {24,26}
-   name: opencode
+   ```yml title=".github/workflows/nemoracode.yml" {24,26}
+   name: nemoracode
 
    on:
      issue_comment:
@@ -49,10 +49,10 @@ opencode github install
        types: [created]
 
    jobs:
-     opencode:
+     nemoracode:
        if: |
          contains(github.event.comment.body, '/oc') ||
-         contains(github.event.comment.body, '/opencode')
+         contains(github.event.comment.body, '/nemoracode')
        runs-on: ubuntu-latest
        permissions:
          id-token: write
@@ -63,7 +63,7 @@ opencode github install
              fetch-depth: 1
              persist-credentials: false
 
-         - name: Run OpenCode
+         - name: Run NemoraCode
            uses: anomalyco/opencode/github@latest
            env:
              ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -80,12 +80,12 @@ opencode github install
 
 ## การกำหนดค่า
 
-- `model`: โมเดลที่จะใช้กับ OpenCode ใช้รูปแบบของ `provider/model` นี่คือ **จำเป็น**
+- `model`: โมเดลที่จะใช้กับ NemoraCode ใช้รูปแบบของ `provider/model` นี่คือ **จำเป็น**
 - `agent`: ตัวแทนที่จะใช้ จะต้องเป็นตัวแทนหลัก ย้อนกลับไปที่ `default_agent` จาก config หรือ `"build"` หากไม่พบ
-- `prompt`: ตัวเลือกที่กำหนดเองพร้อมท์เพื่อแทนที่การทำงานเริ่มต้น ใช้สิ่งนี้เพื่อปรับแต่งวิธีที่ OpenCode ประมวลผลคำขอ
-- `token`: GitHub Access Token เสริมสำหรับการดำเนินการ เช่น การสร้างความคิดเห็น การยอมรับการเปลี่ยนแปลง และการเปิดคำขอดึง ตามค่าเริ่มต้น OpenCode จะใช้โทเค็นการเข้าถึงการติดตั้งจาก OpenCode GitHub App ดังนั้นคอมมิต แสดงความคิดเห็น และคำขอดึงข้อมูลจะปรากฏว่ามาจากแอป
+- `prompt`: ตัวเลือกที่กำหนดเองพร้อมท์เพื่อแทนที่การทำงานเริ่มต้น ใช้สิ่งนี้เพื่อปรับแต่งวิธีที่ NemoraCode ประมวลผลคำขอ
+- `token`: GitHub Access Token เสริมสำหรับการดำเนินการ เช่น การสร้างความคิดเห็น การยอมรับการเปลี่ยนแปลง และการเปิดคำขอดึง ตามค่าเริ่มต้น NemoraCode จะใช้โทเค็นการเข้าถึงการติดตั้งจาก NemoraCode GitHub App ดังนั้นคอมมิต แสดงความคิดเห็น และคำขอดึงข้อมูลจะปรากฏว่ามาจากแอป
 
-  หรือคุณสามารถใช้ [ในตัว `GITHUB_TOKEN`](https://docs.github.com/en/actions/tutorials/authenticate-with-github_token) ของ GitHub Action runner ได้โดยไม่ต้องติดตั้งแอป OpenCode GitHub เพียงตรวจสอบให้แน่ใจว่าได้ให้สิทธิ์ที่จำเป็นในขั้นตอนการทำงานของคุณ:
+  หรือคุณสามารถใช้ [ในตัว `GITHUB_TOKEN`](https://docs.github.com/en/actions/tutorials/authenticate-with-github_token) ของ GitHub Action runner ได้โดยไม่ต้องติดตั้งแอป NemoraCode GitHub เพียงตรวจสอบให้แน่ใจว่าได้ให้สิทธิ์ที่จำเป็นในขั้นตอนการทำงานของคุณ:
 
   ```yaml
   permissions:
@@ -101,30 +101,30 @@ opencode github install
 
 ## กิจกรรมที่รองรับ
 
-OpenCode สามารถทริกเกอร์ได้โดยเหตุการณ์ GitHub ต่อไปนี้:
+NemoraCode สามารถทริกเกอร์ได้โดยเหตุการณ์ GitHub ต่อไปนี้:
 
 | ประเภทเหตุการณ์               | กระตุ้นโดย                                                | รายละเอียด                                                                                                        |
 | ----------------------------- | --------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `issue_comment`               | แสดงความคิดเห็นในประเด็นหรือประชาสัมพันธ์                 | พูดถึง `/opencode` หรือ `/oc` ในความคิดเห็นของคุณ OpenCode อ่านบริบทและสามารถสร้างสาขา เปิด PR หรือตอบกลับได้     |
-| `pull_request_review_comment` | แสดงความคิดเห็นเกี่ยวกับบรรทัดรหัสเฉพาะในการประชาสัมพันธ์ | พูดถึง `/opencode` หรือ `/oc` ในขณะที่ตรวจสอบโค้ด OpenCode รับเส้นทางไฟล์ หมายเลขบรรทัด และบริบทที่แตกต่าง        |
-| `issues`                      | ปัญหาเปิดหรือแก้ไข                                        | ทริกเกอร์ OpenCode โดยอัตโนมัติเมื่อมีการสร้างหรือแก้ไขปัญหา ต้องป้อนข้อมูล `prompt`                              |
-| `pull_request`                | PR เปิดหรืออัปเดตแล้ว                                     | ทริกเกอร์ OpenCode โดยอัตโนมัติเมื่อมีการเปิด ซิงโครไนซ์ หรือเปิด PR อีกครั้ง มีประโยชน์สำหรับการตรวจสอบอัตโนมัติ |
-| `schedule`                    | กำหนดการตาม Cron                                          | เรียกใช้ OpenCode ตามกำหนดเวลา ต้องป้อนข้อมูล `prompt` เอาต์พุตไปที่บันทึกและ PR (ไม่มีปัญหาในการแสดงความคิดเห็น) |
-| `workflow_dispatch`           | ทริกเกอร์ด้วยตนเองจาก GitHub UI                           | ทริกเกอร์ OpenCode ตามความต้องการผ่านแท็บการดำเนินการ ต้องป้อนข้อมูล `prompt` เอาต์พุตไปที่บันทึกและ PR           |
+| `issue_comment`               | แสดงความคิดเห็นในประเด็นหรือประชาสัมพันธ์                 | พูดถึง `/nemoracode` หรือ `/oc` ในความคิดเห็นของคุณ NemoraCode อ่านบริบทและสามารถสร้างสาขา เปิด PR หรือตอบกลับได้     |
+| `pull_request_review_comment` | แสดงความคิดเห็นเกี่ยวกับบรรทัดรหัสเฉพาะในการประชาสัมพันธ์ | พูดถึง `/nemoracode` หรือ `/oc` ในขณะที่ตรวจสอบโค้ด NemoraCode รับเส้นทางไฟล์ หมายเลขบรรทัด และบริบทที่แตกต่าง        |
+| `issues`                      | ปัญหาเปิดหรือแก้ไข                                        | ทริกเกอร์ NemoraCode โดยอัตโนมัติเมื่อมีการสร้างหรือแก้ไขปัญหา ต้องป้อนข้อมูล `prompt`                              |
+| `pull_request`                | PR เปิดหรืออัปเดตแล้ว                                     | ทริกเกอร์ NemoraCode โดยอัตโนมัติเมื่อมีการเปิด ซิงโครไนซ์ หรือเปิด PR อีกครั้ง มีประโยชน์สำหรับการตรวจสอบอัตโนมัติ |
+| `schedule`                    | กำหนดการตาม Cron                                          | เรียกใช้ NemoraCode ตามกำหนดเวลา ต้องป้อนข้อมูล `prompt` เอาต์พุตไปที่บันทึกและ PR (ไม่มีปัญหาในการแสดงความคิดเห็น) |
+| `workflow_dispatch`           | ทริกเกอร์ด้วยตนเองจาก GitHub UI                           | ทริกเกอร์ NemoraCode ตามความต้องการผ่านแท็บการดำเนินการ ต้องป้อนข้อมูล `prompt` เอาต์พุตไปที่บันทึกและ PR           |
 
 ### ตัวอย่างกำหนดการ
 
-เรียกใช้ OpenCode ตามกำหนดเวลาเพื่อทำงานอัตโนมัติ:
+เรียกใช้ NemoraCode ตามกำหนดเวลาเพื่อทำงานอัตโนมัติ:
 
-```yaml title=".github/workflows/opencode-scheduled.yml"
-name: Scheduled OpenCode Task
+```yaml title=".github/workflows/nemoracode-scheduled.yml"
+name: Scheduled NemoraCode Task
 
 on:
   schedule:
     - cron: "0 9 * * 1" # Every Monday at 9am UTC
 
 jobs:
-  opencode:
+  nemoracode:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -137,7 +137,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Run OpenCode
+      - name: Run NemoraCode
         uses: anomalyco/opencode/github@latest
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -148,7 +148,7 @@ jobs:
             If you find issues worth addressing, open an issue to track them.
 ```
 
-สำหรับกิจกรรมที่กำหนดเวลาไว้ อินพุต `prompt` เป็นสิ่งที่จำเป็น\*\* เนื่องจากไม่มีความคิดเห็นที่จะดึงคำแนะนำออกมา เวิร์กโฟลว์ตามกำหนดการทำงานโดยไม่มีบริบทผู้ใช้ในการตรวจสอบสิทธิ์ ดังนั้นเวิร์กโฟลว์จะต้องให้สิทธิ์ `contents: write` และ `pull-requests: write` หากคุณคาดหวังให้ OpenCode สร้างสาขาหรือ PR
+สำหรับกิจกรรมที่กำหนดเวลาไว้ อินพุต `prompt` เป็นสิ่งที่จำเป็น\*\* เนื่องจากไม่มีความคิดเห็นที่จะดึงคำแนะนำออกมา เวิร์กโฟลว์ตามกำหนดการทำงานโดยไม่มีบริบทผู้ใช้ในการตรวจสอบสิทธิ์ ดังนั้นเวิร์กโฟลว์จะต้องให้สิทธิ์ `contents: write` และ `pull-requests: write` หากคุณคาดหวังให้ NemoraCode สร้างสาขาหรือ PR
 
 ---
 
@@ -156,8 +156,8 @@ jobs:
 
 ตรวจสอบ PR โดยอัตโนมัติเมื่อมีการเปิดหรืออัปเดต:
 
-```yaml title=".github/workflows/opencode-review.yml"
-name: opencode-review
+```yaml title=".github/workflows/nemoracode-review.yml"
+name: nemoracode-review
 
 on:
   pull_request:
@@ -189,7 +189,7 @@ jobs:
             - Suggest improvements
 ```
 
-สำหรับกิจกรรม `pull_request` หากไม่มีการระบุ `prompt` OpenCode จะใช้ค่าเริ่มต้นในการตรวจสอบคำขอดึง
+สำหรับกิจกรรม `pull_request` หากไม่มีการระบุ `prompt` NemoraCode จะใช้ค่าเริ่มต้นในการตรวจสอบคำขอดึง
 
 ---
 
@@ -197,7 +197,7 @@ jobs:
 
 คัดแยกปัญหาใหม่โดยอัตโนมัติ ตัวอย่างนี้กรองไปยังบัญชีที่มีอายุมากกว่า 30 วันเพื่อลดสแปม:
 
-```yaml title=".github/workflows/opencode-triage.yml"
+```yaml title=".github/workflows/nemoracode-triage.yml"
 name: Issue Triage
 
 on:
@@ -250,9 +250,9 @@ jobs:
 
 ## ข้อความแจ้งที่กำหนดเอง
 
-แทนที่ข้อความแจ้งเริ่มต้นเพื่อปรับแต่งการทำงานของ OpenCode สำหรับเวิร์กโฟลว์ของคุณ
+แทนที่ข้อความแจ้งเริ่มต้นเพื่อปรับแต่งการทำงานของ NemoraCode สำหรับเวิร์กโฟลว์ของคุณ
 
-```yaml title=".github/workflows/opencode.yml"
+```yaml title=".github/workflows/nemoracode.yml"
 - uses: anomalyco/opencode/github@latest
   with:
     model: anthropic/claude-sonnet-5-5
@@ -269,27 +269,27 @@ jobs:
 
 ## ตัวอย่าง
 
-นี่คือตัวอย่างบางส่วนของวิธีที่คุณสามารถใช้ OpenCode ใน GitHub
+นี่คือตัวอย่างบางส่วนของวิธีที่คุณสามารถใช้ NemoraCode ใน GitHub
 
 - **อธิบายปัญหา**
 
   เพิ่มความคิดเห็นนี้ในปัญหา GitHub
 
   ```
-  /opencode explain this issue
+  /nemoracode explain this issue
   ```
 
-  OpenCode จะอ่านกระทู้ทั้งหมด รวมถึงความคิดเห็นทั้งหมด และตอบกลับพร้อมคำอธิบายที่ชัดเจน
+  NemoraCode จะอ่านกระทู้ทั้งหมด รวมถึงความคิดเห็นทั้งหมด และตอบกลับพร้อมคำอธิบายที่ชัดเจน
 
 - **แก้ไขปัญหา**
 
   ในปัญหา GitHub ให้พูดว่า:
 
   ```
-  /opencode fix this
+  /nemoracode fix this
   ```
 
-  และ OpenCode จะสร้างสาขาใหม่ ดำเนินการเปลี่ยนแปลง และเปิด PR ที่มีการเปลี่ยนแปลง
+  และ NemoraCode จะสร้างสาขาใหม่ ดำเนินการเปลี่ยนแปลง และเปิด PR ที่มีการเปลี่ยนแปลง
 
 - **ตรวจสอบ PR และทำการเปลี่ยนแปลง**
 
@@ -299,18 +299,18 @@ jobs:
   Delete the attachment from S3 when the note is removed /oc
   ```
 
-  OpenCode จะดำเนินการเปลี่ยนแปลงที่ร้องขอและส่งมอบให้กับ PR เดียวกัน
+  NemoraCode จะดำเนินการเปลี่ยนแปลงที่ร้องขอและส่งมอบให้กับ PR เดียวกัน
 
 - **ตรวจสอบบรรทัดรหัสเฉพาะ**
 
-  แสดงความคิดเห็นโดยตรงบนบรรทัดโค้ดในแท็บ "ไฟล์" ของ PR OpenCode จะตรวจจับไฟล์ หมายเลขบรรทัด และบริบทต่างโดยอัตโนมัติเพื่อให้การตอบสนองที่แม่นยำ
+  แสดงความคิดเห็นโดยตรงบนบรรทัดโค้ดในแท็บ "ไฟล์" ของ PR NemoraCode จะตรวจจับไฟล์ หมายเลขบรรทัด และบริบทต่างโดยอัตโนมัติเพื่อให้การตอบสนองที่แม่นยำ
 
   ```
   [Comment on specific lines in Files tab]
   /oc add error handling here
   ```
 
-  เมื่อแสดงความคิดเห็นในบรรทัดใดบรรทัดหนึ่ง OpenCode จะได้รับ:
+  เมื่อแสดงความคิดเห็นในบรรทัดใดบรรทัดหนึ่ง NemoraCode จะได้รับ:
   - กำลังตรวจสอบไฟล์ที่แน่นอน
   - บรรทัดโค้ดเฉพาะ
   - บริบทที่แตกต่างโดยรอบ

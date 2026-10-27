@@ -1,9 +1,9 @@
-import { SessionMessage } from "@opencode/core/session/message"
-import { Session } from "@opencode/core/session"
+import { SessionMessage } from "@nemoracode/core/session/message"
+import { Session } from "@nemoracode/core/session"
 import { Effect, Option, Schema } from "effect"
 import { HttpApiBuilder } from "effect/http-api"
 import { Api } from "../api"
-import { InvalidCursorError } from "@opencode/protocol/errors"
+import { InvalidCursorError } from "@nemoracode/protocol/errors"
 import { failedMessageDecode, missingSession } from "./session-error"
 
 const DefaultMessagesLimit = 50

@@ -1,17 +1,17 @@
 ---
 title: GitHub
-description: Brug OpenCode i GitHub-problemer og Pull Requests.
+description: Brug NemoraCode i GitHub-problemer og Pull Requests.
 ---
 
-OpenCode integreres med din GitHub arbejdsgang. Nævn `/opencode` eller `/oc` i din kommentar, og OpenCode vil udføre opgaver i din GitHub Actions-løber.
+NemoraCode integreres med din GitHub arbejdsgang. Nævn `/nemoracode` eller `/oc` i din kommentar, og NemoraCode vil udføre opgaver i din GitHub Actions-løber.
 
 ---
 
 ## Funktioner
 
-- **Triageproblemer**: Bed OpenCode om at undersøge et problem og forklare dig det.
-- **Ret og implementer**: Bed OpenCode om at løse et problem eller implementere en funktion. Og det vil fungere i en ny branch og indsende en PR med alle ændringerne.
-- **Sikker**: OpenCode løber inde i din GitHubs løbere.
+- **Triageproblemer**: Bed NemoraCode om at undersøge et problem og forklare dig det.
+- **Ret og implementer**: Bed NemoraCode om at løse et problem eller implementere en funktion. Og det vil fungere i en ny branch og indsende en PR med alle ændringerne.
+- **Sikker**: NemoraCode løber inde i din GitHubs løbere.
 
 ---
 
@@ -20,7 +20,7 @@ OpenCode integreres med din GitHub arbejdsgang. Nævn `/opencode` eller `/oc` i 
 Kør følgende kommando i et projekt, der er i en GitHub repo:
 
 ```bash
-opencode github install
+nemoracode github install
 ```
 
 Dette vil lede dig gennem installation af GitHub-appen, oprettelse af arbejdsgangen og opsætning af hemmeligheder.
@@ -37,10 +37,10 @@ Eller du kan indstille det manuelt.
 
 2. **Tilføj arbejdsgangen**
 
-   Tilføj følgende workflow-fil til `.github/workflows/opencode.yml` i din repo. Sørg for at indstille de relevante `model` og nødvendige API-nøgler i `env`.
+   Tilføj følgende workflow-fil til `.github/workflows/nemoracode.yml` i din repo. Sørg for at indstille de relevante `model` og nødvendige API-nøgler i `env`.
 
-   ```yml title=".github/workflows/opencode.yml" {24,26}
-   name: opencode
+   ```yml title=".github/workflows/nemoracode.yml" {24,26}
+   name: nemoracode
 
    on:
      issue_comment:
@@ -49,10 +49,10 @@ Eller du kan indstille det manuelt.
        types: [created]
 
    jobs:
-     opencode:
+     nemoracode:
        if: |
          contains(github.event.comment.body, '/oc') ||
-         contains(github.event.comment.body, '/opencode')
+         contains(github.event.comment.body, '/nemoracode')
        runs-on: ubuntu-latest
        permissions:
          id-token: write
@@ -63,7 +63,7 @@ Eller du kan indstille det manuelt.
              fetch-depth: 1
              persist-credentials: false
 
-         - name: Run OpenCode
+         - name: Run NemoraCode
            uses: anomalyco/opencode/github@latest
            env:
              ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -80,12 +80,12 @@ Eller du kan indstille det manuelt.
 
 ## Konfiguration
 
-- `model`: Den model, der skal bruges med OpenCode. Antager formatet `provider/model`. Dette er **påkrævet**.
+- `model`: Den model, der skal bruges med NemoraCode. Antager formatet `provider/model`. Dette er **påkrævet**.
 - `agent`: Agenten, der skal bruges. Skal være en primær agent. Falder tilbage til `default_agent` fra config eller `"build"`, hvis den ikke findes.
-- `prompt`: Valgfri brugerdefineret prompt for at tilsidesætte standardadfærden. Brug dette til at tilpasse, hvordan OpenCode behandler anmodninger.
-- `token`: Valgfrit GitHub adgangstoken til at udføre operationer såsom oprettelse af kommentarer, begå ændringer og åbning af Pull Requests. Som standard bruger OpenCode installationsadgangstokenet fra OpenCode GitHub-appen, så commits, kommentarer og Pull Requests ser ud til at komme fra appen.
+- `prompt`: Valgfri brugerdefineret prompt for at tilsidesætte standardadfærden. Brug dette til at tilpasse, hvordan NemoraCode behandler anmodninger.
+- `token`: Valgfrit GitHub adgangstoken til at udføre operationer såsom oprettelse af kommentarer, begå ændringer og åbning af Pull Requests. Som standard bruger NemoraCode installationsadgangstokenet fra NemoraCode GitHub-appen, så commits, kommentarer og Pull Requests ser ud til at komme fra appen.
 
-  Alternativt kan du bruge GitHub Action runners [built-in `GITHUB_TOKEN`](OpenCode) uden at installere OpenCode GitHub appen. Bare sørg for at give de nødvendige tilladelser i dit workflow:
+  Alternativt kan du bruge GitHub Action runners [built-in `GITHUB_TOKEN`](NemoraCode) uden at installere NemoraCode GitHub appen. Bare sørg for at give de nødvendige tilladelser i dit workflow:
 
   ```yaml
   permissions:
@@ -101,30 +101,30 @@ Eller du kan indstille det manuelt.
 
 ## Understøttede begivenheder
 
-OpenCode kan udløses af følgende GitHub hændelser:
+NemoraCode kan udløses af følgende GitHub hændelser:
 
 | Begivenhedstype               | Udløst af                               | Detaljer                                                                                                                |
 | ----------------------------- | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `issue_comment`               | Kommentarer og problemer eller PR       | Nævn `/opencode` eller `/oc` i din kommentar. OpenCode læser kontekst og kan oprette brancher, åbne PR'er eller svare.  |
-| `pull_request_review_comment` | Kommenter specifikke kodelinjer i en PR | Nævn `/opencode` eller `/oc`, mens du gennemgår koden. OpenCode modtager filsti, linjenumre og diff-kontekst.           |
-| `issues`                      | Udgave åbnet eller redigeret            | Udløs automatisk OpenCode, når problemer oprettes eller ændres. Kræver `prompt` input.                                  |
-| `pull_request`                | PR åbnet eller opdateret                | Udløs automatisk OpenCode, når PR'er åbnes, synkroniseres eller genåbnes. Nyttigt til automatiserede kodegennemgange.   |
-| `schedule`                    | Cron-baseret tidsplan                   | Kør OpenCode efter en tidsplan. Kræver `prompt` input. Output går til logfiler og PR'er (intet problem ved kommentere). |
-| `workflow_dispatch`           | Manuel trigger fra GitHub UI            | Udløs OpenCode efter behov via fanen Handlinger. Kræver `prompt` input. Output går til logfiler og PR'er.               |
+| `issue_comment`               | Kommentarer og problemer eller PR       | Nævn `/nemoracode` eller `/oc` i din kommentar. NemoraCode læser kontekst og kan oprette brancher, åbne PR'er eller svare.  |
+| `pull_request_review_comment` | Kommenter specifikke kodelinjer i en PR | Nævn `/nemoracode` eller `/oc`, mens du gennemgår koden. NemoraCode modtager filsti, linjenumre og diff-kontekst.           |
+| `issues`                      | Udgave åbnet eller redigeret            | Udløs automatisk NemoraCode, når problemer oprettes eller ændres. Kræver `prompt` input.                                  |
+| `pull_request`                | PR åbnet eller opdateret                | Udløs automatisk NemoraCode, når PR'er åbnes, synkroniseres eller genåbnes. Nyttigt til automatiserede kodegennemgange.   |
+| `schedule`                    | Cron-baseret tidsplan                   | Kør NemoraCode efter en tidsplan. Kræver `prompt` input. Output går til logfiler og PR'er (intet problem ved kommentere). |
+| `workflow_dispatch`           | Manuel trigger fra GitHub UI            | Udløs NemoraCode efter behov via fanen Handlinger. Kræver `prompt` input. Output går til logfiler og PR'er.               |
 
 ### Tidsplan eksempel
 
-Kør OpenCode efter en tidsplan for at udføre automatiske opgaver:
+Kør NemoraCode efter en tidsplan for at udføre automatiske opgaver:
 
-```yaml title=".github/workflows/opencode-scheduled.yml"
-name: Scheduled OpenCode Task
+```yaml title=".github/workflows/nemoracode-scheduled.yml"
+name: Scheduled NemoraCode Task
 
 on:
   schedule:
     - cron: "0 9 * * 1" # Every Monday at 9am UTC
 
 jobs:
-  opencode:
+  nemoracode:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -137,7 +137,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Run OpenCode
+      - name: Run NemoraCode
         uses: anomalyco/opencode/github@latest
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -148,7 +148,7 @@ jobs:
             If you find issues worth addressing, open an issue to track them.
 ```
 
-For planlagte begivenheder er `prompt` input **påkrævet**, da der ikke er nogen kommentarer at udtrække instruktioner fra. Planlagte arbejdsgange kører uden en brugerkontekst til kontrol af tilladelser, så arbejdsgangen skal give `contents: write` og `pull-requests: write`, hvis du forventer, at OpenCode skal oprette brancher eller PR'er.
+For planlagte begivenheder er `prompt` input **påkrævet**, da der ikke er nogen kommentarer at udtrække instruktioner fra. Planlagte arbejdsgange kører uden en brugerkontekst til kontrol af tilladelser, så arbejdsgangen skal give `contents: write` og `pull-requests: write`, hvis du forventer, at NemoraCode skal oprette brancher eller PR'er.
 
 ---
 
@@ -156,8 +156,8 @@ For planlagte begivenheder er `prompt` input **påkrævet**, da der ikke er noge
 
 Gennemgå automatisk PR'er, når de åbnes eller opdateres:
 
-```yaml title=".github/workflows/opencode-review.yml"
-name: opencode-review
+```yaml title=".github/workflows/nemoracode-review.yml"
+name: nemoracode-review
 
 on:
   pull_request:
@@ -189,7 +189,7 @@ jobs:
             - Suggest improvements
 ```
 
-For `pull_request` hændelser, hvis der ikke er angivet nogen `prompt`, vil OpenCode som standard gennemgå Pull Requesten.
+For `pull_request` hændelser, hvis der ikke er angivet nogen `prompt`, vil NemoraCode som standard gennemgå Pull Requesten.
 
 ---
 
@@ -197,7 +197,7 @@ For `pull_request` hændelser, hvis der ikke er angivet nogen `prompt`, vil Open
 
 Triage automatisk nye problemer. Dette eksempel filtrerer til konti ældre end 30 dage for at reducere spam:
 
-```yaml title=".github/workflows/opencode-triage.yml"
+```yaml title=".github/workflows/nemoracode-triage.yml"
 name: Issue Triage
 
 on:
@@ -250,9 +250,9 @@ For `issues` begivenheder er `prompt` input **påkrævet**, da der ikke er nogen
 
 ## Brugerdefinerede prompter
 
-Tilsidesæt standardprompten for at tilpasse OpenCodes adfærd til din arbejdsgang.
+Tilsidesæt standardprompten for at tilpasse NemoraCodes adfærd til din arbejdsgang.
 
-```yaml title=".github/workflows/opencode.yml"
+```yaml title=".github/workflows/nemoracode.yml"
 - uses: anomalyco/opencode/github@latest
   with:
     model: anthropic/claude-sonnet-5-5
@@ -269,27 +269,27 @@ Dette er nyttigt til at håndhæve specifikke gennemgangskriterier, kodningsstan
 
 ## Eksempler
 
-Her er nogle eksempler på, hvordan du kan bruge OpenCode i GitHub.
+Her er nogle eksempler på, hvordan du kan bruge NemoraCode i GitHub.
 
 - **Forklar et problem**
 
   Tilføj denne kommentar i et GitHub-nummer.
 
   ```
-  /opencode explain this issue
+  /nemoracode explain this issue
   ```
 
-  OpenCode vil læse hele tråden, inklusive alle kommentarer, og svare med en klar forklaring.
+  NemoraCode vil læse hele tråden, inklusive alle kommentarer, og svare med en klar forklaring.
 
 - **Løs et problem**
 
   I et GitHub-problem skal du sige:
 
   ```
-  /opencode fix this
+  /nemoracode fix this
   ```
 
-  Og OpenCode vil oprette en ny branch, implementere ændringer og åbne en PR med ændringer.
+  Og NemoraCode vil oprette en ny branch, implementere ændringer og åbne en PR med ændringer.
 
 - **Gennemgå PR'er og foretag ændringer**
 
@@ -299,18 +299,18 @@ Her er nogle eksempler på, hvordan du kan bruge OpenCode i GitHub.
   Delete the attachment from S3 when the note is removed /oc
   ```
 
-  OpenCode vil implementere den ønskede ændring og forpligtelse til den samme PR.
+  NemoraCode vil implementere den ønskede ændring og forpligtelse til den samme PR.
 
 - **Gennemgå specifikke kodelinjer**
 
-  Efterlad en kommentar direkte på kodelinjer i PR's faneblad "Filer". OpenCode detekterer automatisk filer, linjenumrene og diff-konteksten for at give præcise svar.
+  Efterlad en kommentar direkte på kodelinjer i PR's faneblad "Filer". NemoraCode detekterer automatisk filer, linjenumrene og diff-konteksten for at give præcise svar.
 
   ```
   [Comment on specific lines in Files tab]
   /oc add error handling here
   ```
 
-  Når du kommenterer på specifikke linjer, modtager OpenCode:
+  Når du kommenterer på specifikke linjer, modtager NemoraCode:
   - Den nøjagtige fil bliver gennemgået
   - De specifikke kodelinjer
   - Den omgivende forskellig kontekst

@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test"
-import type { OpenCodeEvent } from "@opencode/client"
-import { createData } from "@opencode/client/solid"
+import type { NemoraCodeEvent } from "@nemoracode/client"
+import { createData } from "@nemoracode/client/solid"
 import { createGlobalEmitter } from "@solid-primitives/event-bus"
 import { createRoot, createSignal } from "solid-js"
 import { createSessionRetention } from "../../src/context/session-retention"
@@ -9,7 +9,7 @@ import { createApi, createFetch, directory, json } from "../fixture/tui-client"
 function setup(options: { keep?: string[]; current?: string; limit?: number } = {}) {
   return createRoot((dispose) => {
     const events = createGlobalEmitter<{
-      [Type in OpenCodeEvent["type"]]: Extract<OpenCodeEvent, { type: Type }>
+      [Type in NemoraCodeEvent["type"]]: Extract<NemoraCodeEvent, { type: Type }>
     }>()
     const api = createApi(
       createFetch((url) => {

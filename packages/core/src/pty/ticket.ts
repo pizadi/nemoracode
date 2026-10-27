@@ -1,10 +1,10 @@
 export * as PtyTicket from "./ticket.js"
 
-import type { Workspace } from "@opencode/schema/workspace"
-import { PtyTicket } from "@opencode/schema/pty-ticket"
-import type { Pty } from "@opencode/schema/pty"
+import type { Workspace } from "@nemoracode/schema/workspace"
+import { PtyTicket } from "@nemoracode/schema/pty-ticket"
+import type { Pty } from "@nemoracode/schema/pty"
 import { Cache, Context, Duration, Effect, Layer } from "effect"
-import { makeGlobalNode } from "@opencode/util/effect/app-node"
+import { makeGlobalNode } from "@nemoracode/util/effect/app-node"
 
 const DEFAULT_TTL = Duration.seconds(60)
 const CAPACITY = 10_000
@@ -32,7 +32,7 @@ export interface Interface {
   consume(input: Scope & { readonly ticket: string }): Effect.Effect<boolean>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/PtyTicket") {}
+export class Service extends Context.Service<Service, Interface>()("@nemoracode/PtyTicket") {}
 
 function stored(scope: Scope): Stored {
   return {

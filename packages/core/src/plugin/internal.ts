@@ -1,10 +1,10 @@
 export * as PluginInternal from "./internal.js"
 
-import { LLMClient } from "@opencode/ai/effect"
-import type { Plugin } from "@opencode/plugin/effect/plugin"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { httpClient } from "@opencode/util/effect/app-node-platform"
-import { AppProcess } from "@opencode/util/process"
+import { LLMClient } from "@nemoracode/ai/effect"
+import type { Plugin } from "@nemoracode/plugin/effect/plugin"
+import { LayerNode } from "@nemoracode/util/effect/layer-node"
+import { httpClient } from "@nemoracode/util/effect/app-node-platform"
+import { AppProcess } from "@nemoracode/util/process"
 import { Context, Effect, Scope } from "effect"
 import { HttpClient } from "effect/http"
 import { Agent } from "../agent.js"
@@ -43,8 +43,8 @@ import { Formatter } from "../formatter.js"
 import { Form } from "../form.js"
 import { FileSystem } from "../filesystem.js"
 import { LocationWatcherPolicy } from "../filesystem/location-watcher-policy.js"
-import { FSUtil } from "@opencode/util/fs-util"
-import { Global } from "@opencode/util/global"
+import { FSUtil } from "@nemoracode/util/fs-util"
+import { Global } from "@nemoracode/util/global"
 import { Image } from "../image.js"
 import { InstructionDiscovery } from "../instruction-discovery.js"
 import { Integration } from "../integration.js"
@@ -54,7 +54,7 @@ import { Location } from "../location.js"
 import { ManagedPolicy } from "../managed-policy.js"
 import { ModelsDev } from "../models-dev.js"
 import { Mcp } from "../mcp/index.js"
-import { Npm } from "@opencode/util/npm"
+import { Npm } from "@nemoracode/util/npm"
 import { Permission } from "../permission.js"
 import { Reference } from "../reference.js"
 import { WebSearch } from "../websearch.js"
@@ -74,7 +74,7 @@ import { EditTool } from "../tool/plugin/edit.js"
 import { GlobTool } from "../tool/plugin/glob.js"
 import { GrepTool } from "../tool/plugin/grep.js"
 import { McpResourceTools } from "../tool/plugin/mcp-resource.js"
-import { OpenCodeTools } from "../tool/plugin/opencode.js"
+import { NemoraCodeTools } from "../tool/plugin/nemoracode.js"
 import { QuestionTool } from "../tool/plugin/question.js"
 import { ReadToolFileSystem } from "../tool/read-filesystem.js"
 import { ReadTool } from "../tool/plugin/read.js"
@@ -90,14 +90,14 @@ import { WellKnown } from "../wellknown.js"
 import { WriteTool } from "../tool/plugin/write.js"
 import { GraphTools } from "../graph/tools.js"
 import { AgentPlugin } from "./agent.js"
-import BrowserPlugin from "@opencode/plugin-browser"
+import BrowserPlugin from "@nemoracode/plugin-browser"
 import { CommandPlugin } from "./command.js"
 import { IdentityPlugin } from "./identity.js"
 import { PlanPlugin } from "./plan.js"
 import { ModelsDevPlugin } from "./models-dev.js"
 import { McpCodeModeDefaultsPlugin } from "./mcp-codemode-defaults.js"
 import { ProviderPlugins } from "./provider.js"
-import { OpencodePlugin } from "./provider/opencode.js"
+import { NemoracodePlugin } from "./provider/nemoracode.js"
 import { WebSearchPlugins } from "./websearch/index.js"
 import { SkillPlugin } from "./skill.js"
 import { VcsHgPlugin } from "./vcs/hg.js"
@@ -241,7 +241,7 @@ const pre = [
   EditTool.Plugin,
   GlobTool.Plugin,
   GrepTool.Plugin,
-  OpenCodeTools.Plugin,
+  NemoraCodeTools.Plugin,
   McpResourceTools.Plugin,
   QuestionTool.Plugin,
   ReadTool.Plugin,
@@ -278,7 +278,7 @@ const post = [
 
 // Repository config must not switch off policy enforcement or the Console connection that delivers
 // organization statements, so plugin remove operations skip these IDs.
-export const guarded: ReadonlySet<string> = new Set([OpencodePlugin.id, ConfigPolicyPlugin.Plugin.id])
+export const guarded: ReadonlySet<string> = new Set([NemoracodePlugin.id, ConfigPolicyPlugin.Plugin.id])
 
 export const list = Effect.fn("PluginInternal.list")(function* () {
   // Capture only services; activation supplies the child Scope and batching context.

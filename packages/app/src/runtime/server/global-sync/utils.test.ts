@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import type { AgentListOutput, ModelListOutput, Project, ProviderListOutput } from "@opencode/client/promise"
+import type { AgentListOutput, ModelListOutput, Project, ProviderListOutput } from "@nemoracode/client/promise"
 import { directoryKey, normalizeAgentList, normalizeProjectInfo, normalizeProviderList } from "./utils"
 
 describe("normalizeAgentList", () => {
@@ -95,7 +95,7 @@ describe("normalizeProjectInfo", () => {
 })
 
 test.each([
-  ["C:\\Repos\\sst\\opencode", "C:/Repos/sst/opencode"],
+  ["C:\\Repos\\sst\\nemoracode", "C:/Repos/sst/opencode"],
   ["C:/Repos/sst/opencode", "C:/Repos/sst/opencode"],
   ["/tmp/foo\\bar", "/tmp/foo\\bar"],
   ["C:/Repos/sst/opencode/", "C:/Repos/sst/opencode"],

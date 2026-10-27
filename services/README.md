@@ -1,6 +1,6 @@
 # Services
 
-Independently deployed services supporting OpenCode live here. Runtime packages
+Independently deployed services supporting NemoraCode live here. Runtime packages
 and clients live in `packages/`.
 
 | Service                    | Purpose                                | Deployment                       |

@@ -1,16 +1,16 @@
 export * as Config from "./config.js"
 
-import { makeLocationNode } from "@opencode/util/effect/app-node"
+import { makeLocationNode } from "@nemoracode/util/effect/app-node"
 import path from "path"
 import { isDeepStrictEqual } from "node:util"
 import { applyEdits, modify, type ParseError, parse } from "jsonc-parser"
 import { Context, Effect, FiberMap, Layer, Option, PubSub, Ref, Schema, Semaphore, Stream } from "effect"
-import { Directory, Document, Info, type Patch, type Entry, Event } from "@opencode/schema/config"
+import { Directory, Document, Info, type Patch, type Entry, Event } from "@nemoracode/schema/config"
 import { Credential } from "./credential.js"
 import { Bus } from "./bus.js"
 import { Watcher } from "./filesystem/watcher.js"
-import { FSUtil } from "@opencode/util/fs-util"
-import { Global } from "@opencode/util/global"
+import { FSUtil } from "@nemoracode/util/fs-util"
+import { Global } from "@nemoracode/util/global"
 import { Location } from "./location.js"
 import { AbsolutePath } from "./schema.js"
 import { ConfigVariable } from "./config/variable.js"
@@ -19,7 +19,7 @@ import { ConfigDiscovery } from "./config/discovery.js"
 import { ConfigWatch } from "./config/watch.js"
 import { ConfigIntegration } from "./config/integration.js"
 import { WellKnown } from "./wellknown.js"
-import { AppProcess } from "@opencode/util/process"
+import { AppProcess } from "@nemoracode/util/process"
 import { ChildProcess } from "effect/process"
 
 export function latest<K extends keyof Info>(entries: readonly Entry[], key: K): Info[K] | undefined {
@@ -67,7 +67,7 @@ export const Options = Schema.Struct({
 })
 export type Options = typeof Options.Type
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/Config") {}
+export class Service extends Context.Service<Service, Interface>()("@nemoracode/Config") {}
 
 export interface TestInterface extends Interface {
   /** Replaces the entries returned by subsequent entries() calls. */
@@ -76,7 +76,7 @@ export interface TestInterface extends Interface {
   readonly emitChange: (update: Watcher.Update) => Effect.Effect<void>
 }
 
-export class Test extends Context.Service<Test, TestInterface>()("@opencode/Config/Test") {}
+export class Test extends Context.Service<Test, TestInterface>()("@nemoracode/Config/Test") {}
 
 /** In-memory config for tests: static entries with replaceable state and a test-driven change feed. */
 export const testLayer = (
@@ -256,11 +256,11 @@ export const layer = (options?: Options) =>
           options?.content !== undefined
             ? yield* ConfigVariable.substitute({
                 type: "virtual",
-                source: "OPENCODE_CONFIG_CONTENT",
+                source: "NEMORACODE_CONFIG_CONTENT",
                 dir: location.directory,
                 text: options.content,
               }).pipe(
-                Effect.flatMap((text) => parseInfo(text, "OPENCODE_CONFIG_CONTENT")),
+                Effect.flatMap((text) => parseInfo(text, "NEMORACODE_CONFIG_CONTENT")),
                 Effect.map((info) => (info ? [new Document({ type: "document", info })] : [])),
                 Effect.orDie,
               )
@@ -410,7 +410,7 @@ export const layer = (options?: Options) =>
           const directory = initial.global ?? AbsolutePath.make(globalService.config)
           const candidates = ConfigDiscovery.names.map((name) => path.join(directory, name))
           const filepath =
-            (yield* Effect.filter(candidates, fs.isFile)).at(-1) ?? path.join(directory, "opencode.jsonc")
+            (yield* Effect.filter(candidates, fs.isFile)).at(-1) ?? path.join(directory, "nemoracode.jsonc")
           const text = (yield* fs.readFileStringSafe(filepath)) ?? "{}\n"
           const updated = yield* Effect.try({
             try: () =>

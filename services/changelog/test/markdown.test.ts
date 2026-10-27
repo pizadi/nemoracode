@@ -3,14 +3,14 @@ import { parseChangelog, renderEntry, renderInline, renderMarkdown } from "../sr
 
 const fixture = `# Changelog
 
-Release notes for OpenCode V2, newest first.
+Release notes for NemoraCode V2, newest first.
 
 ## v2.0.27 — 2026-10-12
 
 ### Highlights
 
-- **Built-In Worktree Tools**: Ask OpenCode to use \`worktree_create\`. ([#53981](https://github.com/anomalyco/opencode/pull/53981))
-- **Safer Remote Pairing**: The first \`opencode pair --remote\` now asks for confirmation.
+- **Built-In Worktree Tools**: Ask NemoraCode to use \`worktree_create\`. ([#53981](https://github.com/anomalyco/opencode/pull/53981))
+- **Safer Remote Pairing**: The first \`nemoracode pair --remote\` now asks for confirmation.
   It also accepts \`--yes\`.
 - A highlight without a bold title.
 
@@ -56,11 +56,11 @@ describe("parseChangelog", () => {
     expect(entry.highlights).toEqual([
       {
         title: "Built-In Worktree Tools",
-        body: "Ask OpenCode to use `worktree_create`. ([#53981](https://github.com/anomalyco/opencode/pull/53981))",
+        body: "Ask NemoraCode to use `worktree_create`. ([#53981](https://github.com/anomalyco/opencode/pull/53981))",
       },
       {
         title: "Safer Remote Pairing",
-        body: "The first `opencode pair --remote` now asks for confirmation.\nIt also accepts `--yes`.",
+        body: "The first `nemoracode pair --remote` now asks for confirmation.\nIt also accepts `--yes`.",
       },
       { title: "", body: "A highlight without a bold title." },
     ])
@@ -76,7 +76,7 @@ describe("parseChangelog", () => {
   })
 
   test("returns no entries for a changelog without releases", () => {
-    expect(parseChangelog("# Changelog\n\nRelease notes for OpenCode V2, newest first.\n")).toEqual([])
+    expect(parseChangelog("# Changelog\n\nRelease notes for NemoraCode V2, newest first.\n")).toEqual([])
   })
 })
 

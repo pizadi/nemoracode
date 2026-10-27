@@ -1,5 +1,5 @@
 import { expect, test, type Locator, type Page } from "@playwright/test"
-import { timelinePresets } from "@opencode/session-ui/timeline/detail"
+import { timelinePresets } from "@nemoracode/session-ui/timeline/detail"
 import { createTwoFilesPatch } from "diff"
 import {
   assistantMessage,
@@ -28,11 +28,11 @@ const expanded = { editToolPartsExpanded: true, shellToolPartsExpanded: true, sh
 
 const contextTools = [
   { id: "ctx_0100_read", tool: "read", input: { path: "src/recent-a.ts", offset: 0, limit: 120 } },
-  { id: "ctx_0101_glob", tool: "glob", input: { path: "C:/OpenCode/TimelineStability", pattern: "**/*.ts" } },
+  { id: "ctx_0101_glob", tool: "glob", input: { path: "C:/NemoraCode/TimelineStability", pattern: "**/*.ts" } },
   {
     id: "ctx_0102_grep",
     tool: "grep",
-    input: { path: "C:/OpenCode/TimelineStability", pattern: "Explored", include: "*.ts" },
+    input: { path: "C:/NemoraCode/TimelineStability", pattern: "Explored", include: "*.ts" },
   },
   { id: "ctx_0103_list", tool: "list", input: { path: "src" } },
 ]

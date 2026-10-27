@@ -1,4 +1,4 @@
-import { comparablePath } from "@opencode/util/path"
+import { comparablePath } from "@nemoracode/util/path"
 
 export type PathKey = string & { _brand: "PathKey" }
 

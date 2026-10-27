@@ -15,7 +15,7 @@ export const dict = {
   "nav.home": "Hjem",
   "nav.openMenu": "Åpne meny",
   "nav.getStartedFree": "Kom i gang gratis",
-  "nav.logoAlt": "OpenCode",
+  "nav.logoAlt": "NemoraCode",
 
   "nav.context.copyLogo": "Kopier logo som SVG",
   "nav.context.copyWordmark": "Kopier wordmark som SVG",
@@ -38,14 +38,14 @@ export const dict = {
   "email.success": "Nesten ferdig - sjekk innboksen din og bekreft e-postadressen",
   "email.error": "Påmeldingen mislyktes. Prøv igjen.",
 
-  "notFound.title": "Ikke funnet | opencode",
+  "notFound.title": "Ikke funnet | nemoracode",
   "notFound.heading": "404 - Side ikke funnet",
   "notFound.home": "Hjem",
   "notFound.docs": "Dokumentasjon",
   "notFound.github": "GitHub",
   "notFound.discord": "Discord",
-  "notFound.logoLightAlt": "opencode logo lys",
-  "notFound.logoDarkAlt": "opencode logo mørk",
+  "notFound.logoLightAlt": "nemoracode logo lys",
+  "notFound.logoDarkAlt": "nemoracode logo mørk",
 
   "common.cancel": "Avbryt",
   "common.contactUs": "Kontakt oss",
@@ -55,9 +55,9 @@ export const dict = {
   "common.faq": "FAQ",
   "common.learnMore": "Les mer",
 
-  "app.meta.description": "OpenCode - Den åpne kildekode kodingsagenten.",
+  "app.meta.description": "NemoraCode - Den åpne kildekode kodingsagenten.",
 
-  "home.title": "OpenCode | Den åpne kildekode AI-kodingsagenten",
+  "home.title": "NemoraCode | Den åpne kildekode AI-kodingsagenten",
 
   "home.banner.badge": "Ny",
 
@@ -68,8 +68,8 @@ export const dict = {
 
   "home.install.ariaLabel": "Installeringsalternativer",
 
-  "home.what.title": "Hva er OpenCode?",
-  "home.what.body": "OpenCode er en åpen kildekode-agent som hjelper deg å skrive kode i terminal, IDE eller desktop.",
+  "home.what.title": "Hva er NemoraCode?",
+  "home.what.body": "NemoraCode er en åpen kildekode-agent som hjelper deg å skrive kode i terminal, IDE eller desktop.",
   "home.what.multiSession.title": "Multi-sesjon",
   "home.what.multiSession.body": "Start flere agenter parallelt på samme prosjekt",
   "home.what.copilot.title": "GitHub Copilot",
@@ -84,48 +84,48 @@ export const dict = {
 
   "home.growth.title": "Den åpne kildekode AI-kodingsagenten",
   "home.growth.body":
-    "Med over <strong>{{stars}}</strong> GitHub-stjerner, <strong>{{contributors}}</strong> bidragsytere og over <strong>{{commits}}</strong> commits, brukes OpenCode av over <strong>{{monthlyUsers}}</strong> utviklere hver måned.",
+    "Med over <strong>{{stars}}</strong> GitHub-stjerner, <strong>{{contributors}}</strong> bidragsytere og over <strong>{{commits}}</strong> commits, brukes NemoraCode av over <strong>{{monthlyUsers}}</strong> utviklere hver måned.",
   "home.growth.githubStars": "GitHub-stjerner",
   "home.growth.contributors": "Bidragsytere",
   "home.growth.monthlyDevs": "Månedlige utviklere",
 
   "home.privacy.title": "Bygget med personvern først",
   "home.privacy.body":
-    "OpenCode lagrer ikke koden din eller kontekstdata, slik at den kan fungere i personvernsensitive miljøer.",
+    "NemoraCode lagrer ikke koden din eller kontekstdata, slik at den kan fungere i personvernsensitive miljøer.",
   "home.privacy.learnMore": "Les mer om",
   "home.privacy.link": "personvern",
 
-  "home.faq.q1": "Hva er OpenCode?",
+  "home.faq.q1": "Hva er NemoraCode?",
   "home.faq.a1":
-    "OpenCode er en åpen kildekode-agent som hjelper deg å skrive og kjøre kode med hvilken som helst AI-modell. Den er tilgjengelig som terminalgrensesnitt, desktop-app eller IDE-utvidelse.",
-  "home.faq.q2": "Hvordan bruker jeg OpenCode?",
+    "NemoraCode er en åpen kildekode-agent som hjelper deg å skrive og kjøre kode med hvilken som helst AI-modell. Den er tilgjengelig som terminalgrensesnitt, desktop-app eller IDE-utvidelse.",
+  "home.faq.q2": "Hvordan bruker jeg NemoraCode?",
   "home.faq.a2.before": "Den enkleste måten å komme i gang på er å lese",
   "home.faq.a2.link": "introen",
-  "home.faq.q3": "Trenger jeg ekstra AI-abonnementer for å bruke OpenCode?",
+  "home.faq.q3": "Trenger jeg ekstra AI-abonnementer for å bruke NemoraCode?",
   "home.faq.a3.p1":
-    "Ikke nødvendigvis. OpenCode kommer med et sett gratis modeller du kan bruke uten å opprette en konto.",
+    "Ikke nødvendigvis. NemoraCode kommer med et sett gratis modeller du kan bruke uten å opprette en konto.",
   "home.faq.a3.p2.beforeZen": "I tillegg kan du bruke populære kodemodeller ved å opprette en",
   "home.faq.a3.p2.afterZen": " konto.",
   "home.faq.a3.p3":
-    "Vi oppfordrer til å bruke Zen, men OpenCode fungerer også med populære leverandører som OpenAI, Anthropic, xAI osv.",
+    "Vi oppfordrer til å bruke Zen, men NemoraCode fungerer også med populære leverandører som OpenAI, Anthropic, xAI osv.",
   "home.faq.a3.p4.beforeLocal": "Du kan til og med koble til dine",
   "home.faq.a3.p4.localLink": "lokale modeller",
-  "home.faq.q4": "Kan jeg bruke mine eksisterende AI-abonnementer med OpenCode?",
+  "home.faq.q4": "Kan jeg bruke mine eksisterende AI-abonnementer med NemoraCode?",
   "home.faq.a4.p1": "Ja, du kan bruke ChatGPT Plus/Pro- eller GitHub Copilot-abonnementene dine.",
-  "home.faq.q5": "Kan jeg bare bruke OpenCode i terminalen?",
-  "home.faq.a5.beforeDesktop": "Ikke lenger! OpenCode er nå tilgjengelig som en app for",
+  "home.faq.q5": "Kan jeg bare bruke NemoraCode i terminalen?",
+  "home.faq.a5.beforeDesktop": "Ikke lenger! NemoraCode er nå tilgjengelig som en app for",
   "home.faq.a5.desktop": "desktop",
   "home.faq.a5.and": "og",
   "home.faq.a5.web": "web",
-  "home.faq.q6": "Hva koster OpenCode?",
+  "home.faq.q6": "Hva koster NemoraCode?",
   "home.faq.a6":
-    "OpenCode er 100% gratis å bruke. Det kommer også med et sett gratis modeller. Det kan være ekstra kostnader hvis du kobler til en annen leverandør.",
+    "NemoraCode er 100% gratis å bruke. Det kommer også med et sett gratis modeller. Det kan være ekstra kostnader hvis du kobler til en annen leverandør.",
   "home.faq.q7": "Hva med data og personvern?",
   "home.faq.a7.p1": "Dataene dine lagres kun når du bruker våre gratis modeller.",
   "home.faq.a7.p2.beforeModels": "Les mer om",
   "home.faq.a7.p2.modelsLink": "våre modeller",
-  "home.faq.q8": "Er OpenCode åpen kildekode?",
-  "home.faq.a8.p1": "Ja, OpenCode er fullt open source. Kildekoden er offentlig på",
+  "home.faq.q8": "Er NemoraCode åpen kildekode?",
+  "home.faq.a8.p1": "Ja, NemoraCode er fullt open source. Kildekoden er offentlig på",
   "home.faq.a8.p2": "under",
   "home.faq.a8.mitLicense": "MIT-lisensen",
   "home.faq.a8.p3":
@@ -133,23 +133,23 @@ export const dict = {
 
   "home.zenCta.title": "Få tilgang til pålitelige, optimaliserte modeller for kodeagenter",
   "home.zenCta.body":
-    "Zen gir deg tilgang til et håndplukket sett med AI-modeller som OpenCode har testet og benchmarked spesielt for kodeagenter. Du slipper å bekymre deg for ujevn ytelse og kvalitet på tvers av leverandører; bruk validerte modeller som fungerer.",
+    "Zen gir deg tilgang til et håndplukket sett med AI-modeller som NemoraCode har testet og benchmarked spesielt for kodeagenter. Du slipper å bekymre deg for ujevn ytelse og kvalitet på tvers av leverandører; bruk validerte modeller som fungerer.",
   "home.zenCta.link": "Les om Zen",
 
-  "zen.title": "OpenCode Zen | Et kuratert sett med pålitelige, optimaliserte modeller for kodeagenter",
+  "zen.title": "NemoraCode Zen | Et kuratert sett med pålitelige, optimaliserte modeller for kodeagenter",
   "zen.hero.title": "Pålitelige optimaliserte modeller for kodeagenter",
   "zen.hero.body":
-    "Zen gir deg tilgang til et kuratert sett med AI-modeller som OpenCode har testet og benchmarked spesielt for kodeagenter. Du slipper å bekymre deg for ujevn ytelse og kvalitet; bruk validerte modeller som fungerer.",
+    "Zen gir deg tilgang til et kuratert sett med AI-modeller som NemoraCode har testet og benchmarked spesielt for kodeagenter. Du slipper å bekymre deg for ujevn ytelse og kvalitet; bruk validerte modeller som fungerer.",
 
-  "zen.faq.q1": "Hva er OpenCode Zen?",
+  "zen.faq.q1": "Hva er NemoraCode Zen?",
   "zen.faq.a1":
-    "Zen er et kuratert sett med AI-modeller testet og benchmarked for kodeagenter, laget av teamet bak OpenCode.",
+    "Zen er et kuratert sett med AI-modeller testet og benchmarked for kodeagenter, laget av teamet bak NemoraCode.",
   "zen.faq.q2": "Hva gjør Zen mer presis?",
   "zen.faq.a2":
     "Zen tilbyr bare modeller som er testet og benchmarked spesifikt for kodeagenter. Du ville ikke brukt en smørkniv til å skjære biff; ikke bruk dårlige modeller til koding.",
   "zen.faq.q3": "Er Zen billigere?",
   "zen.faq.a3":
-    "Zen er ikke for profitt. Zen videreformidler kostnadene fra modellleverandørene direkte til deg. Jo mer Zen brukes, desto bedre priser kan OpenCode forhandle og gi videre til deg.",
+    "Zen er ikke for profitt. Zen videreformidler kostnadene fra modellleverandørene direkte til deg. Jo mer Zen brukes, desto bedre priser kan NemoraCode forhandle og gi videre til deg.",
   "zen.faq.q4": "Hva koster Zen?",
   "zen.faq.a4.p1.beforePricing": "Zen",
   "zen.faq.a4.p1.pricingLink": "tar betalt per forespørsel",
@@ -157,7 +157,7 @@ export const dict = {
   "zen.faq.a4.p2.beforeAccount": "Totalprisen avhenger av bruk, og du kan sette månedlige utgiftsgrenser i din",
   "zen.faq.a4.p2.accountLink": "konto",
   "zen.faq.a4.p3":
-    "For å dekke kostnader legger OpenCode til bare et lite betalingsbehandlingsgebyr på $1.23 per $20 saldo-påfyll.",
+    "For å dekke kostnader legger NemoraCode til bare et lite betalingsbehandlingsgebyr på $1.23 per $20 saldo-påfyll.",
   "zen.faq.q5": "Hva med data og personvern?",
   "zen.faq.a5.beforeExceptions":
     "Alle Zen-modeller hostes i USA og EU. Leverandører følger en policy om null oppbevaring og bruker ikke dataene dine til modelltrening, med de",
@@ -168,7 +168,7 @@ export const dict = {
   "zen.faq.a7": "Ja, du kan deaktivere fakturering når som helst og bruke gjenværende saldo.",
   "zen.faq.q8": "Kan jeg bruke Zen med andre kodeagenter?",
   "zen.faq.a8":
-    "Selv om Zen fungerer veldig bra med OpenCode, kan du bruke Zen med hvilken som helst agent. Følg oppsettinstruksjonene i din foretrukne kodeagent.",
+    "Selv om Zen fungerer veldig bra med NemoraCode, kan du bruke Zen med hvilken som helst agent. Følg oppsettinstruksjonene i din foretrukne kodeagent.",
   "zen.faq.q9": "Kan jeg få refusjon?",
   "zen.faq.a9":
     "Du kan ha rett på refusjon hvis belastningen ble gjort i løpet av de siste 14 dagene og du ikke har brukt noe av kreditten fra kjøpet. {{contact}} for å be om refusjon.",
@@ -180,12 +180,12 @@ export const dict = {
   "zen.problem.title": "Hvilket problem løser Zen?",
   "zen.problem.body":
     "Det er så mange modeller tilgjengelig, men bare noen få fungerer bra med kodeagenter. De fleste leverandører konfigurerer dem annerledes med varierende resultater.",
-  "zen.problem.subtitle": "Vi fikser dette for alle, ikke bare OpenCode-brukere.",
+  "zen.problem.subtitle": "Vi fikser dette for alle, ikke bare NemoraCode-brukere.",
   "zen.problem.item1": "Tester utvalgte modeller og konsulterer teamene deres",
   "zen.problem.item2": "Samarbeider med leverandører for å sikre at de blir levert riktig",
   "zen.problem.item3": "Benchmarker alle modell-leverandør-kombinasjoner vi anbefaler",
   "zen.how.title": "Hvordan Zen fungerer",
-  "zen.how.body": "Selv om vi foreslår at du bruker Zen med OpenCode, kan du bruke Zen med hvilken som helst agent.",
+  "zen.how.body": "Selv om vi foreslår at du bruker Zen med NemoraCode, kan du bruke Zen med hvilken som helst agent.",
   "zen.how.step1.title": "Registrer deg og legg til $20 saldo",
   "zen.how.step1.beforeLink": "følg",
   "zen.how.step1.link": "oppsettsinstruksjonene",
@@ -200,7 +200,7 @@ export const dict = {
   "zen.privacy.exceptionsLink": "følgende unntak",
 
   "go.promo.kimiK31Pro": "Kimi K3.1 Pro er nå tilgjengelig i Go.",
-  "go.title": "OpenCode Go | Rimelige kodemodeller for alle",
+  "go.title": "NemoraCode Go | Rimelige kodemodeller for alle",
   "go.meta.description":
     "Go koster $10/måned, med sjenerøse bruksgrenser og pålitelig tilgang til ledende kodemodeller.",
   "go.hero.title": "Rimelige kodemodeller for alle",
@@ -236,13 +236,13 @@ export const dict = {
 
   "go.problem.title": "Hvilket problem løser Go?",
   "go.problem.body":
-    "Vi fokuserer på å bringe OpenCode-opplevelsen til så mange som mulig. OpenCode Go er et rimelig abonnement til $10/måned. Det gir sjenerøse grenser og pålitelig tilgang til de mest kapable åpen kildekode-modellene.",
+    "Vi fokuserer på å bringe NemoraCode-opplevelsen til så mange som mulig. NemoraCode Go er et rimelig abonnement til $10/måned. Det gir sjenerøse grenser og pålitelig tilgang til de mest kapable åpen kildekode-modellene.",
   "go.problem.item1": "Rimelig abonnementspris",
   "go.problem.item2": "Rause grenser og pålitelig tilgang",
   "go.problem.item3": "Bygget for så mange programmerere som mulig",
   "go.problem.item4": "Et kuratert modellutvalg testet for agent-koding",
   "go.how.title": "Hvordan Go fungerer",
-  "go.how.body": "Go koster $10/måned. Du kan bruke det med OpenCode eller hvilken som helst agent.",
+  "go.how.body": "Go koster $10/måned. Du kan bruke det med NemoraCode eller hvilken som helst agent.",
   "go.how.step1.title": "Opprett en konto",
   "go.how.step1.beforeLink": "følg",
   "go.how.step1.link": "oppsettsinstruksjonene",
@@ -251,7 +251,7 @@ export const dict = {
   "go.how.step2.afterLink": "med sjenerøse grenser",
   "go.how.step3.title": "Begynn å kode",
   "go.how.step3.body": "med pålitelig tilgang til åpen kildekode-modeller",
-  "go.faq.q1": "Hva er OpenCode Go?",
+  "go.faq.q1": "Hva er NemoraCode Go?",
   "go.faq.a1":
     "Go er et rimelig abonnement som gir deg pålitelig tilgang til kapable åpen kildekode-modeller for agent-koding.",
   "go.faq.q2": "Hvilke modeller inkluderer Go?",
@@ -300,12 +300,12 @@ export const dict = {
   "go.faq.a10":
     "Du kan ha rett på refusjon hvis belastningen ble gjort i løpet av de siste 14 dagene og du ikke har brukt noe av Go-kvoten i den faktureringsperioden. {{contact}} for å be om refusjon.",
 
-  "download.title": "OpenCode | Last ned",
-  "download.meta.description": "Last ned OpenCode for macOS, Windows og Linux",
-  "download.section.terminal": "OpenCode Terminal",
-  "download.section.desktop": "OpenCode Desktop",
-  "download.section.extensions": "OpenCode Extensions",
-  "download.section.integrations": "OpenCode Integrations",
+  "download.title": "NemoraCode | Last ned",
+  "download.meta.description": "Last ned NemoraCode for macOS, Windows og Linux",
+  "download.section.terminal": "NemoraCode Terminal",
+  "download.section.desktop": "NemoraCode Desktop",
+  "download.section.extensions": "NemoraCode Extensions",
+  "download.section.integrations": "NemoraCode Integrations",
   "download.action.download": "Last ned",
   "download.action.install": "Installer",
 
@@ -317,21 +317,21 @@ export const dict = {
   "download.platform.linuxRpm": "Linux (.rpm)",
 
   "download.faq.a3.beforeLocal":
-    "Ikke nødvendigvis, men sannsynligvis. Du trenger et AI-abonnement hvis du vil koble OpenCode til en betalt leverandør, selv om du kan jobbe med",
+    "Ikke nødvendigvis, men sannsynligvis. Du trenger et AI-abonnement hvis du vil koble NemoraCode til en betalt leverandør, selv om du kan jobbe med",
   "download.faq.a3.localLink": "lokale modeller",
   "download.faq.a3.afterLocal.beforeZen": "gratis. Selv om vi oppfordrer brukere til å bruke",
-  "download.faq.a3.afterZen": ", fungerer OpenCode med alle populære leverandører som OpenAI, Anthropic, xAI osv.",
+  "download.faq.a3.afterZen": ", fungerer NemoraCode med alle populære leverandører som OpenAI, Anthropic, xAI osv.",
 
-  "download.faq.a5.p1": "OpenCode er 100% gratis å bruke.",
+  "download.faq.a5.p1": "NemoraCode er 100% gratis å bruke.",
   "download.faq.a5.p2.beforeZen":
-    "Eventuelle ekstra kostnader kommer fra abonnementet ditt hos en modellleverandør. Selv om OpenCode fungerer med enhver modellleverandør, anbefaler vi å bruke",
+    "Eventuelle ekstra kostnader kommer fra abonnementet ditt hos en modellleverandør. Selv om NemoraCode fungerer med enhver modellleverandør, anbefaler vi å bruke",
   "download.faq.a5.p2.afterZen": ".",
 
-  "enterprise.title": "OpenCode | Enterprise-løsninger for din organisasjon",
-  "enterprise.meta.description": "Kontakt OpenCode for enterprise-løsninger",
+  "enterprise.title": "NemoraCode | Enterprise-løsninger for din organisasjon",
+  "enterprise.meta.description": "Kontakt NemoraCode for enterprise-løsninger",
   "enterprise.hero.title": "Koden din er din",
   "enterprise.hero.body1":
-    "OpenCode opererer sikkert inne i organisasjonen din uten at data eller kontekst lagres, og uten lisensbegrensninger eller eierskapskrav. Start en prøveperiode med teamet ditt, og rull den deretter ut i hele organisasjonen ved å integrere den med SSO og din interne AI-gateway.",
+    "NemoraCode opererer sikkert inne i organisasjonen din uten at data eller kontekst lagres, og uten lisensbegrensninger eller eierskapskrav. Start en prøveperiode med teamet ditt, og rull den deretter ut i hele organisasjonen ved å integrere den med SSO og din interne AI-gateway.",
   "enterprise.hero.body2": "Fortell oss hvordan vi kan hjelpe.",
   "enterprise.form.name.label": "Fullt navn",
   "enterprise.form.name.placeholder": "Jeff Bezos",
@@ -363,29 +363,29 @@ export const dict = {
   "enterprise.form.error.internalServer": "Intern serverfeil.",
   "enterprise.form.error.captcha": "Captcha-verifiseringen mislyktes. Prøv igjen.",
   "enterprise.faq.title": "FAQ",
-  "enterprise.faq.q1": "Hva er OpenCode Enterprise?",
+  "enterprise.faq.q1": "Hva er NemoraCode Enterprise?",
   "enterprise.faq.a1":
-    "OpenCode Enterprise er for organisasjoner som vil sikre at koden og dataene deres aldri forlater infrastrukturen. Dette kan gjøres med en sentral konfigurasjon som integreres med SSO og intern AI-gateway.",
-  "enterprise.faq.q2": "Hvordan kommer jeg i gang med OpenCode Enterprise?",
+    "NemoraCode Enterprise er for organisasjoner som vil sikre at koden og dataene deres aldri forlater infrastrukturen. Dette kan gjøres med en sentral konfigurasjon som integreres med SSO og intern AI-gateway.",
+  "enterprise.faq.q2": "Hvordan kommer jeg i gang med NemoraCode Enterprise?",
   "enterprise.faq.a2":
-    "Start enkelt med en intern prøveperiode med teamet ditt. OpenCode lagrer som standard ikke koden din eller kontekstdata, noe som gjør det enkelt å komme i gang. Kontakt oss deretter for å diskutere priser og implementeringsalternativer.",
+    "Start enkelt med en intern prøveperiode med teamet ditt. NemoraCode lagrer som standard ikke koden din eller kontekstdata, noe som gjør det enkelt å komme i gang. Kontakt oss deretter for å diskutere priser og implementeringsalternativer.",
   "enterprise.faq.q3": "Hvordan fungerer enterprise-prising?",
   "enterprise.faq.a3":
     "Har du din egen LLM-gateway, tar vi ikke betalt for brukte tokens. Kontakt oss for flere detaljer og et tilpasset tilbud basert på organisasjonens behov.",
-  "enterprise.faq.q4": "Er dataene mine sikre med OpenCode Enterprise?",
+  "enterprise.faq.q4": "Er dataene mine sikre med NemoraCode Enterprise?",
   "enterprise.faq.a4":
-    "Ja. OpenCode lagrer ikke koden din eller kontekstdata. All behandling skjer lokalt eller gjennom direkte API-kall til AI-leverandøren din. Med sentral konfigurasjon og SSO-integrasjon forblir dataene dine sikre innenfor organisasjonens infrastruktur.",
+    "Ja. NemoraCode lagrer ikke koden din eller kontekstdata. All behandling skjer lokalt eller gjennom direkte API-kall til AI-leverandøren din. Med sentral konfigurasjon og SSO-integrasjon forblir dataene dine sikre innenfor organisasjonens infrastruktur.",
 
-  "brand.title": "OpenCode | Merkevare",
-  "brand.meta.description": "OpenCode retningslinjer for merkevare",
+  "brand.title": "NemoraCode | Merkevare",
+  "brand.meta.description": "NemoraCode retningslinjer for merkevare",
   "brand.heading": "Retningslinjer for merkevare",
-  "brand.subtitle": "Ressurser og assets som hjelper deg å jobbe med OpenCode-brandet.",
+  "brand.subtitle": "Ressurser og assets som hjelper deg å jobbe med NemoraCode-brandet.",
   "brand.downloadAll": "Last ned alle assets",
 
-  "changelog.title": "OpenCode | Endringslogg",
-  "changelog.meta.description": "Utgivelsesnotater og endringslogg for OpenCode",
+  "changelog.title": "NemoraCode | Endringslogg",
+  "changelog.meta.description": "Utgivelsesnotater og endringslogg for NemoraCode",
   "changelog.hero.title": "Endringslogg",
-  "changelog.hero.subtitle": "Nye oppdateringer og forbedringer for OpenCode",
+  "changelog.hero.subtitle": "Nye oppdateringer og forbedringer for NemoraCode",
   "changelog.empty": "Ingen endringsloggoppføringer funnet.",
   "changelog.viewJson": "Vis JSON",
 } satisfies Dict

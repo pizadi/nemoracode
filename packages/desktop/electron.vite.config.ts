@@ -4,7 +4,7 @@ import { pickerPlugin } from "./scripts/picker"
 import { nodePtyPackage } from "./scripts/utils"
 
 function resolveChannel() {
-  const raw = process.env.OPENCODE_CHANNEL
+  const raw = process.env.NEMORACODE_CHANNEL
 
   if (raw === "local" || raw === "dev" || raw === "beta" || raw === "prod") return raw
 
@@ -13,7 +13,7 @@ function resolveChannel() {
   return "dev"
 }
 
-const appPlugin = (await import("@opencode/app/vite")).default
+const appPlugin = (await import("@nemoracode/app/vite")).default
 
 const sentry =
   process.env.SENTRY_AUTH_TOKEN && process.env.SENTRY_ORG && process.env.SENTRY_PROJECT
@@ -61,7 +61,7 @@ export default defineConfig(({ command }) => {
       },
       define: {
         // Local renderer/server mode still uses the dev application identity and updater policy.
-        "import.meta.env.OPENCODE_CHANNEL": JSON.stringify(channel === "local" ? "dev" : channel),
+        "import.meta.env.NEMORACODE_CHANNEL": JSON.stringify(channel === "local" ? "dev" : channel),
       },
       build: {
         minify: command === "build",
@@ -91,7 +91,7 @@ const require = __cjs_mod__.createRequire(import.meta.url);
       },
       plugins: [
         {
-          name: "opencode:node-pty-narrower",
+          name: "nemoracode:node-pty-narrower",
           enforce: "pre",
           resolveId(s) {
             if (s === "@lydell/node-pty") return nodePtyPkg
@@ -121,10 +121,10 @@ const require = __cjs_mod__.createRequire(import.meta.url);
         bundledDev: true,
       },
       define: {
-        "import.meta.env.OPENCODE_VERSION": JSON.stringify(process.env.OPENCODE_VERSION),
-        "import.meta.env.VITE_OPENCODE_CHANNEL": JSON.stringify(channel),
-        "import.meta.env.OPENCODE_TEST_ONBOARDING": JSON.stringify(
-          command === "serve" && process.env.OPENCODE_TEST_ONBOARDING === "1",
+        "import.meta.env.NEMORACODE_VERSION": JSON.stringify(process.env.NEMORACODE_VERSION),
+        "import.meta.env.VITE_NEMORACODE_CHANNEL": JSON.stringify(channel),
+        "import.meta.env.NEMORACODE_TEST_ONBOARDING": JSON.stringify(
+          command === "serve" && process.env.NEMORACODE_TEST_ONBOARDING === "1",
         ),
       },
       plugins: [pickerPlugin(), appPlugin, initialChunk, sentry],

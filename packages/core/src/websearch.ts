@@ -1,11 +1,11 @@
 export * as WebSearch from "./websearch.js"
 
-import { WebSearch } from "@opencode/schema/websearch"
-import type { Session } from "@opencode/schema/session"
-import { SessionEvent } from "@opencode/schema/session-event"
+import { WebSearch } from "@nemoracode/schema/websearch"
+import type { Session } from "@nemoracode/schema/session"
+import { SessionEvent } from "@nemoracode/schema/session-event"
 import { Clock, Context, Effect, Layer, Option, Schema, Stream } from "effect"
 import { HttpClientError } from "effect/http"
-import { makeLocationNode } from "@opencode/util/effect/app-node"
+import { makeLocationNode } from "@nemoracode/util/effect/app-node"
 import { Bus } from "./bus.js"
 import { KV } from "./kv.js"
 import { State } from "./state.js"
@@ -16,7 +16,7 @@ export type ID = WebSearch.ID
 export const Provider = WebSearch.Provider
 export type Provider = WebSearch.Provider
 
-export { Event } from "@opencode/schema/websearch"
+export { Event } from "@nemoracode/schema/websearch"
 
 export const Input = WebSearch.Input
 export type Input = WebSearch.Input
@@ -67,7 +67,7 @@ export interface Interface extends State.Transformable<Editor> {
   ) => Effect.Effect<Response, Error>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/WebSearch") {}
+export class Service extends Context.Service<Service, Interface>()("@nemoracode/WebSearch") {}
 
 type Data = {
   readonly providers: Map<ID, ProviderImplementation>

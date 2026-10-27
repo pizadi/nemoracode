@@ -17,11 +17,11 @@ describe("highlights", () => {
       "Automatic Project Cleanup",
     ])
     expect(result.items[0].body).toBe(
-      "Ask OpenCode to use `worktree_create`, `worktree_list`, and `worktree_remove` in Code Mode. You can create " +
+      "Ask NemoraCode to use `worktree_create`, `worktree_list`, and `worktree_remove` in Code Mode. You can create " +
         "isolated worktrees, move sessions into them, and remove them with normal edit approval.",
     )
     expect(result.items[2].body).toBe(
-      "Use Chrome or Edge’s Install button to install the OpenCode web app, including when it runs behind an " +
+      "Use Chrome or Edge’s Install button to install the NemoraCode web app, including when it runs behind an " +
         "authenticating proxy.",
     )
     expect(result.items.some((item) => item.body.includes("github.com") || item.body.includes("(["))).toBe(false)

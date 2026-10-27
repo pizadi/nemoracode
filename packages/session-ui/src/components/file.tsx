@@ -1,4 +1,4 @@
-import { sampledChecksum } from "@opencode/util/encode"
+import { sampledChecksum } from "@nemoracode/util/encode"
 import {
   areFilesEqual,
   areOptionsEqual,

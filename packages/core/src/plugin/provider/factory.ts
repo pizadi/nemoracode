@@ -1,5 +1,5 @@
-import { define } from "@opencode/plugin/effect/plugin"
-import type { AISDKHooks } from "@opencode/plugin/effect/aisdk"
+import { define } from "@nemoracode/plugin/effect/plugin"
+import type { AISDKHooks } from "@nemoracode/plugin/effect/aisdk"
 import { Effect } from "effect"
 
 export function createProviderPlugin(input: {

@@ -1,19 +1,19 @@
 export * as Provider from "./provider.js"
 
 import { Context, Effect, Layer, Option, Schema, Stream, Struct } from "effect"
-import { Provider } from "@opencode/schema/provider"
-import { Model } from "@opencode/schema/model"
-import { makeLocationNode } from "@opencode/util/effect/app-node"
-import { HttpTimeout, type ProviderPackageDefinition } from "@opencode/ai/effect"
-import { isRecord } from "@opencode/ai/utils/record"
-import { Npm } from "@opencode/util/npm"
+import { Provider } from "@nemoracode/schema/provider"
+import { Model } from "@nemoracode/schema/model"
+import { makeLocationNode } from "@nemoracode/util/effect/app-node"
+import { HttpTimeout, type ProviderPackageDefinition } from "@nemoracode/ai/effect"
+import { isRecord } from "@nemoracode/ai/utils/record"
+import { Npm } from "@nemoracode/util/npm"
 import type { DeepMutable } from "./schema.js"
-import { importModule, resolveModule } from "@opencode/util/runtime-import"
+import { importModule, resolveModule } from "@nemoracode/util/runtime-import"
 import { Bus } from "./bus.js"
 import { Integration } from "./integration.js"
 import { State } from "./state.js"
 import { IntegrationConnection } from "./integration/connection.js"
-import { Credential } from "@opencode/schema/credential"
+import { Credential } from "@nemoracode/schema/credential"
 import { Location } from "./location.js"
 import { freeze } from "immer"
 import { AISDKNative } from "./aisdk-native.js"
@@ -29,7 +29,7 @@ export function packageName(value: undefined): undefined
 export function packageName(value: string | undefined): string | undefined
 export function packageName(value: string | undefined) {
   // Native provider entrypoints can persist in user configuration across the npm scope migration.
-  if (value?.startsWith("@opencode-ai/ai/")) return value.replace("@opencode-ai/", "@opencode/")
+  if (value?.startsWith("@opencode-ai/ai/")) return value.replace("@opencode-ai/", "@nemoracode/")
   if (value === undefined || !isAISDK(value)) return value
   return value.slice(AISDK_PREFIX.length)
 }
@@ -46,112 +46,112 @@ export type ProviderPackage = ProviderPackageDefinition
 
 const packages = new Map<string, Promise<unknown>>()
 const builtins = new Map<string, () => Promise<unknown>>([
-  ["@opencode/ai/providers/alibaba", () => import("@opencode/ai/providers/alibaba")],
-  ["@opencode/ai/providers/alibaba/chat", () => import("@opencode/ai/providers/alibaba/chat")],
-  ["@opencode/ai/providers/alibaba/messages", () => import("@opencode/ai/providers/alibaba/messages")],
-  ["@opencode/ai/providers/alibaba/responses", () => import("@opencode/ai/providers/alibaba/responses")],
-  ["@opencode/ai/providers/amazon-bedrock", () => import("@opencode/ai/providers/amazon-bedrock")],
-  ["@opencode/ai/providers/amazon-bedrock/mantle", () => import("@opencode/ai/providers/amazon-bedrock/mantle")],
+  ["@nemoracode/ai/providers/alibaba", () => import("@nemoracode/ai/providers/alibaba")],
+  ["@nemoracode/ai/providers/alibaba/chat", () => import("@nemoracode/ai/providers/alibaba/chat")],
+  ["@nemoracode/ai/providers/alibaba/messages", () => import("@nemoracode/ai/providers/alibaba/messages")],
+  ["@nemoracode/ai/providers/alibaba/responses", () => import("@nemoracode/ai/providers/alibaba/responses")],
+  ["@nemoracode/ai/providers/amazon-bedrock", () => import("@nemoracode/ai/providers/amazon-bedrock")],
+  ["@nemoracode/ai/providers/amazon-bedrock/mantle", () => import("@nemoracode/ai/providers/amazon-bedrock/mantle")],
   [
-    "@opencode/ai/providers/amazon-bedrock/mantle/chat",
-    () => import("@opencode/ai/providers/amazon-bedrock/mantle/chat"),
+    "@nemoracode/ai/providers/amazon-bedrock/mantle/chat",
+    () => import("@nemoracode/ai/providers/amazon-bedrock/mantle/chat"),
   ],
   [
-    "@opencode/ai/providers/amazon-bedrock/mantle/messages",
-    () => import("@opencode/ai/providers/amazon-bedrock/mantle/messages"),
+    "@nemoracode/ai/providers/amazon-bedrock/mantle/messages",
+    () => import("@nemoracode/ai/providers/amazon-bedrock/mantle/messages"),
   ],
   [
-    "@opencode/ai/providers/amazon-bedrock/mantle/responses",
-    () => import("@opencode/ai/providers/amazon-bedrock/mantle/responses"),
+    "@nemoracode/ai/providers/amazon-bedrock/mantle/responses",
+    () => import("@nemoracode/ai/providers/amazon-bedrock/mantle/responses"),
   ],
-  ["@opencode/ai/providers/amazon-bedrock-mantle", () => import("@opencode/ai/providers/amazon-bedrock-mantle")],
-  ["@opencode/ai/providers/anthropic", () => import("@opencode/ai/providers/anthropic")],
-  ["@opencode/ai/providers/anthropic-compatible", () => import("@opencode/ai/providers/anthropic-compatible")],
-  ["@opencode/ai/providers/azure", () => import("@opencode/ai/providers/azure")],
-  ["@opencode/ai/providers/azure/chat", () => import("@opencode/ai/providers/azure/chat")],
-  ["@opencode/ai/providers/azure/responses", () => import("@opencode/ai/providers/azure/responses")],
-  ["@opencode/ai/providers/baseten", () => import("@opencode/ai/providers/baseten")],
-  ["@opencode/ai/providers/cerebras", () => import("@opencode/ai/providers/cerebras")],
-  ["@opencode/ai/providers/cloudflare-ai-gateway", () => import("@opencode/ai/providers/cloudflare-ai-gateway")],
-  ["@opencode/ai/providers/cloudflare-workers-ai", () => import("@opencode/ai/providers/cloudflare-workers-ai")],
-  ["@opencode/ai/providers/cohere", () => import("@opencode/ai/providers/cohere")],
-  ["@opencode/ai/providers/cohere/chat", () => import("@opencode/ai/providers/cohere/chat")],
-  ["@opencode/ai/providers/deepinfra", () => import("@opencode/ai/providers/deepinfra")],
-  ["@opencode/ai/providers/deepseek", () => import("@opencode/ai/providers/deepseek")],
-  ["@opencode/ai/providers/digitalocean", () => import("@opencode/ai/providers/digitalocean")],
-  ["@opencode/ai/providers/fireworks", () => import("@opencode/ai/providers/fireworks")],
-  ["@opencode/ai/providers/google", () => import("@opencode/ai/providers/google")],
-  ["@opencode/ai/providers/google/interactions", () => import("@opencode/ai/providers/google/interactions")],
-  ["@opencode/ai/providers/google-vertex", () => import("@opencode/ai/providers/google-vertex")],
-  ["@opencode/ai/providers/google-vertex/chat", () => import("@opencode/ai/providers/google-vertex/chat")],
-  ["@opencode/ai/providers/google-vertex/gemini", () => import("@opencode/ai/providers/google-vertex/gemini")],
+  ["@nemoracode/ai/providers/amazon-bedrock-mantle", () => import("@nemoracode/ai/providers/amazon-bedrock-mantle")],
+  ["@nemoracode/ai/providers/anthropic", () => import("@nemoracode/ai/providers/anthropic")],
+  ["@nemoracode/ai/providers/anthropic-compatible", () => import("@nemoracode/ai/providers/anthropic-compatible")],
+  ["@nemoracode/ai/providers/azure", () => import("@nemoracode/ai/providers/azure")],
+  ["@nemoracode/ai/providers/azure/chat", () => import("@nemoracode/ai/providers/azure/chat")],
+  ["@nemoracode/ai/providers/azure/responses", () => import("@nemoracode/ai/providers/azure/responses")],
+  ["@nemoracode/ai/providers/baseten", () => import("@nemoracode/ai/providers/baseten")],
+  ["@nemoracode/ai/providers/cerebras", () => import("@nemoracode/ai/providers/cerebras")],
+  ["@nemoracode/ai/providers/cloudflare-ai-gateway", () => import("@nemoracode/ai/providers/cloudflare-ai-gateway")],
+  ["@nemoracode/ai/providers/cloudflare-workers-ai", () => import("@nemoracode/ai/providers/cloudflare-workers-ai")],
+  ["@nemoracode/ai/providers/cohere", () => import("@nemoracode/ai/providers/cohere")],
+  ["@nemoracode/ai/providers/cohere/chat", () => import("@nemoracode/ai/providers/cohere/chat")],
+  ["@nemoracode/ai/providers/deepinfra", () => import("@nemoracode/ai/providers/deepinfra")],
+  ["@nemoracode/ai/providers/deepseek", () => import("@nemoracode/ai/providers/deepseek")],
+  ["@nemoracode/ai/providers/digitalocean", () => import("@nemoracode/ai/providers/digitalocean")],
+  ["@nemoracode/ai/providers/fireworks", () => import("@nemoracode/ai/providers/fireworks")],
+  ["@nemoracode/ai/providers/google", () => import("@nemoracode/ai/providers/google")],
+  ["@nemoracode/ai/providers/google/interactions", () => import("@nemoracode/ai/providers/google/interactions")],
+  ["@nemoracode/ai/providers/google-vertex", () => import("@nemoracode/ai/providers/google-vertex")],
+  ["@nemoracode/ai/providers/google-vertex/chat", () => import("@nemoracode/ai/providers/google-vertex/chat")],
+  ["@nemoracode/ai/providers/google-vertex/gemini", () => import("@nemoracode/ai/providers/google-vertex/gemini")],
   [
-    "@opencode/ai/providers/google-vertex/interactions",
-    () => import("@opencode/ai/providers/google-vertex/interactions"),
+    "@nemoracode/ai/providers/google-vertex/interactions",
+    () => import("@nemoracode/ai/providers/google-vertex/interactions"),
   ],
-  ["@opencode/ai/providers/google-vertex/messages", () => import("@opencode/ai/providers/google-vertex/messages")],
-  ["@opencode/ai/providers/google-vertex/mistral", () => import("@opencode/ai/providers/google-vertex/mistral")],
-  ["@opencode/ai/providers/google-vertex/responses", () => import("@opencode/ai/providers/google-vertex/responses")],
-  ["@opencode/ai/providers/google-vertex-chat", () => import("@opencode/ai/providers/google-vertex-chat")],
+  ["@nemoracode/ai/providers/google-vertex/messages", () => import("@nemoracode/ai/providers/google-vertex/messages")],
+  ["@nemoracode/ai/providers/google-vertex/mistral", () => import("@nemoracode/ai/providers/google-vertex/mistral")],
+  ["@nemoracode/ai/providers/google-vertex/responses", () => import("@nemoracode/ai/providers/google-vertex/responses")],
+  ["@nemoracode/ai/providers/google-vertex-chat", () => import("@nemoracode/ai/providers/google-vertex-chat")],
   [
-    "@opencode/ai/providers/google-vertex-interactions",
-    () => import("@opencode/ai/providers/google-vertex-interactions"),
+    "@nemoracode/ai/providers/google-vertex-interactions",
+    () => import("@nemoracode/ai/providers/google-vertex-interactions"),
   ],
-  ["@opencode/ai/providers/google-vertex-messages", () => import("@opencode/ai/providers/google-vertex-messages")],
-  ["@opencode/ai/providers/google-vertex-mistral", () => import("@opencode/ai/providers/google-vertex-mistral")],
-  ["@opencode/ai/providers/google-vertex-responses", () => import("@opencode/ai/providers/google-vertex-responses")],
-  ["@opencode/ai/providers/groq", () => import("@opencode/ai/providers/groq")],
-  ["@opencode/ai/providers/meta", () => import("@opencode/ai/providers/meta")],
-  ["@opencode/ai/providers/meta/chat", () => import("@opencode/ai/providers/meta/chat")],
-  ["@opencode/ai/providers/meta/messages", () => import("@opencode/ai/providers/meta/messages")],
-  ["@opencode/ai/providers/meta/responses", () => import("@opencode/ai/providers/meta/responses")],
-  ["@opencode/ai/providers/minimax", () => import("@opencode/ai/providers/minimax")],
-  ["@opencode/ai/providers/minimax/chat", () => import("@opencode/ai/providers/minimax/chat")],
-  ["@opencode/ai/providers/minimax/messages", () => import("@opencode/ai/providers/minimax/messages")],
-  ["@opencode/ai/providers/minimax/responses", () => import("@opencode/ai/providers/minimax/responses")],
-  ["@opencode/ai/providers/mistral", () => import("@opencode/ai/providers/mistral")],
-  ["@opencode/ai/providers/moonshot", () => import("@opencode/ai/providers/moonshot")],
-  ["@opencode/ai/providers/moonshot/chat", () => import("@opencode/ai/providers/moonshot/chat")],
-  ["@opencode/ai/providers/moonshot/messages", () => import("@opencode/ai/providers/moonshot/messages")],
-  ["@opencode/ai/providers/moonshot/responses", () => import("@opencode/ai/providers/moonshot/responses")],
-  ["@opencode/ai/providers/openai", () => import("@opencode/ai/providers/openai")],
-  ["@opencode/ai/providers/openai/chat", () => import("@opencode/ai/providers/openai/chat")],
-  ["@opencode/ai/providers/openai/responses", () => import("@opencode/ai/providers/openai/responses")],
-  ["@opencode/ai/providers/openai-compatible", () => import("@opencode/ai/providers/openai-compatible")],
+  ["@nemoracode/ai/providers/google-vertex-messages", () => import("@nemoracode/ai/providers/google-vertex-messages")],
+  ["@nemoracode/ai/providers/google-vertex-mistral", () => import("@nemoracode/ai/providers/google-vertex-mistral")],
+  ["@nemoracode/ai/providers/google-vertex-responses", () => import("@nemoracode/ai/providers/google-vertex-responses")],
+  ["@nemoracode/ai/providers/groq", () => import("@nemoracode/ai/providers/groq")],
+  ["@nemoracode/ai/providers/meta", () => import("@nemoracode/ai/providers/meta")],
+  ["@nemoracode/ai/providers/meta/chat", () => import("@nemoracode/ai/providers/meta/chat")],
+  ["@nemoracode/ai/providers/meta/messages", () => import("@nemoracode/ai/providers/meta/messages")],
+  ["@nemoracode/ai/providers/meta/responses", () => import("@nemoracode/ai/providers/meta/responses")],
+  ["@nemoracode/ai/providers/minimax", () => import("@nemoracode/ai/providers/minimax")],
+  ["@nemoracode/ai/providers/minimax/chat", () => import("@nemoracode/ai/providers/minimax/chat")],
+  ["@nemoracode/ai/providers/minimax/messages", () => import("@nemoracode/ai/providers/minimax/messages")],
+  ["@nemoracode/ai/providers/minimax/responses", () => import("@nemoracode/ai/providers/minimax/responses")],
+  ["@nemoracode/ai/providers/mistral", () => import("@nemoracode/ai/providers/mistral")],
+  ["@nemoracode/ai/providers/moonshot", () => import("@nemoracode/ai/providers/moonshot")],
+  ["@nemoracode/ai/providers/moonshot/chat", () => import("@nemoracode/ai/providers/moonshot/chat")],
+  ["@nemoracode/ai/providers/moonshot/messages", () => import("@nemoracode/ai/providers/moonshot/messages")],
+  ["@nemoracode/ai/providers/moonshot/responses", () => import("@nemoracode/ai/providers/moonshot/responses")],
+  ["@nemoracode/ai/providers/openai", () => import("@nemoracode/ai/providers/openai")],
+  ["@nemoracode/ai/providers/openai/chat", () => import("@nemoracode/ai/providers/openai/chat")],
+  ["@nemoracode/ai/providers/openai/responses", () => import("@nemoracode/ai/providers/openai/responses")],
+  ["@nemoracode/ai/providers/openai-compatible", () => import("@nemoracode/ai/providers/openai-compatible")],
   [
-    "@opencode/ai/providers/openai-compatible/responses",
-    () => import("@opencode/ai/providers/openai-compatible/responses"),
-  ],
-  [
-    "@opencode/ai/providers/openai-compatible-responses",
-    () => import("@opencode/ai/providers/openai-compatible-responses"),
-  ],
-  ["@opencode/ai/providers/openrouter", () => import("@opencode/ai/providers/openrouter")],
-  ["@opencode/ai/providers/togetherai", () => import("@opencode/ai/providers/togetherai")],
-  ["@opencode/ai/providers/venice", () => import("@opencode/ai/providers/venice")],
-  ["@opencode/ai/providers/vercel-ai-gateway", () => import("@opencode/ai/providers/vercel-ai-gateway")],
-  ["@opencode/ai/providers/vercel-ai-gateway/chat", () => import("@opencode/ai/providers/vercel-ai-gateway/chat")],
-  [
-    "@opencode/ai/providers/vercel-ai-gateway/messages",
-    () => import("@opencode/ai/providers/vercel-ai-gateway/messages"),
+    "@nemoracode/ai/providers/openai-compatible/responses",
+    () => import("@nemoracode/ai/providers/openai-compatible/responses"),
   ],
   [
-    "@opencode/ai/providers/vercel-ai-gateway/responses",
-    () => import("@opencode/ai/providers/vercel-ai-gateway/responses"),
+    "@nemoracode/ai/providers/openai-compatible-responses",
+    () => import("@nemoracode/ai/providers/openai-compatible-responses"),
   ],
-  ["@opencode/ai/providers/xai", () => import("@opencode/ai/providers/xai")],
-  ["@opencode/ai/providers/zai", () => import("@opencode/ai/providers/zai")],
-  ["@opencode/ai/providers/zai/chat", () => import("@opencode/ai/providers/zai/chat")],
-  ["@opencode/ai/providers/zai-coding-plan", () => import("@opencode/ai/providers/zai-coding-plan")],
-  ["@opencode/ai/providers/zai-coding-plan/chat", () => import("@opencode/ai/providers/zai-coding-plan/chat")],
-  ["@opencode/ai/providers/zai-coding-plan/messages", () => import("@opencode/ai/providers/zai-coding-plan/messages")],
+  ["@nemoracode/ai/providers/openrouter", () => import("@nemoracode/ai/providers/openrouter")],
+  ["@nemoracode/ai/providers/togetherai", () => import("@nemoracode/ai/providers/togetherai")],
+  ["@nemoracode/ai/providers/venice", () => import("@nemoracode/ai/providers/venice")],
+  ["@nemoracode/ai/providers/vercel-ai-gateway", () => import("@nemoracode/ai/providers/vercel-ai-gateway")],
+  ["@nemoracode/ai/providers/vercel-ai-gateway/chat", () => import("@nemoracode/ai/providers/vercel-ai-gateway/chat")],
   [
-    "@opencode/ai/providers/zai-coding-plan/responses",
-    () => import("@opencode/ai/providers/zai-coding-plan/responses"),
+    "@nemoracode/ai/providers/vercel-ai-gateway/messages",
+    () => import("@nemoracode/ai/providers/vercel-ai-gateway/messages"),
+  ],
+  [
+    "@nemoracode/ai/providers/vercel-ai-gateway/responses",
+    () => import("@nemoracode/ai/providers/vercel-ai-gateway/responses"),
+  ],
+  ["@nemoracode/ai/providers/xai", () => import("@nemoracode/ai/providers/xai")],
+  ["@nemoracode/ai/providers/zai", () => import("@nemoracode/ai/providers/zai")],
+  ["@nemoracode/ai/providers/zai/chat", () => import("@nemoracode/ai/providers/zai/chat")],
+  ["@nemoracode/ai/providers/zai-coding-plan", () => import("@nemoracode/ai/providers/zai-coding-plan")],
+  ["@nemoracode/ai/providers/zai-coding-plan/chat", () => import("@nemoracode/ai/providers/zai-coding-plan/chat")],
+  ["@nemoracode/ai/providers/zai-coding-plan/messages", () => import("@nemoracode/ai/providers/zai-coding-plan/messages")],
+  [
+    "@nemoracode/ai/providers/zai-coding-plan/responses",
+    () => import("@nemoracode/ai/providers/zai-coding-plan/responses"),
   ],
 ])
 
-/** Native `@opencode/ai/providers/*` entrypoints bundled with Core and loadable by name from config. */
+/** Native `@nemoracode/ai/providers/*` entrypoints bundled with Core and loadable by name from config. */
 export const builtinPackages: ReadonlySet<string> = new Set(builtins.keys())
 
 export const loadPackage = Effect.fn("Provider.loadPackage")(function* (input: string, npm?: Npm.Interface) {
@@ -159,7 +159,7 @@ export const loadPackage = Effect.fn("Provider.loadPackage")(function* (input: s
   const builtin = builtins.get(specifier)
   if (builtin) return yield* importPackage(specifier, specifier, builtin)
   const resolved = yield* Effect.sync(() => {
-    if (specifier.startsWith("file://") || specifier.startsWith("@opencode/ai/")) return specifier
+    if (specifier.startsWith("file://") || specifier.startsWith("@nemoracode/ai/")) return specifier
     try {
       return import.meta.resolve(specifier)
     } catch {
@@ -183,7 +183,7 @@ export const loadPackage = Effect.fn("Provider.loadPackage")(function* (input: s
   return yield* importPackage(specifier, entrypoint)
 })
 
-/** opencode settings consumed in Core; native packages never receive them. */
+/** nemoracode settings consumed in Core; native packages never receive them. */
 const CORE_KEYS = ["chunkTimeout", "compaction", "encoding", "fetch", "headerTimeout", "timeout", "transport"] as const
 const PROVIDER_ONLY_KEYS = ["chunkTimeout", "headerTimeout", "timeout", "transport"] as const
 
@@ -285,7 +285,7 @@ export type Info = Provider.Info
 
 export type MutableInfo = DeepMutable<Info>
 
-export { Event } from "@opencode/schema/provider"
+export { Event } from "@nemoracode/schema/provider"
 
 /** Provider metadata owns its drafts; model definitions remain immutable inputs. */
 export type Definition = {
@@ -325,7 +325,7 @@ export interface Interface extends State.Transformable<Editor> {
   readonly snapshot: () => Effect.Effect<Snapshot>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/Provider") {}
+export class Service extends Context.Service<Service, Interface>()("@nemoracode/Provider") {}
 
 // Every location references the same index for a shared immutable definition array.
 const definitions = new WeakMap<readonly Model.Info[], Map<ID, ReadonlyMap<Model.ID, Model.Info>>>()

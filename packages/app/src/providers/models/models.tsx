@@ -1,6 +1,6 @@
 import { type Accessor, createMemo } from "solid-js"
 import { filter, firstBy, flat, groupBy, mapValues, pipe, uniqueBy, values } from "remeda"
-import { createSimpleContext } from "@opencode/ui/context"
+import { createSimpleContext } from "@nemoracode/ui/context"
 import { useProviders } from "@/providers/catalog/providers"
 import { useGlobal } from "@/runtime/server/runtime"
 
@@ -18,7 +18,7 @@ function modelKey(model: ModelKey) {
 }
 
 export const isFreeModel = (model: { provider: { id: string }; cost?: { input: number } }) =>
-  model.provider.id === "opencode" && (!model.cost || model.cost.input === 0)
+  model.provider.id === "nemoracode" && (!model.cost || model.cost.input === 0)
 
 const createModelsController = (directory: Accessor<string | undefined>) => {
   const providers = useProviders(() => directory())

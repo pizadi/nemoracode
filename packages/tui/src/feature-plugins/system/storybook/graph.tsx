@@ -1,6 +1,6 @@
 /** @jsxImportSource @opentui/solid */
-import type { GraphInfo, GraphNodeRow, GraphTaskLedger, GraphWorkingSetSnapshot } from "@opencode/client"
-import type { Plugin } from "@opencode/plugin/tui"
+import type { GraphInfo, GraphNodeRow, GraphTaskLedger, GraphWorkingSetSnapshot } from "@nemoracode/client"
+import type { Plugin } from "@nemoracode/plugin/tui"
 import { useTerminalDimensions } from "@opentui/solid"
 import { createSignal } from "solid-js"
 import { GraphViewer } from "../graph"

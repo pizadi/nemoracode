@@ -3,7 +3,7 @@ export * as GraphService from "./service.js"
 import { existsSync, mkdirSync } from "node:fs"
 import { join } from "node:path"
 import { Context, Effect, Layer } from "effect"
-import { makeLocationNode } from "@opencode/util/effect/app-node"
+import { makeLocationNode } from "@nemoracode/util/effect/app-node"
 import { Config } from "../config.js"
 import { FileSystem } from "../filesystem.js"
 import { Location } from "../location.js"
@@ -25,7 +25,7 @@ export interface Interface {
   readonly enabled: boolean
   readonly languages: ReadonlyArray<string>
   readonly subagentNodeBudget: number
-  /** The Location's graph store, at `<project>/.opencode/graph.db`. */
+  /** The Location's graph store, at `<project>/.nemoracode/graph.db`. */
   readonly store: GraphStore.Store
   readonly projectRoot: string
   /** Ingests changed sources when the store is stale; memoized for the Location. */
@@ -38,7 +38,7 @@ export interface Interface {
   readonly chargeNode: (sessionID: string) => { ok: boolean; used: number }
 }
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/core/graph/Service") {}
+export class Service extends Context.Service<Service, Interface>()("@nemoracode/core/graph/Service") {}
 
 const layer: Layer.Layer<Service, FileSystem.DirectoryNotFoundError, Location.Service | Config.Service> = Layer.effect(
   Service,
@@ -56,13 +56,13 @@ const layer: Layer.Layer<Service, FileSystem.DirectoryNotFoundError, Location.Se
     const subagentNodeBudget = info?.subagentNodes ?? SUBAGENT_NODES
 
     // Mirror FileSystem's boot probe: a missing local directory fails the
-    // location boot instead of being healed by creating .opencode inside it.
+    // location boot instead of being healed by creating .nemoracode inside it.
     // Workspace placements skip the probe (the directory may only exist
     // remotely), so the store below is opened lazily on first use.
     if (!location.workspaceID && !existsSync(projectRoot))
       yield* Effect.fail(new FileSystem.DirectoryNotFoundError({ directory: projectRoot, cause: undefined }))
 
-    const graphDir = join(projectRoot, ".opencode")
+    const graphDir = join(projectRoot, ".nemoracode")
     const workSets = new Map<string, WorkingSet>()
     let ingested: IngestStats | undefined
     let flight: Promise<IngestStats> | undefined
@@ -136,4 +136,4 @@ const layer: Layer.Layer<Service, FileSystem.DirectoryNotFoundError, Location.Se
 export const node = makeLocationNode({ service: Service, layer, deps: [Location.node, Config.node] })
 
 /** True when a graph store file exists for the location (used by tests and diagnostics). */
-export const storeExists = (projectRoot: string): boolean => existsSync(join(projectRoot, ".opencode", "graph.db"))
+export const storeExists = (projectRoot: string): boolean => existsSync(join(projectRoot, ".nemoracode", "graph.db"))

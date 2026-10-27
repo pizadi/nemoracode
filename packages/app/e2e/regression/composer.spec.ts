@@ -11,7 +11,7 @@ test("the free usage limit opens the Go dialog once, leaves a readable notice, a
   await page.clock.setFixedTime(T0)
   await context.route("https://**", (route) => route.fulfill({ body: "Sign in" }))
   const sessionID = "ses_free_limit"
-  const model = { id: "big-pickle", providerID: "opencode" }
+  const model = { id: "big-pickle", providerID: "nemoracode" }
   const state = { authorized: false }
 
   const view = await openSession(page, {
@@ -21,8 +21,8 @@ test("the free usage limit opens the Go dialog once, leaves a readable notice, a
     provider: () => ({
       all: [
         {
-          id: "opencode",
-          name: "OpenCode",
+          id: "nemoracode",
+          name: "NemoraCode",
           models: {
             "big-pickle": { id: "big-pickle", name: "Big Pickle", cost: { input: 0, output: 0 }, limit: { context: 200_000 } },
           },
@@ -30,9 +30,9 @@ test("the free usage limit opens the Go dialog once, leaves a readable notice, a
         ...(state.authorized
           ? [
               {
-                id: "opencode-go",
-                integrationID: "opencode-go",
-                name: "OpenCode Go",
+                id: "nemoracode-go",
+                integrationID: "nemoracode-go",
+                name: "NemoraCode Go",
                 models: {
                   "glm-5-go": { id: "glm-5-go", name: "GLM-5 Go", cost: { input: 1, output: 1 }, limit: { context: 200_000 } },
                 },
@@ -40,19 +40,19 @@ test("the free usage limit opens the Go dialog once, leaves a readable notice, a
             ]
           : []),
       ],
-      connected: state.authorized ? ["opencode", "opencode-go"] : ["opencode"],
-      default: { build: "opencode/big-pickle" },
+      connected: state.authorized ? ["nemoracode", "nemoracode-go"] : ["nemoracode"],
+      default: { build: "nemoracode/big-pickle" },
     }),
     integrations: () => [
       {
-        id: "opencode",
-        name: "OpenCode Console",
-        methods: [{ id: "device", type: "oauth", label: "OpenCode Console account" }],
+        id: "nemoracode",
+        name: "NemoraCode Console",
+        methods: [{ id: "device", type: "oauth", label: "NemoraCode Console account" }],
         connections: state.authorized ? [{ type: "credential", id: "cred_console", label: "Anomaly", method: "oauth" }] : [],
       },
       {
-        id: "opencode-go",
-        name: "OpenCode Go",
+        id: "nemoracode-go",
+        name: "NemoraCode Go",
         methods: [{ type: "key" }],
         connections: state.authorized ? [{ type: "credential", id: "cred_go", label: "Anomaly", method: "oauth" }] : [],
       },
@@ -104,7 +104,7 @@ test("the free usage limit opens the Go dialog once, leaves a readable notice, a
   await upsell.getByRole("button", { name: "Subscribe", exact: true }).click()
   const connect = page.getByRole("dialog")
   await connect.getByRole("button", { name: "Continue in the browser", exact: true }).click()
-  const connected = page.getByRole("dialog", { name: "Connected to OpenCode Go" })
+  const connected = page.getByRole("dialog", { name: "Connected to NemoraCode Go" })
   await expect(connected.getByRole("radio", { name: "GLM-5 Go", exact: true })).toHaveAttribute("aria-checked", "true")
   await connected.getByRole("button", { name: "Continue", exact: true }).click()
   await expect(page.getByRole("dialog")).toHaveCount(0)
@@ -190,10 +190,10 @@ test("a catalog refresh cannot replace an existing session's model", async ({ pa
 
   const view = await openSession(page, {
     name: "CatalogSelection",
-    sessions: [{ id: sessionID, agent: "build", model: { id: "alpha", providerID: "opencode", variant: "high" } }],
+    sessions: [{ id: sessionID, agent: "build", model: { id: "alpha", providerID: "nemoracode", variant: "high" } }],
     provider: () => catalog.current,
     onPrompt: (input) => void prompts.push(input.body),
-    seed: { storage: { "opencode.global.dat:model": { recent: [{ providerID: "opencode", modelID: "beta" }] } } },
+    seed: { storage: { "nemoracode.global.dat:model": { recent: [{ providerID: "nemoracode", modelID: "beta" }] } } },
   })
 
   const control = page.locator('[data-action="composer-model"]')
@@ -231,7 +231,7 @@ test("a catalog refresh cannot replace an existing session's model", async ({ pa
   await expect(page.getByRole("button", { name: "Choose model variant", exact: true })).toHaveText("high")
   await view.editor.press("Enter")
   await expect.poll(() => prompts.length).toBe(1)
-  expect(switches).toEqual([{ model: { id: "alpha", providerID: "opencode", variant: "high" } }])
+  expect(switches).toEqual([{ model: { id: "alpha", providerID: "nemoracode", variant: "high" } }])
 
   catalog.current = provider(beta)
   await view.push([
@@ -254,8 +254,8 @@ test("a catalog refresh cannot replace an existing session's model", async ({ pa
   await view.editor.press("Enter")
   await expect.poll(() => prompts.length).toBe(2)
   expect(switches).toEqual([
-    { model: { id: "alpha", providerID: "opencode", variant: "high" } },
-    { model: { id: "beta", providerID: "opencode" } },
+    { model: { id: "alpha", providerID: "nemoracode", variant: "high" } },
+    { model: { id: "beta", providerID: "nemoracode" } },
   ])
 })
 
@@ -449,7 +449,7 @@ test("shows the dropzone and attaches a dropped file", async ({ page }) => {
     .toEqual([
       {
         path: expect.stringMatching(/\/uploads\/[0-9a-f-]{36}\/dropzone\.txt$/),
-        directory: "C:/OpenCode/ComposerDraft",
+        directory: "C:/NemoraCode/ComposerDraft",
         body: "Dropzone fixture",
       },
     ])
@@ -582,7 +582,7 @@ test("marks a Console provider with its workspace only when it is also connected
   const managed = (id: string, canonical: string, name: string, models: ReturnType<typeof model>) => ({
     id,
     canonical,
-    integrationID: "opencode",
+    integrationID: "nemoracode",
     name: `Anomaly / ${name}`,
     models,
   })
@@ -591,19 +591,19 @@ test("marks a Console provider with its workspace only when it is also connected
     name: "ComposerConsoleProviders",
     provider: {
       all: [
-        managed("opencode", "opencode", "OpenCode", model("console-model", "Console Model")),
+        managed("nemoracode", "nemoracode", "NemoraCode", model("console-model", "Console Model")),
         managed("console-google", "google", "Google", model("managed-gemini", "Managed Gemini")),
         managed("console-openai", "openai", "OpenAI", model("managed-gpt", "Managed GPT")),
         { id: "google", canonical: "google", name: "Google", models: model("direct-gemini", "Direct Gemini") },
       ],
-      connected: ["opencode", "console-google", "console-openai", "google"],
-      default: { providerID: "opencode", modelID: "console-model" },
+      connected: ["nemoracode", "console-google", "console-openai", "google"],
+      default: { providerID: "nemoracode", modelID: "console-model" },
     },
     seed: {
       storage: {
-        "opencode.global.dat:model": {
+        "nemoracode.global.dat:model": {
           user: [
-            ["opencode", "console-model"],
+            ["nemoracode", "console-model"],
             ["console-google", "managed-gemini"],
             ["console-openai", "managed-gpt"],
             ["google", "direct-gemini"],
@@ -623,7 +623,7 @@ test("marks a Console provider with its workspace only when it is also connected
   await expect(headings.filter({ hasText: /^GoogleAnomaly$/ })).toHaveCount(1)
   await expect(headings.filter({ hasText: /^Google$/ })).toHaveCount(1)
   await expect(headings.filter({ hasText: /^OpenAI$/ })).toHaveCount(1)
-  await expect(headings.filter({ hasText: /^OpenCode$/ })).toHaveCount(1)
+  await expect(headings.filter({ hasText: /^NemoraCode$/ })).toHaveCount(1)
   await expect(menu.getByText(/Anomaly \//)).toHaveCount(0)
 })
 

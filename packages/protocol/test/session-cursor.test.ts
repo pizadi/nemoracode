@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test"
-import { Session } from "@opencode/schema/session"
+import { Session } from "@nemoracode/schema/session"
 import { SessionsCursor } from "../src/groups/session.js"
 
 test("SessionsCursor remains the canonical session list cursor", () => {

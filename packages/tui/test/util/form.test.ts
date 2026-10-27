@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test"
-import type { FormField, FormValue } from "@opencode/client"
+import type { FormField, FormValue } from "@nemoracode/client"
 import {
   formCustom,
   formDisplayValue,

@@ -274,18 +274,17 @@ export const DESKTOP_MENU: DesktopMenu[] = [
     labelKey: "desktop.menu.help",
     items: [
       { type: "item", labelKey: "desktop.menu.documentation", href: "https://opencode.ai/v2/docs" },
-      { type: "item", labelKey: "desktop.menu.supportForum", href: "https://discord.com/invite/opencode" },
       { type: "item", labelKey: "desktop.menu.exportLogs", command: "logs.export" },
       { type: "separator" },
       {
         type: "item",
         labelKey: "desktop.menu.shareFeedback",
-        href: "https://github.com/anomalyco/opencode/issues/new?template=feature_request.yml",
+        href: "https://github.com/pizadi/nemoracode/issues/new?template=feature_request.yml",
       },
       {
         type: "item",
         labelKey: "desktop.menu.reportBug",
-        href: "https://github.com/anomalyco/opencode/issues/new?template=bug_report.yml",
+        href: "https://github.com/pizadi/nemoracode/issues/new?template=bug_report.yml",
       },
     ],
   },

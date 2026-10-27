@@ -1,4 +1,4 @@
-import { define } from "@opencode/plugin/effect/plugin"
+import { define } from "@nemoracode/plugin/effect/plugin"
 import { Effect, Stream } from "effect"
 import { Bus } from "../../bus.js"
 import { Credential } from "../../credential.js"
@@ -15,7 +15,7 @@ const legacyInput = 272_000
 const currentInput = 500_000
 
 export const OpenAIContextCapsPlugin = define({
-  id: "opencode.provider.openai-context-caps",
+  id: "nemoracode.provider.openai-context-caps",
   effect: Effect.fn(function* (ctx) {
     const bus = yield* Bus.Service
     let signedIn = false

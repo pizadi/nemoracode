@@ -1,5 +1,5 @@
 import { NodeFileSystem, NodeHttpServer } from "@effect/platform-node"
-import { ServerProcess } from "@opencode/server/process"
+import { ServerProcess } from "@nemoracode/server/process"
 import { afterAll, describe, expect, test } from "bun:test"
 import { Effect } from "effect"
 import { HttpServer, HttpServerError, HttpServerRequest, HttpServerResponse } from "effect/http"
@@ -11,7 +11,7 @@ import { brotliCompressSync } from "node:zlib"
 import { WebUi } from "../src/services/web-ui"
 import { it } from "../../core/test/lib/effect"
 
-const root = await mkdtemp(path.join(tmpdir(), "opencode-web-ui-"))
+const root = await mkdtemp(path.join(tmpdir(), "nemoracode-web-ui-"))
 afterAll(() => rm(root, { recursive: true, force: true }))
 
 describe("web UI", () => {
@@ -65,7 +65,7 @@ describe("web UI", () => {
         }),
       )
       const response = yield* Effect.promise(() =>
-        fetch(new URL("/api/info", origin), { headers: { authorization: `Basic ${btoa("opencode:secret")}` } }),
+        fetch(new URL("/api/info", origin), { headers: { authorization: `Basic ${btoa("nemoracode:secret")}` } }),
       )
       expect(response.status).toBe(200)
       expect(yield* Effect.promise(() => response.json())).toHaveProperty("pid")
@@ -73,7 +73,7 @@ describe("web UI", () => {
       const pairing = yield* Effect.promise(() =>
         fetch(new URL("/api/pair", origin), {
           method: "POST",
-          headers: { authorization: `Basic ${btoa("opencode:secret")}` },
+          headers: { authorization: `Basic ${btoa("nemoracode:secret")}` },
         }).then((response) => response.json() as Promise<{ code: string }>),
       )
       const redirect = yield* Effect.promise(() =>
@@ -162,7 +162,7 @@ describe("web UI", () => {
                     version: "test",
                     pid: 1,
                     urls: [origin],
-                    paths: { tmp: "/tmp/opencode" },
+                    paths: { tmp: "/tmp/nemoracode" },
                   })
                 return yield* Effect.fail(
                   new HttpServerError.HttpServerError({
@@ -179,7 +179,7 @@ describe("web UI", () => {
             version: "test",
             pid: 1,
             urls: [origin],
-            paths: { tmp: "/tmp/opencode" },
+            paths: { tmp: "/tmp/nemoracode" },
           })
 
           const missing = yield* Effect.promise(() => fetch(`${origin}/api/missing`))

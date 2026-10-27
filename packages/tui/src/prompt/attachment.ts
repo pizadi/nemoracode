@@ -1,4 +1,4 @@
-import type { PromptInput } from "@opencode/schema"
+import type { PromptInput } from "@nemoracode/schema"
 
 type PromptFile = PromptInput.FileAttachment
 type PromptFileIdentity = Pick<PromptFile, "uri" | "name" | "description">

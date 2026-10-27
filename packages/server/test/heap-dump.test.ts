@@ -1,13 +1,13 @@
 import { expect } from "bun:test"
 import fs from "node:fs/promises"
 import path from "node:path"
-import { Global } from "@opencode/util/global"
+import { Global } from "@nemoracode/util/global"
 import { Effect } from "effect"
 import { tmpdir } from "../../core/test/fixture/tmpdir"
 import { it } from "../../core/test/lib/effect"
 import { ServerFetch } from "../src/fetch"
 
-const authorization = `Basic ${btoa("opencode:secret")}`
+const authorization = `Basic ${btoa("nemoracode:secret")}`
 
 const server = Effect.fnUntraced(function* (root: string) {
   const log = path.join(root, "log")
@@ -26,7 +26,7 @@ const server = Effect.fnUntraced(function* (root: string) {
     Effect.promise(() =>
       handler(
         new Request(
-          `http://opencode.local/api/debug/heap-dump${directory === undefined ? "" : `?directory=${encodeURIComponent(directory)}`}`,
+          `http://nemoracode.local/api/debug/heap-dump${directory === undefined ? "" : `?directory=${encodeURIComponent(directory)}`}`,
           {
             method: "POST",
             headers,
@@ -42,7 +42,7 @@ it.live(
   "writes completed private snapshots of the server process, one at a time",
   () =>
     Effect.gen(function* () {
-      const root = yield* Effect.acquireDisposable(Effect.promise(() => tmpdir("opencode-heap-dump-")))
+      const root = yield* Effect.acquireDisposable(Effect.promise(() => tmpdir("nemoracode-heap-dump-")))
       const api = yield* server(root.path)
 
       expect((yield* api.dump({})).status).toBe(401)
@@ -87,7 +87,7 @@ it.live(
   "reports a failed write without blocking later snapshots",
   () =>
     Effect.gen(function* () {
-      const root = yield* Effect.acquireDisposable(Effect.promise(() => tmpdir("opencode-heap-dump-")))
+      const root = yield* Effect.acquireDisposable(Effect.promise(() => tmpdir("nemoracode-heap-dump-")))
       const api = yield* server(root.path)
       // A file where the log directory should be makes the write fail.
       yield* Effect.promise(() => fs.rm(api.log, { recursive: true }))
@@ -117,7 +117,7 @@ it.live(
   "writes into a requested directory, creating it, and rejects a relative one",
   () =>
     Effect.gen(function* () {
-      const root = yield* Effect.acquireDisposable(Effect.promise(() => tmpdir("opencode-heap-dump-")))
+      const root = yield* Effect.acquireDisposable(Effect.promise(() => tmpdir("nemoracode-heap-dump-")))
       const api = yield* server(root.path)
       const directory = path.join(root.path, "capture", "nested")
 

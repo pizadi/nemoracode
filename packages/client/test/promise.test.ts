@@ -1,8 +1,8 @@
 import { expect, test } from "bun:test"
-import { isSessionNotFoundError, isUnauthorizedError, OpenCode } from "../src/promise/index"
+import { isSessionNotFoundError, isUnauthorizedError, NemoraCode } from "../src/promise/index"
 
 test("exposes every standard HTTP API group", () => {
-  const client = OpenCode.make({ baseUrl: "http://localhost:3000" })
+  const client = NemoraCode.make({ baseUrl: "http://localhost:3000" })
 
   expect(Object.keys(client)).toEqual([
     "server",
@@ -65,7 +65,7 @@ test("config.get returns ordered config entries for a location", async () => {
   const entries = [
     {
       type: "document" as const,
-      path: "/tmp/project/opencode.json",
+      path: "/tmp/project/nemoracode.json",
       info: {
         permissions: [
           { action: "shell", resource: "*", effect: "ask" as const },
@@ -74,7 +74,7 @@ test("config.get returns ordered config entries for a location", async () => {
       },
     },
   ]
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async (input) => {
       request = input instanceof Request ? input : new Request(input)
@@ -89,7 +89,7 @@ test("config.get returns ordered config entries for a location", async () => {
 
 test("requests keep a path prefix on baseUrl", async () => {
   let request: Request | undefined
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:8888/ws/abc",
     fetch: async (input) => {
       request = input instanceof Request ? input : new Request(input)
@@ -103,7 +103,7 @@ test("requests keep a path prefix on baseUrl", async () => {
 
 test("requests join against the base URL pathname", async () => {
   let request: Request | undefined
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:8888/ws/abc?tenant=one#fragment",
     fetch: async (input) => {
       request = input instanceof Request ? input : new Request(input)
@@ -119,7 +119,7 @@ test("vcs.base and committed diffs preserve location and explicit base on the wi
   const requests: Request[] = []
   const location = { directory: "/repo", project: { id: "global", directory: "/repo", canonical: "/repo" } }
   const base = { name: "release", ref: "refs/remotes/origin/release", source: "reflog" }
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async (input, init) => {
       const request = input instanceof Request ? input : new Request(input, init)
@@ -140,7 +140,7 @@ test("vcs.base and committed diffs preserve location and explicit base on the wi
 })
 
 test("vcs.diff exposes unavailable comparisons as errors, not empty diffs", async () => {
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async () =>
       Response.json(
@@ -156,7 +156,7 @@ test("vcs.diff exposes unavailable comparisons as errors, not empty diffs", asyn
 })
 
 test("declared errors are thrown as Error instances that keep the body", async () => {
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async () =>
       Response.json(
@@ -183,7 +183,7 @@ test("worktree errors retain the existing envelope with or without a tag", async
     { name: "WorktreeError", data: { message: "Worktree directory unavailable" } },
     { _tag: "WorktreeError", name: "WorktreeError", data: { message: "Worktree directory unavailable" } },
   ]) {
-    const client = OpenCode.make({
+    const client = NemoraCode.make({
       baseUrl: "http://localhost:3000",
       fetch: async () => Response.json(body, { status: 400 }),
     })
@@ -201,7 +201,7 @@ test("worktree errors retain the existing envelope with or without a tag", async
 
 test("client errors keep the reason and describe the failure in the message", async () => {
   const failure = (fetch: () => Promise<Response>) =>
-    OpenCode.make({ baseUrl: "http://localhost:3000", fetch })
+    NemoraCode.make({ baseUrl: "http://localhost:3000", fetch })
       .session.list()
       .catch((cause: unknown) => cause)
   expect(await failure(() => Promise.reject(new TypeError("Unable to connect")))).toMatchObject({
@@ -229,7 +229,7 @@ test("project.update uses the global project contract", async () => {
     time: { created: 1, updated: 2 },
     sandboxes: [],
   }
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async (input, init) => {
       request = input instanceof Request ? input : new Request(input, init)
@@ -245,7 +245,7 @@ test("project.update uses the global project contract", async () => {
 
 test("generate.text uses the locationless public contract", async () => {
   let request: Request | undefined
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async (input, init) => {
       request = input instanceof Request ? input : new Request(input, init)
@@ -260,7 +260,7 @@ test("generate.text uses the locationless public contract", async () => {
 
 test("websearch.query uses the public HTTP contract", async () => {
   let request: Request | undefined
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async (input, init) => {
       request = input instanceof Request ? input : new Request(input, init)
@@ -275,7 +275,7 @@ test("websearch.query uses the public HTTP contract", async () => {
   })
 
   const result = await client.websearch.query({
-    query: "opencode",
+    query: "nemoracode",
     providerID: "exa",
     location: { directory: "/tmp/project" },
   })
@@ -286,12 +286,12 @@ test("websearch.query uses the public HTTP contract", async () => {
   })
   expect(request?.method).toBe("POST")
   expect(request?.url).toBe("http://localhost:3000/api/websearch?location%5Bdirectory%5D=%2Ftmp%2Fproject")
-  expect(await request?.json()).toEqual({ query: "opencode", providerID: "exa" })
+  expect(await request?.json()).toEqual({ query: "nemoracode", providerID: "exa" })
 })
 
 test("server.info uses the public HTTP contract", async () => {
   let request: Request | undefined
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async (input) => {
       request = input instanceof Request ? input : new Request(input)
@@ -299,7 +299,7 @@ test("server.info uses the public HTTP contract", async () => {
         version: "2.0.0",
         pid: 1,
         urls: ["http://192.168.1.10:4096"],
-        paths: { tmp: "/tmp/opencode" },
+        paths: { tmp: "/tmp/nemoracode" },
       })
     },
   })
@@ -308,7 +308,7 @@ test("server.info uses the public HTTP contract", async () => {
     version: "2.0.0",
     pid: 1,
     urls: ["http://192.168.1.10:4096"],
-    paths: { tmp: "/tmp/opencode" },
+    paths: { tmp: "/tmp/nemoracode" },
   })
   expect(request?.method).toBe("GET")
   expect(request?.url).toBe("http://localhost:3000/api/info")
@@ -316,7 +316,7 @@ test("server.info uses the public HTTP contract", async () => {
 
 test("experimental wellknown integration add uses the public HTTP contract", async () => {
   let request: Request | undefined
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async (input, init) => {
       request = input instanceof Request ? input : new Request(input, init)
@@ -338,7 +338,7 @@ test("experimental wellknown integration add uses the public HTTP contract", asy
 
 test("credential.activate uses the public HTTP contract", async () => {
   let request: Request | undefined
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async (input, init) => {
       request = input instanceof Request ? input : new Request(input, init)
@@ -354,7 +354,7 @@ test("credential.activate uses the public HTTP contract", async () => {
 
 test("integration connections optionally submit a form answer", async () => {
   const requests: Request[] = []
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async (input, init) => {
       const request = input instanceof Request ? input : new Request(input, init)
@@ -397,7 +397,7 @@ test("integration connections optionally submit a form answer", async () => {
 
 test("MCP resource catalog uses the public HTTP contract", async () => {
   let request: Request | undefined
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async (input) => {
       request = input instanceof Request ? input : new Request(input)
@@ -420,7 +420,7 @@ test("MCP resource catalog uses the public HTTP contract", async () => {
 
 test("file.read returns binary content from the public HTTP contract", async () => {
   let request: Request | undefined
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async (input) => {
       request = input instanceof Request ? input : new Request(input)
@@ -441,7 +441,7 @@ test("file.read returns binary content from the public HTTP contract", async () 
 
 test("all worktree operations require a project ID", async () => {
   const requests: Request[] = []
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async (input, init) => {
       const request = input instanceof Request ? input : new Request(input, init)
@@ -486,9 +486,9 @@ test("all worktree operations require a project ID", async () => {
 
 test("worktree operations use the explicit project even with default location headers", async () => {
   const requests: Request[] = []
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
-    headers: { "x-opencode-directory": "/unrelated" },
+    headers: { "x-nemoracode-directory": "/unrelated" },
     fetch: async (input, init) => {
       const request = new Request(input, init)
       requests.push(request)
@@ -526,11 +526,11 @@ test("shell list and remove use the public HTTP contract", async () => {
     command: "pwd",
     cwd: "/tmp/project",
     shell: "/bin/zsh",
-    file: "/tmp/opencode-shell",
+    file: "/tmp/nemoracode-shell",
     metadata: { sessionID: "ses_test" },
     time: { started: 1_717_171_717_000 },
   }
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async (input, init) => {
       const request = input instanceof Request ? input : new Request(input, init)
@@ -554,7 +554,7 @@ test("shell list and remove use the public HTTP contract", async () => {
 })
 
 test("session.get returns the wire projection", async () => {
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async (input) => {
       expect(typeof input === "string" ? input : input instanceof URL ? input.href : input.url).toBe(
@@ -572,7 +572,7 @@ test("session.get returns the wire projection", async () => {
 test("session instructions methods use the public HTTP contract", async () => {
   const requests: Array<{ method: string; url: string; body?: unknown }> = []
   const instructions = [{ key: "review-notes", value: { text: "Check the diff", priority: 1 } }]
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async (input, init) => {
       const request = input instanceof Request ? input : new Request(input, init)
@@ -626,7 +626,7 @@ test("session.inbox.list uses the public HTTP contract", async () => {
       delivery: "steer",
     },
   ]
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async (input, init) => {
       const request = input instanceof Request ? input : new Request(input, init)
@@ -643,7 +643,7 @@ test("session.inbox.list uses the public HTTP contract", async () => {
 
 test("session.inbox mutations use the public HTTP contract", async () => {
   const requests: Array<{ method: string; url: string }> = []
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async (input, init) => {
       const request = input instanceof Request ? input : new Request(input, init)
@@ -664,7 +664,7 @@ test("session.inbox mutations use the public HTTP contract", async () => {
 })
 
 test("event.subscribe exposes the Promise event stream wire projection", async () => {
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async () =>
       new Response(
@@ -687,7 +687,7 @@ test("event.subscribe keeps one request open while delivering multiple events", 
     { id: "evt_first", created: 1, type: "server.connected", data: {} },
     { id: "evt_second", created: 2, type: "server.connected", data: {} },
   ]
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async (input, init) => {
       requests.push(input instanceof Request ? input : new Request(input, init))
@@ -710,7 +710,7 @@ test("event.subscribe delivers every event from one stream chunk", async () => {
     type: "server.connected",
     data: {},
   }))
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async () =>
       new Response(new TextEncoder().encode(events.map((event) => `data: ${JSON.stringify(event)}\n\n`).join("")), {
@@ -734,7 +734,7 @@ test("event.subscribe parses split JSON and a split multibyte code point", async
   const encoded = new TextEncoder().encode(`data: ${JSON.stringify(event)}\n\n`)
   const multibyte = encoded.indexOf(new TextEncoder().encode("\u2603")[0]!)
   const boundaries = [9, multibyte + 1, multibyte + 2, encoded.length]
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async () =>
       new Response(
@@ -755,7 +755,7 @@ test("event.subscribe parses split JSON and a split multibyte code point", async
 // Moved from packages/app/e2e/regression/session-timeline-transport.spec.ts
 test("event.subscribe ignores server heartbeat comments", async () => {
   const event = { id: "evt_sentinel", created: 1, type: "server.connected", data: {} }
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async () =>
       new Response(`: heartbeat\n\ndata: ${JSON.stringify(event)}\n\n: heartbeat\n\n`, {
@@ -770,7 +770,7 @@ test("event.subscribe ignores server heartbeat comments", async () => {
 test("event.subscribe reports heartbeat comments as stream activity", async () => {
   const event = { id: "evt_sentinel", created: 1, type: "server.connected", data: {} }
   const encoder = new TextEncoder()
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async () =>
       new Response(
@@ -796,7 +796,7 @@ test("event.subscribe reports heartbeat comments as stream activity", async () =
 test("event transport passes through ordinary info requests", async () => {
   const requests: string[] = []
   const event = { id: "evt_connected", created: 1, type: "server.connected", data: {} }
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async (input, init) => {
       const request = input instanceof Request ? input : new Request(input, init)
@@ -810,7 +810,7 @@ test("event transport passes through ordinary info requests", async () => {
         version: "2.0.0",
         pid: 1,
         urls: ["http://localhost:3000"],
-        paths: { tmp: "/tmp/opencode" },
+        paths: { tmp: "/tmp/nemoracode" },
       })
     },
   })
@@ -819,13 +819,13 @@ test("event transport passes through ordinary info requests", async () => {
     version: "2.0.0",
     pid: 1,
     urls: ["http://localhost:3000"],
-    paths: { tmp: "/tmp/opencode" },
+    paths: { tmp: "/tmp/nemoracode" },
   })
   expect(requests).toEqual(["/api/event", "/api/info"])
 })
 
 test("event.subscribe terminates on malformed Promise SSE data", async () => {
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async () => new Response("data: {not-json}\n\n", { headers: { "content-type": "text/event-stream" } }),
   })
@@ -838,7 +838,7 @@ test("event.subscribe terminates on malformed Promise SSE data", async () => {
 
 test("native event signals cancel only their listener and close transport after the last listener", async () => {
   const opened = Promise.withResolvers<Request>()
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     headers: { authorization: "Bearer events" },
     fetch: async (input, init) => {
@@ -870,7 +870,7 @@ test("native event signals cancel only their listener and close transport after 
 
 test("native pre-aborted event signals do not open a transport", async () => {
   let requests = 0
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async () => {
       requests++
@@ -884,7 +884,7 @@ test("native pre-aborted event signals do not open a transport", async () => {
 test("event.subscribe accepts a fragmented SSE event below the size limit", async () => {
   const event = { id: "evt_large", type: "test.large", data: { output: "x".repeat(12 * 1024 * 1024) } }
   const encoded = new TextEncoder().encode(`data: ${JSON.stringify(event)}\n\n`)
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async () =>
       new Response(
@@ -904,7 +904,7 @@ test("event.subscribe accepts a fragmented SSE event below the size limit", asyn
 })
 
 test("event.subscribe rejects an SSE event above the size limit", async () => {
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async () =>
       new Response(`data: ${JSON.stringify({ output: "x".repeat(16 * 1024 * 1024) })}`, {
@@ -920,7 +920,7 @@ test("event.subscribe rejects an SSE event above the size limit", async () => {
 
 test("session methods use the public HTTP contract", async () => {
   const requests: Array<{ url: string; init?: RequestInit }> = []
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async (input, init) => {
       const url = typeof input === "string" ? input : input instanceof URL ? input.href : input.url
@@ -1025,7 +1025,7 @@ test("session methods use the public HTTP contract", async () => {
 })
 
 test("middleware errors remain declared client errors", async () => {
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async () =>
       Response.json({ _tag: "UnauthorizedError", message: "Authentication required" }, { status: 401 }),
@@ -1040,7 +1040,7 @@ test("middleware errors remain declared client errors", async () => {
 })
 
 test("session.log decodes SessionNotFoundError", async () => {
-  const client = OpenCode.make({
+  const client = NemoraCode.make({
     baseUrl: "http://localhost:3000",
     fetch: async () =>
       Response.json(

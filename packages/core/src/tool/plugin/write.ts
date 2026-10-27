@@ -6,10 +6,10 @@
  */
 export * as WriteTool from "./write.js"
 
-import type { Context } from "@opencode/plugin/effect/plugin"
-import { ToolFailure } from "@opencode/ai/effect"
+import type { Context } from "@nemoracode/plugin/effect/plugin"
+import { ToolFailure } from "@nemoracode/ai/effect"
 import { Effect, Schema } from "effect"
-import { Bom } from "@opencode/util/bom"
+import { Bom } from "@nemoracode/util/bom"
 import { Environment } from "../../environment/index.js"
 import { FileMutation } from "../../file-mutation.js"
 import { Formatter } from "../../formatter.js"
@@ -44,7 +44,7 @@ export const toModelContent = (output: Output) =>
 // TODO: Add LSP notification and diagnostics after LSP runtime exists.
 
 export const Plugin = {
-  id: "opencode.tool.write",
+  id: "nemoracode.tool.write",
   effect: Effect.fn("WriteTool.Plugin")(function* (ctx: Context) {
     const access = yield* FileAccess.Service
     const fileMutation = yield* FileMutation.Service

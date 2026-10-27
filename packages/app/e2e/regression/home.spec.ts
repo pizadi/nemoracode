@@ -1,6 +1,6 @@
 import { expect, test, type Page } from "@playwright/test"
 import { expectPath, holdRoute, NO_PROVIDER, project, REMOTE_SERVER, seed, sessionHref } from "../utils/app"
-import { mockOpenCodeServer } from "../utils/mock-server"
+import { mockNemoraCodeServer } from "../utils/mock-server"
 import { fixture, mockStressTimeline } from "../utils/session-fixture"
 import { mockRemoteServer } from "../utils/workspace"
 import { APP_READY_TIMEOUT, expectAppVisible } from "../utils/waits"
@@ -137,7 +137,7 @@ test("adding a project to a signed-out server re-pairs it, then continues at the
   // The saved address rejects the new token, so saving moves the server to the link's address.
   const paired = "http://127.0.0.1:4098"
   await mockRemoteServer(page, { name: "Remote", password: "old-password" })
-  await mockOpenCodeServer(page, {
+  await mockNemoraCodeServer(page, {
     server: paired,
     directory: "/remote/paired",
     project: project({ id: "proj_paired", directory: "/remote/paired" }),
@@ -165,7 +165,7 @@ test("adding a project to a signed-out server re-pairs it, then continues at the
 
 test("a server whose saved password changes works with the new password", async ({ page }) => {
   const accepted = { password: "old-password" }
-  await mockOpenCodeServer(page, {
+  await mockNemoraCodeServer(page, {
     server: REMOTE_SERVER,
     directory: "/remote/project",
     project: project({ id: "proj_remote", directory: "/remote/project" }),
@@ -178,7 +178,7 @@ test("a server whose saved password changes works with the new password", async 
   // Saved with the password the server accepts until the test changes it.
   await seed(page, {
     storage: {
-      "opencode.global.dat:server": {
+      "nemoracode.global.dat:server": {
         list: [{ type: "http", displayName: "Remote", http: { url: REMOTE_SERVER, password: "old-password" } }],
       },
     },
@@ -197,7 +197,7 @@ test("a server whose saved password changes works with the new password", async 
   await page.getByRole("menuitem", { name: "Edit", exact: true }).click()
   const editor = page.getByRole("dialog", { name: "Edit server" })
   await editor.getByPlaceholder("password").fill("new-password")
-  // The server now rejects the old password, as after `opencode service set password`.
+  // The server now rejects the old password, as after `nemoracode service set password`.
   accepted.password = "new-password"
   await editor.getByRole("button", { name: "Save", exact: true }).click()
   await expect(editor).toHaveCount(0)
@@ -208,10 +208,10 @@ test("a server whose saved password changes works with the new password", async 
   await expect(picker.getByText("Unable to read this folder")).toHaveCount(0)
 })
 
-const recovery = "C:/OpenCode/Worktrees/project-menu-recovery"
+const recovery = "C:/NemoraCode/Worktrees/project-menu-recovery"
 
 const worktree =
-  "C:/OpenCode/Worktrees/project-42/long-folder-name-for-checking-wrapped-worktree-paths/another-long-folder-name"
+  "C:/NemoraCode/Worktrees/project-42/long-folder-name-for-checking-wrapped-worktree-paths/another-long-folder-name"
 
 for (const state of [
   { name: "local", directory: fixture.directory, icon: "monitor" },
@@ -272,7 +272,7 @@ for (const state of [
         await expect(header.getByRole("button", { name: "More options", exact: true })).toBeVisible()
       }
 
-      await expect(trigger.locator("use")).toHaveAttribute("href", `#opencode-v2-icon-${state.icon}`)
+      await expect(trigger.locator("use")).toHaveAttribute("href", `#nemoracode-v2-icon-${state.icon}`)
       await trigger.click()
       await expect(menu.getByRole("menuitem")).toHaveText([name, state.directory, "Edit project"])
       await expect(pathItem).toBeDisabled()
@@ -321,7 +321,7 @@ test("the project menu path arrow has a glyph when the page has an older icon sp
         response,
         body: (await response.text()).replace(
           '<div id="root"',
-          '<svg id="opencode-v2-icon-sprite" width="0" height="0" aria-hidden="true"><symbol id="opencode-v2-icon-monitor" viewBox="0 0 16 16"><path d="M1 1h14v14H1z"/></symbol></svg><div id="root"',
+          '<svg id="nemoracode-v2-icon-sprite" width="0" height="0" aria-hidden="true"><symbol id="nemoracode-v2-icon-monitor" viewBox="0 0 16 16"><path d="M1 1h14v14H1z"/></symbol></svg><div id="root"',
         ),
       })
     },
@@ -340,5 +340,5 @@ test("the project menu path arrow has a glyph when the page has an older icon sp
   await expect
     .poll(() => arrow.locator("svg").evaluate((element: SVGSVGElement) => element.getBBox().width))
     .toBeGreaterThan(0)
-  await expect(page.locator("#opencode-v2-icon-sprite")).toHaveCount(1)
+  await expect(page.locator("#nemoracode-v2-icon-sprite")).toHaveCount(1)
 })

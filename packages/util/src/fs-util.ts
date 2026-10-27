@@ -54,7 +54,7 @@ export namespace FSUtil {
     readonly globMatch: (pattern: string, filepath: string) => boolean
   }
 
-  export class Service extends Context.Service<Service, Interface>()("@opencode/FSUtil") {}
+  export class Service extends Context.Service<Service, Interface>()("@nemoracode/FSUtil") {}
 
   // Exported so simulation can wrap this layer and override the methods that
   // bypass the injected FileSystem (readDirectoryEntries, scan, globUp).

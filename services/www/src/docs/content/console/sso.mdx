@@ -1,6 +1,6 @@
 ---
 title: "SSO"
-description: "Sign in to an OpenCode Console workspace through your identity provider with OIDC or SAML."
+description: "Sign in to an NemoraCode Console workspace through your identity provider with OIDC or SAML."
 ---
 
 Single sign-on (SSO) sends workspace members through your company's identity provider when they sign in. Owners
@@ -51,7 +51,7 @@ identity provider. Once SSO is active, click **Add domain** under **Email domain
 the TXT record shown.
 
 ```text
-Name:   _opencode-console-challenge.example.com
+Name:   _nemoracode-console-challenge.example.com
 Type:   TXT
 Value:  oc-verify=...
 ```
@@ -62,7 +62,7 @@ belong to only one workspace.
 ## SSO enforcement
 
 Once a workspace has SSO, admins and members must sign in through it to open the workspace, and Console redirects
-them automatically. Connecting OpenCode with `/connect` follows the same rule.
+them automatically. Connecting NemoraCode with `/connect` follows the same rule.
 
 Owners can also sign in without SSO, so a misconfigured provider cannot lock the workspace out of its settings.
 
