@@ -58,7 +58,7 @@ export namespace TimelineRow {
   }> {}
 
   /**
-   * `free-limit` marks NemoraCode Zen's daily free allowance running out; `resetAt` is when the allowance comes back, if
+   * `free-limit` marks OpenCode Zen's daily free allowance running out; `resetAt` is when the allowance comes back, if
    * known.
    */
   export class Error extends Data.TaggedClass("Error")<{

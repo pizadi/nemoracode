@@ -81,7 +81,7 @@ it.live(
       const discovered = yield* Fiber.join(integrations)
       expect(discovered.status).toBe(200)
       expect(yield* Effect.promise(() => discovered.json())).toMatchObject({
-        data: expect.arrayContaining([expect.objectContaining({ id: "nemoracode" })]),
+        data: expect.arrayContaining([expect.objectContaining({ id: "opencode" })]),
       })
     }),
   15_000,

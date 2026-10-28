@@ -25,7 +25,7 @@ import { Plugin } from "@nemoracode/core/plugin"
 import { PluginHooks } from "@nemoracode/core/plugin/hooks"
 import { PluginHost } from "@nemoracode/core/plugin/host"
 import { OpenAIPlugin } from "@nemoracode/core/plugin/provider/openai"
-import { NemoracodePlugin } from "@nemoracode/core/plugin/provider/nemoracode"
+import { OpencodePlugin } from "@nemoracode/core/plugin/provider/opencode"
 import { Provider } from "@nemoracode/core/provider"
 import { Session } from "@nemoracode/core/session"
 import { WebSearch } from "@nemoracode/core/websearch"
@@ -40,7 +40,7 @@ const it = testEffect(PluginTestLayer)
 const addPlugin = Effect.fn(function* () {
   const plugin = yield* Plugin.Service
   const host = yield* PluginHost.make(plugin)
-  yield* NemoracodePlugin.effect(host)
+  yield* OpencodePlugin.effect(host)
 })
 
 const noRemoteConfig = HttpClient.make((request) =>
@@ -72,7 +72,7 @@ function consoleServer(orgID: string | null | undefined, unavailable = false) {
       requests.push(path)
       agents.push(request.headers.get("user-agent"))
       if (path === "/auth/device/code") {
-        expect(await request.json()).toEqual({ client_id: "nemoracode-cli", supports_org_scope: true })
+        expect(await request.json()).toEqual({ client_id: "opencode-cli", supports_org_scope: true })
         return Response.json({
           device_code: "device",
           user_code: "user",
@@ -135,16 +135,16 @@ const cost = (input: number, output = 0) => [
   },
 ]
 
-describe("NemoracodePlugin", () => {
+describe("OpencodePlugin", () => {
   it.effect("registers account and service account methods", () =>
     Effect.gen(function* () {
       yield* addPlugin()
       const integrations = yield* Integration.Service
-      expect((yield* integrations.get(Integration.ID.make("nemoracode")))?.methods).toEqual([
+      expect((yield* integrations.get(Integration.ID.make("opencode")))?.methods).toEqual([
         {
           id: Integration.MethodID.make("device"),
           type: "oauth",
-          label: "NemoraCode Console account",
+          label: "OpenCode Console account",
           form: [
             { key: "server", type: "string", format: "uri", hidden: true, default: "https://opencode.ai/console" },
           ],
@@ -167,7 +167,7 @@ describe("NemoracodePlugin", () => {
               return Response.json({
                 device_code: "device",
                 user_code: "user",
-                verification_uri_complete: "/console/device?user_code=user&client_id=nemoracode-cli",
+                verification_uri_complete: "/console/device?user_code=user&client_id=opencode-cli",
                 expires_in: 60,
                 interval: 0,
               })
@@ -186,13 +186,13 @@ describe("NemoracodePlugin", () => {
         Effect.gen(function* () {
           yield* addPlugin()
           const integrations = yield* Integration.Service
-          const integrationID = Integration.ID.make("nemoracode")
+          const integrationID = Integration.ID.make("opencode")
           const attempt = yield* integrations.oauth.connect({
             integrationID,
             methodID: Integration.MethodID.make("device"),
             answer: { server: `${server.url.origin}/console///?ignored=true#ignored` },
           })
-          expect(attempt.url).toBe(`${server.url.origin}/console/device?user_code=user&client_id=nemoracode-cli`)
+          expect(attempt.url).toBe(`${server.url.origin}/console/device?user_code=user&client_id=opencode-cli`)
           yield* eventually(
             integrations.oauth.status({ integrationID, attemptID: attempt.attemptID }),
             (status) => status.status === "complete",
@@ -203,7 +203,7 @@ describe("NemoracodePlugin", () => {
           expect(requests).toContain("GET /console/api/user")
           expect(requests).toContain("GET /console/api/orgs")
           const credentials = yield* Credential.Service
-          expect((yield* credentials.list(Integration.ID.make("nemoracode")))[0]?.value).toMatchObject({
+          expect((yield* credentials.list(Integration.ID.make("opencode")))[0]?.value).toMatchObject({
             metadata: { server: `${server.url.origin}/console` },
           })
         }),
@@ -232,7 +232,7 @@ describe("NemoracodePlugin", () => {
           const integrations = yield* Integration.Service
           const error = yield* integrations.oauth
             .connect({
-              integrationID: Integration.ID.make("nemoracode"),
+              integrationID: Integration.ID.make("opencode"),
               methodID: Integration.MethodID.make("device"),
               answer: { server: server.url.origin },
             })
@@ -253,7 +253,7 @@ describe("NemoracodePlugin", () => {
             yield* addPlugin()
             const integrations = yield* Integration.Service
             const credentials = yield* Credential.Service
-            const integrationID = Integration.ID.make("nemoracode")
+            const integrationID = Integration.ID.make("opencode")
             const attempt = yield* integrations.oauth.connect({
               integrationID,
               methodID: Integration.MethodID.make("device"),
@@ -266,7 +266,7 @@ describe("NemoracodePlugin", () => {
             if (orgID === "org-missing") {
               expect(status).toMatchObject({
                 status: "failed",
-                message: "NemoraCode organization not found: org-missing",
+                message: "OpenCode organization not found: org-missing",
               })
               expect(yield* credentials.list(integrationID)).toEqual([])
               expect(config).toEqual([])
@@ -316,7 +316,7 @@ describe("NemoracodePlugin", () => {
             Effect.gen(function* () {
               const credentials = yield* Credential.Service
               const initial = yield* credentials.create({
-                integrationID: Integration.ID.make("nemoracode"),
+                integrationID: Integration.ID.make("opencode"),
                 label: "Custom label",
                 value: Credential.OAuth.make({
                   type: "oauth",
@@ -364,29 +364,29 @@ describe("NemoracodePlugin", () => {
     )
   }
 
-  it.effect("rejects non-HTTP NemoraCode servers", () =>
+  it.effect("rejects non-HTTP OpenCode servers", () =>
     Effect.gen(function* () {
       yield* addPlugin()
       const integrations = yield* Integration.Service
       const error = yield* integrations.oauth
         .connect({
-          integrationID: Integration.ID.make("nemoracode"),
+          integrationID: Integration.ID.make("opencode"),
           methodID: Integration.MethodID.make("device"),
           answer: { server: "ftp://console.example.com" },
         })
         .pipe(Effect.flip)
       expect(error).toBeInstanceOf(Integration.AuthorizationError)
-      expect(String(error.cause)).toContain("Invalid NemoraCode server URL: expected HTTP(S)")
+      expect(String(error.cause)).toContain("Invalid OpenCode server URL: expected HTTP(S)")
     }),
   )
 
-  it.effect("rejects non-string NemoraCode servers", () =>
+  it.effect("rejects non-string OpenCode servers", () =>
     Effect.gen(function* () {
       yield* addPlugin()
       const integrations = yield* Integration.Service
       const error = yield* integrations.oauth
         .connect({
-          integrationID: Integration.ID.make("nemoracode"),
+          integrationID: Integration.ID.make("opencode"),
           methodID: Integration.MethodID.make("device"),
           answer: { server: true },
         })
@@ -396,7 +396,7 @@ describe("NemoracodePlugin", () => {
     }),
   )
 
-  it.live("loads native V2 providers and models from the connected NemoraCode server", () =>
+  it.live("loads native V2 providers and models from the connected OpenCode server", () =>
     Effect.acquireUseRelease(
       Effect.sync(() => {
         const authorization: Array<string | null> = []
@@ -492,7 +492,7 @@ describe("NemoracodePlugin", () => {
             editor.models.update(Provider.ID.make("remote"), Model.ID.make("stale"), () => {})
           })
           const initial = yield* credentials.create({
-            integrationID: Integration.ID.make("nemoracode"),
+            integrationID: Integration.ID.make("opencode"),
             value: Credential.Key.make({
               type: "key",
               key: "secret",
@@ -509,7 +509,7 @@ describe("NemoracodePlugin", () => {
             id: "remote",
             canonical: "openai",
             name: "Remote",
-            integrationID: "nemoracode",
+            integrationID: "opencode",
             package: "@nemoracode/ai/providers/openai-compatible",
             settings: { baseURL: `${server.url.origin}/v1`, custom: "value" },
             headers: { "x-org-id": "org" },
@@ -566,7 +566,7 @@ describe("NemoracodePlugin", () => {
           expect(authorization).toEqual(["Bearer secret"])
 
           const replacement = yield* credentials.create({
-            integrationID: Integration.ID.make("nemoracode"),
+            integrationID: Integration.ID.make("opencode"),
             value: Credential.Key.make({
               type: "key",
               key: "replacement",
@@ -583,7 +583,7 @@ describe("NemoracodePlugin", () => {
           yield* credentials.remove(initial.id)
           yield* Effect.yieldNow
           expect(authorization).toEqual(["Bearer secret", "Bearer replacement"])
-          expect((yield* credentials.list(Integration.ID.make("nemoracode"))).at(-1)?.id).toBe(replacement.id)
+          expect((yield* credentials.list(Integration.ID.make("opencode"))).at(-1)?.id).toBe(replacement.id)
         }),
       ({ server }) => Effect.promise(() => server.stop(true)),
     ),
@@ -635,7 +635,7 @@ describe("NemoracodePlugin", () => {
           const credentials = yield* Credential.Service
           const models = yield* Model.Service
           yield* credentials.create({
-            integrationID: Integration.ID.make("nemoracode"),
+            integrationID: Integration.ID.make("opencode"),
             value: Credential.Key.make({ type: "key", key: "secret", metadata: { server: server.url.origin } }),
           })
 
@@ -697,7 +697,7 @@ describe("NemoracodePlugin", () => {
             if (state.failing) return new Response("Unavailable", { status: 502 })
             return Response.json({
               providers: {},
-              ...(state.advertised ? { websearch: { providerID: "nemoracode" } } : {}),
+              ...(state.advertised ? { websearch: { providerID: "opencode" } } : {}),
             })
           },
         })
@@ -710,7 +710,7 @@ describe("NemoracodePlugin", () => {
           const websearch = yield* WebSearch.Service
           const rebuilds = { provider: 0, websearch: 0 }
           yield* credentials.create({
-            integrationID: Integration.ID.make("nemoracode"),
+            integrationID: Integration.ID.make("opencode"),
             value: Credential.Key.make({ type: "key", key: "secret", metadata: { server: server.url.origin } }),
           })
           yield* providers.transform(() => {
@@ -736,20 +736,20 @@ describe("NemoracodePlugin", () => {
           yield* drain
           expect(state.requests).toBe(2)
           expect(rebuilds).toEqual({ provider: initial.provider + 1, websearch: initial.websearch + 1 })
-          expect(yield* websearch.default()).toEqual({ id: WebSearch.ID.make("nemoracode"), name: "NemoraCode Web Search" })
+          expect(yield* websearch.default()).toEqual({ id: WebSearch.ID.make("opencode"), name: "OpenCode Web Search" })
 
           yield* TestClock.adjust("1 minute")
           yield* drain
           expect(state.requests).toBe(3)
           expect(rebuilds).toEqual({ provider: initial.provider + 1, websearch: initial.websearch + 1 })
-          expect(yield* websearch.default()).toEqual({ id: WebSearch.ID.make("nemoracode"), name: "NemoraCode Web Search" })
+          expect(yield* websearch.default()).toEqual({ id: WebSearch.ID.make("opencode"), name: "OpenCode Web Search" })
 
           state.failing = true
           yield* TestClock.adjust("1 minute")
           yield* drain
           expect(state.requests).toBe(4)
           expect(rebuilds).toEqual({ provider: initial.provider + 1, websearch: initial.websearch + 1 })
-          expect(yield* websearch.default()).toEqual({ id: WebSearch.ID.make("nemoracode"), name: "NemoraCode Web Search" })
+          expect(yield* websearch.default()).toEqual({ id: WebSearch.ID.make("opencode"), name: "OpenCode Web Search" })
 
           state.failing = false
           state.advertised = false
@@ -777,14 +777,14 @@ describe("NemoracodePlugin", () => {
                 ? {
                     mcp: {
                       servers: {
-                        nemoracode_console: {
+                        opencode_console: {
                           type: "remote",
                           url: `${new URL(request.url).origin}/console/mcp`,
-                          headers: { "x-client": "nemoracode", authorization: "Bearer forged" },
+                          headers: { "x-client": "opencode", authorization: "Bearer forged" },
                           oauth: false,
                           auth: "console",
                         },
-                        nemoracode_console_oauth: {
+                        opencode_console_oauth: {
                           type: "remote",
                           url: `${new URL(request.url).origin}/console/oauth/mcp`,
                           oauth: { scope: "workspace" },
@@ -817,7 +817,7 @@ describe("NemoracodePlugin", () => {
             return Object.fromEntries(configured)
           }
           yield* credentials.create({
-            integrationID: Integration.ID.make("nemoracode"),
+            integrationID: Integration.ID.make("opencode"),
             value: Credential.Key.make({
               type: "key",
               key: "secret",
@@ -845,13 +845,13 @@ describe("NemoracodePlugin", () => {
           yield* drain
 
           expect(servers()).toEqual({
-            nemoracode_console: {
+            opencode_console: {
               type: "remote",
               url: `${server.url.origin}/console/mcp`,
-              headers: { "x-client": "nemoracode", authorization: "Bearer secret", "x-org-id": "org-a" },
+              headers: { "x-client": "opencode", authorization: "Bearer secret", "x-org-id": "org-a" },
               oauth: false,
             },
-            nemoracode_console_oauth: {
+            opencode_console_oauth: {
               type: "remote",
               url: `${server.url.origin}/console/oauth/mcp`,
               oauth: { scope: "workspace" },
@@ -876,12 +876,12 @@ describe("NemoracodePlugin", () => {
           port: 0,
           fetch: () =>
             Response.json({
-              providers: { nemoracode: {} },
+              providers: { opencode: {} },
               experimental: {
                 policies: [
                   { action: "future.use", resource: { names: ["anything"] }, effect: "future-effect", future: true },
                   { action: "provider.use", resource: "*", effect: "deny" },
-                  { action: "provider.use", resource: "nemoracode", effect: "allow" },
+                  { action: "provider.use", resource: "opencode", effect: "allow" },
                   { action: "tool.use", resource: "shell:*", effect: "deny" },
                   { action: "tool.use", resource: "shell:git *", effect: "allow" },
                   { action: "tool.use", resource: "shell:git status", effect: "future-effect" },
@@ -903,7 +903,7 @@ describe("NemoracodePlugin", () => {
           const plugins = yield* Plugin.Service
           yield* catalog.transform((catalog) => catalog.update(Provider.ID.anthropic, () => {}))
           yield* credentials.create({
-            integrationID: Integration.ID.make("nemoracode"),
+            integrationID: Integration.ID.make("opencode"),
             value: Credential.Key.make({
               type: "key",
               key: "secret",
@@ -911,13 +911,13 @@ describe("NemoracodePlugin", () => {
             }),
           })
           const host = yield* PluginHost.make(plugins)
-          yield* NemoracodePlugin.effect(host)
+          yield* OpencodePlugin.effect(host)
           yield* ConfigPolicyPlugin.Plugin.effect(host).pipe(Effect.provide(Config.testLayer([])))
 
           expect(managed.current()).toEqual({
             statements: [
               { action: "provider.use", resource: "*", effect: "deny" },
-              { action: "provider.use", resource: "nemoracode", effect: "allow" },
+              { action: "provider.use", resource: "opencode", effect: "allow" },
               { action: "tool.use", resource: "shell:*", effect: "deny" },
               { action: "tool.use", resource: "shell:git *", effect: "allow" },
               { action: "tool.use", resource: "shell:sudo *", effect: "deny" },
@@ -943,7 +943,7 @@ describe("NemoracodePlugin", () => {
             })).effect,
           ).toBe("ask")
           expect(yield* catalog.get(Provider.ID.anthropic)).toBeUndefined()
-          expect(yield* catalog.get(Provider.ID.nemoracode)).toBeDefined()
+          expect(yield* catalog.get(Provider.ID.opencode)).toBeDefined()
         }),
       (server) => Effect.promise(() => server.stop(true)),
     ),
@@ -957,7 +957,7 @@ describe("NemoracodePlugin", () => {
         }
         const server = Bun.serve({
           port: 0,
-          fetch: () => Response.json({ providers: { nemoracode: {} }, experimental: { policies: state.policies } }),
+          fetch: () => Response.json({ providers: { opencode: {} }, experimental: { policies: state.policies } }),
         })
         return { server, state }
       }),
@@ -969,7 +969,7 @@ describe("NemoracodePlugin", () => {
           const sudo: ConfigPolicy.Info = { action: "tool.use", resource: "shell:sudo *", effect: "deny" }
           const env: ConfigPolicy.Info = { action: "tool.use", resource: "edit:*.env", effect: "deny" }
           yield* credentials.create({
-            integrationID: Integration.ID.make("nemoracode"),
+            integrationID: Integration.ID.make("opencode"),
             value: Credential.Key.make({
               type: "key",
               key: "secret",
@@ -990,7 +990,7 @@ describe("NemoracodePlugin", () => {
             yield* TestClock.adjust("1 minute")
             yield* drain
             expect(managed.current()).toEqual({ statements: [sudo], organization: "Acme" })
-            expect(yield* providers.get(Provider.ID.nemoracode)).toBeDefined()
+            expect(yield* providers.get(Provider.ID.opencode)).toBeDefined()
           }
 
           state.policies = [env, { action: "tool.use", resource: "shell:*", effect: "future-effect" }]
@@ -1002,7 +1002,7 @@ describe("NemoracodePlugin", () => {
           yield* TestClock.adjust("1 minute")
           yield* drain
           expect(managed.current()).toEqual({ statements: [], organization: "Acme" })
-          expect(yield* providers.get(Provider.ID.nemoracode)).toBeDefined()
+          expect(yield* providers.get(Provider.ID.opencode)).toBeDefined()
 
           state.policies = [{ action: "future.use", effect: { next: true } }, env]
           yield* TestClock.adjust("1 minute")
@@ -1040,7 +1040,7 @@ describe("NemoracodePlugin", () => {
           const rebuilds = { count: 0 }
           const account = (orgID: string, orgName: string) =>
             credentials.create({
-              integrationID: Integration.ID.make("nemoracode"),
+              integrationID: Integration.ID.make("opencode"),
               value: Credential.Key.make({
                 type: "key",
                 key: orgID,
@@ -1139,11 +1139,11 @@ describe("NemoracodePlugin", () => {
           const managed = yield* ManagedPolicy.Service
           const status = () =>
             integrations
-              .get(Integration.ID.make("nemoracode"))
+              .get(Integration.ID.make("opencode"))
               .pipe(Effect.map((integration) => integration?.connections[0]?.status))
           const sudo: ConfigPolicy.Info = { action: "tool.use", resource: "shell:sudo *", effect: "deny" }
           yield* credentials.create({
-            integrationID: Integration.ID.make("nemoracode"),
+            integrationID: Integration.ID.make("opencode"),
             value: Credential.Key.make({
               type: "key",
               key: "secret",
@@ -1194,7 +1194,7 @@ describe("NemoracodePlugin", () => {
           const credentials = yield* Credential.Service
           const hooks = yield* PluginHooks.Service
           yield* credentials.create({
-            integrationID: Integration.ID.make("nemoracode"),
+            integrationID: Integration.ID.make("opencode"),
             value: Credential.Key.make({
               type: "key",
               key: "secret",
@@ -1244,7 +1244,7 @@ describe("NemoracodePlugin", () => {
               TestClock.adjust("1 second").pipe(Effect.andThen(rejected(Provider.ID.make("remote")))),
             ),
           ).toEqual(Array.from({ length: 20 }, () => explained))
-          expect(yield* rejected(Provider.ID.nemoracode)).toEqual(explained)
+          expect(yield* rejected(Provider.ID.opencode)).toEqual(explained)
           expect(yield* rejected(Provider.ID.anthropic)).toEqual(denied)
           expect(state.requests).toBe(2)
         }),
@@ -1274,7 +1274,7 @@ describe("NemoracodePlugin", () => {
           const managed = yield* ManagedPolicy.Service
           const sudo: ConfigPolicy.Info = { action: "tool.use", resource: "shell:sudo *", effect: "deny" }
           yield* credentials.create({
-            integrationID: Integration.ID.make("nemoracode"),
+            integrationID: Integration.ID.make("opencode"),
             value: Credential.Key.make({ type: "key", key: "secret", metadata: { server: server.url.origin } }),
           })
           yield* addPlugin().pipe(inProcess(server))
@@ -1287,7 +1287,7 @@ describe("NemoracodePlugin", () => {
             state.body = body()
             yield* TestClock.adjust("1 minute")
             yield* drain
-            expect((yield* integrations.get(Integration.ID.make("nemoracode")))?.connections[0]?.status).toBeUndefined()
+            expect((yield* integrations.get(Integration.ID.make("opencode")))?.connections[0]?.status).toBeUndefined()
             expect(managed.current().statements).toEqual([sudo])
           }
         }),
@@ -1305,7 +1305,7 @@ describe("NemoracodePlugin", () => {
         return Effect.succeed(HttpClientResponse.fromWeb(request, new Response("unavailable", state)))
       })
       yield* credentials.create({
-        integrationID: Integration.ID.make("nemoracode"),
+        integrationID: Integration.ID.make("opencode"),
         value: Credential.Key.make({ type: "key", key: "secret", metadata: { server: "https://console.test" } }),
       })
       yield* addPlugin().pipe(Effect.provideService(HttpClient.HttpClient, http))
@@ -1328,7 +1328,7 @@ describe("NemoracodePlugin", () => {
         return Effect.succeed(HttpClientResponse.fromWeb(request, new Response(null, { status: 404 })))
       })
       yield* credentials.create({
-        integrationID: Integration.ID.make("nemoracode"),
+        integrationID: Integration.ID.make("opencode"),
         value: Credential.Key.make({ type: "key", key: "secret", metadata: { server: "https://console.opencode.ai" } }),
       })
       yield* addPlugin().pipe(Effect.provideService(HttpClient.HttpClient, http))
@@ -1358,7 +1358,7 @@ describe("NemoracodePlugin", () => {
           const credentials = yield* Credential.Service
           const integrations = yield* Integration.Service
           const credential = yield* credentials.create({
-            integrationID: Integration.ID.make("nemoracode"),
+            integrationID: Integration.ID.make("opencode"),
             value: Credential.OAuth.make({
               type: "oauth",
               methodID: Integration.MethodID.make("device"),
@@ -1371,9 +1371,9 @@ describe("NemoracodePlugin", () => {
           yield* addPlugin()
           yield* drain
 
-          expect((yield* integrations.get(Integration.ID.make("nemoracode")))?.connections[0]?.status).toEqual({
+          expect((yield* integrations.get(Integration.ID.make("opencode")))?.connections[0]?.status).toEqual({
             status: "needs_auth",
-            message: "Reconnect NemoraCode Console to continue",
+            message: "Reconnect OpenCode Console to continue",
           })
           expect((yield* credentials.get(credential.id))?.value).toMatchObject({ refresh: "revoked" })
         }),
@@ -1401,7 +1401,7 @@ describe("NemoracodePlugin", () => {
           const credentials = yield* Credential.Service
           const integrations = yield* Integration.Service
           const credential = yield* credentials.create({
-            integrationID: Integration.ID.make("nemoracode"),
+            integrationID: Integration.ID.make("opencode"),
             value: Credential.OAuth.make({
               type: "oauth",
               methodID: Integration.MethodID.make("device"),
@@ -1412,11 +1412,11 @@ describe("NemoracodePlugin", () => {
             }),
           })
           const status = () =>
-            integrations.get(Integration.ID.make("nemoracode")).pipe(Effect.map((item) => item?.connections[0]?.status))
+            integrations.get(Integration.ID.make("opencode")).pipe(Effect.map((item) => item?.connections[0]?.status))
           yield* addPlugin().pipe(inProcess(server))
           yield* drain
 
-          expect(yield* status()).toEqual({ status: "needs_auth", message: "Reconnect NemoraCode Console to continue" })
+          expect(yield* status()).toEqual({ status: "needs_auth", message: "Reconnect OpenCode Console to continue" })
           expect((yield* credentials.get(credential.id))?.value).toMatchObject({ access: "revoked" })
 
           state.revoked = false
@@ -1429,7 +1429,7 @@ describe("NemoracodePlugin", () => {
     ),
   )
 
-  it.live("loads and executes hosted web search from the connected NemoraCode server", () =>
+  it.live("loads and executes hosted web search from the connected OpenCode server", () =>
     Effect.acquireUseRelease(
       Effect.sync(() => {
         const requests: Array<{
@@ -1440,7 +1440,7 @@ describe("NemoracodePlugin", () => {
           body?: unknown
         }> = []
         const gate = Promise.withResolvers<void>()
-        const state = { advertised: true, providerID: "nemoracode", waitForConfig: false }
+        const state = { advertised: true, providerID: "opencode", waitForConfig: false }
         const server = Bun.serve({
           port: 0,
           fetch: async (request) => {
@@ -1460,7 +1460,7 @@ describe("NemoracodePlugin", () => {
                 ...(state.advertised
                   ? {
                       websearch: {
-                        providerID: "nemoracode",
+                        providerID: "opencode",
                       },
                     }
                   : {}),
@@ -1472,7 +1472,7 @@ describe("NemoracodePlugin", () => {
                 results: [
                   {
                     url: "https://github.com/anomalyco/opencode",
-                    title: "NemoraCode",
+                    title: "OpenCode",
                     content: "Open source AI coding agent.",
                     time: { published: 1_700_000_000_000 },
                   },
@@ -1498,23 +1498,23 @@ describe("NemoracodePlugin", () => {
               metadata: { server: serverURL, orgID },
             })
           const initial = yield* credentials.create({
-            integrationID: Integration.ID.make("nemoracode"),
+            integrationID: Integration.ID.make("opencode"),
             value: account("secret"),
           })
 
           yield* addPlugin()
           expect(yield* websearch.providers()).toContainEqual({
-            id: WebSearch.ID.make("nemoracode"),
-            name: "NemoraCode Web Search",
+            id: WebSearch.ID.make("opencode"),
+            name: "OpenCode Web Search",
           })
-          expect(yield* websearch.default()).toEqual({ id: WebSearch.ID.make("nemoracode"), name: "NemoraCode Web Search" })
+          expect(yield* websearch.default()).toEqual({ id: WebSearch.ID.make("opencode"), name: "OpenCode Web Search" })
           expect(yield* websearch.query({ query: "effect web search" })).toEqual(
             new WebSearch.Response({
-              providerID: WebSearch.ID.make("nemoracode"),
+              providerID: WebSearch.ID.make("opencode"),
               results: [
                 {
                   url: "https://github.com/anomalyco/opencode",
-                  title: "NemoraCode",
+                  title: "OpenCode",
                   content: "Open source AI coding agent.",
                   time: { published: 1_700_000_000_000 },
                 },
@@ -1533,7 +1533,7 @@ describe("NemoracodePlugin", () => {
               path: "/api/websearch",
               authorization: "Bearer secret",
               orgID: "org_test",
-              body: { query: "effect web search", providerID: "nemoracode" },
+              body: { query: "effect web search", providerID: "opencode" },
             },
           ])
 
@@ -1544,7 +1544,7 @@ describe("NemoracodePlugin", () => {
           expect(requests.at(-1)).toMatchObject({
             method: "POST",
             authorization: "Bearer replacement",
-            body: { query: "fresh credential", providerID: "nemoracode" },
+            body: { query: "fresh credential", providerID: "opencode" },
           })
 
           yield* credentials.update(initial.id, {
@@ -1556,7 +1556,7 @@ describe("NemoracodePlugin", () => {
             path: "/other/api/websearch",
             authorization: "Bearer moved",
             orgID: "org_test",
-            body: { query: "updated server", providerID: "nemoracode" },
+            body: { query: "updated server", providerID: "opencode" },
           })
           yield* credentials.update(initial.id, {
             value: account("replacement"),
@@ -1569,7 +1569,7 @@ describe("NemoracodePlugin", () => {
           state.waitForConfig = true
           const searchCount = requests.filter((request) => request.path === "/api/websearch").length
           yield* credentials.create({
-            integrationID: Integration.ID.make("nemoracode"),
+            integrationID: Integration.ID.make("opencode"),
             value: account("switched", server.url.origin, "org_switched"),
           })
           yield* eventually(
@@ -1580,7 +1580,7 @@ describe("NemoracodePlugin", () => {
           expect(requests.filter((request) => request.path === "/api/websearch")).toHaveLength(searchCount)
           gate.resolve()
           yield* eventually(websearch.providers(), (providers) =>
-            providers.every((provider) => provider.id !== WebSearch.ID.make("nemoracode")),
+            providers.every((provider) => provider.id !== WebSearch.ID.make("opencode")),
           )
           expect(yield* websearch.default()).toBeUndefined()
           expect(requests.at(-1)).toMatchObject({
@@ -1622,7 +1622,7 @@ describe("NemoracodePlugin", () => {
           const http = yield* HttpClient.HttpClient
           const requests: string[] = []
           yield* credentials.create({
-            integrationID: Integration.ID.make("nemoracode"),
+            integrationID: Integration.ID.make("opencode"),
             value: Credential.Key.make({ type: "key", key: "secret" }),
           })
           yield* addPlugin().pipe(
@@ -1639,7 +1639,7 @@ describe("NemoracodePlugin", () => {
 
           expect(yield* websearch.default()).toEqual({
             id: WebSearch.ID.make("managed-search"),
-            name: "NemoraCode Web Search",
+            name: "OpenCode Web Search",
           })
           expect(yield* websearch.query({ query: "default Console" })).toEqual(
             new WebSearch.Response({ providerID: WebSearch.ID.make("managed-search"), results: [] }),
@@ -1667,7 +1667,7 @@ describe("NemoracodePlugin", () => {
               return Response.json({
                 providers: {},
                 websearch: {
-                  providerID: "nemoracode",
+                  providerID: "opencode",
                 },
               })
             }
@@ -1675,7 +1675,7 @@ describe("NemoracodePlugin", () => {
               if (state.crossOrigin) url.hostname = "127.0.0.1"
               return Response.redirect(`${url.origin}/outside-console`, 307)
             }
-            return Response.json({ providerID: "nemoracode", results: [] })
+            return Response.json({ providerID: "opencode", results: [] })
           },
         })
         return { requests, server, state }
@@ -1685,7 +1685,7 @@ describe("NemoracodePlugin", () => {
           const credentials = yield* Credential.Service
           const websearch = yield* WebSearch.Service
           yield* credentials.create({
-            integrationID: Integration.ID.make("nemoracode"),
+            integrationID: Integration.ID.make("opencode"),
             value: Credential.Key.make({
               type: "key",
               key: "secret",
@@ -1717,7 +1717,7 @@ describe("NemoracodePlugin", () => {
               return Response.json({
                 providers: {},
                 websearch: {
-                  providerID: "nemoracode",
+                  providerID: "opencode",
                 },
               })
             }
@@ -1741,7 +1741,7 @@ describe("NemoracodePlugin", () => {
           const credentials = yield* Credential.Service
           const websearch = yield* WebSearch.Service
           yield* credentials.create({
-            integrationID: Integration.ID.make("nemoracode"),
+            integrationID: Integration.ID.make("opencode"),
             value: Credential.Key.make({
               type: "key",
               key: "secret",
@@ -1839,7 +1839,7 @@ describe("NemoracodePlugin", () => {
             key: "secret",
             metadata: { server: server.url.origin },
           })
-          yield* credentials.create({ integrationID: Integration.ID.make("nemoracode"), value: credential })
+          yield* credentials.create({ integrationID: Integration.ID.make("opencode"), value: credential })
           yield* addPlugin()
           const model = required(yield* models.get(Provider.ID.make("remote"), Model.ID.make("astra")))
           expect(model.canonical).toBe(Provider.ID.openai)
@@ -1886,137 +1886,137 @@ describe("NemoracodePlugin", () => {
   )
 
   it.effect("uses a public key and disables paid models without credentials", () =>
-    withEnv({ NEMORACODE_API_KEY: undefined }, () =>
+    withEnv({ OPENCODE_API_KEY: undefined }, () =>
       Effect.gen(function* () {
         const catalog = yield* Provider.Service
         const models = yield* Model.Service
         yield* catalog.transform((catalog) => {
-          catalog.update(Provider.ID.nemoracode, () => {})
-          catalog.models.update(Provider.ID.nemoracode, Model.ID.make("paid"), (draft) => {
+          catalog.update(Provider.ID.opencode, () => {})
+          catalog.models.update(Provider.ID.opencode, Model.ID.make("paid"), (draft) => {
             draft.cost = cost(1)
           })
         })
         yield* addPlugin()
-        expect(required(yield* catalog.get(Provider.ID.nemoracode)).settings?.apiKey).toBe("public")
-        expect(required(yield* models.get(Provider.ID.nemoracode, Model.ID.make("paid"))).enabled).toBe(false)
+        expect(required(yield* catalog.get(Provider.ID.opencode)).settings?.apiKey).toBe("public")
+        expect(required(yield* models.get(Provider.ID.opencode, Model.ID.make("paid"))).enabled).toBe(false)
       }),
     ),
   )
 
   it.effect("keeps free models without credentials", () =>
-    withEnv({ NEMORACODE_API_KEY: undefined }, () =>
+    withEnv({ OPENCODE_API_KEY: undefined }, () =>
       Effect.gen(function* () {
         const catalog = yield* Provider.Service
         const models = yield* Model.Service
         yield* catalog.transform((catalog) => {
-          catalog.update(Provider.ID.nemoracode, () => {})
-          catalog.models.update(Provider.ID.nemoracode, Model.ID.make("free"), (draft) => {
+          catalog.update(Provider.ID.opencode, () => {})
+          catalog.models.update(Provider.ID.opencode, Model.ID.make("free"), (draft) => {
             draft.cost = cost(0)
           })
         })
         yield* addPlugin()
-        expect(required(yield* catalog.get(Provider.ID.nemoracode)).settings?.apiKey).toBe("public")
-        expect(required(yield* catalog.get(Provider.ID.nemoracode)).activation).toBe("enabled")
-        expect((yield* catalog.available()).map((provider) => provider.id)).toContain(Provider.ID.nemoracode)
-        expect(required(yield* models.get(Provider.ID.nemoracode, Model.ID.make("free"))).enabled).toBe(true)
+        expect(required(yield* catalog.get(Provider.ID.opencode)).settings?.apiKey).toBe("public")
+        expect(required(yield* catalog.get(Provider.ID.opencode)).activation).toBe("enabled")
+        expect((yield* catalog.available()).map((provider) => provider.id)).toContain(Provider.ID.opencode)
+        expect(required(yield* models.get(Provider.ID.opencode, Model.ID.make("free"))).enabled).toBe(true)
       }),
     ),
   )
 
   it.effect("treats output-only cost as free without credentials", () =>
-    withEnv({ NEMORACODE_API_KEY: undefined }, () =>
+    withEnv({ OPENCODE_API_KEY: undefined }, () =>
       Effect.gen(function* () {
         const catalog = yield* Provider.Service
         const models = yield* Model.Service
         yield* catalog.transform((catalog) => {
-          catalog.update(Provider.ID.nemoracode, () => {})
-          catalog.models.update(Provider.ID.nemoracode, Model.ID.make("output-only"), (draft) => {
+          catalog.update(Provider.ID.opencode, () => {})
+          catalog.models.update(Provider.ID.opencode, Model.ID.make("output-only"), (draft) => {
             draft.cost = cost(0, 1)
           })
         })
         yield* addPlugin()
-        expect(required(yield* catalog.get(Provider.ID.nemoracode)).settings?.apiKey).toBe("public")
-        expect(required(yield* models.get(Provider.ID.nemoracode, Model.ID.make("output-only"))).enabled).toBe(true)
+        expect(required(yield* catalog.get(Provider.ID.opencode)).settings?.apiKey).toBe("public")
+        expect(required(yield* models.get(Provider.ID.opencode, Model.ID.make("output-only"))).enabled).toBe(true)
       }),
     ),
   )
 
-  it.effect("uses NEMORACODE_API_KEY as credentials", () =>
-    withEnv({ NEMORACODE_API_KEY: "secret" }, () =>
+  it.effect("uses OPENCODE_API_KEY as credentials", () =>
+    withEnv({ OPENCODE_API_KEY: "secret" }, () =>
       Effect.gen(function* () {
         const catalog = yield* Provider.Service
         const models = yield* Model.Service
         const integrations = yield* Integration.Service
         yield* integrations.transform((editor) =>
           editor.method.update({
-            integrationID: Integration.ID.make("nemoracode"),
-            method: { type: "env", names: ["NEMORACODE_API_KEY"] },
+            integrationID: Integration.ID.make("opencode"),
+            method: { type: "env", names: ["OPENCODE_API_KEY"] },
           }),
         )
         yield* catalog.transform((catalog) => {
-          catalog.update(Provider.ID.nemoracode, () => {})
-          catalog.models.update(Provider.ID.nemoracode, Model.ID.make("paid"), (draft) => {
+          catalog.update(Provider.ID.opencode, () => {})
+          catalog.models.update(Provider.ID.opencode, Model.ID.make("paid"), (draft) => {
             draft.cost = cost(1)
           })
         })
         yield* addPlugin().pipe(Effect.provideService(HttpClient.HttpClient, noRemoteConfig))
-        expect(required(yield* catalog.get(Provider.ID.nemoracode)).settings?.apiKey).toBeUndefined()
-        expect(required(yield* models.get(Provider.ID.nemoracode, Model.ID.make("paid"))).enabled).toBe(true)
+        expect(required(yield* catalog.get(Provider.ID.opencode)).settings?.apiKey).toBeUndefined()
+        expect(required(yield* models.get(Provider.ID.opencode, Model.ID.make("paid"))).enabled).toBe(true)
       }),
     ),
   )
 
   it.effect("uses configured provider env vars as credentials", () =>
-    withEnv({ NEMORACODE_API_KEY: undefined, CUSTOM_NEMORACODE_API_KEY: "secret" }, () =>
+    withEnv({ OPENCODE_API_KEY: undefined, CUSTOM_OPENCODE_API_KEY: "secret" }, () =>
       Effect.gen(function* () {
         const catalog = yield* Provider.Service
         const models = yield* Model.Service
         const integrations = yield* Integration.Service
         yield* integrations.transform((editor) => {
           editor.method.update({
-            integrationID: Integration.ID.make("nemoracode"),
-            method: { type: "env", names: ["CUSTOM_NEMORACODE_API_KEY"] },
+            integrationID: Integration.ID.make("opencode"),
+            method: { type: "env", names: ["CUSTOM_OPENCODE_API_KEY"] },
           })
         })
         yield* catalog.transform((catalog) => {
-          catalog.update(Provider.ID.nemoracode, () => {})
-          catalog.models.update(Provider.ID.nemoracode, Model.ID.make("paid"), (draft) => {
+          catalog.update(Provider.ID.opencode, () => {})
+          catalog.models.update(Provider.ID.opencode, Model.ID.make("paid"), (draft) => {
             draft.cost = cost(1)
           })
         })
         // An env credential has no server metadata, so the plugin would ask the
         // default Console for remote config; answer 404 (no remote config) locally.
         yield* addPlugin().pipe(Effect.provideService(HttpClient.HttpClient, noRemoteConfig))
-        expect(required(yield* catalog.get(Provider.ID.nemoracode)).settings?.apiKey).toBeUndefined()
-        expect(required(yield* models.get(Provider.ID.nemoracode, Model.ID.make("paid"))).enabled).toBe(true)
+        expect(required(yield* catalog.get(Provider.ID.opencode)).settings?.apiKey).toBeUndefined()
+        expect(required(yield* models.get(Provider.ID.opencode, Model.ID.make("paid"))).enabled).toBe(true)
       }),
     ),
   )
 
   it.effect("uses configured apiKey as credentials", () =>
-    withEnv({ NEMORACODE_API_KEY: undefined }, () =>
+    withEnv({ OPENCODE_API_KEY: undefined }, () =>
       Effect.gen(function* () {
         const catalog = yield* Provider.Service
         const models = yield* Model.Service
         yield* catalog.transform((catalog) => {
-          catalog.update(Provider.ID.nemoracode, (draft) => {
+          catalog.update(Provider.ID.opencode, (draft) => {
             draft.package = Provider.aisdk("test-provider")
             draft.settings = { apiKey: "configured" }
             draft.activation = "enabled"
           })
-          catalog.models.update(Provider.ID.nemoracode, Model.ID.make("paid"), (draft) => {
+          catalog.models.update(Provider.ID.opencode, Model.ID.make("paid"), (draft) => {
             draft.cost = cost(1)
           })
         })
         yield* addPlugin()
-        expect(required(yield* catalog.get(Provider.ID.nemoracode)).settings?.apiKey).toBe("configured")
-        expect(required(yield* models.get(Provider.ID.nemoracode, Model.ID.make("paid"))).enabled).toBe(true)
+        expect(required(yield* catalog.get(Provider.ID.opencode)).settings?.apiKey).toBe("configured")
+        expect(required(yield* models.get(Provider.ID.opencode, Model.ID.make("paid"))).enabled).toBe(true)
       }),
     ),
   )
 
-  it.effect("ignores non-nemoracode providers and models", () =>
-    withEnv({ NEMORACODE_API_KEY: undefined }, () =>
+  it.effect("ignores non-opencode providers and models", () =>
+    withEnv({ OPENCODE_API_KEY: undefined }, () =>
       Effect.gen(function* () {
         const catalog = yield* Provider.Service
         const models = yield* Model.Service
@@ -2034,8 +2034,8 @@ describe("NemoracodePlugin", () => {
   )
 })
 
-// A Console that marks its response with `$schema` serves a regular NemoraCode config, merged as an integration document.
-describe("NemoracodePlugin with a Console config", () => {
+// A Console that marks its response with `$schema` serves a regular OpenCode config, merged as an integration document.
+describe("OpencodePlugin with a Console config", () => {
   const $schema = "https://opencode.ai/config.json"
   const consoleDocument = (config: Config.Interface) =>
     config
@@ -2069,7 +2069,7 @@ describe("NemoracodePlugin with a Console config", () => {
           const managed = yield* ManagedPolicy.Service
           const hooks = yield* PluginHooks.Service
           yield* credentials.create({
-            integrationID: Integration.ID.make("nemoracode"),
+            integrationID: Integration.ID.make("opencode"),
             value: Credential.Key.make({
               type: "key",
               key: "secret",
@@ -2077,7 +2077,7 @@ describe("NemoracodePlugin with a Console config", () => {
             }),
           })
           const host = yield* PluginHost.make(yield* Plugin.Service)
-          yield* NemoracodePlugin.effect(host).pipe(inProcess(server))
+          yield* OpencodePlugin.effect(host).pipe(inProcess(server))
           yield* ConfigPolicyPlugin.Plugin.effect(host)
 
           const document = required(yield* consoleDocument(config))
@@ -2148,7 +2148,7 @@ describe("NemoracodePlugin with a Console config", () => {
             const credentials = yield* Credential.Service
             const config = yield* Config.Service
             yield* credentials.create({
-              integrationID: Integration.ID.make("nemoracode"),
+              integrationID: Integration.ID.make("opencode"),
               value: Credential.Key.make({ type: "key", key: "secret", metadata: { server: server.url.origin } }),
             })
             yield* addPlugin().pipe(inProcess(server))
@@ -2191,7 +2191,7 @@ describe("NemoracodePlugin with a Console config", () => {
           const credentials = yield* Credential.Service
           const config = yield* Config.Service
           yield* credentials.create({
-            integrationID: Integration.ID.make("nemoracode"),
+            integrationID: Integration.ID.make("opencode"),
             value: Credential.Key.make({ type: "key", key: "secret", metadata: { server: server.url.origin } }),
           })
           yield* addPlugin().pipe(inProcess(server))
@@ -2249,16 +2249,16 @@ describe("NemoracodePlugin with a Console config", () => {
             }),
           ])
           yield* credentials.create({
-            integrationID: Integration.ID.make("nemoracode"),
+            integrationID: Integration.ID.make("opencode"),
             value: Credential.Key.make({ type: "key", key: "secret", metadata: { server: server.url.origin } }),
           })
           const host = yield* PluginHost.make(yield* Plugin.Service)
-          yield* NemoracodePlugin.effect(host)
+          yield* OpencodePlugin.effect(host)
           yield* ConfigProviderPlugin.Plugin.effect(host)
 
           const provider = required(yield* providers.get(Provider.ID.make("remote")))
           expect(provider.name).toBe("Mine")
-          expect(provider.integrationID).toBe(Integration.ID.make("nemoracode"))
+          expect(provider.integrationID).toBe(Integration.ID.make("opencode"))
           expect(provider.headers).toEqual({ "x-org-id": "mine", "x-console": "true" })
           expect(provider.settings).toEqual({
             baseURL: `${server.url.origin}/v1`,
@@ -2299,19 +2299,19 @@ describe("NemoracodePlugin with a Console config", () => {
             }),
           )
           yield* credentials.create({
-            integrationID: Integration.ID.make("nemoracode"),
+            integrationID: Integration.ID.make("opencode"),
             value: Credential.Key.make({ type: "key", key: "secret", metadata: { server: server.url.origin } }),
           })
           const host = yield* PluginHost.make(yield* Plugin.Service)
-          // Registered in production order: the NemoraCode and OpenAI provider plugins, then config in `post`.
-          yield* NemoracodePlugin.effect(host).pipe(inProcess(server))
+          // Registered in production order: the OpenCode and OpenAI provider plugins, then config in `post`.
+          yield* OpencodePlugin.effect(host).pipe(inProcess(server))
           yield* OpenAIPlugin.effect(host)
           yield* ConfigProviderPlugin.Plugin.effect(host)
 
           expect(required(yield* providers.get(Provider.ID.openai)).settings?.transport).toBe("websocket")
           const consoleOpenAI = required(yield* providers.get(Provider.ID.make("console-openai")))
           expect(consoleOpenAI.name).toBe("Console OpenAI")
-          expect(consoleOpenAI.integrationID).toBe(Integration.ID.make("nemoracode"))
+          expect(consoleOpenAI.integrationID).toBe(Integration.ID.make("opencode"))
           expect(consoleOpenAI.settings?.transport).toBeUndefined()
         }),
       (server) => Effect.promise(() => server.stop(true)),
@@ -2326,7 +2326,7 @@ describe("NemoracodePlugin with a Console config", () => {
           port: 0,
           fetch: (request) => {
             if (new URL(request.url).pathname === "/api/websearch")
-              return Response.json({ providerID: "nemoracode", results: [] })
+              return Response.json({ providerID: "opencode", results: [] })
             return Response.json({ $schema, ...(state.selected ? { websearch: { provider: "opencode" } } : {}) })
           },
         })
@@ -2338,9 +2338,9 @@ describe("NemoracodePlugin with a Console config", () => {
           const websearch = yield* WebSearch.Service
           const config = yield* Config.Test
           const bus = yield* Bus.Service
-          const nemoracode = { id: WebSearch.ID.make("nemoracode"), name: "NemoraCode Web Search" }
+          const opencode = { id: WebSearch.ID.make("opencode"), name: "OpenCode Web Search" }
           // Config.testLayer does not announce integration changes the way config reloads do.
-          const announced = (expected: typeof nemoracode | undefined) =>
+          const announced = (expected: typeof opencode | undefined) =>
             bus
               .publish(Event.Updated, {})
               .pipe(Effect.andThen(eventually(websearch.default(), (value) => value?.id === expected?.id)))
@@ -2348,20 +2348,20 @@ describe("NemoracodePlugin with a Console config", () => {
             editor.add({ id: WebSearch.ID.make("mine"), name: "Mine", execute: () => Effect.succeed([]) }),
           )
           yield* credentials.create({
-            integrationID: Integration.ID.make("nemoracode"),
+            integrationID: Integration.ID.make("opencode"),
             value: Credential.Key.make({ type: "key", key: "secret", metadata: { server: server.url.origin } }),
           })
           const host = yield* PluginHost.make(yield* Plugin.Service)
-          yield* NemoracodePlugin.effect(host).pipe(inProcess(server))
+          yield* OpencodePlugin.effect(host).pipe(inProcess(server))
           yield* ConfigWebSearchPlugin.Plugin.effect(host)
-          expect(yield* websearch.providers()).toContainEqual(nemoracode)
+          expect(yield* websearch.providers()).toContainEqual(opencode)
           expect(yield* websearch.default()).toBeUndefined()
 
           state.selected = true
           yield* TestClock.adjust("1 minute")
           yield* drain
-          expect(yield* announced(nemoracode)).toEqual(nemoracode)
-          expect((yield* websearch.query({ query: "console" })).providerID).toBe(nemoracode.id)
+          expect(yield* announced(opencode)).toEqual(opencode)
+          expect((yield* websearch.query({ query: "console" })).providerID).toBe(opencode.id)
 
           yield* config.setEntries([
             new Document({
@@ -2401,7 +2401,7 @@ describe("NemoracodePlugin with a Console config", () => {
           const config = yield* Config.Service
           const account = (orgID: string) =>
             credentials.create({
-              integrationID: Integration.ID.make("nemoracode"),
+              integrationID: Integration.ID.make("opencode"),
               value: Credential.Key.make({
                 type: "key",
                 key: orgID,
@@ -2425,7 +2425,7 @@ describe("NemoracodePlugin with a Console config", () => {
             providers: [orgID],
             mcp: [orgID],
             policies: [`shell:${orgID}`],
-            websearch: "nemoracode",
+            websearch: "opencode",
           })
           const alpha = yield* account("alpha")
           yield* addPlugin().pipe(inProcess(server))
@@ -2449,7 +2449,7 @@ for (const key of [undefined, "secret"]) {
   testEffect(Layer.empty).effect(
     `disabled free models with ${key ? "an API key" : "a Console login after startup"}`,
     () =>
-      withEnv({ NEMORACODE_DISABLE_FREE_MODELS: "true", NEMORACODE_API_KEY: key }, () =>
+      withEnv({ OPENCODE_DISABLE_FREE_MODELS: "true", OPENCODE_API_KEY: key }, () =>
         Effect.gen(function* () {
           const catalog = yield* Provider.Service
           const models = yield* Model.Service
@@ -2457,16 +2457,16 @@ for (const key of [undefined, "secret"]) {
           const credentials = yield* Credential.Service
           yield* integrations.transform((editor) =>
             editor.method.update({
-              integrationID: Integration.ID.make("nemoracode"),
-              method: { type: "env", names: ["NEMORACODE_API_KEY"] },
+              integrationID: Integration.ID.make("opencode"),
+              method: { type: "env", names: ["OPENCODE_API_KEY"] },
             }),
           )
           yield* catalog.transform((editor) => {
-            editor.update(Provider.ID.nemoracode, () => {})
-            editor.models.update(Provider.ID.nemoracode, Model.ID.make("free"), (model) => {
+            editor.update(Provider.ID.opencode, () => {})
+            editor.models.update(Provider.ID.opencode, Model.ID.make("free"), (model) => {
               model.cost = cost(0)
             })
-            editor.models.update(Provider.ID.nemoracode, Model.ID.make("paid"), (model) => {
+            editor.models.update(Provider.ID.opencode, Model.ID.make("paid"), (model) => {
               model.cost = cost(1)
             })
           })
@@ -2475,9 +2475,9 @@ for (const key of [undefined, "secret"]) {
             expect(yield* catalog.available()).toEqual([])
             expect(yield* models.all()).toEqual([])
             expect(yield* models.default()).toBeUndefined()
-            expect((yield* integrations.get(Integration.ID.make("nemoracode")))?.methods.length).toBeGreaterThan(0)
+            expect((yield* integrations.get(Integration.ID.make("opencode")))?.methods.length).toBeGreaterThan(0)
             yield* credentials.create({
-              integrationID: Integration.ID.make("nemoracode"),
+              integrationID: Integration.ID.make("opencode"),
               value: Credential.OAuth.make({
                 type: "oauth",
                 methodID: Integration.MethodID.make("device"),
@@ -2488,13 +2488,13 @@ for (const key of [undefined, "secret"]) {
             })
           }
           const available = yield* eventually(models.available(), (models) =>
-            models.some((model) => model.providerID === Provider.ID.nemoracode),
+            models.some((model) => model.providerID === Provider.ID.opencode),
           )
-          expect((yield* catalog.available()).map((provider) => provider.id)).toContain(Provider.ID.nemoracode)
+          expect((yield* catalog.available()).map((provider) => provider.id)).toContain(Provider.ID.opencode)
           expect(available.map((model) => model.id)).toEqual([Model.ID.make("paid")])
           expect(yield* models.all()).toEqual(available)
           expect((yield* models.default())?.id).toBe(Model.ID.make("paid"))
-          expect(yield* models.get(Provider.ID.nemoracode, Model.ID.make("free"))).toBeUndefined()
+          expect(yield* models.get(Provider.ID.opencode, Model.ID.make("free"))).toBeUndefined()
         }).pipe(Effect.provide(PluginTestLayer)),
       ),
   )

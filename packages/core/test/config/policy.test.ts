@@ -170,14 +170,14 @@ describe("ConfigPolicyPlugin.Plugin", () => {
       yield* catalog.transform((catalog) => {
         catalog.update(Provider.ID.openai, () => {})
         catalog.update(Provider.ID.anthropic, () => {})
-        catalog.update(Provider.ID.nemoracode, () => {})
+        catalog.update(Provider.ID.opencode, () => {})
       })
       yield* managed.set({ statements: [provider("deny", "*"), provider("allow", "nemoracode")] })
       yield* addPlugin([document(provider("allow", "anthropic"))])
 
       expect(yield* catalog.get(Provider.ID.anthropic)).toBeUndefined()
       expect(yield* catalog.get(Provider.ID.openai)).toBeUndefined()
-      expect(yield* catalog.get(Provider.ID.nemoracode)).toBeDefined()
+      expect(yield* catalog.get(Provider.ID.opencode)).toBeDefined()
     }),
   )
 

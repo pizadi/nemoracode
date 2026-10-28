@@ -641,7 +641,7 @@ export function Session(props: {
   onCleanup(() => {
     sessionDisposed = true
   })
-  // Restore the prompt when the free allowance stops it, and offer NemoraCode Go on the first hit in a day.
+  // Restore the prompt when the free allowance stops it, and offer OpenCode Go on the first hit in a day.
   onCleanup(
     data.on("session.step.failed", (event) => {
       if (event.data.sessionID !== route.sessionID || event.data.error.type !== "provider.free-limit") return
@@ -2535,7 +2535,7 @@ function FreeLimitNotice(props: { message: Pick<SessionMessageAssistant, "error"
     <box paddingLeft={3} flexDirection="column">
       <text fg={theme.text.muted}>You've used today's free messages.{reset() ? ` They reset at ${reset()}.` : ""}</text>
       <text fg={theme.text.muted}>
-        Upgrade to NemoraCode Go → <span style={{ fg: theme.text.base }}>/connect</span> · Switch model →{" "}
+        Upgrade to OpenCode Go → <span style={{ fg: theme.text.base }}>/connect</span> · Switch model →{" "}
         <span style={{ fg: theme.text.base }}>/models</span>
       </text>
     </box>

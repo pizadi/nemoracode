@@ -9,7 +9,7 @@ import { optional } from "./schema.js"
 const Percent = Schema.Finite.check(Schema.isBetween({ minimum: 0, maximum: 100 }))
 const Instant = Schema.Finite.annotate({ description: "Milliseconds since the Unix epoch" })
 
-/** One window of the NemoraCode Go allowance. */
+/** One window of the OpenCode Go allowance. */
 export interface Meter extends Schema.Schema.Type<typeof Meter> {}
 export const Meter = Schema.Struct({
   /** How much of the window's allowance is used. */
@@ -19,7 +19,7 @@ export const Meter = Schema.Struct({
   resetsAt: Instant,
 }).annotate({ identifier: "UsageLimits.Meter" })
 
-/** The NemoraCode Go allowance of a workspace the member subscribes to Go in. */
+/** The OpenCode Go allowance of a workspace the member subscribes to Go in. */
 export interface Go extends Schema.Schema.Type<typeof Go> {}
 export const Go = Schema.Struct({
   rolling: Meter,
@@ -37,7 +37,7 @@ export const BudgetModel = Schema.Struct({
   spent: Money.USD.pipe(optional),
 }).annotate({ identifier: "UsageLimits.BudgetModel" })
 
-/** A monthly spend limit the NemoraCode Console workspace sets on the member. */
+/** A monthly spend limit the OpenCode Console workspace sets on the member. */
 export interface Budget extends Schema.Schema.Type<typeof Budget> {}
 export const Budget = Schema.Struct({
   id: Schema.String,
@@ -62,13 +62,13 @@ export const Budget = Schema.Struct({
   resetsAt: Instant,
 }).annotate({ identifier: "UsageLimits.Budget" })
 
-/** The usage limits of the NemoraCode Console workspace a location is signed in to. */
+/** The usage limits of the OpenCode Console workspace a location is signed in to. */
 export interface Info extends Schema.Schema.Type<typeof Info> {}
 export const Info = Schema.Struct({
   workspace: Schema.Struct({
     id: Schema.String,
     name: Schema.String.pipe(optional),
-    /** The member's usage page in NemoraCode Console. */
+    /** The member's usage page in OpenCode Console. */
     usageURL: Schema.String,
   }),
   go: Go.pipe(optional),

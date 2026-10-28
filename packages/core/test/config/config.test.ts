@@ -485,7 +485,7 @@ describe("Config", () => {
               expect(yield* Fiber.join(event)).toHaveLength(1)
               return names(yield* config.entries())
             })
-            const integration = Integration.ID.make("nemoracode")
+            const integration = Integration.ID.make("opencode")
             expect(names(yield* config.entries())).toEqual(["wellknown", "global", "project"])
             expect(
               yield* updated(
@@ -493,7 +493,7 @@ describe("Config", () => {
                   integration,
                   ConfigIntegration.make({
                     integrationID: integration,
-                    connection: { type: "env", name: "NEMORACODE_API_KEY" },
+                    connection: { type: "env", name: "OPENCODE_API_KEY" },
                     info: decodeInfo(named("console")),
                   }),
                 ),
@@ -533,12 +533,12 @@ describe("Config", () => {
           Effect.andThen(
             Effect.gen(function* () {
               const config = yield* Config.Service
-              const integration = Integration.ID.make("nemoracode")
+              const integration = Integration.ID.make("opencode")
               yield* config.integration!(
                 integration,
                 ConfigIntegration.make({
                   integrationID: integration,
-                  connection: { type: "env", name: "NEMORACODE_API_KEY" },
+                  connection: { type: "env", name: "OPENCODE_API_KEY" },
                   organization: "Acme",
                   info: decodeInfo({ policies: [shell("shell:rm*", "allow"), shell("shell:*", "deny")] }),
                 }),

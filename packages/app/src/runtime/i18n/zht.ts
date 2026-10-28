@@ -148,9 +148,9 @@ export const dict = {
   "dialog.provider.group.other": "其他",
   "dialog.provider.custom.label": "自訂 OpenAI 相容提供者",
   "dialog.provider.tag.recommended": "推薦",
-  "dialog.provider.nemoracode.note": "精選模型，包含 Claude、GPT、Gemini 等等",
-  "dialog.provider.nemoracode.tagline": "經過最佳化的可靠模型",
-  "dialog.provider.nemoracodeGo.tagline": "適合所有人的低成本訂閱",
+  "dialog.provider.opencode.note": "精選模型，包含 Claude、GPT、Gemini 等等",
+  "dialog.provider.opencode.tagline": "經過最佳化的可靠模型",
+  "dialog.provider.opencodeGo.tagline": "適合所有人的低成本訂閱",
   "dialog.provider.anthropic.note": "透過 API 金鑰直接使用 Claude 模型",
   "dialog.provider.openai.note": "適合快速且功能強大的通用 AI 工作之 GPT 模型",
   "dialog.provider.copilot.note": "透過 GitHub Copilot 使用程式設計輔助 AI 模型",
@@ -164,7 +164,7 @@ export const dict = {
   "dialog.model.manage": "管理模型",
   "dialog.model.manage.description": "自訂模型選擇器中顯示的模型。",
 
-  "dialog.model.unpaid.freeModels.title": "NemoraCode 提供的免費模型",
+  "dialog.model.unpaid.freeModels.title": "OpenCode 提供的免費模型",
   "dialog.model.unpaid.addMore.title": "從熱門提供者新增更多模型",
   "dialog.model.unpaid.viewMoreProviders": "查看另外 70 多個提供者",
 

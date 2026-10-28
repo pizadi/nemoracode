@@ -8,7 +8,7 @@ import { ConfigPolicy } from "@nemoracode/schema/config/policy"
 import { Context, Effect, Layer, PubSub, Stream } from "effect"
 import { makeGlobalNode } from "@nemoracode/util/effect/app-node"
 
-/** Policy statements the connected NemoraCode Console compiled for whoever it authenticated. */
+/** Policy statements the connected OpenCode Console compiled for whoever it authenticated. */
 export interface State {
   readonly statements: ReadonlyArray<ConfigPolicy.Info>
   /** Organization name for denial messages, when the connection knows it. */

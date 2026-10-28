@@ -20,7 +20,7 @@ const GO_UPSELL_ACCOUNT_RATE_LIMIT_DONT_SHOW = "go_upsell_account_rate_limit_don
 
 const GO_UPSELL_WINDOW = 86_400_000 // 24 hrs
 
-const GO_UPSELL_PROVIDERS = new Set(["nemoracode", "nemoracode-go"])
+const GO_UPSELL_PROVIDERS = new Set(["opencode", "opencode-go"])
 
 const GO_URL = "https://opencode.ai/go"
 
@@ -135,7 +135,7 @@ export function useUsageExceededDialogs(input?: {
           else {
             void import("@/providers/connect/dialog").then((x) => {
               const controller = x.useProviderConnectController()
-              controller.select("nemoracode-go")
+              controller.select("opencode-go")
               void dialog.show(() => (
                 <x.DialogConnectProvider
                   directory={sdk().directory}

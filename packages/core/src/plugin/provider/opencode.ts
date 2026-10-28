@@ -27,9 +27,9 @@ import { IntegrationConnection } from "../../integration/connection.js"
 import { ManagedPolicy } from "../../managed-policy.js"
 import { Provider } from "../../provider.js"
 import { WebSearch } from "../../websearch.js"
-import { NemoracodeLegacy } from "./nemoracode-legacy.js"
+import { OpencodeLegacy } from "./opencode-legacy.js"
 
-const clientID = "nemoracode-cli"
+const clientID = "opencode-cli"
 const methodID = Integration.MethodID.make("device")
 const Device = Schema.Struct({
   device_code: Schema.String,
@@ -57,11 +57,11 @@ const SsoRequired = Schema.Struct({
 const InvalidGrant = Schema.Struct({ error: Schema.Literal("invalid_grant") })
 // Console's 401 when the session behind the access token was revoked or expired.
 const Unauthorized = Schema.Struct({ _tag: Schema.Literal("Unauthorized") })
-const signedOutMessage = "Reconnect NemoraCode Console to continue"
+const signedOutMessage = "Reconnect OpenCode Console to continue"
 const ssoMessage = (organization: string | undefined) =>
-  `Sign in with SSO again to use ${organization ?? "your NemoraCode Console organization"}`
+  `Sign in with SSO again to use ${organization ?? "your OpenCode Console organization"}`
 
-class SsoRequiredError extends Schema.TaggedError<SsoRequiredError>()("NemoracodeConsole.SsoRequired", {
+class SsoRequiredError extends Schema.TaggedError<SsoRequiredError>()("OpencodeConsole.SsoRequired", {
   organization: Schema.optional(Schema.String),
   url: Schema.String,
 }) {
@@ -71,7 +71,7 @@ class SsoRequiredError extends Schema.TaggedError<SsoRequiredError>()("Nemoracod
 }
 
 // The Console session or refresh token was revoked or expired; only a new device login recovers.
-class SignedOutError extends Schema.TaggedError<SignedOutError>()("NemoracodeConsole.SignedOut", {}) {
+class SignedOutError extends Schema.TaggedError<SignedOutError>()("OpencodeConsole.SignedOut", {}) {
   override get message() {
     return `${signedOutMessage}.`
   }
@@ -79,11 +79,11 @@ class SignedOutError extends Schema.TaggedError<SignedOutError>()("NemoracodeCon
 
 function oauth(http: HttpClient.HttpClient) {
   return {
-    integrationID: Integration.ID.make("nemoracode"),
+    integrationID: Integration.ID.make("opencode"),
     method: {
       id: methodID,
       type: "oauth",
-      label: "NemoraCode Console account",
+      label: "OpenCode Console account",
       form: [
         {
           key: "server",
@@ -156,15 +156,15 @@ function oauth(http: HttpClient.HttpClient) {
   } satisfies IntegrationOAuthMethodRegistration
 }
 
-export const NemoracodePlugin = define<
+export const OpencodePlugin = define<
   HttpClient.HttpClient | Bus.Service | Config.Service | ManagedPolicy.Service | Scope.Scope
 >({
-  id: "nemoracode.provider.nemoracode",
+  id: "opencode.provider.opencode",
   effect: Effect.fn(function* (ctx) {
-    const disableFree = ["1", "true"].includes(process.env.NEMORACODE_DISABLE_FREE_MODELS?.toLowerCase() ?? "")
+    const disableFree = ["1", "true"].includes(process.env.OPENCODE_DISABLE_FREE_MODELS?.toLowerCase() ?? "")
     const bus = yield* Bus.Service
     const client = yield* HttpClient.HttpClient
-    // Every request here goes to the Console, which reads the User-Agent to tell which NemoraCode a member runs
+    // Every request here goes to the Console, which reads the User-Agent to tell which OpenCode a member runs
     // and whether it evaluates the policies it is being sent.
     const http = HttpClient.mapRequest(client, HttpClientRequest.setHeader("User-Agent", App.useragent(ctx.app)))
     const managed = yield* ManagedPolicy.Service
@@ -173,9 +173,9 @@ export const NemoracodePlugin = define<
     const loading = Semaphore.makeUnsafe(1)
     type ActiveConnection = Effect.Success<ReturnType<typeof ctx.integration.connection.active>>
     let snapshot: {
-      // The Console response in one of its two formats: a regular NemoraCode config, merged as an integration config
-      // layer, or the legacy response, which NemoracodeLegacy applies directly.
-      remote: { type: "config"; info: ConfigIntegration.Remote } | NemoracodeLegacy.Snapshot | undefined
+      // The Console response in one of its two formats: a regular OpenCode config, merged as an integration config
+      // layer, or the legacy response, which OpencodeLegacy applies directly.
+      remote: { type: "config"; info: ConfigIntegration.Remote } | OpencodeLegacy.Snapshot | undefined
       connection: ActiveConnection
       organization: string | undefined
     } = { remote: undefined, connection: undefined, organization: undefined }
@@ -185,16 +185,16 @@ export const NemoracodePlugin = define<
     // When the last Console config load started, so rejected inference can reuse a recent status.
     let checked = Number.NEGATIVE_INFINITY
 
-    const load = Effect.fn("NemoracodePlugin.load")(function* () {
+    const load = Effect.fn("OpencodePlugin.load")(function* () {
       checked = yield* Clock.currentTimeMillis
-      const connection = yield* ctx.integration.connection.active("nemoracode")
+      const connection = yield* ctx.integration.connection.active("opencode")
       if (!connection) {
         reported = undefined
         return { remote: undefined, connection, organization: undefined }
       }
       const status = (status: IntegrationConnection.Status | undefined) => {
         reported = status
-        return ctx.integration.connection.status({ integrationID: "nemoracode", connection, status })
+        return ctx.integration.connection.status({ integrationID: "opencode", connection, status })
       }
       return yield* ctx.integration.connection.resolve(connection).pipe(
         Effect.flatMap((credential) => {
@@ -204,7 +204,7 @@ export const NemoracodePlugin = define<
             Effect.map((remote) => ({
               remote:
                 remote?.type === "legacy"
-                  ? NemoracodeLegacy.make(remote.response, ConsoleAccess.headers(credential))
+                  ? OpencodeLegacy.make(remote.response, ConsoleAccess.headers(credential))
                   : remote,
               connection,
               organization: organizationName(credential),
@@ -217,7 +217,7 @@ export const NemoracodePlugin = define<
             // Only well-formed Console errors change the connection status; anything else may be transient.
             const next = connectionStatus(cause)
             if (next) yield* status(next)
-            yield* Effect.logWarning("failed to load NemoraCode provider config", { cause })
+            yield* Effect.logWarning("failed to load OpenCode provider config", { cause })
             // A load that fails for the connection already in place keeps its last config: dropping it
             // would lift organization policy while personal credentials keep working.
             return IntegrationConnection.key(connection) === IntegrationConnection.key(snapshot.connection)
@@ -231,10 +231,10 @@ export const NemoracodePlugin = define<
     // where the legacy overlay applies, while the rest of the document merges through config.
     let integrated: ConfigIntegration.Document | undefined
     const integrate = Effect.fnUntraced(function* (document: ConfigIntegration.Document | undefined) {
-      yield* config.integration?.(Integration.ID.make("nemoracode"), document) ?? Effect.void
+      yield* config.integration?.(Integration.ID.make("opencode"), document) ?? Effect.void
       integrated = (yield* config.entries()).find(
         (entry): entry is ConfigIntegration.Document =>
-          entry instanceof ConfigIntegration.Document && entry.integrationID === Integration.ID.make("nemoracode"),
+          entry instanceof ConfigIntegration.Document && entry.integrationID === Integration.ID.make("opencode"),
       )
     })
     // Policies and providers ride on the snapshot, so a credential switch, disconnect, or 404 replaces them too.
@@ -247,7 +247,7 @@ export const NemoracodePlugin = define<
           return yield* integrate(
             next.connection &&
               ConfigIntegration.make({
-                integrationID: Integration.ID.make("nemoracode"),
+                integrationID: Integration.ID.make("opencode"),
                 connection:
                   next.connection.type === "credential"
                     ? { ...next.connection, id: Credential.ID.make(next.connection.id) }
@@ -257,7 +257,7 @@ export const NemoracodePlugin = define<
               }),
           )
         case "legacy":
-          yield* managed.set({ statements: NemoracodeLegacy.statements(next.remote), organization: next.organization })
+          yield* managed.set({ statements: OpencodeLegacy.statements(next.remote), organization: next.organization })
           return yield* integrate(undefined)
         default:
           yield* managed.set({ statements: [], organization: next.organization })
@@ -266,21 +266,21 @@ export const NemoracodePlugin = define<
     })
     const search = (providerID: WebSearch.ID, connection: NonNullable<ActiveConnection>) => ({
       id: providerID,
-      name: "NemoraCode Web Search",
+      name: "OpenCode Web Search",
       execute: (input: WebSearch.ProviderInput) =>
         Effect.gen(function* () {
-          const active = yield* ctx.integration.connection.active("nemoracode")
+          const active = yield* ctx.integration.connection.active("opencode")
           if (
             !active ||
             (connection.type === "credential"
               ? active.type !== "credential" || active.id !== connection.id
               : active.type !== "env" || active.name !== connection.name)
           ) {
-            return yield* Effect.fail(new Error("NemoraCode Console connection changed"))
+            return yield* Effect.fail(new Error("OpenCode Console connection changed"))
           }
           const credential = yield* ctx.integration.connection.resolve(active)
           if (!credential || credential.type === "external")
-            return yield* Effect.fail(new Error("NemoraCode Console is not connected"))
+            return yield* Effect.fail(new Error("OpenCode Console is not connected"))
           const metadata = credential.metadata
           const orgID = typeof metadata?.orgID === "string" ? metadata.orgID : undefined
           const token = credential.type === "oauth" ? credential.access : credential.key
@@ -302,12 +302,12 @@ export const NemoracodePlugin = define<
               Effect.scoped,
               Effect.timeoutOrElse({
                 duration: Duration.seconds(25),
-                orElse: () => Effect.fail(new Error("NemoraCode web search request timed out")),
+                orElse: () => Effect.fail(new Error("OpenCode web search request timed out")),
               }),
             )
           if (response.providerID !== providerID) {
             return yield* Effect.fail(
-              new Error(`NemoraCode web search returned provider ${response.providerID} instead of ${providerID}`),
+              new Error(`OpenCode web search returned provider ${response.providerID} instead of ${providerID}`),
             )
           }
           return response.results
@@ -315,23 +315,23 @@ export const NemoracodePlugin = define<
     })
 
     yield* ctx.integration.transform((editor) => {
-      editor.update("nemoracode", (integration) => {
-        integration.name = "NemoraCode Console"
+      editor.update("opencode", (integration) => {
+        integration.name = "OpenCode Console"
       })
       editor.method.update(oauth(http))
-      editor.method.update({ integrationID: "nemoracode", method: { type: "key", label: "API key (service account)" } })
+      editor.method.update({ integrationID: "opencode", method: { type: "key", label: "API key (service account)" } })
     })
 
     snapshot = yield* load()
     yield* publish(snapshot)
-    yield* NemoracodeLegacy.register(ctx, () => snapshot, search)
+    yield* OpencodeLegacy.register(ctx, () => snapshot, search)
     yield* ctx.provider.transform((providers) => {
       if (integrated) ConfigProviderPlugin.integrate(providers, integrated)
     })
     yield* ctx.provider.transform((providers) => {
-      const item = providers.get(Provider.ID.nemoracode)
+      const item = providers.get(Provider.ID.opencode)
       if (!item) return
-      const hasKey = Boolean(process.env.NEMORACODE_API_KEY || snapshot.connection || item.provider.settings?.apiKey)
+      const hasKey = Boolean(process.env.OPENCODE_API_KEY || snapshot.connection || item.provider.settings?.apiKey)
       providers.update(item.provider.id, (provider) => {
         if (!hasKey && !disableFree) {
           provider.activation = "enabled"
@@ -340,10 +340,10 @@ export const NemoracodePlugin = define<
       })
     })
     yield* ctx.model.transform((models) => {
-      const item = models.provider.get(Provider.ID.nemoracode)
+      const item = models.provider.get(Provider.ID.opencode)
       if (!item) return
       const hasKey = Boolean(
-        process.env.NEMORACODE_API_KEY ||
+        process.env.OPENCODE_API_KEY ||
           snapshot.connection ||
           (item.provider.settings?.apiKey && item.provider.settings.apiKey !== "public"),
       )
@@ -359,10 +359,10 @@ export const NemoracodePlugin = define<
     // selects it as the default through config, where the user's own selection wins.
     yield* ctx.websearch.transform((editor) => {
       if (snapshot.remote?.type === "config" && snapshot.connection)
-        editor.add(search(WebSearch.ID.make("nemoracode"), snapshot.connection))
+        editor.add(search(WebSearch.ID.make("opencode"), snapshot.connection))
     })
 
-    const apply = Effect.fn("NemoracodePlugin.apply")(function* (next: typeof snapshot) {
+    const apply = Effect.fn("OpencodePlugin.apply")(function* (next: typeof snapshot) {
       snapshot = next
       yield* publish(next)
       yield* guard(next)
@@ -405,15 +405,15 @@ export const NemoracodePlugin = define<
         )
       })
     // Hooks are scoped per provider so requests to unrelated providers skip the HTTP hook path.
-    const guard = Effect.fn("NemoracodePlugin.guard")(function* (next: typeof snapshot) {
+    const guard = Effect.fn("OpencodePlugin.guard")(function* (next: typeof snapshot) {
       yield* Effect.forEach(explainers, (registration) => registration.dispose, { discard: true })
       explainers = yield* Effect.forEach(
         next.connection
           ? new Set([
-              Provider.ID.nemoracode,
+              Provider.ID.opencode,
               ...(next.remote?.type === "config"
                 ? Object.keys(next.remote.info.providers ?? {})
-                : NemoracodeLegacy.providerIDs(next.remote)),
+                : OpencodeLegacy.providerIDs(next.remote)),
             ])
           : [],
         (providerID) => ctx.session.hook("http.response", explain, { providerID }).pipe(Scope.provide(scope)),
@@ -432,7 +432,7 @@ export const NemoracodePlugin = define<
       })
     })
     yield* bus.subscribe(Credential.Event.Switched).pipe(
-      Stream.filter((event) => event.data.integrationID === Integration.ID.make("nemoracode")),
+      Stream.filter((event) => event.data.integrationID === Integration.ID.make("opencode")),
       Stream.runForEach(() => refresh().pipe(Effect.andThen(poll()))),
       Effect.forkScoped({ startImmediately: true }),
     )
@@ -466,10 +466,10 @@ function fetchConfig(http: HttpClient.HttpClient, value: Credential.Key | Creden
               })
           }
           const body = yield* HttpClientResponse.filterStatusOk(response).pipe(Effect.flatMap((ok) => ok.json))
-          // A Console that serves a regular NemoraCode config marks it with `$schema`; any other body is the legacy response.
+          // A Console that serves a regular OpenCode config marks it with `$schema`; any other body is the legacy response.
           if (Predicate.hasProperty(body, "$schema"))
             return { type: "config" as const, info: yield* Schema.decodeUnknownEffect(ConfigIntegration.Remote)(body) }
-          return { type: "legacy" as const, response: yield* Schema.decodeUnknownEffect(NemoracodeLegacy.Response)(body) }
+          return { type: "legacy" as const, response: yield* Schema.decodeUnknownEffect(OpencodeLegacy.Response)(body) }
         }),
       ),
       Effect.scoped,
@@ -514,7 +514,7 @@ function normalizeServer(input: unknown) {
       return `${url.origin}${url.pathname.replace(/\/+$/, "")}`
     },
     catch: (cause) =>
-      new Error(`Invalid NemoraCode server URL: ${cause instanceof Error ? cause.message : String(cause)}`),
+      new Error(`Invalid OpenCode server URL: ${cause instanceof Error ? cause.message : String(cause)}`),
   })
 }
 
@@ -557,7 +557,7 @@ function credential(http: HttpClient.HttpClient, server: string, token: typeof T
         ? orgs.toSorted((a, b) => a.name.localeCompare(b.name) || a.id.localeCompare(b.id))[0]
         : orgs.find((org) => org.id === token.org_id)
     if (token.org_id != null && !org) {
-      return yield* Effect.fail(new Error(`NemoraCode organization not found: ${token.org_id}`))
+      return yield* Effect.fail(new Error(`OpenCode organization not found: ${token.org_id}`))
     }
     return Credential.OAuth.make({
       type: "oauth" as const,

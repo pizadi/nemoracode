@@ -75,15 +75,15 @@ describe("auth command", () => {
     expect(requests.indexOf("/api/model/default")).toBeLessThan(requests.indexOf("/api/integration"))
   })
 
-  test("lists NemoraCode Go before Zen and preserves the remaining integration order", async () => {
+  test("lists OpenCode Go before Zen and preserves the remaining integration order", async () => {
     using server = authServer((request, url) => {
       if (url.pathname === "/api/integration") {
         return Response.json(
           located(
             [
-              { id: "nemoracode", name: "NemoraCode Zen" },
+              { id: "opencode", name: "OpenCode Zen" },
               { id: "anthropic", name: "Anthropic" },
-              { id: "nemoracode-go", name: "NemoraCode Go" },
+              { id: "opencode-go", name: "OpenCode Go" },
             ].map((integration) => ({
               ...integration,
               methods: [],
@@ -102,7 +102,7 @@ describe("auth command", () => {
         .trim()
         .split("\n")
         .map((line) => line.split(/\s{2,}/)[0]),
-    ).toEqual(["NemoraCode Go", "NemoraCode Zen", "Anthropic"])
+    ).toEqual(["OpenCode Go", "OpenCode Zen", "Anthropic"])
   })
 
   test("runs command authentication without interactive input", async () => {
@@ -144,14 +144,14 @@ describe("auth command", () => {
   test.each([
     { id: "openai", method: "browser", form: undefined, args: [], answer: undefined },
     {
-      id: "nemoracode",
+      id: "opencode",
       method: "device",
       form: consoleForm,
       args: [],
       answer: { server: "https://opencode.ai/console" },
     },
     {
-      id: "nemoracode",
+      id: "opencode",
       method: "device",
       form: consoleForm,
       args: ["--answer", "server=https://staging.example.com/console"],

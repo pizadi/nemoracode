@@ -237,7 +237,7 @@ function ProviderPicker(props: { directory?: string; onSelect: (provider: string
     filter: "",
   })
 
-  const featured = ["nemoracode-go", "nemoracode", "anthropic", "openai", "google", "openrouter", "vercel"]
+  const featured = ["opencode-go", "opencode", "anthropic", "openai", "google", "openrouter", "vercel"]
   const custom = () => ({ id: CUSTOM_ID, name: language.t("dialog.provider.custom.label") })
 
   const all = createMemo(() => {
@@ -364,9 +364,9 @@ function ProviderPicker(props: { directory?: string; onSelect: (provider: string
                         <Show when={CONSOLE_PROVIDERS.has(provider.id) && accountCount(provider) === 0}>
                           <span class="min-w-0 truncate font-[440] text-v2-text-text-muted">
                             {language.t(
-                              provider.id === "nemoracode"
-                                ? "dialog.provider.nemoracode.tagline"
-                                : "dialog.provider.nemoracodeGo.tagline",
+                              provider.id === "opencode"
+                                ? "dialog.provider.opencode.tagline"
+                                : "dialog.provider.opencodeGo.tagline",
                             )}
                           </span>
                           <span class="flex h-4 shrink-0 items-center rounded-xs border-[0.5px] border-v2-border-border-base bg-v2-background-bg-layer-03 px-1 text-[11px] font-[530] leading-none tracking-[0.05px] text-v2-text-text-muted">
@@ -562,7 +562,7 @@ function ProviderConnection(props: {
     if (controller.currentMethod()?.type === "key") return active()
 
     const loaded = () =>
-      managedProviders() !== undefined || connectionProviders().some((provider) => provider.id !== "nemoracode")
+      managedProviders() !== undefined || connectionProviders().some((provider) => provider.id !== "opencode")
 
     const deadline = Date.now() + 10_000
 
@@ -1175,7 +1175,7 @@ function ProviderConnection(props: {
 
     // Go signs in through the Console, which would add a Console account, so Go adds a key instead.
     const index =
-      props.provider === "nemoracode-go" ? keyIndex() : !isConsole && controller.methods().length === 1 ? 0 : -1
+      props.provider === "opencode-go" ? keyIndex() : !isConsole && controller.methods().length === 1 ? 0 : -1
 
     if (index === -1) return
     setState("direct", true)
@@ -1529,11 +1529,11 @@ function ProviderConnection(props: {
               <Switch>
                 <Match when={showAccounts()}>{provider().name}</Match>
                 <Match when={isConsole && controller.auth.state() === "error"}>
-                  {language.t("provider.connect.nemoracode.errorTitle")}
+                  {language.t("provider.connect.opencode.errorTitle")}
                 </Match>
                 <Match when={consoleSignIn()}>
                   {language.t(
-                    props.provider === "nemoracode-go"
+                    props.provider === "opencode-go"
                       ? "provider.connect.console.titleGo"
                       : "provider.connect.console.title",
                   )}
@@ -1545,8 +1545,8 @@ function ProviderConnection(props: {
                 >
                   {language.t("provider.connect.title.anthropicProMax")}
                 </Match>
-                <Match when={props.provider === "nemoracode"}>
-                  {language.t("provider.connect.title", { provider: language.t("provider.connect.nemoracode.name") })}
+                <Match when={props.provider === "opencode"}>
+                  {language.t("provider.connect.title", { provider: language.t("provider.connect.opencode.name") })}
                 </Match>
                 <Match when={true}>{language.t("provider.connect.title", { provider: provider().name })}</Match>
               </Switch>

@@ -136,12 +136,12 @@ export const dict = {
     "Zen gibt dir Zugriff auf ein handverlesenes Set an AI-Modellen, die NemoraCode speziell für Coding-Agents getestet und bewertet hat. Keine Sorge wegen inkonsistenter Leistung und Qualität bei verschiedenen Anbietern – nutze validierte Modelle, die funktionieren.",
   "home.zenCta.link": "Erfahre mehr über Zen",
 
-  "zen.title": "NemoraCode Zen | Ein kuratiertes Set zuverlässiger, optimierter Modelle für Coding-Agents",
+  "zen.title": "OpenCode Zen | Ein kuratiertes Set zuverlässiger, optimierter Modelle für Coding-Agents",
   "zen.hero.title": "Zuverlässige, optimierte Modelle für Coding-Agents",
   "zen.hero.body":
     "Zen gibt dir Zugriff auf ein kuratiertes Set an AI-Modellen, die NemoraCode speziell für Coding-Agents getestet und bewertet hat. Keine Sorge wegen inkonsistenter Leistung und Qualität – nutze validierte Modelle, die funktionieren.",
 
-  "zen.faq.q1": "Was ist NemoraCode Zen?",
+  "zen.faq.q1": "Was ist OpenCode Zen?",
   "zen.faq.a1":
     "Zen ist ein kuratiertes Set an AI-Modellen, getestet und bewertet für Coding-Agents, erstellt vom Team hinter NemoraCode.",
   "zen.faq.q2": "Was macht Zen genauer?",
@@ -181,12 +181,12 @@ export const dict = {
   "zen.problem.title": "Welches Problem löst Zen?",
   "zen.problem.body":
     "Es gibt so viele Modelle, aber nur wenige funktionieren gut mit Coding-Agents. Die meisten Anbieter konfigurieren sie unterschiedlich, was zu variierenden Ergebnissen führt.",
-  "zen.problem.subtitle": "Wir beheben das für alle, nicht nur für NemoraCode-Nutzer.",
+  "zen.problem.subtitle": "Wir beheben das für alle, nicht nur für OpenCode-Nutzer.",
   "zen.problem.item1": "Testen ausgewählter Modelle und Beratung mit deren Teams",
   "zen.problem.item2": "Zusammenarbeit mit Anbietern, um korrekte Bereitstellung zu sichern",
   "zen.problem.item3": "Benchmarking aller Modell-Anbieter-Kombinationen, die wir empfehlen",
   "zen.how.title": "Wie Zen funktioniert",
-  "zen.how.body": "Während wir dir raten, Zen mit NemoraCode zu nutzen, kannst du Zen mit jedem Agent nutzen.",
+  "zen.how.body": "Während wir dir raten, Zen mit OpenCode zu nutzen, kannst du Zen mit jedem Agent nutzen.",
   "zen.how.step1.title": "Melde dich an und füge $20 Guthaben hinzu",
   "zen.how.step1.beforeLink": "folge den",
   "zen.how.step1.link": "Einrichtungsanweisungen",
@@ -202,7 +202,7 @@ export const dict = {
   "zen.privacy.exceptionsLink": "folgenden Ausnahmen",
 
   "go.promo.kimiK31Pro": "Kimi K3.1 Pro ist jetzt in Go verfügbar.",
-  "go.title": "NemoraCode Go | Kostengünstige Coding-Modelle für alle",
+  "go.title": "OpenCode Go | Kostengünstige Coding-Modelle für alle",
   "go.meta.description":
     "Go kostet $10/Monat, mit großzügigen Nutzungslimits und zuverlässigem Zugang zu führenden Coding-Modellen.",
   "go.hero.title": "Kostengünstige Coding-Modelle für alle",
@@ -238,13 +238,13 @@ export const dict = {
 
   "go.problem.title": "Welches Problem löst Go?",
   "go.problem.body":
-    "Wir konzentrieren uns darauf, die NemoraCode-Erfahrung so vielen Menschen wie möglich zugänglich zu machen. NemoraCode Go ist ein kostengünstiges Abonnement für $10/Monat. Es bietet großzügige Limits und zuverlässigen Zugang zu den leistungsfähigsten Open-Source-Modellen.",
+    "Wir konzentrieren uns darauf, die NemoraCode-Erfahrung so vielen Menschen wie möglich zugänglich zu machen. OpenCode Go ist ein kostengünstiges Abonnement für $10/Monat. Es bietet großzügige Limits und zuverlässigen Zugang zu den leistungsfähigsten Open-Source-Modellen.",
   "go.problem.item1": "Kostengünstiges Abonnement",
   "go.problem.item2": "Großzügige Limits und zuverlässiger Zugang",
   "go.problem.item3": "Für so viele Programmierer wie möglich gebaut",
   "go.problem.item4": "Eine kuratierte, für Agentic Coding getestete Modellauswahl",
   "go.how.title": "Wie Go funktioniert",
-  "go.how.body": "Go kostet $10/Monat. Du kannst es mit NemoraCode oder jedem Agenten nutzen.",
+  "go.how.body": "Go kostet $10/Monat. Du kannst es mit OpenCode oder jedem Agenten nutzen.",
   "go.how.step1.title": "Konto erstellen",
   "go.how.step1.beforeLink": "folge den",
   "go.how.step1.link": "Einrichtungsanweisungen",
@@ -253,7 +253,7 @@ export const dict = {
   "go.how.step2.afterLink": "mit großzügigen Limits",
   "go.how.step3.title": "Loslegen mit Coding",
   "go.how.step3.body": "mit zuverlässigem Zugang zu Open-Source-Modellen",
-  "go.faq.q1": "Was ist NemoraCode Go?",
+  "go.faq.q1": "Was ist OpenCode Go?",
   "go.faq.a1":
     "Go ist ein kostengünstiges Abonnement, das dir zuverlässigen Zugang zu leistungsfähigen Open-Source-Modellen für Agentic Coding bietet.",
   "go.faq.q2": "Welche Modelle beinhaltet Go?",

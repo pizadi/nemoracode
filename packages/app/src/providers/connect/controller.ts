@@ -24,11 +24,11 @@ type Polling = {
   attempt?: Authorization
 }
 
-// NemoraCode Go and NemoraCode Zen both bill through the NemoraCode Console, so the
+// OpenCode Go and OpenCode Zen both bill through the OpenCode Console, so the
 // Console sign-in is the connection method for both providers.
-export const CONSOLE_INTEGRATION = "nemoracode"
+export const CONSOLE_INTEGRATION = "opencode"
 
-export const CONSOLE_PROVIDERS = new Set(["nemoracode", "nemoracode-go"])
+export const CONSOLE_PROVIDERS = new Set(["opencode", "opencode-go"])
 
 export function consoleIntegration(provider: string) {
   return CONSOLE_PROVIDERS.has(provider) ? CONSOLE_INTEGRATION : provider

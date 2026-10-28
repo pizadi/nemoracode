@@ -4,7 +4,7 @@ import { useDialog } from "@nemoracode/ui/context/dialog"
 import { Icon } from "@nemoracode/ui/icon"
 import { IconButton } from "@nemoracode/ui/icon-button"
 import { Menu } from "@nemoracode/ui/menu"
-import { NemoraCodeLogo } from "@/providers/nemoracode-logo"
+import { OpenCodeLogo } from "@/providers/opencode-logo"
 import { showToast } from "@/shell/notifications/toast"
 import { popularProviders, useProviders } from "@/providers/catalog/providers"
 import { consoleProviderGroup } from "@/providers/catalog/console"
@@ -28,8 +28,8 @@ type ProviderSource = "env" | "api" | "account" | "config" | "custom"
 type ProviderItem = ReturnType<ReturnType<typeof useProviders>["connected"]>[number]
 
 const PROVIDER_NOTES = [
-  { match: (id: string) => id === "nemoracode", key: "dialog.provider.nemoracode.note" },
-  { match: (id: string) => id === "nemoracode-go", key: "dialog.provider.nemoracodeGo.tagline" },
+  { match: (id: string) => id === "opencode", key: "dialog.provider.opencode.note" },
+  { match: (id: string) => id === "opencode-go", key: "dialog.provider.opencodeGo.tagline" },
   { match: (id: string) => id === "anthropic", key: "dialog.provider.anthropic.note" },
   { match: (id: string) => id.startsWith("github-copilot"), key: "dialog.provider.copilot.note" },
   { match: (id: string) => id === "openai", key: "dialog.provider.openai.note" },
@@ -117,12 +117,12 @@ export const SettingsProviders: Component<{
     return connected
       .filter(
         (provider) =>
-          provider.id !== "nemoracode" ||
+          provider.id !== "opencode" ||
           managedConsole !== undefined ||
           consoleConnected ||
           Object.values(provider.models).some((model) => model.cost.input > 0),
       )
-      .toSorted((a, b) => Number(b.id === "nemoracode-go") - Number(a.id === "nemoracode-go"))
+      .toSorted((a, b) => Number(b.id === "opencode-go") - Number(a.id === "opencode-go"))
   })
 
   createEffect(() => {
@@ -458,11 +458,11 @@ export const SettingsProviders: Component<{
                         <div class="settings-provider-console group">
                           <div class="settings-provider-console-header">
                             <div class="settings-provider-lead">
-                              <NemoraCodeLogo class="settings-provider-icon size-4 shrink-0" />
+                              <OpenCodeLogo class="settings-provider-icon size-4 shrink-0" />
                               <div class="settings-provider-console-summary">
                                 <div class="settings-provider-main">
                                   <span class="settings-provider-name truncate">
-                                    {language.t("provider.connect.nemoracode.name")}
+                                    {language.t("provider.connect.opencode.name")}
                                   </span>
                                   <Badge>{group().workspace}</Badge>
                                 </div>
@@ -498,13 +498,13 @@ export const SettingsProviders: Component<{
                                 <Button
                                   size="normal"
                                   variant="ghost-muted"
-                                  onClick={() => void disconnect(item, language.t("provider.connect.nemoracode.name"))}
+                                  onClick={() => void disconnect(item, language.t("provider.connect.opencode.name"))}
                                 >
                                   {language.t("common.disconnect")}
                                 </Button>
                               }
                             >
-                              <AccountMenu provider={item} name={language.t("provider.connect.nemoracode.name")} />
+                              <AccountMenu provider={item} name={language.t("provider.connect.opencode.name")} />
                             </Show>
                           </div>
                           <Show when={state.consoleExpanded}>
@@ -552,7 +552,7 @@ export const SettingsProviders: Component<{
                         <span class="settings-provider-name">
                           {item.name}
                         </span>
-                        <Show when={item.id === "nemoracode" || item.id === "nemoracode-go"}>
+                        <Show when={item.id === "opencode" || item.id === "opencode-go"}>
                           <Badge>{language.t("dialog.provider.tag.recommended")}</Badge>
                         </Show>
                       </div>

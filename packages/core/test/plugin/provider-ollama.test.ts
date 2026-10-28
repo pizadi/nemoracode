@@ -102,8 +102,8 @@ describe("OllamaPlugin", () => {
           const providers = yield* Provider.Service
           const modelState = yield* Model.Service
           const providerID = Provider.ID.make("ollama")
-          expect(OllamaPlugin.id).toBe("nemoracode.provider.ollama")
-          expect(ProviderPlugins.map((item) => item.id)).toContain("nemoracode.provider.ollama")
+          expect(OllamaPlugin.id).toBe("opencode.provider.ollama")
+          expect(ProviderPlugins.map((item) => item.id)).toContain("opencode.provider.ollama")
           yield* addPlugin(server.url.origin)
           const model = yield* eventually(
             modelState.get(providerID, Model.ID.make("gemma3:4b")),

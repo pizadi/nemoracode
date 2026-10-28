@@ -23,8 +23,8 @@ export function sortModelOptions<
 >(options: T[], grouped = true) {
   return options.toSorted((a, b) => {
     const provider = grouped
-      ? Number(b.providerID === "nemoracode-go") - Number(a.providerID === "nemoracode-go") ||
-        Number(b.providerID === "nemoracode") - Number(a.providerID === "nemoracode")
+      ? Number(b.providerID === "opencode-go") - Number(a.providerID === "opencode-go") ||
+        Number(b.providerID === "opencode") - Number(a.providerID === "opencode")
       : 0
     if (provider !== 0) return provider
 

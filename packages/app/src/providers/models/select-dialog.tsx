@@ -695,7 +695,7 @@ export function ModelSelectorPopoverView(props: {
                     <Menu.Group>
                       <Menu.GroupLabel
                         class="gap-1.5 pe-3"
-                        style={{ "padding-inline-start": group.items[0].provider.id === "nemoracode" ? "10px" : "12px" }}
+                        style={{ "padding-inline-start": group.items[0].provider.id === "opencode" ? "10px" : "12px" }}
                       >
                         <ProviderModelIcon provider={group.items[0].provider} class="shrink-0" />
                         <Show

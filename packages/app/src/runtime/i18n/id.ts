@@ -145,9 +145,9 @@ export const dict = {
   "dialog.provider.group.other": "Lainnya",
   "dialog.provider.custom.label": "Penyedia kustom yang kompatibel dengan OpenAI",
   "dialog.provider.tag.recommended": "Direkomendasikan",
-  "dialog.provider.nemoracode.note": "Model pilihan, termasuk Claude, GPT, Gemini, dan lainnya",
-  "dialog.provider.nemoracode.tagline": "Model andal yang dioptimalkan",
-  "dialog.provider.nemoracodeGo.tagline": "Langganan terjangkau untuk semua orang",
+  "dialog.provider.opencode.note": "Model pilihan, termasuk Claude, GPT, Gemini, dan lainnya",
+  "dialog.provider.opencode.tagline": "Model andal yang dioptimalkan",
+  "dialog.provider.opencodeGo.tagline": "Langganan terjangkau untuk semua orang",
   "dialog.provider.anthropic.note": "Akses langsung ke model Claude melalui kunci API",
   "dialog.provider.copilot.note": "Model AI untuk bantuan pengodean melalui GitHub Copilot",
   "dialog.provider.openai.note": "Model GPT untuk tugas AI umum yang cepat dan mumpuni",
@@ -161,7 +161,7 @@ export const dict = {
   "dialog.model.manage": "Kelola model",
   "dialog.model.manage.description": "Sesuaikan model mana yang muncul di pemilih model.",
 
-  "dialog.model.unpaid.freeModels.title": "Model gratis disediakan oleh NemoraCode",
+  "dialog.model.unpaid.freeModels.title": "Model gratis disediakan oleh OpenCode",
   "dialog.model.unpaid.addMore.title": "Tambahkan lebih banyak model dari penyedia populer",
   "dialog.model.unpaid.viewMoreProviders": "Lihat 70+ penyedia lainnya",
 

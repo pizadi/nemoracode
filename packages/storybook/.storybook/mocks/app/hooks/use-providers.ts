@@ -15,8 +15,8 @@ const provider = {
 }
 
 const popular = [
-  { id: "nemoracode-go", name: "NemoraCode Go", models: {} },
-  { id: "nemoracode", name: "NemoraCode Zen", models: {} },
+  { id: "opencode-go", name: "OpenCode Go", models: {} },
+  { id: "opencode", name: "OpenCode Zen", models: {} },
   { id: "openai", name: "OpenAI", models: {} },
   provider,
   { id: "google", name: "Google", models: {} },

@@ -134,13 +134,13 @@ export const dict = {
     "Zen은 NemoraCode가 코딩 에이전트를 위해 특별히 테스트하고 벤치마킹한 엄선된 AI 모델 세트에 대한 액세스를 제공합니다. 제공자 간의 일관되지 않은 성능과 품질에 대해 걱정할 필요 없이, 검증된 모델을 사용하세요.",
   "home.zenCta.link": "Zen 알아보기",
 
-  "zen.title": "NemoraCode Zen | 코딩 에이전트를 위한 신뢰할 수 있고 최적화된 모델 세트",
+  "zen.title": "OpenCode Zen | 코딩 에이전트를 위한 신뢰할 수 있고 최적화된 모델 세트",
   "zen.hero.title": "코딩 에이전트를 위한 신뢰할 수 있고 최적화된 모델",
   "zen.hero.body":
     "Zen은 NemoraCode가 코딩 에이전트를 위해 특별히 테스트하고 벤치마킹한 엄선된 AI 모델 세트에 대한 액세스를 제공합니다. 일관되지 않은 성능과 품질에 대해 걱정할 필요 없이, 검증된 모델을 사용하세요.",
 
-  "zen.faq.q1": "NemoraCode Zen이란 무엇인가요?",
-  "zen.faq.a1": "Zen은 NemoraCode 팀이 코딩 에이전트를 위해 테스트하고 벤치마킹한 엄선된 AI 모델 세트입니다.",
+  "zen.faq.q1": "OpenCode Zen이란 무엇인가요?",
+  "zen.faq.a1": "Zen은 OpenCode 팀이 코딩 에이전트를 위해 테스트하고 벤치마킹한 엄선된 AI 모델 세트입니다.",
   "zen.faq.q2": "Zen은 왜 더 정확한가요?",
   "zen.faq.a2":
     "Zen은 코딩 에이전트를 위해 특별히 테스트되고 벤치마킹된 모델만 제공합니다. 스테이크를 버터 나이프로 자르지 않듯이, 코딩에 품질이 낮은 모델을 사용하지 마세요.",
@@ -153,7 +153,7 @@ export const dict = {
   "zen.faq.a4.p1.afterPricing": ", 마크업이 0이므로 모델 제공자가 청구하는 금액 그대로 지불하게 됩니다.",
   "zen.faq.a4.p2.beforeAccount": "총 비용은 사용량에 따라 달라지며, 월간 지출 한도를",
   "zen.faq.a4.p2.accountLink": "계정",
-  "zen.faq.a4.p3": "비용을 충당하기 위해 NemoraCode는 $20 잔액 충전 시 $1.23의 소액 결제 처리 수수료만 추가합니다.",
+  "zen.faq.a4.p3": "비용을 충당하기 위해 OpenCode는 $20 잔액 충전 시 $1.23의 소액 결제 처리 수수료만 추가합니다.",
   "zen.faq.q5": "데이터와 프라이버시는 어떤가요?",
   "zen.faq.a5.beforeExceptions":
     "모든 Zen 모델은 미국과 EU에서 호스팅됩니다. 제공자들은 데이터 보존 금지(zero-retention) 정책을 따르며, 모델 학습에 귀하의 데이터를 사용하지 않습니다. 단,",
@@ -176,12 +176,12 @@ export const dict = {
   "zen.problem.title": "Zen은 어떤 문제를 해결하나요?",
   "zen.problem.body":
     "사용 가능한 모델은 매우 많지만, 코딩 에이전트와 잘 작동하는 모델은 소수에 불과합니다. 대부분의 제공자들은 모델을 다르게 구성하여 결과가 제각각입니다.",
-  "zen.problem.subtitle": "우리는 NemoraCode 사용자뿐만 아니라 모든 분들을 위해 이 문제를 해결하고 있습니다.",
+  "zen.problem.subtitle": "우리는 OpenCode 사용자뿐만 아니라 모든 분들을 위해 이 문제를 해결하고 있습니다.",
   "zen.problem.item1": "선별된 모델 테스트 및 팀 자문",
   "zen.problem.item2": "제공자와 협력하여 올바른 모델 전달 보장",
   "zen.problem.item3": "권장하는 모든 모델-제공자 조합 벤치마킹",
   "zen.how.title": "Zen 작동 방식",
-  "zen.how.body": "NemoraCode와 함께 사용하는 것을 권장하지만, Zen은 어떤 에이전트와도 사용할 수 있습니다.",
+  "zen.how.body": "OpenCode와 함께 사용하는 것을 권장하지만, Zen은 어떤 에이전트와도 사용할 수 있습니다.",
   "zen.how.step1.title": "가입 및 $20 잔액 추가",
   "zen.how.step1.beforeLink": "",
   "zen.how.step1.link": "설정 지침",
@@ -196,7 +196,7 @@ export const dict = {
   "zen.privacy.exceptionsLink": "다음 예외",
 
   "go.promo.kimiK31Pro": "이제 Go에서 Kimi K3.1 Pro를 이용할 수 있습니다.",
-  "go.title": "NemoraCode Go | 모두를 위한 저비용 코딩 모델",
+  "go.title": "OpenCode Go | 모두를 위한 저비용 코딩 모델",
   "go.meta.description": "Go는 월 $10이며, 넉넉한 사용 한도와 주요 코딩 모델에 대한 안정적인 액세스를 제공합니다.",
   "go.hero.title": "모두를 위한 저비용 코딩 모델",
   "go.hero.tagline": "어떤 에이전트와도 사용할 수 있습니다. 필요하면 크레딧을 충전하세요. 언제든지 취소할 수 있습니다.",
@@ -231,13 +231,13 @@ export const dict = {
 
   "go.problem.title": "Go는 어떤 문제를 해결하나요?",
   "go.problem.body":
-    "우리는 가능한 많은 사람들에게 NemoraCode 경험을 제공하는 데 집중하고 있습니다. NemoraCode Go는 월 $10의 저렴한 구독 서비스입니다. 넉넉한 한도와 가장 뛰어난 오픈 소스 모델에 대한 안정적인 액세스를 제공합니다.",
+    "우리는 가능한 많은 사람들에게 NemoraCode 경험을 제공하는 데 집중하고 있습니다. OpenCode Go는 월 $10의 저렴한 구독 서비스입니다. 넉넉한 한도와 가장 뛰어난 오픈 소스 모델에 대한 안정적인 액세스를 제공합니다.",
   "go.problem.item1": "저렴한 구독 가격",
   "go.problem.item2": "넉넉한 한도와 안정적인 액세스",
   "go.problem.item3": "가능한 한 많은 프로그래머를 위해 제작됨",
   "go.problem.item4": "에이전트 코딩용으로 테스트된 엄선된 모델 라인업",
   "go.how.title": "Go 작동 방식",
-  "go.how.body": "Go는 월 $10입니다. NemoraCode 또는 어떤 에이전트와도 함께 사용할 수 있습니다.",
+  "go.how.body": "Go는 월 $10입니다. OpenCode 또는 어떤 에이전트와도 함께 사용할 수 있습니다.",
   "go.how.step1.title": "계정 생성",
   "go.how.step1.beforeLink": "",
   "go.how.step1.link": "설정 지침을 따르세요",
@@ -246,7 +246,7 @@ export const dict = {
   "go.how.step2.afterLink": "넉넉한 한도 포함",
   "go.how.step3.title": "코딩 시작",
   "go.how.step3.body": "오픈 소스 모델에 대한 안정적인 액세스와 함께",
-  "go.faq.q1": "NemoraCode Go란 무엇인가요?",
+  "go.faq.q1": "OpenCode Go란 무엇인가요?",
   "go.faq.a1": "Go는 에이전트 코딩을 위한 유능한 오픈 소스 모델에 대해 안정적인 액세스를 제공하는 저비용 구독입니다.",
   "go.faq.q2": "Go에는 어떤 모델이 포함되나요?",
   "go.faq.a2": "Go에는 넉넉한 한도와 안정적인 액세스를 제공하는 아래 모델이 포함됩니다.",

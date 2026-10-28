@@ -60,7 +60,7 @@ export function make(
   },
 ) {
   return define({
-    id: "nemoracode.provider.azure",
+    id: "opencode.provider.azure",
     effect: Effect.fn(function* (ctx) {
       const configured = yield* configuredSettings(Provider.ID.azure)
       const processes = yield* AppProcess.Service

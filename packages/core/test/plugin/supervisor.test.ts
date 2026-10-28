@@ -202,7 +202,7 @@ describe("PluginSupervisor", () => {
     }),
   )
 
-  for (const targets of [["nemoracode.config.policy", "nemoracode.provider.nemoracode", "nemoracode.config.agent"], ["*"]]) {
+  for (const targets of [["nemoracode.config.policy", "opencode.provider.opencode", "nemoracode.config.agent"], ["*"]]) {
     it.effect(`keeps policy enforcement and the Console connection through plugin removals: ${targets}`, () =>
       Effect.gen(function* () {
         source.operations = targets.map((target) => ({ type: "remove", target }))
@@ -218,7 +218,7 @@ describe("PluginSupervisor", () => {
         )
         const status = (id: string) => inventory.find((plugin) => plugin.id === id)?.state.status
         expect(status("nemoracode.config.policy")).toBe("active")
-        expect(status("nemoracode.provider.nemoracode")).toBe("active")
+        expect(status("opencode.provider.opencode")).toBe("active")
         // Removals still apply to everything else, including instance and builtin plugins.
         expect(status("nemoracode.config.agent")).toBeUndefined()
         expect(inventory.some((plugin) => plugin.id === id)).toBe(targets[0] !== "*")

@@ -18,7 +18,7 @@ import { isRecord } from "./utils/record.js"
 const patterns = [
   /prompt is too long/i,
   /input is too long for (?:the )?(?:requested|selected) model/i,
-  // NemoraCode Go
+  // OpenCode Go
   /too large for the model'?s configured input limit/i,
   // Cloudflare Workers AI reports this as HTTP 413.
   /exceeded this model context window limit/i,
@@ -122,7 +122,7 @@ export const isRetryable = (error: AIError) => {
 }
 
 const decodeJson = Schema.decodeUnknownOption(Json)
-// NemoraCode Zen reports account caps as typed 429/402 errors that are not throttles.
+// OpenCode Zen reports account caps as typed 429/402 errors that are not throttles.
 const QUOTA_CODES = new Set([
   "insufficient_quota",
   "usage_not_included",
@@ -168,7 +168,7 @@ const CONTENT_POLICY_CODES = new Set([
   "datainspectionfailed",
   "moderation_blocked",
 ])
-// NemoraCode Zen replaces upstream codes outside its allow-list but keeps the original
+// OpenCode Zen replaces upstream codes outside its allow-list but keeps the original
 // as a `[code]` label at the start of the rewritten message.
 const GATEWAY_CODE_LABEL = /^[^:\n]+: \[([A-Za-z0-9_.-]+)\]/
 // xAI reports an invalid API key as HTTP 400 with the generic `invalid-argument` code.
@@ -299,7 +299,7 @@ export function classifyProviderFailure(input: ProviderFailure): AIError["reason
     input.status === 409 ||
     (input.status !== undefined && input.status >= 500) ||
     // Server codes and phrasing only decide when no HTTP status contradicts them:
-    // gateways such as NemoraCode Zen substitute `server_error` for codes they do
+    // gateways such as OpenCode Zen substitute `server_error` for codes they do
     // not forward, so a 4xx with a server code is still a rejected request.
     ((input.status === undefined || input.status < 400) &&
       ((!codes.some((code) => INVALID_REQUEST_CODES.has(code)) && SERVER_ERROR_TEXT.test(text)) ||

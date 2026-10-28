@@ -68,7 +68,7 @@ export const layer = Layer.effect(
             model: resolved.model,
             prompt: input.prompt,
             // Gateways require session attribution even for a stateless call; no Session is stored.
-            http: { headers: { "x-nemoracode-session": SessionID.create() } },
+            http: { headers: { "x-opencode-session": SessionID.create() } },
           }),
         )
         .pipe(

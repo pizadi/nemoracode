@@ -90,7 +90,7 @@ export function useProviders(directory: Accessor<string | undefined>) {
       if (integrations.list().some((integration) => integration.connections.length > 0)) return true
 
       return providers().connected.some(
-        (id) => id !== "nemoracode" && Object.keys(providers().all.get(id)?.models ?? {}).length > 0,
+        (id) => id !== "opencode" && Object.keys(providers().all.get(id)?.models ?? {}).length > 0,
       )
     },
     paid: () => {
@@ -101,7 +101,7 @@ export function useProviders(directory: Accessor<string | undefined>) {
           providers().all,
           ([id]) =>
             connected.has(id) &&
-            (id !== "nemoracode" || Object.values(providers().all.get(id)?.models ?? {}).some((m) => m.cost?.input)),
+            (id !== "opencode" || Object.values(providers().all.get(id)?.models ?? {}).some((m) => m.cost?.input)),
         ),
       ]
 

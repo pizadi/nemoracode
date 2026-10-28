@@ -2,7 +2,7 @@ import { Effect } from "effect"
 import { define } from "@nemoracode/plugin/effect/plugin"
 
 export const NvidiaPlugin = define({
-  id: "nemoracode.provider.nvidia",
+  id: "opencode.provider.nvidia",
   effect: Effect.fn(function* (ctx) {
     yield* ctx.provider.transform((evt) => {
       for (const item of evt.list()) {

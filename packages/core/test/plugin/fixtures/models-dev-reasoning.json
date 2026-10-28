@@ -113,10 +113,10 @@
       }
     }
   },
-  "nemoracode-go": {
-    "id": "nemoracode-go",
-    "name": "NemoraCode Go",
-    "env": ["NEMORACODE_API_KEY"],
+  "opencode-go": {
+    "id": "opencode-go",
+    "name": "OpenCode Go",
+    "env": ["OPENCODE_API_KEY"],
     "npm": "@ai-sdk/openai-compatible",
     "models": {
       "minimax-m3": {

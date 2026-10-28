@@ -2,7 +2,7 @@ import { Effect } from "effect"
 import { define } from "@nemoracode/plugin/effect/plugin"
 
 export const ZenmuxPlugin = define({
-  id: "nemoracode.provider.zenmux",
+  id: "opencode.provider.zenmux",
   effect: Effect.fn(function* (ctx) {
     yield* ctx.provider.transform((evt) => {
       for (const item of evt.list()) {

@@ -8,7 +8,7 @@ import { Money } from "@nemoracode/schema/money"
 const providerID = Provider.ID.make("modal")
 
 test("modal plugin is registered", () => {
-  expect(ProviderPlugins.map((item) => item.id)).toContain("nemoracode.provider.modal")
+  expect(ProviderPlugins.map((item) => item.id)).toContain("opencode.provider.modal")
 })
 
 function template(id: string, overrides: Partial<Model.Info> = {}) {

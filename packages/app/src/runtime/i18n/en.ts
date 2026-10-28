@@ -35,7 +35,7 @@ export const dict = {
   "command.project.open": "Open project",
   "command.project.copyID": "Copy Project ID",
   "command.provider.connect": "Connect provider",
-  "command.provider.connect.description": "Sign in to NemoraCode Go, NemoraCode Console, or another model provider",
+  "command.provider.connect.description": "Sign in to OpenCode Go, OpenCode Console, or another model provider",
   "command.settings.open": "Open settings",
   "command.session.location.cycle": "Cycle session location",
 
@@ -99,9 +99,9 @@ export const dict = {
   "dialog.provider.group.other": "Other",
   "dialog.provider.custom.label": "Custom OpenAI-compatible provider",
   "dialog.provider.tag.recommended": "Recommended",
-  "dialog.provider.nemoracode.note": "Curated models including Claude, GPT, Gemini and more",
-  "dialog.provider.nemoracode.tagline": "Reliable optimized models",
-  "dialog.provider.nemoracodeGo.tagline": "Low cost subscription for everyone",
+  "dialog.provider.opencode.note": "Curated models including Claude, GPT, Gemini and more",
+  "dialog.provider.opencode.tagline": "Reliable optimized models",
+  "dialog.provider.opencodeGo.tagline": "Low cost subscription for everyone",
   "dialog.provider.anthropic.note": "Direct access to Claude models via API key",
   "dialog.provider.copilot.note": "AI models for coding assistance via GitHub Copilot",
   "dialog.provider.openai.note": "GPT models for fast, capable general AI tasks",
@@ -117,7 +117,7 @@ export const dict = {
   "dialog.model.chatgptPlan": "Using ChatGPT plan",
   "dialog.model.chatgptManageUsage": "Manage usage",
 
-  "dialog.model.unpaid.freeModels.title": "Free models provided by NemoraCode",
+  "dialog.model.unpaid.freeModels.title": "Free models provided by OpenCode",
   "dialog.model.unpaid.addMore.title": "Add more models from popular providers",
   "dialog.model.unpaid.viewMoreProviders": "See 70+ more providers",
 
@@ -131,15 +131,15 @@ export const dict = {
   "dialog.provider.accounts.options": "{{account}} options",
 
   "provider.connect.title": "Connect {{provider}}",
-  "provider.connect.nemoracode.name": "NemoraCode Console",
-  "provider.connect.nemoracode.freeName": "NemoraCode Free",
-  "provider.connect.nemoracode.errorTitle": "Connect to NemoraCode",
-  "provider.connect.console.title": "Connecting to NemoraCode Console",
-  "provider.connect.console.titleGo": "Connecting to NemoraCode Go",
-  "provider.connect.console.intro": "Sign in with your NemoraCode Console account to use the available models.",
+  "provider.connect.opencode.name": "OpenCode Console",
+  "provider.connect.opencode.freeName": "OpenCode Free",
+  "provider.connect.opencode.errorTitle": "Connect to OpenCode",
+  "provider.connect.console.title": "Connecting to OpenCode Console",
+  "provider.connect.console.titleGo": "Connecting to OpenCode Go",
+  "provider.connect.console.intro": "Sign in with your OpenCode Console account to use the available models.",
   "provider.connect.console.continue": "Continue in the browser",
   "provider.connect.console.retry": "Try again",
-  "provider.connect.console.serviceKeyDescription": "Connect using a service-account API key from NemoraCode Console.",
+  "provider.connect.console.serviceKeyDescription": "Connect using a service-account API key from OpenCode Console.",
   "provider.connect.console.instructions":
     "Continue in your browser. Confirm the code shown there matches the one below.",
   "provider.connect.console.deviceCode": "Device code",
@@ -170,7 +170,7 @@ export const dict = {
   "provider.connect.chatgptUsageLimit.close": "Close",
   "provider.connect.console.refreshFailed":
     "Your account is connected, but we couldn't load your models. Try again to refresh them.",
-  "provider.connect.console.connected": "NemoraCode connected",
+  "provider.connect.console.connected": "OpenCode connected",
   "provider.connect.console.noModels":
     "Your account is connected, but this Console workspace has no available models. Check its setup in Console, then refresh.",
   "provider.connect.console.modelsLoading": "Your models are still loading. Refresh to check again.",

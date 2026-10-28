@@ -92,7 +92,7 @@ const layer = Layer.effect(
     const providers = yield* Provider.Service
     const bus = yield* Bus.Service
     const location = yield* Location.Service
-    const disableFree = ["1", "true"].includes(process.env.NEMORACODE_DISABLE_FREE_MODELS?.toLowerCase() ?? "")
+    const disableFree = ["1", "true"].includes(process.env.OPENCODE_DISABLE_FREE_MODELS?.toLowerCase() ?? "")
     let input: Provider.Snapshot | undefined
     const state: State.Interface<Data, Editor> = State.create<Data, Editor>({
       name: "model",
@@ -222,7 +222,7 @@ const layer = Layer.effect(
           }),
         )
         if (disableFree)
-          for (const providerID of [Provider.ID.nemoracode, Provider.ID.make("nemoracode-go")])
+          for (const providerID of [Provider.ID.opencode, Provider.ID.make("opencode-go")])
             byProvider.get(providerID)?.forEach((model, id, models) => {
               if (!model.cost.some((cost) => cost.input > 0)) models.delete(id)
             })
@@ -304,7 +304,7 @@ const PREFERRED_FREE = [
 
 function preferFree(models: Info[]) {
   const freeOnly = models.every(
-    (model) => model.providerID === Provider.ID.nemoracode && !model.cost.some((cost) => cost.input > 0),
+    (model) => model.providerID === Provider.ID.opencode && !model.cost.some((cost) => cost.input > 0),
   )
   if (!freeOnly) return models
   const picks = PREFERRED_FREE.flatMap((id) => models.find((model) => model.id === id) ?? [])

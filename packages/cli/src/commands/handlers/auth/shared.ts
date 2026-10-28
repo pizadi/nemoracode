@@ -19,7 +19,7 @@ export const loadIntegrations = Effect.fn("cli.auth.integrations")(function* (cl
   yield* request((signal) => client.model.default({ location }, { signal }))
   return yield* request((signal) => client.integration.list({ location }, { signal })).pipe(
     Effect.map((response) =>
-      response.data.toSorted((a, b) => Number(b.id === "nemoracode-go") - Number(a.id === "nemoracode-go")),
+      response.data.toSorted((a, b) => Number(b.id === "opencode-go") - Number(a.id === "opencode-go")),
     ),
   )
 })

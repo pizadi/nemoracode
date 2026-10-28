@@ -1,7 +1,7 @@
-export function NemoraCodeLogo(props: { class?: string }) {
+export function OpenCodeLogo(props: { class?: string }) {
   return (
     <svg
-      data-component="nemoracode-logo"
+      data-component="opencode-logo"
       aria-hidden="true"
       class={props.class}
       viewBox="0 0 16 16"

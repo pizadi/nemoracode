@@ -1,8 +1,8 @@
-export * as NemoracodeLegacy from "./nemoracode-legacy.js"
+export * as OpencodeLegacy from "./opencode-legacy.js"
 
-// The NemoraCode Console's original `/api/v2/config` response, which it serves without `$schema`. Unlike a regular
-// NemoraCode config, the plugin applies it itself: providers, organization policy, web search, and MCP servers.
-// Delete this module and its uses in nemoracode.ts once every Console serves a regular NemoraCode config.
+// The OpenCode Console's original `/api/v2/config` response, which it serves without `$schema`. Unlike a regular
+// OpenCode config, the plugin applies it itself: providers, organization policy, web search, and MCP servers.
+// Delete this module and its uses in opencode.ts once every Console serves a regular OpenCode config.
 
 import { Effect, Schema } from "effect"
 import type { Context } from "@nemoracode/plugin/effect/plugin"
@@ -68,7 +68,7 @@ export function providerIDs(remote: Remote) {
  * Registers the transforms that apply a legacy snapshot: the Console's providers bound to its connection, its web
  * search provider as the default, and its MCP servers with the Console credential where they ask for it.
  */
-export const register = Effect.fn("NemoracodeLegacy.register")(function* (
+export const register = Effect.fn("OpencodeLegacy.register")(function* (
   ctx: Context,
   current: () => { readonly remote: Remote; readonly connection: Connection | undefined },
   search: (providerID: WebSearch.ID, connection: Connection) => WebSearchDefinition,
@@ -81,7 +81,7 @@ export const register = Effect.fn("NemoracodeLegacy.register")(function* (
       providers.update(providerID, (provider) => {
         if (source && source.provider !== provider)
           Object.assign(provider, structuredClone(source.provider), { id: provider.id })
-        provider.integrationID = Integration.ID.make("nemoracode")
+        provider.integrationID = Integration.ID.make("opencode")
         if (item.canonical !== undefined) provider.canonical = item.canonical
         if (item.name !== undefined) provider.name = item.name
         provider.package = item.package ?? provider.package

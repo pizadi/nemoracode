@@ -366,9 +366,9 @@ export const dict = {
   "dialog.provider.group.other": "Otros",
   "dialog.provider.custom.label": "Proveedor personalizado compatible con OpenAI",
   "dialog.provider.tag.recommended": "Recomendado",
-  "dialog.provider.nemoracode.note": "Selección de modelos como Claude, GPT, Gemini y otros",
-  "dialog.provider.nemoracode.tagline": "Modelos optimizados y fiables",
-  "dialog.provider.nemoracodeGo.tagline": "Suscripción económica para todos",
+  "dialog.provider.opencode.note": "Selección de modelos como Claude, GPT, Gemini y otros",
+  "dialog.provider.opencode.tagline": "Modelos optimizados y fiables",
+  "dialog.provider.opencodeGo.tagline": "Suscripción económica para todos",
   "dialog.provider.copilot.note": "Modelos de IA para asistencia de codificación a través de GitHub Copilot",
   "dialog.provider.openai.note": "Modelos GPT para tareas de IA generales rápidas y capaces",
   "dialog.provider.google.note": "Modelos Gemini para respuestas rápidas y estructuradas",
@@ -381,7 +381,7 @@ export const dict = {
   "dialog.model.manage": "Gestionar modelos",
   "dialog.model.manage.description": "Personalizar qué modelos aparecen en el selector de modelos.",
 
-  "dialog.model.unpaid.freeModels.title": "Modelos gratuitos proporcionados por NemoraCode",
+  "dialog.model.unpaid.freeModels.title": "Modelos gratuitos proporcionados por OpenCode",
   "dialog.model.unpaid.addMore.title": "Añadir más modelos de proveedores populares",
   "dialog.model.unpaid.viewMoreProviders": "Ver más de 70 proveedores",
 

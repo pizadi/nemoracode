@@ -589,15 +589,15 @@ it.effect("manual compaction summarizes short context instead of no-op", () =>
     expect(requests).toHaveLength(1)
     expect(requests[0]?.promptCacheKey).toBe(parentID)
     expect(requests[0]?.http?.headers).toEqual({
-      "x-nemoracode-session-id": session.id,
-      "x-nemoracode-parent-session-id": parentID,
+      "x-opencode-session-id": session.id,
+      "x-opencode-parent-session-id": parentID,
       "x-session-affinity": parentID,
       "X-Session-Id": parentID,
       "x-parent-session-id": parentID,
       "User-Agent": App.useragent(App.make()),
-      "x-nemoracode-project": Project.ID.global,
-      "x-nemoracode-session": parentID,
-      "x-nemoracode-client": "nemoracode",
+      "x-opencode-project": Project.ID.global,
+      "x-opencode-session": parentID,
+      "x-opencode-client": "nemoracode",
     })
     expect(requests[0]?.generation).toEqual(GenerationOptions.make({ maxTokens: 30_000 }))
     expect(JSON.stringify(requests[0]?.messages)).toContain("Manual compaction should include this short conversation.")

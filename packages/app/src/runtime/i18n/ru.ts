@@ -143,9 +143,9 @@ export const dict = {
   "dialog.provider.group.other": "Другие",
   "dialog.provider.custom.label": "Пользовательский провайдер, совместимый с OpenAI",
   "dialog.provider.tag.recommended": "Рекомендуемые",
-  "dialog.provider.nemoracode.note": "Отобранные модели, включая Claude, GPT, Gemini и другие",
-  "dialog.provider.nemoracode.tagline": "Надёжные оптимизированные модели",
-  "dialog.provider.nemoracodeGo.tagline": "Доступная подписка для всех",
+  "dialog.provider.opencode.note": "Отобранные модели, включая Claude, GPT, Gemini и другие",
+  "dialog.provider.opencode.tagline": "Надёжные оптимизированные модели",
+  "dialog.provider.opencodeGo.tagline": "Доступная подписка для всех",
   "dialog.provider.copilot.note": "ИИ-модели для помощи в кодировании через GitHub Copilot",
   "dialog.provider.openai.note": "Модели GPT для быстрых и мощных задач общего ИИ",
   "dialog.provider.google.note": "Модели Gemini для быстрых и структурированных ответов",
@@ -158,7 +158,7 @@ export const dict = {
   "dialog.model.manage": "Управление моделями",
   "dialog.model.manage.description": "Настройте, какие модели отображаются при выборе модели",
 
-  "dialog.model.unpaid.freeModels.title": "Бесплатные модели от NemoraCode",
+  "dialog.model.unpaid.freeModels.title": "Бесплатные модели от OpenCode",
   "dialog.model.unpaid.addMore.title": "Добавьте больше моделей от популярных провайдеров",
   "dialog.model.unpaid.viewMoreProviders": "Посмотреть ещё более 70 провайдеров",
 

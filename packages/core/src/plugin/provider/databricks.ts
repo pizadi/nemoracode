@@ -2,7 +2,7 @@ import { Effect } from "effect"
 import { define } from "@nemoracode/plugin/effect/plugin"
 
 export const DatabricksPlugin = define({
-  id: "nemoracode.provider.databricks",
+  id: "opencode.provider.databricks",
   effect: Effect.fn(function* (ctx) {
     yield* ctx.integration.transform((editor) => {
       // models.dev also lists DATABRICKS_HOST, which only fills the base URL template.

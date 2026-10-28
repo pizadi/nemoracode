@@ -136,12 +136,12 @@ export const dict = {
     "Zen gives you access to a handpicked set of AI models that NemoraCode has tested and benchmarked specifically for coding agents. No need to worry about inconsistent performance and quality across providers. Use validated models that work.",
   "home.zenCta.link": "Learn about Zen",
 
-  "zen.title": "NemoraCode Zen | A curated set of reliable optimized models for coding agents",
+  "zen.title": "OpenCode Zen | A curated set of reliable optimized models for coding agents",
   "zen.hero.title": "Reliable optimized models for coding agents",
   "zen.hero.body":
     "Zen gives you access to a curated set of AI models that NemoraCode has tested and benchmarked specifically for coding agents. No need to worry about inconsistent performance and quality. Use validated models that work.",
 
-  "zen.faq.q1": "What is NemoraCode Zen?",
+  "zen.faq.q1": "What is OpenCode Zen?",
   "zen.faq.a1":
     "Zen is a curated set of AI models tested and benchmarked for coding agents created by the team behind NemoraCode.",
   "zen.faq.q2": "What makes Zen more accurate?",
@@ -156,7 +156,7 @@ export const dict = {
   "zen.faq.a4.p1.afterPricing": "with zero markups, so you pay exactly what the model provider charges.",
   "zen.faq.a4.p2.beforeAccount": "Your total cost depends on usage, and you can set monthly spend limits in your",
   "zen.faq.a4.p2.accountLink": "account",
-  "zen.faq.a4.p3": "To cover costs, NemoraCode adds only a small payment processing fee of $1.23 per $20 balance top-up.",
+  "zen.faq.a4.p3": "To cover costs, OpenCode adds only a small payment processing fee of $1.23 per $20 balance top-up.",
   "zen.faq.q5": "What about data and privacy?",
   "zen.faq.a5.beforeExceptions":
     "All Zen models are hosted in the US and EU. Providers follow a zero-retention policy and do not use your data for model training, with the",
@@ -179,12 +179,12 @@ export const dict = {
   "zen.problem.title": "What problem is Zen solving?",
   "zen.problem.body":
     "There are so many models available, but only a few work well with coding agents. Most providers configure them differently with varying results.",
-  "zen.problem.subtitle": "We're fixing this for everyone, not just NemoraCode users.",
+  "zen.problem.subtitle": "We're fixing this for everyone, not just OpenCode users.",
   "zen.problem.item1": "Testing select models and consulting their teams",
   "zen.problem.item2": "Working with providers to ensure they're delivered properly",
   "zen.problem.item3": "Benchmarking all model-provider combinations we recommend",
   "zen.how.title": "How Zen works",
-  "zen.how.body": "While we suggest you use Zen with NemoraCode, you can use Zen with any agent.",
+  "zen.how.body": "While we suggest you use Zen with OpenCode, you can use Zen with any agent.",
   "zen.how.step1.title": "Sign up and add $20 balance",
   "zen.how.step1.beforeLink": "follow the",
   "zen.how.step1.link": "setup instructions",
@@ -199,7 +199,7 @@ export const dict = {
   "zen.privacy.exceptionsLink": "following exceptions",
 
   "go.promo.kimiK31Pro": "Kimi K3.1 Pro is now available in Go.",
-  "go.title": "NemoraCode Go | Low cost coding models for everyone",
+  "go.title": "OpenCode Go | Low cost coding models for everyone",
   "go.meta.description": "Go costs $10/month, with generous usage limits and reliable access to leading coding models.",
   "go.hero.title": "Low cost coding models for everyone",
   "go.hero.tagline": "Use with any agent. Top up credit if needed. Cancel any time.",
@@ -234,13 +234,13 @@ export const dict = {
 
   "go.problem.title": "What problem is Go solving?",
   "go.problem.body":
-    "We're focused on bringing the NemoraCode experience to as many people as possible. NemoraCode Go is a low cost $10/month subscription. It provides generous limits and reliable access to the most capable coding models.",
+    "We're focused on bringing the NemoraCode experience to as many people as possible. OpenCode Go is a low cost $10/month subscription. It provides generous limits and reliable access to the most capable coding models.",
   "go.problem.item1": "Low cost subscription pricing",
   "go.problem.item2": "Generous limits and reliable access",
   "go.problem.item3": "Built for as many programmers as possible",
   "go.problem.item4": "A curated model lineup tested for agentic coding",
   "go.how.title": "How Go works",
-  "go.how.body": "Go costs $10/month. You can use it with NemoraCode or any agent.",
+  "go.how.body": "Go costs $10/month. You can use it with OpenCode or any agent.",
   "go.how.step1.title": "Create an account",
   "go.how.step1.beforeLink": "follow the",
   "go.how.step1.link": "setup instructions",
@@ -249,7 +249,7 @@ export const dict = {
   "go.how.step2.afterLink": "with generous limits",
   "go.how.step3.title": "Start coding",
   "go.how.step3.body": "with reliable access to capable coding models",
-  "go.faq.q1": "What is NemoraCode Go?",
+  "go.faq.q1": "What is OpenCode Go?",
   "go.faq.a1":
     "Go is a low-cost subscription that gives you reliable access to capable coding models for agentic coding.",
   "go.faq.q2": "What models does Go include?",

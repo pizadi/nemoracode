@@ -3,7 +3,7 @@ import { define } from "@nemoracode/plugin/effect/plugin"
 import { Integration } from "../../integration.js"
 
 export const LLMGatewayPlugin = define({
-  id: "nemoracode.provider.llmgateway",
+  id: "opencode.provider.llmgateway",
   effect: Effect.fn(function* (ctx) {
     const integrations = yield* Integration.Service
     const configured = new Set((yield* integrations.list()).map((integration) => integration.id))

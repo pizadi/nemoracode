@@ -15,7 +15,7 @@ import { ModelTooltip } from "./tooltip"
 
 type ModelState = ModelSelection
 
-const featuredProviders = ["nemoracode-go", "nemoracode", "openai", "anthropic", "google", "github-copilot"]
+const featuredProviders = ["opencode-go", "opencode", "openai", "anthropic", "google", "github-copilot"]
 
 const displayModelName = (name: string) => name.replace(/\s+(?:\(free\)|free)$/i, "")
 
@@ -36,7 +36,7 @@ export const DialogSelectModelUnpaid: Component<{ model?: ModelState }> = (props
   })
 
   const providerName = (provider: { id: string; name: string }) =>
-    provider.id === "nemoracode" ? language.t("provider.connect.nemoracode.name") : provider.name
+    provider.id === "opencode" ? language.t("provider.connect.opencode.name") : provider.name
 
   const freeModels = createMemo(() => model.list().filter(isFreeModel))
 
@@ -162,12 +162,12 @@ export const DialogSelectModelUnpaid: Component<{ model?: ModelState }> = (props
                       />
                       <span class="flex min-w-0 flex-col">
                         <span class="truncate">{providerName(provider)}</span>
-                        <Show when={provider.id === "nemoracode" || provider.id === "nemoracode-go"}>
+                        <Show when={provider.id === "opencode" || provider.id === "opencode-go"}>
                           <span class="truncate font-[440] text-v2-text-text-muted">
                             {language.t(
-                              provider.id === "nemoracode"
-                                ? "dialog.provider.nemoracode.tagline"
-                                : "dialog.provider.nemoracodeGo.tagline",
+                              provider.id === "opencode"
+                                ? "dialog.provider.opencode.tagline"
+                                : "dialog.provider.opencodeGo.tagline",
                             )}
                           </span>
                         </Show>

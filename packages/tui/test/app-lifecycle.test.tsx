@@ -1704,7 +1704,7 @@ test("server plugin failures share one notice and use source names before an ID 
   expect(setup.captureCharFrame()).toContain("Open plugins")
 })
 
-test("free usage limit offers NemoraCode Go once per 24h, transitions Subscribe to Connect Go, and restores focus", async () => {
+test("free usage limit offers OpenCode Go once per 24h, transitions Subscribe to Connect Go, and restores focus", async () => {
   await using state = await tmpdir()
   const baseNow = 1_700_000_000_000
   let currentNow = baseNow
@@ -1719,10 +1719,10 @@ test("free usage limit offers NemoraCode Go once per 24h, transitions Subscribe 
     tokens: { input: 0, output: 0, reasoning: 0, cache: { read: 0, write: 0 } },
     time: { created: 1, updated: 1 },
   }
-  const model = { id: "big-pickle", providerID: "nemoracode" }
+  const model = { id: "big-pickle", providerID: "opencode" }
   const freeModel = {
     id: "big-pickle",
-    providerID: "nemoracode",
+    providerID: "opencode",
     name: "Big Pickle",
     status: "active",
     cost: [{ input: 0, output: 0, cache: { read: 0, write: 0 } }],
@@ -1733,7 +1733,7 @@ test("free usage limit offers NemoraCode Go once per 24h, transitions Subscribe 
   }
   const goModel = {
     id: "glm-5-go",
-    providerID: "nemoracode-go",
+    providerID: "opencode-go",
     name: "GLM-5 Go",
     status: "active",
     cost: [{ input: 1, output: 2, cache: { read: 0, write: 0 } }],
@@ -1772,8 +1772,8 @@ test("free usage limit offers NemoraCode Go once per 24h, transitions Subscribe 
         return json({
           location,
           data: [
-            { id: "nemoracode", name: "NemoraCode Zen" },
-            ...(authorized ? [{ id: "nemoracode-go", integrationID: "nemoracode", name: "NemoraCode Go" }] : []),
+            { id: "opencode", name: "OpenCode Zen" },
+            ...(authorized ? [{ id: "opencode-go", integrationID: "opencode", name: "OpenCode Go" }] : []),
           ],
         })
       if (url.pathname === "/api/model")
@@ -1786,13 +1786,13 @@ test("free usage limit offers NemoraCode Go once per 24h, transitions Subscribe 
           location,
           data: [
             {
-              id: "nemoracode",
-              name: "NemoraCode Console",
+              id: "opencode",
+              name: "OpenCode Console",
               methods: [
                 {
                   id: "device",
                   type: "oauth",
-                  label: "NemoraCode Console account",
+                  label: "OpenCode Console account",
                   form: [
                     {
                       key: "server",
@@ -1810,14 +1810,14 @@ test("free usage limit offers NemoraCode Go once per 24h, transitions Subscribe 
                 : [],
             },
             {
-              id: "nemoracode-go",
-              name: "NemoraCode Go",
+              id: "opencode-go",
+              name: "OpenCode Go",
               methods: [{ type: "key", label: "Enter Go API key" }],
               connections: [],
             },
           ],
         })
-      if (url.pathname === "/api/integration/nemoracode/connect/oauth" && request.method === "POST") {
+      if (url.pathname === "/api/integration/opencode/connect/oauth" && request.method === "POST") {
         oauthRequests.push(await request.json())
         return json({
           location,
@@ -1829,7 +1829,7 @@ test("free usage limit offers NemoraCode Go once per 24h, transitions Subscribe 
           },
         })
       }
-      if (url.pathname === "/api/integration/nemoracode/connect/oauth/attempt_go") {
+      if (url.pathname === "/api/integration/opencode/connect/oauth/attempt_go") {
         if (request.method === "DELETE") return new Response(null, { status: 204 })
         await oauthGate
         authorized = true
@@ -1896,13 +1896,13 @@ test("free usage limit offers NemoraCode Go once per 24h, transitions Subscribe 
   using openSpy = spyOn(Open, "openUrl").mockResolvedValue(undefined as never)
   await setup.waitForFrame((frame) => frame.includes("Free limit reached"))
   const upsell = setup.captureCharFrame()
-  expect(upsell).toContain("NemoraCode Go gives you reliable access")
+  expect(upsell).toContain("OpenCode Go gives you reliable access")
   expect(upsell).toContain("▀▀▀▀ ▀▀▀▀")
   expect(upsell).toContain("opencode.ai/go")
   expect(upsell).toContain("don't show again")
   expect(upsell).toContain("dismiss")
   expect(upsell).toContain("subscribe")
-  expect(upsell).not.toContain("Connect NemoraCode Go")
+  expect(upsell).not.toContain("Connect OpenCode Go")
   expect(upsell).not.toContain("Session failed")
   // Dismiss closes the modal, leaves the muted notice, and restores focus to the composer.
   setup.mockInput.pressArrow("left")
@@ -1910,7 +1910,7 @@ test("free usage limit offers NemoraCode Go once per 24h, transitions Subscribe 
   await setup.waitForFrame((frame) => !frame.includes("Free limit reached"))
   const frame = setup.captureCharFrame()
   expect(frame).toContain("You've used today's free messages. They reset at")
-  expect(frame).toContain("Upgrade to NemoraCode Go → /connect · Switch model → /models")
+  expect(frame).toContain("Upgrade to OpenCode Go → /connect · Switch model → /models")
   expect(frame).not.toContain("Error:")
   expect(frame).not.toContain("Session failed")
   // The delivered prompt (not the queued one) shows once in the transcript and once more back in the composer.
@@ -1963,7 +1963,7 @@ test("free usage limit offers NemoraCode Go once per 24h, transitions Subscribe 
       frame.split("You've used today's free messages").length === 3 && frame.split("Queued follow-up").length === 3,
   )
   expect(setup.captureCharFrame()).not.toContain("Free limit reached")
-  expect(setup.captureCharFrame()).not.toContain("Connect NemoraCode Go")
+  expect(setup.captureCharFrame()).not.toContain("Connect OpenCode Go")
 
   // Exactly at 24h (86_400_000 ms) with an empty composer: reopens Free limit reached, and Subscribe starts NemoraCode device OAuth directly, selects Go, and resends the saved prompt.
   currentNow = baseNow + 86_400_000
@@ -1991,13 +1991,13 @@ test("free usage limit offers NemoraCode Go once per 24h, transitions Subscribe 
     { methodID: "device", answer: { server: "https://opencode.ai/console" } },
   ])
   const connectFrame = setup.captureCharFrame()
-  expect(connectFrame).toContain("NemoraCode Console account")
+  expect(connectFrame).toContain("OpenCode Console account")
   expect(connectFrame).not.toContain("Enter Go API key")
   expect(connectFrame).not.toContain("API key (service account)")
   releaseOAuth()
   await promptResent.promise
   await setup.waitForFrame((frame) => !frame.includes("GOGO-1234") && frame.includes("GLM-5 Go"))
-  expect(switchedModels).toEqual([{ model: { providerID: "nemoracode-go", id: "glm-5-go" } }])
+  expect(switchedModels).toEqual([{ model: { providerID: "opencode-go", id: "glm-5-go" } }])
   expect(resentPrompts).toHaveLength(1)
   expect(resentPrompts[0]).toMatchObject({
     text: "Queued follow-up",
@@ -2020,10 +2020,10 @@ test("free usage limit Subscribe handles mid-auth/mid-sync Escape, sync failure,
     tokens: { input: 0, output: 0, reasoning: 0, cache: { read: 0, write: 0 } },
     time: { created: 1, updated: 1 },
   }
-  const model = { id: "big-pickle", providerID: "nemoracode" }
+  const model = { id: "big-pickle", providerID: "opencode" }
   const freeModel = {
     id: "big-pickle",
-    providerID: "nemoracode",
+    providerID: "opencode",
     name: "Big Pickle",
     status: "active",
     cost: [{ input: 0, output: 0, cache: { read: 0, write: 0 } }],
@@ -2034,7 +2034,7 @@ test("free usage limit Subscribe handles mid-auth/mid-sync Escape, sync failure,
   }
   const goModel = {
     id: "glm-5-go",
-    providerID: "nemoracode-go",
+    providerID: "opencode-go",
     name: "GLM-5 Go",
     status: "active",
     cost: [{ input: 1, output: 2, cache: { read: 0, write: 0 } }],
@@ -2079,8 +2079,8 @@ test("free usage limit Subscribe handles mid-auth/mid-sync Escape, sync failure,
         return json({
           location,
           data: [
-            { id: "nemoracode", name: "NemoraCode Zen" },
-            ...(goEntitled ? [{ id: "nemoracode-go", integrationID: "nemoracode", name: "NemoraCode Go" }] : []),
+            { id: "opencode", name: "OpenCode Zen" },
+            ...(goEntitled ? [{ id: "opencode-go", integrationID: "opencode", name: "OpenCode Go" }] : []),
           ],
         })
       if (url.pathname === "/api/model") {
@@ -2095,10 +2095,10 @@ test("free usage limit Subscribe handles mid-auth/mid-sync Escape, sync failure,
           location,
           data: [
             {
-              id: "nemoracode",
-              name: "NemoraCode Console",
+              id: "opencode",
+              name: "OpenCode Console",
               methods: [
-                { id: "device", type: "oauth", label: "NemoraCode Console account" },
+                { id: "device", type: "oauth", label: "OpenCode Console account" },
                 { type: "key", label: "API key (service account)" },
               ],
               connections: connected
@@ -2117,7 +2117,7 @@ test("free usage limit Subscribe handles mid-auth/mid-sync Escape, sync failure,
           ],
         })
       }
-      if (url.pathname === "/api/integration/nemoracode/connect/oauth" && request.method === "POST") {
+      if (url.pathname === "/api/integration/opencode/connect/oauth" && request.method === "POST") {
         oauthConnectCalls += 1
         return json({
           location,
@@ -2129,7 +2129,7 @@ test("free usage limit Subscribe handles mid-auth/mid-sync Escape, sync failure,
           },
         })
       }
-      if (url.pathname === "/api/integration/nemoracode/connect/oauth/attempt_no_go") {
+      if (url.pathname === "/api/integration/opencode/connect/oauth/attempt_no_go") {
         if (request.method === "DELETE") return new Response(null, { status: 204 })
         await oauthGate
         if (failModelSync) connected = true
@@ -2354,7 +2354,7 @@ test("free usage limit Subscribe handles mid-auth/mid-sync Escape, sync failure,
   await promptResent.promise
   await setup.waitForFrame((frame) => !frame.includes("Free limit reached") && frame.includes("GLM-5 Go"))
   expect(oauthConnectCalls).toBe(oauthCallsBeforeAlreadyConnected)
-  expect(switchedModels).toEqual([{ model: { providerID: "nemoracode-go", id: "glm-5-go" } }])
+  expect(switchedModels).toEqual([{ model: { providerID: "opencode-go", id: "glm-5-go" } }])
   expect(resentPrompts).toHaveLength(1)
   expect(resentPrompts[0]).toMatchObject({ text: "Refactor the parser" })
 
@@ -2393,7 +2393,7 @@ test("free usage limit Subscribe handles mid-auth/mid-sync Escape, sync failure,
       if (url.pathname === "/api/integration")
         return json({
           location: { directory, project: { id: "proj_test", directory, canonical: directory } },
-          data: [{ id: "nemoracode-go", name: "NemoraCode Go", methods: [{ type: "key" }], connections: [] }],
+          data: [{ id: "opencode-go", name: "OpenCode Go", methods: [{ type: "key" }], connections: [] }],
         })
       if (url.pathname === `/api/session/${session.id}/message`)
         return json({
@@ -2441,7 +2441,7 @@ test("free usage limit claims suppression atomically across two TUI instances an
     tokens: { input: 0, output: 0, reasoning: 0, cache: { read: 0, write: 0 } },
     time: { created: 1, updated: 1 },
   }
-  const model = { id: "big-pickle", providerID: "nemoracode" }
+  const model = { id: "big-pickle", providerID: "opencode" }
   const error = {
     type: "provider.free-limit",
     message: "Free usage limit reached.",
@@ -2456,8 +2456,8 @@ test("free usage limit claims suppression atomically across two TUI instances an
         location: { directory, project: { id: "proj_test", directory, canonical: directory } },
         data: [
           {
-            id: "nemoracode-go",
-            name: "NemoraCode Go",
+            id: "opencode-go",
+            name: "OpenCode Go",
             methods: [{ id: "device", type: "oauth", label: "Sign in with your NemoraCode account" }, { type: "key" }],
             connections: [],
           },
@@ -2546,7 +2546,7 @@ test("free usage limit claims suppression atomically across two TUI instances an
   expect(frame).toContain("Draft in progress")
   expect(frame.split("Refactor the parser").length).toBe(2)
   expect(frame).not.toContain("Free limit reached")
-  expect(frame).not.toContain("Connect NemoraCode Go")
+  expect(frame).not.toContain("Connect OpenCode Go")
 })
 
 test("free usage limit modal manages live animation FPS and adapts to 44x24 and 60x12 terminals", async () => {
@@ -2559,7 +2559,7 @@ test("free usage limit modal manages live animation FPS and adapts to 44x24 and 
     tokens: { input: 0, output: 0, reasoning: 0, cache: { read: 0, write: 0 } },
     time: { created: 1, updated: 1 },
   }
-  const model = { id: "big-pickle", providerID: "nemoracode" }
+  const model = { id: "big-pickle", providerID: "opencode" }
   const error = {
     type: "provider.free-limit",
     message: "Free usage limit reached.",

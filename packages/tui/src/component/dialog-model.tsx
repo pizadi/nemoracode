@@ -89,7 +89,7 @@ function DialogConnectedModels(props: {
   }
   // NemoraCode's own free models get their own group at the end of the list instead of joining "NemoraCode".
   const freeGroup = (model: ModelInfo) =>
-    newDesigns() && !props.providerID && model.providerID === "nemoracode" && isFreeModel(model)
+    newDesigns() && !props.providerID && model.providerID === "opencode" && isFreeModel(model)
 
   const connected = useConnected()
   const providers = createMemo(

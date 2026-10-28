@@ -4,7 +4,7 @@ Status: **Implemented.**
 
 ## Purpose
 
-Policies control whether an operation on a named resource is allowed. Statements are authored in configuration files or delivered by the connected NemoraCode Console, and applied by a terminal plugin.
+Policies control whether an operation on a named resource is allowed. Statements are authored in configuration files or delivered by the connected OpenCode Console, and applied by a terminal plugin.
 
 The supported actions are:
 
@@ -209,15 +209,15 @@ repository policy -> user-global policy -> organization-managed policy
 
 ### Delivery
 
-The NemoraCode Console compiles a workspace's Providers and Tools policies into statements for the authenticated caller and returns them from `GET /api/v2/config` alongside managed providers:
+The OpenCode Console compiles a workspace's Providers and Tools policies into statements for the authenticated caller and returns them from `GET /api/v2/config` alongside managed providers:
 
 ```jsonc
 {
-  "providers": { "nemoracode": {} },
+  "providers": { "opencode": {} },
   "experimental": {
     "policies": [
       { "action": "provider.use", "resource": "*", "effect": "deny" },
-      { "action": "provider.use", "resource": "nemoracode", "effect": "allow" },
+      { "action": "provider.use", "resource": "opencode", "effect": "allow" },
       { "action": "tool.use", "resource": "shell:sudo *", "effect": "deny" },
     ],
   },
@@ -227,7 +227,7 @@ The NemoraCode Console compiles a workspace's Providers and Tools policies into 
 - `experimental` is omitted when the caller has no statements; omission and an empty array are equivalent.
 - The list is per caller and its order is significant. The client stores it exactly as received; it never reorders, dedupes, or normalizes statements.
 - Every request the Console plugin makes, this fetch and the token refresh included, carries the `User-Agent` `nemoracode/<channel>/<version>/<app>`. The Console reads it to tell which NemoraCode a member runs and whether it evaluates the statements it is being sent; older builds that drop them are otherwise indistinguishable from ones that enforce.
-- `ManagedPolicy` (`packages/core/src/managed-policy.ts`) is the process-global home for the current statements and the organization name. The Console plugin (`nemoracode.provider.nemoracode`) writes it whenever its config snapshot is applied; the policy plugin reads it synchronously when evaluating.
+- `ManagedPolicy` (`packages/core/src/managed-policy.ts`) is the process-global home for the current statements and the organization name. The Console plugin (`opencode.provider.opencode`) writes it whenever its config snapshot is applied; the policy plugin reads it synchronously when evaluating.
 - Statements ride on the Console plugin's snapshot, so they follow the connection: a credential switch replaces them, and a disconnect or a 404 from the Console clears them. Statements from different connections never merge.
 - Freshness is the snapshot's freshness: the next poll (about one minute) or the next credential switch.
 
@@ -243,7 +243,7 @@ When the deciding `tool.use` statement is organization-managed, the denial reads
 
 Plugins must not be allowed to add, remove, or override policy statements. Plugins can contribute functionality or configured providers; policy determines whether nemoracode permits an operation through its managed execution paths.
 
-Plugin `remove` operations in config ignore `nemoracode.config.policy` and `nemoracode.provider.nemoracode`, whatever the selector (`-*`, `-nemoracode.*`, or the exact ID). Otherwise a repository could switch off enforcement or the fetch that delivers organization statements.
+Plugin `remove` operations in config ignore `nemoracode.config.policy` and `opencode.provider.opencode`, whatever the selector (`-*`, `-nemoracode.*`, or the exact ID). Otherwise a repository could switch off enforcement or the fetch that delivers organization statements.
 
 Provider policy is not a full sandbox for executable plugins. A denied provider must not be usable through the normal provider/model path, but arbitrary plugin code requires separate governance if that becomes a compliance requirement.
 

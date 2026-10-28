@@ -207,7 +207,7 @@ function listen(server: Server) {
 }
 
 export const ChatGPTPlugin = define({
-  id: "nemoracode.provider.chatgpt",
+  id: "opencode.provider.chatgpt",
   effect: Effect.fn(function* (ctx) {
     const bus = yield* Bus.Service
     const credentials = yield* Credential.Service

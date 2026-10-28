@@ -4805,13 +4805,13 @@ describe("SessionRunnerLLM", () => {
     yield* s.runPrompt("Run correlated request")
 
     expect(s.requests[0]?.http?.headers).toEqual({
-      "x-nemoracode-session-id": sessionID,
+      "x-opencode-session-id": sessionID,
       "x-session-affinity": sessionID,
       "X-Session-Id": sessionID,
       "User-Agent": App.useragent(App.make()),
-      "x-nemoracode-project": Project.ID.global,
-      "x-nemoracode-session": sessionID,
-      "x-nemoracode-client": "nemoracode",
+      "x-opencode-project": Project.ID.global,
+      "x-opencode-session": sessionID,
+      "x-opencode-client": "nemoracode",
     })
   })
 
@@ -4827,12 +4827,12 @@ describe("SessionRunnerLLM", () => {
     yield* s.runPrompt("Run child request")
 
     expect(s.requests[0]?.http?.headers).toMatchObject({
-      "x-nemoracode-session-id": sessionID,
-      "x-nemoracode-parent-session-id": parentID,
+      "x-opencode-session-id": sessionID,
+      "x-opencode-parent-session-id": parentID,
       "x-session-affinity": parentID,
       "X-Session-Id": parentID,
       "x-parent-session-id": parentID,
-      "x-nemoracode-session": parentID,
+      "x-opencode-session": parentID,
     })
     expect(s.requests[0]?.promptCacheKey).toBe(parentID)
   })

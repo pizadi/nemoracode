@@ -11,7 +11,7 @@ import type { PluginInternal } from "../internal.js"
 const providerID = Provider.ID.make("modal")
 
 export const ModalPlugin = define({
-  id: "nemoracode.provider.modal",
+  id: "opencode.provider.modal",
   effect: Effect.fn(function* (ctx) {
     const providers = yield* Provider.Service
     const bus = yield* Bus.Service

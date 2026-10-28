@@ -40,7 +40,7 @@ const request = (get: UsageLimits.Interface["get"]) =>
     return { status: response.status, body: yield* Effect.promise(() => response.json()) }
   })
 
-it.live("returns the usage limits of the NemoraCode Console workspace a location is signed in to", () =>
+it.live("returns the usage limits of the OpenCode Console workspace a location is signed in to", () =>
   Effect.gen(function* () {
     const limits: UsageLimits.Info = {
       workspace: { id: "wrk_anomaly", usageURL: "https://opencode.ai/console/wrk_anomaly/activity/overview" },
@@ -67,7 +67,7 @@ it.live("returns the usage limits of the NemoraCode Console workspace a location
   }),
 )
 
-it.live("returns null for a location that isn't signed in to NemoraCode Console", () =>
+it.live("returns null for a location that isn't signed in to OpenCode Console", () =>
   Effect.gen(function* () {
     const result = yield* request(() => Effect.succeed(undefined))
 
@@ -79,10 +79,10 @@ it.live("returns null for a location that isn't signed in to NemoraCode Console"
 it.live("reports usage limits Console can't provide as unavailable", () =>
   Effect.gen(function* () {
     const result = yield* request(() =>
-      Effect.fail(new UsageLimits.UnavailableError({ message: "NemoraCode Console budgets are unavailable" })),
+      Effect.fail(new UsageLimits.UnavailableError({ message: "OpenCode Console budgets are unavailable" })),
     )
 
     expect(result.status).toBe(503)
-    expect(result.body).toMatchObject({ message: "NemoraCode Console budgets are unavailable", service: "nemoracode" })
+    expect(result.body).toMatchObject({ message: "OpenCode Console budgets are unavailable", service: "opencode" })
   }),
 )

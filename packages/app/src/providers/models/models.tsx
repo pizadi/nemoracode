@@ -18,7 +18,7 @@ function modelKey(model: ModelKey) {
 }
 
 export const isFreeModel = (model: { provider: { id: string }; cost?: { input: number } }) =>
-  model.provider.id === "nemoracode" && (!model.cost || model.cost.input === 0)
+  model.provider.id === "opencode" && (!model.cost || model.cost.input === 0)
 
 const createModelsController = (directory: Accessor<string | undefined>) => {
   const providers = useProviders(() => directory())

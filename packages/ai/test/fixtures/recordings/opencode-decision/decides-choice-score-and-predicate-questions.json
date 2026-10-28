@@ -3,11 +3,11 @@
   "metadata": {
     "model": "jev-1.13-free",
     "tags": [
-      "prefix:nemoracode-decision",
-      "provider:nemoracode",
+      "prefix:opencode-decision",
+      "provider:opencode",
       "protocol:system-one"
     ],
-    "name": "nemoracode-decision/decides-choice-score-and-predicate-questions",
+    "name": "opencode-decision/decides-choice-score-and-predicate-questions",
     "recordedAt": "2026-09-22T03:44:57.511Z"
   },
   "interactions": [

@@ -13335,6 +13335,430 @@
         "summary": "VCS diff"
       }
     },
+    "/api/graph": {
+      "get": {
+        "tags": ["graph"],
+        "operationId": "graph.status",
+        "parameters": [
+          {
+            "name": "location",
+            "in": "query",
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "directory": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "required": false,
+            "style": "deepObject",
+            "explode": true
+          }
+        ],
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "location": {
+                      "$ref": "#/components/schemas/Location.PublicRef"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Graph.Info"
+                    }
+                  },
+                  "required": ["location", "data"],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "InvalidRequestError",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidRequestErrorEncoded"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnauthorizedError",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorEncoded"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "LocationNotFoundError",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocationNotFoundErrorEncoded"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableError",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceUnavailableErrorEncoded"
+                }
+              }
+            }
+          }
+        },
+        "description": "Code-graph availability and ingest statistics for the requested location. Runs the first ingest when the store is stale or missing; disabled graphs report enabled=false with no stats.",
+        "summary": "Graph status"
+      }
+    },
+    "/api/graph/tree": {
+      "get": {
+        "tags": ["graph"],
+        "operationId": "graph.tree",
+        "parameters": [
+          {
+            "name": "location",
+            "in": "query",
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "directory": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "required": false,
+            "style": "deepObject",
+            "explode": true
+          }
+        ],
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "location": {
+                      "$ref": "#/components/schemas/Location.PublicRef"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Graph.NodeRow"
+                      }
+                    }
+                  },
+                  "required": ["location", "data"],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "InvalidRequestError",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidRequestErrorEncoded"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnauthorizedError",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorEncoded"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "LocationNotFoundError",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocationNotFoundErrorEncoded"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableError",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceUnavailableErrorEncoded"
+                }
+              }
+            }
+          }
+        },
+        "description": "Every graph node in containment order, rooted at the project node. Runs the first ingest when the store is stale or missing; an empty array when the graph is disabled.",
+        "summary": "Graph nodes"
+      }
+    },
+    "/api/graph/working-set": {
+      "get": {
+        "tags": ["graph"],
+        "operationId": "graph.workingSet",
+        "parameters": [
+          {
+            "name": "location",
+            "in": "query",
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "directory": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "required": false,
+            "style": "deepObject",
+            "explode": true
+          },
+          {
+            "name": "session",
+            "in": "query",
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "required": false
+          }
+        ],
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "location": {
+                      "$ref": "#/components/schemas/Location.PublicRef"
+                    },
+                    "data": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/components/schemas/Graph.WorkingSetSnapshot"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": ["location", "data"],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "InvalidRequestError",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidRequestErrorEncoded"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnauthorizedError",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorEncoded"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "LocationNotFoundError",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocationNotFoundErrorEncoded"
+                }
+              }
+            }
+          }
+        },
+        "description": "Read-only working-set snapshot for the session: rows with state, token estimate, and takeaway, against the configured cap. Null when the session has not opened any nodes. Peek never demotes entries.",
+        "summary": "Session working set"
+      }
+    },
+    "/api/graph/journal": {
+      "get": {
+        "tags": ["graph"],
+        "operationId": "graph.journal",
+        "parameters": [
+          {
+            "name": "location",
+            "in": "query",
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "directory": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "required": false,
+            "style": "deepObject",
+            "explode": true
+          }
+        ],
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "location": {
+                      "$ref": "#/components/schemas/Location.PublicRef"
+                    },
+                    "data": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/components/schemas/Graph.TaskLedger"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": ["location", "data"],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "InvalidRequestError",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidRequestErrorEncoded"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnauthorizedError",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorEncoded"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "LocationNotFoundError",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocationNotFoundErrorEncoded"
+                }
+              }
+            }
+          }
+        },
+        "description": "The most recent active top-level task with its acceptance criteria, journal, and earlier-era scratchpad entries. Null when no task is active.",
+        "summary": "Task journal"
+      }
+    },
     "/api/debug/heap-dump": {
       "post": {
         "tags": ["debug"],
@@ -14032,7 +14456,7 @@
             }
           }
         },
-        "description": "Return the NemoraCode Go allowance and Console budgets of the NemoraCode Console workspace the location is signed in to, or null when it isn't signed in.",
+        "description": "Return the OpenCode Go allowance and Console budgets of the OpenCode Console workspace the location is signed in to, or null when it isn't signed in.",
         "summary": "Get usage limits"
       }
     },
@@ -14543,6 +14967,29 @@
         },
         "additionalProperties": false
       },
+      "Config.GraphEncoded": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          },
+          "languages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "workingSetTokens": {
+            "type": "integer",
+            "exclusiveMinimum": 0
+          },
+          "subagentNodes": {
+            "type": "integer",
+            "exclusiveMinimum": 0
+          }
+        },
+        "additionalProperties": false
+      },
       "Config.InfoEncoded": {
         "type": "object",
         "properties": {
@@ -14849,6 +15296,16 @@
           },
           "worktree": {
             "$ref": "#/components/schemas/Config.Worktree"
+          },
+          "graph": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "$ref": "#/components/schemas/Config.GraphEncoded"
+              }
+            ]
           },
           "warming": {
             "anyOf": [
@@ -16370,6 +16827,278 @@
           }
         },
         "required": ["data"],
+        "additionalProperties": false
+      },
+      "Graph.Criterion": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "coveredBy": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": ["id", "text", "coveredBy"],
+        "additionalProperties": false
+      },
+      "Graph.Info": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          },
+          "languages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "ingest": {
+            "$ref": "#/components/schemas/Graph.Ingest"
+          }
+        },
+        "required": ["enabled", "languages"],
+        "additionalProperties": false
+      },
+      "Graph.Ingest": {
+        "type": "object",
+        "properties": {
+          "files": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "fileNodes": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "defNodes": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "regionNodes": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "callEdges": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "importEdges": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "extendsEdges": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "implementsEdges": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "parseFailed": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "files",
+          "fileNodes",
+          "defNodes",
+          "regionNodes",
+          "callEdges",
+          "importEdges",
+          "extendsEdges",
+          "implementsEdges",
+          "parseFailed"
+        ],
+        "additionalProperties": false
+      },
+      "Graph.JournalEntry": {
+        "type": "object",
+        "properties": {
+          "seq": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "era": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "text": {
+            "type": "string"
+          },
+          "at": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": ["seq", "era", "text", "at"],
+        "additionalProperties": false
+      },
+      "Graph.Kind": {
+        "type": "string",
+        "enum": [
+          "directory",
+          "file",
+          "module",
+          "class",
+          "function",
+          "method",
+          "attribute",
+          "config",
+          "test",
+          "region",
+          "external"
+        ]
+      },
+      "Graph.NodeRow": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "$ref": "#/components/schemas/Graph.Kind"
+          },
+          "parent": {
+            "type": "string"
+          },
+          "ord": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "status": {
+            "$ref": "#/components/schemas/Graph.Status"
+          },
+          "file": {
+            "type": "string"
+          },
+          "startLine": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "endLine": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": ["id", "kind", "ord", "status"],
+        "additionalProperties": false
+      },
+      "Graph.ScratchEntry": {
+        "type": "object",
+        "properties": {
+          "seq": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "era": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "node": {
+            "type": "string"
+          },
+          "takeaway": {
+            "type": "string"
+          }
+        },
+        "required": ["seq", "era", "node", "takeaway"],
+        "additionalProperties": false
+      },
+      "Graph.Status": {
+        "type": "string",
+        "enum": ["skeleton", "fresh", "stale", "needs_review", "auto_generated", "conflict"]
+      },
+      "Graph.TaskLedger": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["active", "done", "abandoned"]
+          },
+          "era": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "definition": {},
+          "criteria": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Graph.Criterion"
+            }
+          },
+          "journal": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Graph.JournalEntry"
+            }
+          },
+          "scratch": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Graph.ScratchEntry"
+            }
+          }
+        },
+        "required": ["id", "status", "era", "definition", "criteria", "journal", "scratch"],
+        "additionalProperties": false
+      },
+      "Graph.WorkingSetRow": {
+        "type": "object",
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": ["pinned", "open", "stub"]
+          },
+          "id": {
+            "type": "string"
+          },
+          "tokens": {
+            "type": "string"
+          },
+          "takeaway": {
+            "type": "string"
+          },
+          "changed": {
+            "type": "boolean"
+          }
+        },
+        "required": ["state", "id", "tokens", "takeaway", "changed"],
+        "additionalProperties": false
+      },
+      "Graph.WorkingSetSnapshot": {
+        "type": "object",
+        "properties": {
+          "rows": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Graph.WorkingSetRow"
+            }
+          },
+          "totalTokens": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "capTokens": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "overBudget": {
+            "type": "boolean"
+          }
+        },
+        "required": ["rows", "totalTokens", "capTokens", "overBudget"],
         "additionalProperties": false
       },
       "InstructionEntry.Info": {
@@ -21697,6 +22426,9 @@
     {
       "name": "vcs",
       "description": "Location-scoped version control routes."
+    },
+    {
+      "name": "graph"
     },
     {
       "name": "debug"

@@ -24,8 +24,8 @@ test("creates a session in a new project and selects its model", async ({ page }
     provider: () => ({
       all: [
         {
-          id: "nemoracode",
-          name: "NemoraCode",
+          id: "opencode",
+          name: "OpenCode",
           models: {
             "free-model": {
               id: "free-model",
@@ -36,8 +36,8 @@ test("creates a session in a new project and selects its model", async ({ page }
           },
         },
         {
-          id: "nemoracode-go",
-          name: "NemoraCode Go",
+          id: "opencode-go",
+          name: "OpenCode Go",
           models: {
             "go-model-1": {
               id: "go-model-1",
@@ -48,8 +48,8 @@ test("creates a session in a new project and selects its model", async ({ page }
           },
         },
       ],
-      connected: ["nemoracode", "nemoracode-go"],
-      default: { providerID: "nemoracode", modelID: "free-model" },
+      connected: ["opencode", "opencode-go"],
+      default: { providerID: "opencode", modelID: "free-model" },
     }),
     sessions: [],
     pageMessages: () => ({ items: [] }),
@@ -62,10 +62,10 @@ test("creates a session in a new project and selects its model", async ({ page }
       "nemoracode.global.dat:model",
       JSON.stringify({
         user: [
-          { providerID: "nemoracode", modelID: "free-model", visibility: "show" },
-          { providerID: "nemoracode-go", modelID: "go-model-1", visibility: "show" },
+          { providerID: "opencode", modelID: "free-model", visibility: "show" },
+          { providerID: "opencode-go", modelID: "go-model-1", visibility: "show" },
         ],
-        recent: [{ providerID: "nemoracode-go", modelID: "go-model-1" }],
+        recent: [{ providerID: "opencode-go", modelID: "go-model-1" }],
         variant: {},
       }),
     )
@@ -120,7 +120,7 @@ test("restores each existing session's model and variant when switching tabs", a
   const sessions = ["A", "B"].map((name) => ({
     id: `ses_model_${name}`,
     title: `Model ${name}`,
-    model: { id: `model-${name}`, providerID: "nemoracode", variant: "balanced" },
+    model: { id: `model-${name}`, providerID: "opencode", variant: "balanced" },
   }))
 
   await openSession(page, {

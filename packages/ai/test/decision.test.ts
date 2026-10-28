@@ -6,7 +6,7 @@ import {
   Baseten,
   CloudflareWorkersAI,
   OpenAI,
-  NemoraCode,
+  OpenCode,
   OpenRouter,
   TypeSafeAI,
   VercelAIGateway,
@@ -139,7 +139,7 @@ describe("Decision", () => {
 
   it.effect("sends a lone input object as the System One state and maps boolean choices back", () =>
     Decision.generate({
-      model: NemoraCode.configure({ apiKey: "nemoracode-key", baseURL: "https://nemoracode.test/v1" }).decision("jev-1.13"),
+      model: OpenCode.configure({ apiKey: "opencode-key", baseURL: "https://opencode.test/v1" }).decision("jev-1.13"),
       input: { ticket: "hello" },
       questions: [
         {
@@ -159,13 +159,13 @@ describe("Decision", () => {
             { value: true, probability: 0.99 },
             { value: false, probability: 0.01 },
           ])
-          expect(response.usage?.providerMetadata).toEqual({ nemoracode: { input_tokens: 10, output_tokens: 2 } })
+          expect(response.usage?.providerMetadata).toEqual({ opencode: { input_tokens: 10, output_tokens: 2 } })
         }),
       ),
       Effect.provide(
         client((input) => {
-          expect(input.request.url).toBe("https://nemoracode.test/v1/systemone")
-          expect(input.request.headers.authorization).toBe("Bearer nemoracode-key")
+          expect(input.request.url).toBe("https://opencode.test/v1/systemone")
+          expect(input.request.headers.authorization).toBe("Bearer opencode-key")
           expect(input.request.headers["typesafe-danger-zone-images"]).toBe("true")
           expect(JSON.parse(input.text)).toEqual({
             model: "jev-1.13",

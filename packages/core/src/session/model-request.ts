@@ -277,15 +277,15 @@ export const layer = Layer.effect(
         model: model.model,
         http: {
           headers: {
-            "x-nemoracode-session-id": session.id,
-            ...(session.parentID ? { "x-nemoracode-parent-session-id": session.parentID } : {}),
+            "x-opencode-session-id": session.id,
+            ...(session.parentID ? { "x-opencode-parent-session-id": session.parentID } : {}),
             "x-session-affinity": affinity,
             "X-Session-Id": affinity,
             ...(session.parentID ? { "x-parent-session-id": session.parentID } : {}),
             "User-Agent": App.useragent(app),
-            "x-nemoracode-project": session.projectID,
-            "x-nemoracode-session": affinity,
-            "x-nemoracode-client": app.name,
+            "x-opencode-project": session.projectID,
+            "x-opencode-session": affinity,
+            "x-opencode-client": app.name,
           },
         },
         // TODO: Persist cache lineage so nested forks reuse the root session's cache key.

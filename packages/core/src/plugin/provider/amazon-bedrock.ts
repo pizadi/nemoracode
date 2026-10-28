@@ -20,7 +20,7 @@ const isBedrock = (item: { readonly package: string }) =>
   item.package.startsWith("@nemoracode/ai/providers/amazon-bedrock")
 
 export const AmazonBedrockPlugin = define({
-  id: "nemoracode.provider.amazon.bedrock",
+  id: "opencode.provider.amazon.bedrock",
   effect: Effect.fn(function* (ctx) {
     const fs = yield* FSUtil.Service
     const paths = [

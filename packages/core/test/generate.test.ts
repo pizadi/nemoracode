@@ -200,7 +200,7 @@ testEffect(Layer.empty).effect("attributes each stateless completion without cre
       HttpClient.HttpClient,
       HttpClient.make((request) =>
         Effect.sync(() => {
-          const session = request.headers["x-nemoracode-session"]
+          const session = request.headers["x-opencode-session"]
           if (!session)
             return HttpClientResponse.fromWeb(
               request,

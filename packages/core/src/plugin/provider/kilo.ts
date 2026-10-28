@@ -2,7 +2,7 @@ import { Effect } from "effect"
 import { define } from "@nemoracode/plugin/effect/plugin"
 
 export const KiloPlugin = define({
-  id: "nemoracode.provider.kilo",
+  id: "opencode.provider.kilo",
   effect: Effect.fn(function* (ctx) {
     yield* ctx.provider.transform((evt) => {
       for (const item of evt.list()) {

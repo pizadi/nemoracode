@@ -2,7 +2,7 @@ import { HttpOptions, ProviderID, type ModelID } from "../schema/index.js"
 import { AuthOptions, type ProviderAuthOption } from "../route/auth-options.js"
 import { SystemOne } from "../protocols/system-one.js"
 
-export const id = ProviderID.make("nemoracode")
+export const id = ProviderID.make("opencode")
 const baseURL = "https://opencode.ai/inference/systemone/v1"
 
 export type Options = ProviderAuthOption<"optional"> & {
@@ -14,9 +14,9 @@ export type Options = ProviderAuthOption<"optional"> & {
 export const configure = (input: Options = {}) => {
   const route = SystemOne.route.with({
     provider: id,
-    providerMetadataKey: "nemoracode",
+    providerMetadataKey: "opencode",
     endpoint: { baseURL: input.baseURL ?? baseURL },
-    auth: AuthOptions.bearer(input, "NEMORACODE_API_KEY"),
+    auth: AuthOptions.bearer(input, "OPENCODE_API_KEY"),
     // Zen forwards TypeSafe's image opt-in header; text-only requests are unchanged with it.
     headers: { "TypeSafe-Danger-Zone-Images": "true", ...input.headers },
     http: input.http,
@@ -28,4 +28,4 @@ export const configure = (input: Options = {}) => {
 export const provider = configure()
 export const decision = provider.decision
 
-export * as NemoraCode from "./nemoracode.js"
+export * as OpenCode from "./opencode.js"

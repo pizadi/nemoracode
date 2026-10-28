@@ -35,7 +35,7 @@ const decodeError = Schema.decodeUnknownOption(
 )
 
 export const SnowflakeCortexPlugin = define({
-  id: "nemoracode.provider.snowflake.cortex",
+  id: "opencode.provider.snowflake.cortex",
   effect: Effect.fn(function* (ctx) {
     const http = yield* HttpClient.HttpClient
     const credentials = yield* Credential.Service

@@ -21,10 +21,10 @@ describe("integrationOptions", () => {
         integration({ id: "openai", name: "OpenAI" }),
         integration({ id: "custom-z", name: "Zebra" }),
         integration({ id: "anthropic", name: "Anthropic" }),
-        integration({ id: "nemoracode", name: "NemoraCode Zen" }),
-        integration({ id: "nemoracode-go", name: "NemoraCode Go" }),
+        integration({ id: "nemoracode", name: "OpenCode Zen" }),
+        integration({ id: "opencode-go", name: "OpenCode Go" }),
       ]).map((item) => item.id),
-    ).toEqual(["nemoracode-go", "nemoracode", "openai", "anthropic", "mistral", "custom-z"])
+    ).toEqual(["opencode-go", "nemoracode", "openai", "anthropic", "mistral", "custom-z"])
   })
 
   test("keeps MCP integrations above popular integrations without relying on their IDs", () => {
@@ -33,10 +33,10 @@ describe("integrationOptions", () => {
         integration({ id: "openai", name: "OpenAI" }),
         integration({ id: "linear", name: "Linear", metadata: { source: "mcp" } }),
         integration({ id: "github", name: "GitHub", metadata: { source: "mcp" } }),
-        integration({ id: "nemoracode", name: "NemoraCode Zen" }),
-        integration({ id: "nemoracode-go", name: "NemoraCode Go" }),
+        integration({ id: "nemoracode", name: "OpenCode Zen" }),
+        integration({ id: "opencode-go", name: "OpenCode Go" }),
       ]).map((item) => item.id),
-    ).toEqual(["github", "linear", "nemoracode-go", "nemoracode", "openai"])
+    ).toEqual(["github", "linear", "opencode-go", "nemoracode", "openai"])
   })
 })
 

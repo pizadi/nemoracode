@@ -87,7 +87,7 @@ describe("provider package entrypoints", () => {
     const settings = {
       apiKey: "fixture",
       baseURL: "https://gateway.example/v1",
-      headers: { "x-application": "nemoracode" },
+      headers: { "x-application": "opencode" },
       body: { service_tier: "priority" },
     }
     const routes = ["minimax-messages", "minimax-messages", "minimax-chat", "minimax-responses"]
@@ -139,7 +139,7 @@ describe("provider package entrypoints", () => {
     const settings = {
       apiKey: "fixture",
       baseURL: "https://provider.example.test/v1/",
-      headers: { "x-application": "nemoracode" },
+      headers: { "x-application": "opencode" },
       body: { service_tier: "priority" },
       reasoningEffort: "high" as const,
     }
@@ -161,13 +161,13 @@ describe("provider package entrypoints", () => {
       const selected = provider.model("provider-model", {
         accountId: "account",
         apiKey: "fixture",
-        headers: { "x-application": "nemoracode" },
+        headers: { "x-application": "opencode" },
         body: { custom: true },
         reasoningEffort: "high",
       })
       expect(selected.provider).toBe(provider.id)
       expect(selected.route.endpoint.baseURL).toBe(provider.baseURL({ accountId: "account" }))
-      expect(selected.route.defaults.headers).toMatchObject({ "x-application": "nemoracode" })
+      expect(selected.route.defaults.headers).toMatchObject({ "x-application": "opencode" })
       expect(selected.route.defaults.http?.body).toEqual({ custom: true })
       expect(selected.route.defaults.providerOptions).toEqual({ reasoningEffort: "high" })
     }
@@ -179,7 +179,7 @@ describe("provider package entrypoints", () => {
     const settings = {
       apiKey: "fixture",
       baseURL: "https://provider.example.test/v1",
-      headers: { "x-application": "nemoracode" },
+      headers: { "x-application": "opencode" },
       body: { service_tier: "priority" },
     }
     const openrouter = OpenRouter.model("anthropic/claude-sonnet-4", {
@@ -204,13 +204,13 @@ describe("provider package entrypoints", () => {
     const selected = model("gpt-5", {
       apiKey: "fixture",
       baseURL: "https://api.openai.test/v1",
-      headers: { "x-application": "nemoracode" },
+      headers: { "x-application": "opencode" },
       body: { service_tier: "priority" },
       unrelatedInheritedSetting: true,
     })
 
     expect(selected.route.id).toBe("openai-responses")
-    expect(selected.route.defaults.headers).toEqual({ "x-application": "nemoracode" })
+    expect(selected.route.defaults.headers).toEqual({ "x-application": "opencode" })
     expect(selected.route.defaults.http?.body).toEqual({ service_tier: "priority" })
   })
 
@@ -220,7 +220,7 @@ describe("provider package entrypoints", () => {
       apiKey: "fixture",
       baseURL: "https://responses.example.test/v1",
       provider: "example",
-      headers: { "x-application": "nemoracode" },
+      headers: { "x-application": "opencode" },
       body: { service_tier: "priority" },
       reasoningEffort: "low",
       store: true,
@@ -232,7 +232,7 @@ describe("provider package entrypoints", () => {
       baseURL: "https://responses.example.test/v1",
       path: "/responses",
     })
-    expect(selected.route.defaults.headers).toEqual({ "x-application": "nemoracode" })
+    expect(selected.route.defaults.headers).toEqual({ "x-application": "opencode" })
     expect(selected.route.defaults.http?.body).toEqual({ service_tier: "priority" })
     expect(selected.route.defaults.providerOptions).toEqual({
       reasoningEffort: "low",
@@ -247,7 +247,7 @@ describe("provider package entrypoints", () => {
       apiKey: "fixture",
       baseURL: "https://messages.example.test/v1",
       provider: "example",
-      headers: { "x-application": "nemoracode" },
+      headers: { "x-application": "opencode" },
       body: { metadata: { user_id: "user_1" } },
       effort: "low",
     })
@@ -262,7 +262,7 @@ describe("provider package entrypoints", () => {
     expect(
       Endpoint.render(selected.route.endpoint, { request: LLM.request({ model: selected }), body: {} }).toString(),
     ).toBe("https://messages.example.test/v1/messages")
-    expect(selected.route.defaults.headers).toEqual({ "x-application": "nemoracode" })
+    expect(selected.route.defaults.headers).toEqual({ "x-application": "opencode" })
     expect(selected.route.defaults.http?.body).toEqual({ metadata: { user_id: "user_1" } })
     expect(selected.route.defaults.providerOptions).toEqual({ effort: "low" })
   })
@@ -326,7 +326,7 @@ describe("provider package entrypoints", () => {
     const settings = {
       apiKey: "fixture",
       resourceName: "nemoracode-test",
-      headers: { "x-application": "nemoracode" },
+      headers: { "x-application": "opencode" },
       body: { service_tier: "priority" },
     }
 
@@ -336,7 +336,7 @@ describe("provider package entrypoints", () => {
     expect(Azure.model("deployment", settings).route.id).toBe("azure-openai-responses")
     expect(responses.route.id).toBe("azure-openai-responses")
     expect(responses.route.endpoint.baseURL).toBe("https://nemoracode-test.openai.azure.com/openai/v1")
-    expect(responses.route.defaults.headers).toEqual({ "x-application": "nemoracode" })
+    expect(responses.route.defaults.headers).toEqual({ "x-application": "opencode" })
     expect(responses.route.defaults.http?.body).toEqual({ service_tier: "priority" })
     expect(chat.route.id).toBe("azure-openai-chat")
   })
@@ -368,14 +368,14 @@ describe("provider package entrypoints", () => {
     const selected = Google.model("gemini-2.5-flash", {
       apiKey: "fixture",
       baseURL: "https://generativelanguage.test/v1beta",
-      headers: { "x-application": "nemoracode" },
+      headers: { "x-application": "opencode" },
       body: { safetySettings: [] },
       thinkingConfig: { thinkingBudget: 1_024 },
     })
 
     expect(selected.route.id).toBe("gemini")
     expect(selected.route.endpoint.baseURL).toBe("https://generativelanguage.test/v1beta")
-    expect(selected.route.defaults.headers).toEqual({ "x-application": "nemoracode" })
+    expect(selected.route.defaults.headers).toEqual({ "x-application": "opencode" })
     expect(selected.route.defaults.http?.body).toEqual({ safetySettings: [] })
     expect(selected.route.defaults.providerOptions).toEqual({ thinkingConfig: { thinkingBudget: 1_024 } })
     const interactions = GoogleInteractions.model("gemini-3.8-flash", {
@@ -397,7 +397,7 @@ describe("provider package entrypoints", () => {
     const GoogleVertexMessages = await import("@nemoracode/ai/providers/google-vertex/messages")
     const gemini = GoogleVertex.model("gemini-3.5-flash", {
       apiKey: "fixture",
-      headers: { "x-application": "nemoracode" },
+      headers: { "x-application": "opencode" },
       body: { safetySettings: [] },
     })
     const messages = GoogleVertexMessages.model("claude-sonnet-4-6", {
@@ -419,7 +419,7 @@ describe("provider package entrypoints", () => {
     expect(gemini.route.id).toBe("google-vertex-gemini")
     expect(gemini.route.protocol).toBe("gemini")
     expect(gemini.route.endpoint.baseURL).toBe("https://aiplatform.googleapis.com/v1/publishers/google")
-    expect(gemini.route.defaults.headers).toEqual({ "x-application": "nemoracode" })
+    expect(gemini.route.defaults.headers).toEqual({ "x-application": "opencode" })
     expect(gemini.route.defaults.http?.body).toEqual({ safetySettings: [] })
     expect(
       GoogleVertex.model("gemini-3.5-flash", {
@@ -457,7 +457,7 @@ describe("provider package entrypoints", () => {
       accessToken: "fixture",
       project: "vertex-project",
       location: "global",
-      headers: { "x-application": "nemoracode" },
+      headers: { "x-application": "opencode" },
       body: { generation_config: { temperature: 0.5 } },
       thinkingLevel: "low",
       store: false,
@@ -469,7 +469,7 @@ describe("provider package entrypoints", () => {
       path: "/interactions",
       query: { alt: "sse" },
     })
-    expect(selected.route.defaults.headers).toEqual({ "x-application": "nemoracode" })
+    expect(selected.route.defaults.headers).toEqual({ "x-application": "opencode" })
     expect(selected.route.defaults.http?.body).toEqual({ generation_config: { temperature: 0.5 } })
     expect(selected.route.defaults.providerOptions).toEqual({ thinkingLevel: "low", store: false })
   })

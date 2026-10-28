@@ -66,7 +66,7 @@ const executionErrorsDocument = {
       id: "msg_story_exec_idle_1",
       type: "idle",
       outcome: "failed",
-      error: { type: "provider.no-route", message: "Model unavailable: nemoracode/gpt-5.2" },
+      error: { type: "provider.no-route", message: "Model unavailable: opencode/gpt-5.2" },
       time: { created: STORY_TIME + 40_500 },
     },
     {

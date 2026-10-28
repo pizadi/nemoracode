@@ -12,7 +12,7 @@ const RemoteModel = Schema.Struct({
 const Response = Schema.Struct({ data: Schema.Array(RemoteModel) })
 
 export const make = createLocalProviderPlugin({
-  id: "nemoracode.provider.vllm",
+  id: "opencode.provider.vllm",
   providerID,
   name: "vLLM",
   origin: "http://127.0.0.1:8000",

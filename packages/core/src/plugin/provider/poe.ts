@@ -22,7 +22,7 @@ const decodeError = Schema.decodeUnknownOption(
 )
 
 export const PoePlugin = define({
-  id: "nemoracode.provider.poe",
+  id: "opencode.provider.poe",
   effect: Effect.fn(function* (ctx) {
     const http = yield* HttpClient.HttpClient
     yield* ctx.integration.transform((editor) => {

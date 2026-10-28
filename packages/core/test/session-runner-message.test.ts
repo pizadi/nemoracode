@@ -906,7 +906,7 @@ Earlier work
   })
 
   test("replays flat state under an NemoraCode hosted model's route key", () => {
-    const nemoracode = Model.Ref.make({ id: Model.ID.make("claude-fable-5"), providerID: Provider.ID.nemoracode })
+    const nemoracode = Model.Ref.make({ id: Model.ID.make("claude-fable-5"), providerID: Provider.ID.opencode })
     const messages = toLLMMessages(
       [
         SessionMessage.Assistant.make({

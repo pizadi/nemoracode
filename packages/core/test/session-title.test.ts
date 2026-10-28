@@ -214,13 +214,13 @@ it.effect("generates a title from the sole user message and renames the session"
 
     expect(requests).toHaveLength(1)
     expect(requests[0]?.http?.headers).toEqual({
-      "x-nemoracode-session-id": sessionID,
+      "x-opencode-session-id": sessionID,
       "x-session-affinity": sessionID,
       "X-Session-Id": sessionID,
       "User-Agent": App.useragent(App.make()),
-      "x-nemoracode-project": Project.ID.global,
-      "x-nemoracode-session": sessionID,
-      "x-nemoracode-client": "nemoracode",
+      "x-opencode-project": Project.ID.global,
+      "x-opencode-session": sessionID,
+      "x-opencode-client": "nemoracode",
     })
     expect(requests[0]?.promptCacheKey).toBe(sessionID)
     expect(requests[0]?.tools).toEqual([])

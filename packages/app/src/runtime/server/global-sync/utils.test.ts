@@ -95,7 +95,7 @@ describe("normalizeProjectInfo", () => {
 })
 
 test.each([
-  ["C:\\Repos\\sst\\nemoracode", "C:/Repos/sst/opencode"],
+  ["C:\\Repos\\sst\\opencode", "C:/Repos/sst/opencode"],
   ["C:/Repos/sst/opencode", "C:/Repos/sst/opencode"],
   ["/tmp/foo\\bar", "/tmp/foo\\bar"],
   ["C:/Repos/sst/opencode/", "C:/Repos/sst/opencode"],

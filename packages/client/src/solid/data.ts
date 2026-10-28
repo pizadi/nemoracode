@@ -104,7 +104,7 @@ type LocationData = {
   provider?: ProviderInfo[]
   reference?: ReferenceInfo[]
   websearch?: WebSearchProvider[]
-  // The Go allowance and Console budgets of the NemoraCode Console workspace the location is signed in to; null when it
+  // The Go allowance and Console budgets of the OpenCode Console workspace the location is signed in to; null when it
   // isn't signed in.
   usageLimits?: UsageLimitsInfo | null
   // Currently running shell commands for this location, keyed by shell id. Entries are removed
@@ -1357,7 +1357,7 @@ export function createData(config: CreateDataInput) {
   // A cached per-location catalog. `sync` loads once per invalidation, keyed by the
   // effective location, and publishes under the server's canonical location; `alias`
   // also publishes under the requested key when the two differ.
-  // Reloads usage limits only where something has read them, since each load asks NemoraCode Console.
+  // Reloads usage limits only where something has read them, since each load asks OpenCode Console.
   function refreshUsageLimits(location: LocationRef) {
     const loaded =
       store.location[locationKey(location)]?.usageLimits !== undefined ||

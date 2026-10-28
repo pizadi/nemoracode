@@ -143,9 +143,9 @@ export const dict = {
   "dialog.provider.group.other": "Ostalo",
   "dialog.provider.custom.label": "Prilagođeni provajder kompatibilan s OpenAI-jem",
   "dialog.provider.tag.recommended": "Preporučeno",
-  "dialog.provider.nemoracode.note": "Kurirani modeli uključujući Claude, GPT, Gemini i druge",
-  "dialog.provider.nemoracode.tagline": "Pouzdani optimizovani modeli",
-  "dialog.provider.nemoracodeGo.tagline": "Povoljna pretplata za sve",
+  "dialog.provider.opencode.note": "Kurirani modeli uključujući Claude, GPT, Gemini i druge",
+  "dialog.provider.opencode.tagline": "Pouzdani optimizovani modeli",
+  "dialog.provider.opencodeGo.tagline": "Povoljna pretplata za sve",
   "dialog.provider.copilot.note": "AI modeli za pomoć pri kodiranju putem GitHub Copilot",
   "dialog.provider.openai.note": "GPT modeli za brze, sposobne opšte AI zadatke",
   "dialog.provider.google.note": "Gemini modeli za brze, strukturirane odgovore",
@@ -158,7 +158,7 @@ export const dict = {
   "dialog.model.manage": "Upravljaj modelima",
   "dialog.model.manage.description": "Prilagodi koji se modeli prikazuju u izborniku modela.",
 
-  "dialog.model.unpaid.freeModels.title": "Besplatni modeli koje obezbjeđuje NemoraCode",
+  "dialog.model.unpaid.freeModels.title": "Besplatni modeli koje obezbjeđuje OpenCode",
   "dialog.model.unpaid.addMore.title": "Dodaj još modela od popularnih provajdera",
   "dialog.model.unpaid.viewMoreProviders": "Pogledaj još više od 70 provajdera",
 

@@ -18,8 +18,8 @@ import {
 } from "./shared"
 
 const integrationPriority = new Map([
-  ["nemoracode-go", 0],
-  ["nemoracode", 1],
+  ["opencode-go", 0],
+  ["opencode", 1],
   ["openai", 2],
   ["github-copilot", 3],
   ["anthropic", 4],

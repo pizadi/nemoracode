@@ -136,12 +136,12 @@ export const dict = {
     "Zen gir deg tilgang til et håndplukket sett med AI-modeller som NemoraCode har testet og benchmarked spesielt for kodeagenter. Du slipper å bekymre deg for ujevn ytelse og kvalitet på tvers av leverandører; bruk validerte modeller som fungerer.",
   "home.zenCta.link": "Les om Zen",
 
-  "zen.title": "NemoraCode Zen | Et kuratert sett med pålitelige, optimaliserte modeller for kodeagenter",
+  "zen.title": "OpenCode Zen | Et kuratert sett med pålitelige, optimaliserte modeller for kodeagenter",
   "zen.hero.title": "Pålitelige optimaliserte modeller for kodeagenter",
   "zen.hero.body":
     "Zen gir deg tilgang til et kuratert sett med AI-modeller som NemoraCode har testet og benchmarked spesielt for kodeagenter. Du slipper å bekymre deg for ujevn ytelse og kvalitet; bruk validerte modeller som fungerer.",
 
-  "zen.faq.q1": "Hva er NemoraCode Zen?",
+  "zen.faq.q1": "Hva er OpenCode Zen?",
   "zen.faq.a1":
     "Zen er et kuratert sett med AI-modeller testet og benchmarked for kodeagenter, laget av teamet bak NemoraCode.",
   "zen.faq.q2": "Hva gjør Zen mer presis?",
@@ -180,12 +180,12 @@ export const dict = {
   "zen.problem.title": "Hvilket problem løser Zen?",
   "zen.problem.body":
     "Det er så mange modeller tilgjengelig, men bare noen få fungerer bra med kodeagenter. De fleste leverandører konfigurerer dem annerledes med varierende resultater.",
-  "zen.problem.subtitle": "Vi fikser dette for alle, ikke bare NemoraCode-brukere.",
+  "zen.problem.subtitle": "Vi fikser dette for alle, ikke bare OpenCode-brukere.",
   "zen.problem.item1": "Tester utvalgte modeller og konsulterer teamene deres",
   "zen.problem.item2": "Samarbeider med leverandører for å sikre at de blir levert riktig",
   "zen.problem.item3": "Benchmarker alle modell-leverandør-kombinasjoner vi anbefaler",
   "zen.how.title": "Hvordan Zen fungerer",
-  "zen.how.body": "Selv om vi foreslår at du bruker Zen med NemoraCode, kan du bruke Zen med hvilken som helst agent.",
+  "zen.how.body": "Selv om vi foreslår at du bruker Zen med OpenCode, kan du bruke Zen med hvilken som helst agent.",
   "zen.how.step1.title": "Registrer deg og legg til $20 saldo",
   "zen.how.step1.beforeLink": "følg",
   "zen.how.step1.link": "oppsettsinstruksjonene",
@@ -200,7 +200,7 @@ export const dict = {
   "zen.privacy.exceptionsLink": "følgende unntak",
 
   "go.promo.kimiK31Pro": "Kimi K3.1 Pro er nå tilgjengelig i Go.",
-  "go.title": "NemoraCode Go | Rimelige kodemodeller for alle",
+  "go.title": "OpenCode Go | Rimelige kodemodeller for alle",
   "go.meta.description":
     "Go koster $10/måned, med sjenerøse bruksgrenser og pålitelig tilgang til ledende kodemodeller.",
   "go.hero.title": "Rimelige kodemodeller for alle",
@@ -236,13 +236,13 @@ export const dict = {
 
   "go.problem.title": "Hvilket problem løser Go?",
   "go.problem.body":
-    "Vi fokuserer på å bringe NemoraCode-opplevelsen til så mange som mulig. NemoraCode Go er et rimelig abonnement til $10/måned. Det gir sjenerøse grenser og pålitelig tilgang til de mest kapable åpen kildekode-modellene.",
+    "Vi fokuserer på å bringe NemoraCode-opplevelsen til så mange som mulig. OpenCode Go er et rimelig abonnement til $10/måned. Det gir sjenerøse grenser og pålitelig tilgang til de mest kapable åpen kildekode-modellene.",
   "go.problem.item1": "Rimelig abonnementspris",
   "go.problem.item2": "Rause grenser og pålitelig tilgang",
   "go.problem.item3": "Bygget for så mange programmerere som mulig",
   "go.problem.item4": "Et kuratert modellutvalg testet for agent-koding",
   "go.how.title": "Hvordan Go fungerer",
-  "go.how.body": "Go koster $10/måned. Du kan bruke det med NemoraCode eller hvilken som helst agent.",
+  "go.how.body": "Go koster $10/måned. Du kan bruke det med OpenCode eller hvilken som helst agent.",
   "go.how.step1.title": "Opprett en konto",
   "go.how.step1.beforeLink": "følg",
   "go.how.step1.link": "oppsettsinstruksjonene",
@@ -251,7 +251,7 @@ export const dict = {
   "go.how.step2.afterLink": "med sjenerøse grenser",
   "go.how.step3.title": "Begynn å kode",
   "go.how.step3.body": "med pålitelig tilgang til åpen kildekode-modeller",
-  "go.faq.q1": "Hva er NemoraCode Go?",
+  "go.faq.q1": "Hva er OpenCode Go?",
   "go.faq.a1":
     "Go er et rimelig abonnement som gir deg pålitelig tilgang til kapable åpen kildekode-modeller for agent-koding.",
   "go.faq.q2": "Hvilke modeller inkluderer Go?",

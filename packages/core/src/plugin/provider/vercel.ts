@@ -3,7 +3,7 @@ import { define } from "@nemoracode/plugin/effect/plugin"
 import { Provider } from "../../provider.js"
 
 export const VercelPlugin = define({
-  id: "nemoracode.provider.vercel",
+  id: "opencode.provider.vercel",
   effect: Effect.fn(function* (ctx) {
     yield* ctx.provider.transform((evt) => {
       for (const item of evt.list()) {
